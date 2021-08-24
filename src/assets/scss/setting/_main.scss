@@ -1,0 +1,183 @@
+//字體粗細
+$fw--li: 300;
+$fw--rg: 400;
+$fw--md: 500;
+$fw--bd: 700;
+
+//header
+.header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 666;
+  &__logo {
+    max-height: 100%;
+  }
+}
+.section {
+  margin-bottom: 3rem;
+}
+.section--py {
+  padding: 4rem 0;
+  @include lg {
+    padding: 3rem 0;
+  }
+  @include md {
+    padding: 3rem 0;
+  }
+}
+
+.main--bg {
+  background-color: #f2f2f2;
+}
+.section__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1d1d1d;
+  margin-bottom: 1rem;
+}
+.img-cover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.36);
+}
+
+//main
+.main {
+  min-height: calc(100vh - 291px);
+  position: relative;
+  left: 0;
+  transition: all 0.3s;
+  &.openRwdMenu {
+    left: -80%;
+  }
+}
+p {
+  line-height: 1.5;
+}
+.jobImage {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.logoImageBox {
+  padding: 4px;
+  width: 120px;
+  background-color: #fff;
+  border-radius: 0px 0px 0px 4px;
+  .logoImage {
+    max-width: 100%;
+    border: 1px solid $gray-line;
+    border-radius: 2px;
+  }
+}
+.logoImgBox {
+  padding: 0.25rem;
+  border: 1px solid $gray-line;
+  border-radius: 0.5rem;
+  .logoImg {
+    max-width: 100%;
+    border-radius: 0.25rem;
+  }
+}
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: $fw--bd;
+  color: $dark;
+  margin-bottom: 1rem;
+}
+.subTitle {
+  font-size: 1.25rem;
+  font-weight: $fw--md;
+}
+.section__title--sub {
+  font-size: 1.25rem;
+  color: $primary;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  .title__icon {
+    display: block;
+    width: 1.5rem;
+    height: 1rem;
+    background-color: $primary;
+    border-radius: 0.5rem 0.5rem 0 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+.page__title--sub {
+  font-size: 1.25rem;
+  color: $primary;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  .title__icon {
+    display: block;
+    width: 1.5rem;
+    height: 1rem;
+    background-color: $primary;
+    border-radius: 0.5rem 0.5rem 0 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+.subTxt {
+  font-size: 14px;
+  font-weight: $fw--rg;
+}
+
+// icon設定
+.jobIcon {
+  font-size: 1.25rem;
+  color: $gray-dark;
+}
+.jobIcon--sm {
+  font-size: 1rem;
+  color: $gray-dark;
+}
+// 前台每一頁的padding
+.page--py {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.adminPage--py {
+  padding-bottom: 3rem;
+}
+//頁面小分頁
+.page__sideNav {
+  background-color: $light;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  display: flex;
+  &__item {
+    height: 44px;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+    &__title {
+      color: $dark;
+      font-weight: $fw--md;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      background-color: $primary;
+      height: 0rem;
+      width: 100%;
+      border-radius: 0.25rem 0.25rem 0 0;
+    }
+    &.active {
+      .page__sideNav__item__title {
+        color: $primary;
+      }
+      &::after {
+        height: 0.25rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,195 @@
+.bgCover {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s;
+}
+// 有圖標的title
+.section__titleBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  .titleBox__title {
+    color: $primary;
+    font-size: 1.5rem;
+    font-weight: $fw--bd;
+    margin-right: 0.5rem;
+  }
+  .titleBox__tag {
+    color: $white;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
+    background-color: $primary;
+  }
+}
+// 按鈕
+.collectBtn {
+  height: 44px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: 1px solid $gray-line;
+  .jobIcon {
+    color: $secondary;
+  }
+  &:hover {
+    .jobIcon {
+      color: $gray-dark;
+    }
+  }
+  &.collected {
+    border: 1px solid $light;
+    background-color: $primary-light;
+    .jobIcon {
+      color: $primary;
+    }
+  }
+}
+.btn--circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  &.btn-outline-light {
+    .jobIcon {
+      color: $light;
+    }
+    &:hover {
+      .jobIcon {
+        color: $gray-dark;
+      }
+    }
+  }
+}
+.btn--circle.active {
+  background-color: $white;
+  border: 0;
+  &.btn-outline-light {
+    .jobIcon {
+      color: $primary;
+    }
+    &:hover {
+      .jobIcon {
+        color: $primary;
+      }
+    }
+  }
+}
+// 側邊按鈕框
+.sideBtnBox {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 800;
+  &.SideBtnBox--page {
+    bottom: 6rem;
+  }
+  @include sm {
+    .bg-cover--dark {
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.3);
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+    }
+  }
+}
+// 側邊按鈕
+.sideIconBtn {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  @include shadow-md;
+  background-color: rgba(247, 247, 247, 0.9);
+  border: 1px solid $light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .jobIcon {
+    font-size: 1.5rem;
+  }
+  &:hover {
+    .jobIcon {
+      color: $primary;
+    }
+  }
+  @include sm {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+.btn--applyJob {
+  min-width: 120px;
+  justify-content: center;
+  display: flex;
+}
+// 標籤
+.jobTag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: $gray-mid;
+  display: inline-block;
+  &:hover {
+    background-color: $gray-line;
+    color: $dark;
+  }
+}
+.jobTag--new {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: $primary;
+  color: $light;
+  display: inline-block;
+}
+// 特殊樣式工具區
+// 手指
+.putPointer {
+  cursor: pointer;
+}
+// 陰影
+.box--shadow {
+  @include shadow-normal;
+}
+.box--shadow--lg {
+  @include shadow-lg;
+}
+@include md {
+  .w-md-100 {
+    width: 100%;
+  }
+}
+
+// 題錯工具
+.alertMessageBoxContainer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  .alertMessageBox {
+    background-color: $light;
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 20%;
+    max-width: 50%;
+    padding: 1rem;
+    height: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

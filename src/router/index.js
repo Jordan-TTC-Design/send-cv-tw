@@ -1,19 +1,53 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '../views/Home.vue';
 
 const routes = [
+  // ---------- 前台路由 ----------
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    component: () => import('../views/front/Front.vue'),
+    children: [
+      {
+        // 首頁
+        path: '',
+        component: () => import('../views/Home.vue'),
+      },
+      {
+        // 全部產品頁面
+        path: 'products-list',
+        component: () => import('../views/front/ProductsList.vue'),
+      },
+      {
+        // 收藏頁面
+        path: 'collection',
+        component: () => import('../views/front/Collection.vue'),
+      },
+      {
+        // 收藏夾
+        path: 'collection-folder/:id',
+        component: () => import('../views/front/CollectionFolder.vue'),
+      },
+      {
+        // 獨立產品頁面
+        path: 'products-list/product/:id',
+        component: () => import('../views/front/Product.vue'),
+      },
+      {
+        // 獨立企業頁面
+        path: 'products-list/company/:id',
+        component: () => import('../views/front/Company.vue'),
+      },
+      {
+        // 搜尋相關職位
+        path: 'search/',
+        component: () => import('../views/front/SearchPage.vue'),
+      },
+    ],
   },
+  // ---------- 其他路由 ----------
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    // 404
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/other/NotFound.vue'),
   },
 ];
 
