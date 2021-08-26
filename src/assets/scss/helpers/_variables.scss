@@ -67,19 +67,22 @@ $colors: (
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary: #3f6745 !default; // $blue
+$primary: #FFCD00 !default; // $blue
 $secondary: #979797 !default; //$gray-600
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
 $danger: $red !default;
-$light: #fff !default;
+$light: $white !default;
 $dark: #1d1d1d !default; //$gray-900
 $gray-light: #f7f7f7 !default;
 $gray-mid: #f2f2f2 !default;
 $gray-dark: #646464 !default;
 $gray-line: #e2e2e2 !default;
-$primary-light:#9FB3A2 !default;
+$primary-light:#FFF3BE !default;
+$primary-dark:#cca300 !default;
+$companyColor:#0b7cff !default;
+$companyColor-light:#d9ebff !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -97,6 +100,9 @@ $theme-colors: (
   'gray-dark': $gray-dark,
   'gray-line': $gray-line,
   'primary-light': $primary-light,
+  'primary-dark': $primary-dark,
+  'companyColor': $companyColor,
+  'companyColor-light': $companyColor-light,
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -281,7 +287,9 @@ $negative-spacers: if($enable-negative-margins, negativify-map($spacers), null) 
 // scss-docs-start position-map
 $position-values: (
   0: 0,
+  25: 25%,
   50: 50%,
+  75: 75%,
   100: 100%,
 ) !default;
 // scss-docs-end position-map

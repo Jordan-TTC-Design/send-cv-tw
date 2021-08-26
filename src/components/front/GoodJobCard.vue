@@ -16,12 +16,12 @@
           />
           <div>
             <router-link
-              class="card__link mb-2 d-block pe-auto"
+              class="card__link mb-2 d-block"
               :to="`/products-list/product/${jobItem.id}`"
               >{{ jobItem.title }}</router-link
             >
             <router-link
-              class="card__link subTxt d-block pe-auto"
+              class="card__link subTxt d-block"
               :to="`/products-list/company/${jobItem.options.company.companyLink}`"
               >{{ jobItem.options.company.companyName }}</router-link
             >
@@ -36,7 +36,7 @@
         <p class="subTxt" v-if="jobItem.options.job.salaryInterView">
           薪資面議
         </p>
-        <p class="subTxt">{{ jobItem.options.company.companyAddressCity }}</p>
+        <p class="subTxt">1分鐘前</p>
       </div>
     </div>
   </router-link>

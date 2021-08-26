@@ -39,8 +39,9 @@
                         v-for="(item, index) in formData.city"
                         :value="item"
                         :key="`地區${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -102,8 +103,14 @@
                         v-model.number="filterData.salaryHight"
                       />
                       <div
-                        class="form-check
-                        py-2 px-3 d-flex justify-content-center align-items-center"
+                        class="
+                          form-check
+                          py-2
+                          px-3
+                          d-flex
+                          justify-content-center
+                          align-items-center
+                        "
                       >
                         <input
                           class="form-check-input ms-0 me-2"
@@ -144,8 +151,9 @@
                         :value="item"
                         :selected="item === '不限'"
                         :key="`工作經驗${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -166,8 +174,9 @@
                         :value="item"
                         :selected="item === '不限'"
                         :key="`學歷要求${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -193,8 +202,9 @@
                         v-for="(item, index) in formData.workType"
                         :value="item"
                         :key="`工作性質${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -215,8 +225,9 @@
                         v-for="(item, index) in formData.workTime"
                         :value="item"
                         :key="`工作時段${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -237,8 +248,9 @@
                         v-for="(item, index) in formData.jobCategory"
                         :value="item"
                         :key="`職位類別${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -259,8 +271,9 @@
                         v-for="(item, index) in formData.industryCategory"
                         :value="item"
                         :key="`產業類別${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -313,7 +326,11 @@
           />
         </div>
         <div class="col-12 d-flex justify-content-center" v-if="jobsList.length === 0">
-          <img class="img--searchNoJob" src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385211015.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=F0Wk9lSjiNEPR9Oc2yUH%2FsytXi9oZAK9mQfxq5pEsNm%2FkYws1ORyXtgI3GxhfKA144%2F70tZX5321YS22Ta%2B9sdNPTtUUUIdWY1fQgSf95yMxikEYSVSpb%2FtKGlZvlcJy6kFokL6Ktv3CYncDq%2B1AVDPtZf7avLr8bdcDYoxsDgeSNoKESY%2BZIQDcLI6c3t%2BfROBH3NZkBTBrTa98P%2FeCywVqtNkfMfZpoewZyqptrn0rptafi6iQurKFCpTbOTvUAdiM0dnsHiEyzVwigDrN%2FNtaxR%2BwdTPDnAE2fS6QMx%2B2kjNa32GEjbkQ7fCcbYTPiQ0%2FQMDTpX8lfSwhG5knbA%3D%3D" alt="搜不到職位" />
+          <img
+            class="img--searchNoJob"
+            src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385211015.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=F0Wk9lSjiNEPR9Oc2yUH%2FsytXi9oZAK9mQfxq5pEsNm%2FkYws1ORyXtgI3GxhfKA144%2F70tZX5321YS22Ta%2B9sdNPTtUUUIdWY1fQgSf95yMxikEYSVSpb%2FtKGlZvlcJy6kFokL6Ktv3CYncDq%2B1AVDPtZf7avLr8bdcDYoxsDgeSNoKESY%2BZIQDcLI6c3t%2BfROBH3NZkBTBrTa98P%2FeCywVqtNkfMfZpoewZyqptrn0rptafi6iQurKFCpTbOTvUAdiM0dnsHiEyzVwigDrN%2FNtaxR%2BwdTPDnAE2fS6QMx%2B2kjNa32GEjbkQ7fCcbYTPiQ0%2FQMDTpX8lfSwhG5knbA%3D%3D"
+            alt="搜不到職位"
+          />
         </div>
       </div>
     </div>
@@ -517,12 +534,18 @@ export default {
         this.nowPageJobs.forEach((item) => {
           if (item.id === id) {
             this.jobItem = item;
-            this.$refs[`jobList__item--${item.id}`].openSelectEffect();
+            if (this.$refs[`jobList__item--${item.id}`]) {
+              this.$refs[`jobList__item--${item.id}`].openSelectEffect();
+            }
           } else if (item.id !== id) {
-            this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
+            if (this.$refs[`jobList__item--${item.id}`]) {
+              this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
+            }
           }
         });
-        this.$refs.jobSelectBox.toTop();
+        if (this.$refs.jobSelectBox) {
+          this.$refs.jobSelectBox.toTop();
+        }
       }
     },
     // 本頁職位
@@ -545,7 +568,7 @@ export default {
         if (this.nowPageJobs.length > 0) {
           this.selectJobFrist(this.nowPageJobs[0].id);
         }
-      }, 10);
+      }, 100);
     },
     // 篩選出所有職位
     classifyJob() {

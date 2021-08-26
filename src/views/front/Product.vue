@@ -34,7 +34,7 @@
                   <div class="pt-3 d-md-block d-flex flex-column align-items-center">
                     <h2 class="page__title">{{ jobItem.title }}</h2>
                     <router-link
-                      class="page__link subTxt mb-4 d-block pe-auto"
+                      class="page__link subTxt mb-4 d-block"
                       :to="`/products-list/company/${temCompany.id}`"
                       >{{ jobItem.options.company.companyName }}</router-link
                     >
@@ -71,13 +71,13 @@
                   </div>
                 </div>
                 <router-link
-                  class="btn btn-lg btn-primary w-100 pe-auto d-lg-none d-block mb-3"
+                  class="btn btn-lg btn-primary w-100 d-lg-none d-block mb-3"
                   aria-current="page"
                   :to="`/apply-job/${jobItem.id}`"
                   >申請職位</router-link
                 >
                 <button
-                  class="btn btn-lg btn-gray-light w-100 pe-auto d-lg-none d-block"
+                  class="btn btn-lg btn-gray-light w-100 d-lg-none d-block"
                   @click="collectJob(jobItem)"
                   type="button"
                 >

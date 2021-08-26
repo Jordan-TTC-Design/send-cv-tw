@@ -3,7 +3,7 @@
     @click="selectJob"
     :data-id="jobItem.id"
     :ref="`list__item${jobItem.id}`"
-    class="list__item d-flex box--shadow flex-column align-items-start pe-auto"
+    class="list__item d-flex box--shadow flex-column align-items-start"
   >
     <button
       class="collectBtn btn btn-outline-gray-line position-absolute"
@@ -36,21 +36,21 @@
       >
         <div class="mb-3 d-flex flex-column align-items-start">
           <router-link
-            class="list__item__title mb-3 me-7 pe-auto"
+            class="list__item__title mb-3 me-7"
             :to="`/products-list/product/${jobItem.id}`"
             >{{ jobItem.title }}</router-link
           >
           <router-link
-            class="page__link subTxt mb-2 me-7 pe-auto"
+            class="page__link subTxt mb-2 me-7"
             :to="`/products-list/company/${jobItem.options.company.companyLink}`"
             >{{ jobItem.options.company.companyName }}</router-link
           >
         </div>
         <div class="d-flex justify-content-between align-items-center">
-          <p class="text-primary" v-if="!jobItem.options.job.salaryInterView">
+          <p class="text-dark" v-if="!jobItem.options.job.salaryInterView">
             {{ jobItem.price }} / 月薪
           </p>
-          <p class="text-primary" v-if="jobItem.options.job.salaryInterView">薪資面議</p>
+          <p class="text-dark" v-if="jobItem.options.job.salaryInterView">薪資面議</p>
           <p class="subTxt text-secondary">
             {{ $filters.date(jobItem.options.job.create) }}
           </p>

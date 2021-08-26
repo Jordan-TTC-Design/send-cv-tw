@@ -1,10 +1,10 @@
 //前台header
 .header--front {
-  padding: 2px 0px;
+  padding: 0.125rem 0px;
   background-color: $primary;
-  border-bottom: 1px solid $gray-line;
-  .header__logo{
-    max-height:60px;
+  border-bottom: 1px solid $light;
+  .header__logo {
+    max-height: 60px;
   }
   //header搜尋視窗定位
   .header__searchModal {
@@ -24,19 +24,20 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    .nav-link {
-      font-weight: $fw--md;
-    }
-    .nav-item {
+    .nav__item {
       position: relative;
       &::after {
         content: '';
         position: absolute;
         bottom: -12px;
-        background-color: $light;
+        background-color: $dark;
         height: 0rem;
         width: 100%;
         border-radius: 0.25rem 0.25rem 0 0;
+      }
+      .nav__item__link {
+        color: $dark;
+        font-weight: $fw--md;
       }
       &.active {
         &::after {
@@ -184,7 +185,7 @@
   width: 100%;
   border-radius: 0.5rem;
   transition: all 0.3s;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.16);
   background-blend-mode: multiply;
   background-size: cover;
   background-position: center center;
@@ -209,6 +210,10 @@
     &:hover {
       color: darken($light, 16%);
     }
+  }
+  .card__subTxt {
+    color: $light;
+    font-size: 0.875rem;
   }
   @include md {
     min-height: 240px;
@@ -273,114 +278,47 @@
     font-size: 12px;
   }
 }
-// 本週推薦企業
-.weeklyCompany {
-  position: relative;
-  z-index: 1;
-  border-bottom: 1px solid $gray-line;
-  @include md {
-    padding-bottom: 5.5rem;
+.card--howTo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  transition: all 0.3s;
+  &:hover {
+    background-color: $gray-light;
   }
-  .btn--goToCompany {
+  img {
+    max-width: 80%;
+    margin-bottom: 1.5rem;
+  }
+  .card__txtBox {
     width: 100%;
-    color: $dark;
-    align-self: center;
-    @include md {
+    position: relative;
+    padding-left: 1rem;
+    &::before {
+      content: '';
       position: absolute;
-      bottom: 3rem;
       left: 0;
+      top: 0;
+      height: 30px;
+      width: 0.25rem;
+      background-color: $primary;
+      border-radius: 0.25rem;
     }
   }
-  &__infoBox {
-    display: flex;
-    flex-direction: column;
+  &--email {
+    padding: 1.5rem;
+    background-color: $light;
     height: 100%;
-    border-right: 1px solid $gray-line;
-    padding-right: 1.25rem;
-    .logoImgBox {
-      width: 60%;
+    @include shadow-normal;
+    img {
+      max-width: 100%;
+      margin-bottom: 1.5rem;
     }
-    .page__title {
-      font-size: 1.25rem;
-      color: $dark;
-      font-weight: 500;
-    }
-    @include md {
-      border: 0;
-      flex-direction: row;
-      align-items: start;
-      .logoImgBox {
-        width: 30%;
-        margin-right: 1.25rem;
-      }
-      .txtBox {
-        width: 100%;
-      }
-    }
-  }
-  &__companyContentBox {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    @include md {
-      flex-direction: column-reverse;
-    }
-    .companyContent {
-      max-width: calc(40% - 10px);
-      max-height: 264px;
-      overflow: hidden;
-      @include lg {
-        max-width: calc(50% - 10px);
-      }
-      @include md {
-        max-width: 100%;
-      }
-    }
-    .imgBox {
-      max-width: calc(60% - 10px);
-      height: 264px;
-      border-radius: 0.5rem;
-      .swiper-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        border-radius: 0.5rem;
-        .imgBox__img {
-          width: 100%;
-          height: calc(100% - 1.5rem);
-          object-fit: cover;
-          border-radius: 0.5rem;
-        }
-      }
-      @include lg {
-        max-width: calc(50% - 10px);
-      }
-      @include md {
-        max-width: 100%;
-      }
-    }
-  }
-  &__jobList {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    .list__item {
-      background-color: $white;
-      width: calc(50% - 8px);
-      border: 1px solid $gray-line;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-      &:hover {
-        background-color: $gray-light;
-      }
-      &__title:hover {
-        color: $primary;
-      }
-      @include sm {
-        width: 100%;
-      }
+    &:hover {
+      background-color: $light;
+      @include shadow-md;
     }
   }
 }
@@ -514,22 +452,232 @@
     @include shadow-md;
   }
 }
-// 搜尋列表＆全部職位列表
-// 職位列表
-.allJobList {
+// 優質企業頁面
+// 本週推薦企業
+.weeklyCompany {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid $gray-line;
+  background-color: $light;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  @include md {
+    padding-bottom: 5.5rem;
+  }
+  .btn--goToCompany {
+    width: 100%;
+    color: $dark;
+    align-self: center;
+    @include md {
+      position: absolute;
+      bottom: 3rem;
+      left: 0;
+    }
+  }
+  &__infoBox {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid $gray-line;
+    padding-right: 1.25rem;
+    .logoImgBox {
+      width: 60%;
+    }
+    .page__title {
+      font-size: 1.25rem;
+      color: $dark;
+      font-weight: 500;
+    }
+    @include md {
+      border: 0;
+      flex-direction: row;
+      align-items: flex-flex-start;
+      .logoImgBox {
+        width: 30%;
+        margin-right: 1.25rem;
+      }
+      .txtBox {
+        width: 100%;
+      }
+    }
+  }
+  &__companyContentBox {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @include md {
+      flex-direction: column-reverse;
+    }
+    .companyContent {
+      max-width: calc(40% - 10px);
+      max-height: 264px;
+      overflow: hidden;
+      @include lg {
+        max-width: calc(50% - 10px);
+      }
+      @include md {
+        max-width: 100%;
+      }
+    }
+    .imgBox {
+      max-width: calc(60% - 10px);
+      height: 264px;
+      border-radius: 0.5rem;
+      .swiper-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        .imgBox__img {
+          width: 100%;
+          height: calc(100% - 1.5rem);
+          object-fit: cover;
+          border-radius: 0.5rem;
+        }
+      }
+      @include lg {
+        max-width: calc(50% - 10px);
+      }
+      @include md {
+        max-width: 100%;
+      }
+    }
+  }
+  &__jobList {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .list__item {
+      background-color: $white;
+      width: calc(50% - 8px);
+      border: 1px solid $gray-line;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      &:hover {
+        background-color: $gray-light;
+      }
+      &__title:hover {
+        color: $primary;
+      }
+      @include sm {
+        width: 100%;
+      }
+    }
+  }
+}
+.companyCard {
+  @include shadow-normal;
+  border: 0;
+  &:hover {
+    @include shadow-md;
+  }
+  &__img {
+    max-height: 120px;
+  }
+  &__jobInfoBox {
+    position: relative;
+  }
+  .card__title {
+    font-weight: $fw--md;
+    color: $dark;
+  }
+  .companyLogoBox {
+    max-width: 100px;
+    border-radius: 0.25rem;
+    background-color: $light;
+    padding: 0.25rem;
+    position: relative;
+    top: -2.5rem;
+    left: 0;
+    margin-bottom: -2rem;
+  }
+  &__logo {
+    max-width: 100%;
+    border-radius: 0.25rem;
+  }
+  &__jobContent {
+    margin-top: 0.5rem;
+    border-top: 1px solid $gray-line;
+    padding: 0.5rem;
+  }
+}
+.allCompanyCard {
+  display: flex;
+  height: 100%;
+  &__companyInfoBox {
+    padding: 0.75rem;
+    flex-grow: 1;
+    &__logoBox {
+      max-width: 4rem;
+      padding: 0.25rem;
+      border: 1px solid $gray-line;
+      border-radius: 0.25rem;
+    }
+    .logoBox__logo {
+      width: 100%;
+    }
+  }
+  .card-img-top {
+    max-height: 120px;
+    object-fit: cover;
+  }
+  .card__title {
+    font-size: 1rem;
+    color: $dark;
+    font-weight: $fw--md;
+  }
+  &__Job {
+    display: none;
+    padding: 0.75rem;
+    width: 100%;
+    border-radius: 0 0 0.5rem 0.5rem;
+    min-height: 80px;
+    &--unRecruit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+      min-height: 80px;
+    }
+    &:hover {
+      background-color: $gray-light;
+    }
+    &__title {
+      font-weight: $fw--md;
+      color: $dark;
+    }
+  }
+  &.showJob {
+    .allCompanyCard__companyInfoBox {
+      border-bottom: 1px solid $gray-line;
+    }
+    .allCompanyCard__Job {
+      display: block;
+    }
+  }
+}
+.recommendCardList {
   .list__item {
-    cursor: pointer;
     padding: 0.75rem;
     border-radius: 0.5rem;
     background-color: $light;
+    border: 1px solid $gray-line;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-flex-start;
     margin-bottom: 0.75rem;
     position: relative;
+    cursor: pointer;
     &::before {
       content: '';
       width: 0.5rem;
-      // height: 100%;
       border-radius: 0.5rem 0 0 0.5rem;
-      background-color: $primary-light;
+      background-color: $primary;
       position: absolute;
       left: 0px;
       top: 0;
@@ -551,7 +699,139 @@
         top: 50%;
         left: 100%;
         border-right: 0;
-        border-left: 12px solid $primary-light;
+        border-left: 12px solid $primary;
+        border-top: 22px solid transparent;
+        border-bottom: 22px solid transparent;
+        z-index: 2;
+        margin-top: -22px;
+      }
+      @include md {
+        &::before {
+          display: none;
+        }
+        &::after {
+          display: none;
+        }
+      }
+    }
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
+    &__imgBox {
+      max-width: 24%;
+      position: relative;
+      margin-right: 1.75rem;
+      .jobImage {
+        max-width: 100%;
+        border-radius: 0.25rem;
+      }
+      @include sm {
+        top: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+        .jobImage {
+          width: 100%;
+          max-height: 10rem;
+          object-fit: cover;
+          border-radius: 0.5rem 0.5rem 0 0;
+        }
+        .img-cover {
+          border-radius: 0.5rem 0.5rem 0 0;
+        }
+      }
+    }
+    &__txtBox {
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      @include sm {
+        padding: 1rem;
+      }
+    }
+    &__jobBox {
+      border-top: 1px solid $gray-line;
+      padding-top: 0.75rem;
+      &__title:hover {
+        color: $primary-dark;
+      }
+    }
+    &__tagBox {
+      @include sm {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 100;
+      }
+    }
+    &__logoImgBox {
+      position: absolute;
+      top: -0.25rem;
+      right: -1rem;
+      padding: 0.25rem;
+      width: 4.5rem;
+      background-color: $light;
+      border-radius: 0 0 0 0.25rem;
+      .logoImg {
+        max-width: 100%;
+        border: 1px solid $gray-line;
+        border-radius: 0.125rem;
+      }
+      @include sm {
+        width: 5rem;
+        border-radius: 0.25rem;
+        top: 90%;
+        left: 0.5rem;
+      }
+    }
+    &__title {
+      color: $dark;
+      font-weight: $fw--md;
+      &:hover {
+        color: $primary-dark;
+      }
+    }
+  }
+}
+// 搜尋列表＆全部職位列表
+// 職位列表
+.allJobList {
+  .list__item {
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: $light;
+    margin-bottom: 0.75rem;
+    position: relative;
+    &::before {
+      content: '';
+      width: 0.5rem;
+      // height: 100%;
+      border-radius: 0.5rem 0 0 0.5rem;
+      background-color: $primary;
+      position: absolute;
+      left: 0px;
+      top: 0;
+      bottom: 0;
+      display: none;
+    }
+    @include sm {
+      padding: 0;
+    }
+    &.active {
+      &::before {
+        display: block;
+      }
+      &::after {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        border-right: 0;
+        border-left: 12px solid $primary;
         border-top: 22px solid transparent;
         border-bottom: 22px solid transparent;
         z-index: 2;
@@ -740,7 +1020,7 @@
     }
     @include md {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
       &__content {
         align-self: stretch;
       }
@@ -1513,8 +1793,10 @@
   display: flex;
   align-items: center;
   position: relative;
-  height: 100%;
-  .nav-item {
+  // height: 100%;
+  &__item {
+    // border: 1px solid $light;
+    min-width: 30%;
     max-width: 100%;
     @include sm {
       width: 100%;
@@ -1531,11 +1813,58 @@
         background-color: rgba(255, 255, 255, 0.3);
       }
     }
-    .nav-link {
+    &__link {
       max-width: 100%;
+      transition: all 0.3s;
       @include sm {
         width: 100%;
       }
+      .nav__title{
+        color:$light;
+        margin-right: 0.5rem;
+        transition: all 0.3s;
+      }
+      &:hover{
+      padding-left: 1.5rem;
+      }
+    }
+  }
+}
+.footer__followUsList{
+  display: flex;
+  align-items: center;
+  li{
+    margin-right: 0.5rem;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+  .btn--circle{
+    height: 44px;
+    width: 44px;
+    transition: all 0.3s;
+    .jobIcon{
+      color:$light;
+      line-height: 1rem;
+    }
+    &:hover{
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
+  }
+}
+.footer__appleDownLoadList{
+  display: flex;
+  align-items: center;
+  li{
+    margin-right: 0.5rem;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+  .btn{
+    padding: 0;
+    &:hover{
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
     }
   }
 }

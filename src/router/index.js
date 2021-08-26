@@ -12,6 +12,11 @@ const routes = [
         component: () => import('../views/Home.vue'),
       },
       {
+        // 優質公司
+        path: 'company-recommend',
+        component: () => import('../views/front/CompanyRecommend.vue'),
+      },
+      {
         // 全部產品頁面
         path: 'products-list',
         component: () => import('../views/front/ProductsList.vue'),

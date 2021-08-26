@@ -26,7 +26,15 @@ $fw--bd: 700;
     padding: 3rem 0;
   }
 }
-
+.section--pb {
+  padding-bottom: 4rem;
+  @include lg {
+    padding-bottom: 3rem;
+  }
+  @include md {
+    padding-bottom: 3rem;
+  }
+}
 .main--bg {
   background-color: #f2f2f2;
 }
@@ -140,6 +148,9 @@ p {
 .page--py {
   padding-top: 3rem;
   padding-bottom: 3rem;
+}
+.page--pt {
+  padding-top: 3rem;
 }
 .adminPage--py {
   padding-bottom: 3rem;

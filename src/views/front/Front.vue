@@ -8,39 +8,48 @@
         <router-link aria-current="page" to="/"
           ><img
             class="header__logo"
-            src="https://i.imgur.com/Ue3blsH.png"
-            alt="Fine Job logo"
+            src="@/assets/images/logo/sendCV-logo-black.svg"
+            alt="SendCVTW logo"
         /></router-link>
       </h1>
       <div class="header__navBox" ref="headerNavBox">
         <ul class="header__nav" ref="headerNav">
-          <li class="nav-item" :class="{ active: this.navState === '首頁' }">
-            <router-link class="nav-link text-white" aria-current="page" to="/">首頁</router-link>
+          <li class="nav__item nav-item" :class="{ active: this.navState === '首頁' }">
+            <router-link class="nav__item__link nav-link" aria-current="page" to="/"
+              >首頁</router-link
+            >
           </li>
-          <li class="nav-item" :class="{ active: this.navState === '優質工作' }">
-            <router-link class="nav-link text-white" to="/products-list">優質工作</router-link>
+          <li class="nav__item nav-item" :class="{ active: this.navState === '優質企業' }">
+            <router-link
+              class="nav__item__link nav-link"
+              aria-current="page"
+              to="/company-recommend"
+              >優質企業</router-link
+            >
           </li>
-          <li class="nav-item d-lg-block d-none">
-            <button class="nav-link text-white btn" type="button" @click="openSearchModal">
+          <li class="nav__item nav-item" :class="{ active: this.navState === '優質工作' }">
+            <router-link class="nav__item__link nav-link" to="/products-list">優質工作</router-link>
+          </li>
+          <li class="nav__item nav-item d-lg-block d-none">
+            <button class="nav__item__link nav-link btn" type="button" @click="openSearchModal">
               搜尋
             </button>
           </li>
-          <li class="nav-item" :class="{ active: this.navState === '收藏' }">
-            <router-link class="nav-link text-white" to="/collection">收藏</router-link>
+          <li class="nav__item nav-item" :class="{ active: this.navState === '收藏' }">
+            <router-link class="nav__item__link nav-link" to="/collection">登入</router-link>
           </li>
-          <li class="nav-item d-lg-none d-block">
-            <router-link class="nav-link text-white" to="/add-company">企業會員加入</router-link>
+          <li class="nav__item nav-item">
+            <button type="button" class="btn btn-companyColor text-light">企業專區</button>
           </li>
-          <li class="nav-item d-lg-none d-block">
-            <router-link class="nav-link text-white" to="/add-job">新建職位</router-link>
+          <li class="nav__item nav-item d-lg-none d-block">
+            <router-link class="nav__item__link nav-link text-white" to="/add-company"
+              >企業會員加入</router-link
+            >
           </li>
-          <li class="nav-item company d-lg-block d-none">
-            <router-link class="d-flex text-white text-decoration-none" to="/add-job">
-              <div class="d-flex align-items-end position-relative">
-                <p class="nav-link header__companyBtnBox">立即刊登職位！</p>
-                <p class="nav-link header__companyBtnBox--sm">為您徵才</p>
-              </div>
-            </router-link>
+          <li class="nav__item nav-item d-lg-none d-block">
+            <router-link class="nav__item__link nav-link text-white" to="/add-job"
+              >新建職位</router-link
+            >
           </li>
         </ul>
       </div>
@@ -60,50 +69,106 @@
     <router-view></router-view>
   </div>
   <footer class="bg-gray-mid">
-    <div class="footer--front bg-primary">
+    <div class="footer--front bg-dark">
       <div class="container">
         <div class="row py-7 justify-content-lg-between justify-content-start">
-          <div class="col-lg-4 col-12">
-            <div class="d-flex flex-md-row flex-column align-items-center mb-lg-0 mb-md-6 mb-4">
+          <div class="col-lg-5 col-12">
+            <div class="d-flex flex-column align-items-start mb-lg-0 mb-md-6 mb-4">
               <img
-                class="bg-white rounded me-md-4 mb-md-0 mb-4"
-                src="https://imgur.com/CBhU98t.png"
-                alt="Find Job Mark"
+                class="mb-4"
+                src="@/assets/images/logo/sendCV-logo-white.svg"
+                alt="SendCVTW logo"
               />
-              <div class="d-flex flex-column align-items-md-stretch align-items-center">
-                <h4 class="text-white mb-md-0 mb-2">Fine Job</h4>
-                <a class="text-white" href="mailto:jordan.ttc.design@gmail.com"
-                  >jordan.ttc.design@gmail.com</a
-                >
-              </div>
+              <ul class="footer__nav flex-wrap mb-6">
+                <li class="footer__nav__item nav-item">
+                  <router-link class="footer__nav__item__link nav-link" to="/products-list"
+                    ><span class="nav__title">求職者</span>
+                    <i class="text-light bi bi-arrow-right-circle"></i
+                  ></router-link>
+                </li>
+                <li class="footer__nav__item nav-item">
+                  <router-link class="footer__nav__item__link nav-link" to="/add-company"
+                    ><span class="nav__title">企業專區</span>
+                    <i class="text-light bi bi-arrow-right-circle"></i
+                  ></router-link>
+                </li>
+                <li class="footer__nav__item nav-item">
+                  <router-link class="footer__nav__item__link nav-link" to="/add-job"
+                    ><span class="nav__title">快速創建職位</span>
+                    <i class="text-light bi bi-arrow-right-circle"></i
+                  ></router-link>
+                </li>
+                <li class="footer__nav__item nav-item">
+                  <router-link class="footer__nav__item__link nav-link" to="/products-list"
+                    ><span class="nav__title">關於我們</span>
+                    <i class="text-light bi bi-arrow-right-circle"></i
+                  ></router-link>
+                </li>
+                <li class="footer__nav__item nav-item">
+                  <router-link class="footer__nav__item__link nav-link" to="/add-company"
+                    ><span class="nav__title">聯絡我們</span>
+                    <i class="text-light bi bi-arrow-right-circle"></i
+                  ></router-link>
+                </li>
+                <li class="footer__nav__item nav-item">
+                  <router-link class="footer__nav__item__link nav-link" to="/add-job"
+                    ><span class="nav__title">條款與政策</span>
+                    <i class="text-light bi bi-arrow-right-circle"></i
+                  ></router-link>
+                </li>
+              </ul>
+              <p class="ps-2 subTxt text-white text-center">
+                © 2021 Talent Group Asia all right reserve
+              </p>
             </div>
           </div>
           <div class="col-xl-6 col-lg-7 col-12">
-            <ul class="footer__nav justify-content-lg-end flex-md-row flex-column">
-              <li class="nav-item">
-                <router-link class="nav-link text-white me-lg-0 me-2" to="/products-list"
-                  >優質工作
-                  <i class="text-white d-lg-none d-inline-block bi bi-arrow-right-circle"></i
-                ></router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link text-white me-lg-0 me-2" to="/add-company"
-                  >企業會員加入
-                  <i class="text-white d-lg-none d-inline-block bi bi-arrow-right-circle"></i
-                ></router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link text-white me-lg-0 me-2" to="/add-job"
-                  >新建職位
-                  <i class="text-white d-lg-none d-inline-block bi bi-arrow-right-circle"></i
-                ></router-link>
-              </li>
-            </ul>
+            <div class="d-flex flex-column align-items-end justify-content-between h-100">
+              <div
+                class="btn--language putPointer"
+                :class="{ active: language === 'English' }"
+                @click="changeLanguage"
+              >
+                <p class="btn--language__chinese" :class="{ active: language === 'Chinese' }">
+                  繁中
+                </p>
+                <p class="btn--language__english" :class="{ active: language === 'English' }">
+                  ENG
+                </p>
+              </div>
+              <ul class="footer__followUsList">
+                <li class="text-light">追蹤我們</li>
+                <li>
+                  <a
+                    class="btn btn--circle"
+                    href="https://www.facebook.com/tw.sendcv.me?locale=zh_TW"
+                    ><i class="jobIcon bi bi-facebook"></i
+                  ></a>
+                </li>
+                <li>
+                  <a class="btn btn--circle" href="https://www.instagram.com/sendcvtw/"
+                    ><i class="jobIcon bi bi-instagram"></i
+                  ></a>
+                </li>
+              </ul>
+              <ul class="footer__appleDownLoadList">
+                <li class="text-light">下載 SendCV APP</li>
+                <li>
+                  <a
+                    class="btn btn-outline-light"
+                    href="https://www.facebook.com/tw.sendcv.me?locale=zh_TW"
+                    ><img src="@/assets/images/download/apple-store-download.svg" alt=""
+                  /></a>
+                </li>
+                <li>
+                  <a class="btn btn-outline-light" href="https://www.instagram.com/sendcvtw/"
+                    ><img src="@/assets/images/download/google-play-download.svg" alt=""
+                  /></a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="border-top border-gray-line py-5">
-        <p class="subTxt text-white text-center">© 2021 Jordan.ttc.design</p>
       </div>
     </div>
   </footer>
@@ -118,12 +183,22 @@ export default {
   data() {
     return {
       navState: '',
+      language: 'Chinese',
     };
   },
   methods: {
+    changeLanguage() {
+      if (this.language === 'Chinese') {
+        this.language = 'English';
+      } else if (this.language === 'English') {
+        this.language = 'Chinese';
+      }
+    },
     checkNavState() {
       if (this.$route.path === '/') {
         this.navState = '首頁';
+      } else if (this.$route.path === '/company-recommend') {
+        this.navState = '優質企業';
       } else if (this.$route.path === '/products-list') {
         this.navState = '優質工作';
       } else if (this.$route.path === '/collection') {

@@ -8,18 +8,18 @@
   transition: all 0.3s;
 }
 // 有圖標的title
-.section__titleBox {
+.titleBox--tag {
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
   .titleBox__title {
-    color: $primary;
+    color: $dark;
     font-size: 1.5rem;
     font-weight: $fw--bd;
     margin-right: 0.5rem;
   }
   .titleBox__tag {
-    color: $white;
+    color: $dark;
     padding: 0.125rem 0.5rem;
     border-radius: 0.5rem 0.5rem 0.5rem 0;
     background-color: $primary;
@@ -45,7 +45,7 @@
     }
   }
   &.collected {
-    border: 1px solid $light;
+    border: 1px solid $primary-light;
     background-color: $primary-light;
     .jobIcon {
       color: $primary;
@@ -191,5 +191,77 @@
     height: auto;
     left: 50%;
     transform: translateX(-50%);
+  }
+}
+.inputItem__switch {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+}
+.recommendTagList {
+  display: flex;
+  &__btn {
+    margin-right: 0.5rem;
+    color: $dark;
+    &.active {
+      border: 1px solid $primary;
+      color: $primary-dark;
+      background-color: $primary-light;
+    }
+    &--new {
+      color: $companyColor;
+      .jobIcon--sm {
+        color: $companyColor;
+      }
+    }
+    &--new:hover {
+      color: $light;
+      .jobIcon--sm {
+        color: $light;
+      }
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+.btn--language {
+  display: flex;
+  justify-content: space-between;
+  max-width: 160px;
+  border: 1px solid $light;
+  border-radius: 0.5rem;
+  position: relative;
+  z-index: 1;
+  padding: 0.25rem;
+  &__chinese,
+  &__english {
+    color: $light;
+    padding: 6px 0.75rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    background-color: $primary;
+    width: 56px;
+    height: 36px;
+    border-radius: 0.25rem;
+    z-index: -1;
+    transition: all 0.3s;
+    right: calc(100% - 0.25rem);
+    transform: translateX(100%);
+  }
+  &__chinese.active,
+  &__english.active {
+    color: $dark;
+  }
+  &.active {
+    &:after {
+      right: calc(0% + 0.25rem);
+      transform: translateX(0%);
+    }
   }
 }

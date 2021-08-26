@@ -116,7 +116,7 @@
                     >
                       <div class="mb-3 d-flex flex-column">
                         <router-link
-                          class="jobList__item__title text-dark mb-3 me-7 pe-auto"
+                          class="jobList__item__title text-dark mb-3 me-7"
                           :to="`/products-list/product/${item.id}`"
                           >{{ item.title }}</router-link
                         >

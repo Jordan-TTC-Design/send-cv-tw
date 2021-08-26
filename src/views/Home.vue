@@ -1,5 +1,5 @@
 <template>
-  <div class="page--py home">
+  <div class="page--pt home">
     <div class="container-fuild">
       <!-- 搜尋banner -->
       <div class="mainBanner bg-primary">
@@ -16,8 +16,12 @@
             </div>
             <div class="bg-white rounded box-shadow p-md-6 p-4">
               <form
-                class="mainBanner__searchBar d-flex flex-md-row flex-column
-                align-items-md-center align-items-stretch"
+                class="
+                  mainBanner__searchBar
+                  d-flex
+                  flex-md-row flex-column
+                  align-items-md-center align-items-stretch
+                "
                 @submit="toSearchJob"
               >
                 <img
@@ -26,8 +30,12 @@
                   alt="Fine Job logo"
                 />
                 <div
-                  class="d-flex justify-content-between align-items-md-end align-items-stretch
-            flex-grow-1 flex-md-row flex-column"
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-md-end align-items-stretch
+                    flex-grow-1 flex-md-row flex-column
+                  "
                 >
                   <div class="inputGroup--item flex-grow-1 me-md-4">
                     <label for="searchFilterTop-keyword" class="form-label inputItem__title"
@@ -58,13 +66,12 @@
                         v-for="(item, index) in formData.city"
                         :value="item"
                         :key="`地區${index}`"
-                        >{{ item }}</option
                       >
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
-                  <button class="btn btn-primary" type="submit">
-                    搜尋職位
-                  </button>
+                  <button class="btn btn-primary" type="submit">搜尋職位</button>
                 </div>
               </form>
             </div>
@@ -73,11 +80,8 @@
       </div>
       <div class="container">
         <!-- 熱門職位 -->
-        <div
-          ref="sectionHotJob"
-          class="sectionHotJob section--py border-bottom border-primary-light"
-        >
-          <div class="section__titleBox">
+        <div ref="sectionHotJob" class="sectionHotJob section--py border-bottom border-gray-line">
+          <div class="titleBox--tag">
             <h3 class="titleBox__title">熱門職位</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -91,7 +95,7 @@
               >
                 <div class="card__btnBox">
                   <button
-                    class="btn--circle btn btn-outline-light"
+                    class="collectBtn btn btn-outline-light"
                     :class="{ collected: sortHotJobs[0].jobCollectCheck }"
                     type="button"
                     @click.prevent="collectJob(sortHotJobs[0])"
@@ -110,12 +114,21 @@
                     :to="`/products-list/company/${sortHotJobs[0].options.company.companyLink}`"
                     >{{ sortHotJobs[0].options.company.companyName }}</router-link
                   >
-                  <p class="jobTag" v-if="!sortHotJobs[0].options.job.salaryInterView">
-                    {{ sortHotJobs[0].price }} / 月薪
-                  </p>
-                  <p class="jobTag" v-if="sortHotJobs[0].options.job.salaryInterView">
-                    薪資面議
-                  </p>
+                  <div class="d-flex align-items-center">
+                    <p class="jobTag me-2">100%</p>
+                    <p
+                      class="card__subTxt text-light"
+                      v-if="!sortHotJobs[0].options.job.salaryInterView"
+                    >
+                      {{ sortHotJobs[0].price }} / 月薪
+                    </p>
+                    <p
+                      class="card__subTxt text-light"
+                      v-if="sortHotJobs[0].options.job.salaryInterView"
+                    >
+                      薪資面議
+                    </p>
+                  </div>
                 </div>
               </router-link>
             </div>
@@ -135,7 +148,7 @@
                     >
                       <div class="card__btnBox">
                         <button
-                          class="btn--circle btn btn-outline-light"
+                          class="collectBtn btn btn-outline-light"
                           :class="{ collected: sortHotJobs[index].jobCollectCheck }"
                           type="button"
                           @click.prevent="collectJob(item)"
@@ -151,18 +164,25 @@
                         >
                         <router-link
                           class="card__txt d-block putPointer"
-                          :to="
-                            `/products-list/company/
-                            ${sortHotJobs[index].options.company.companyLink}`
-                          "
+                          :to="`/products-list/company/
+                            ${sortHotJobs[index].options.company.companyLink}`"
                           >{{ sortHotJobs[index].options.company.companyName }}</router-link
                         >
-                        <p class="jobTag" v-if="!sortHotJobs[index].options.job.salaryInterView">
-                          {{ sortHotJobs[index].price }} / 月薪
-                        </p>
-                        <p class="jobTag" v-if="sortHotJobs[index].options.job.salaryInterView">
-                          薪資面議
-                        </p>
+                        <div class="d-flex align-items-center">
+                          <p class="jobTag me-2">100%</p>
+                          <p
+                            class="card__subTxt text-light"
+                            v-if="!sortHotJobs[index].options.job.salaryInterView"
+                          >
+                            {{ sortHotJobs[index].price }} / 月薪
+                          </p>
+                          <p
+                            class="card__subTxt text-light"
+                            v-if="sortHotJobs[index].options.job.salaryInterView"
+                          >
+                            薪資面議
+                          </p>
+                        </div>
                       </div>
                     </router-link>
                   </div>
@@ -173,9 +193,14 @@
         </div>
         <!-- 最新職位 -->
         <div class="section--newJob section--py">
-          <div class="section__titleBox">
-            <h3 class="titleBox__title">最新職位</h3>
-            <p class="titleBox__tag">推薦</p>
+          <div class="d-flex align-items-center mb-4">
+            <div class="titleBox--tag mb-0">
+              <h3 class="titleBox__title">最新職位</h3>
+            </div>
+            <button type="button" class="btn btn-primary">
+              <i class="jobIcon text-dark bi bi-camera"></i>
+              立即拍照上傳您身邊職位，我們就幫您聯繫求職！
+            </button>
           </div>
           <swiper
             :slides-per-view="swiperNum"
@@ -203,98 +228,188 @@
       </div>
       <div class="bg-white">
         <div class="container">
-          <!-- 本週推薦企業 -->
-          <div class="weeklyCompany section--py" v-if="dataOk">
-            <div class="row d-flex flex-lg-row flex-column">
-              <div class="col-12">
-                <div class="section__titleBox">
-                  <h3 class="titleBox__title">本週推薦企業</h3>
-                  <p class="titleBox__tag">推薦</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-12 mb-lg-0 mb-md-6 mb-4">
-                <div class="weeklyCompany__infoBox">
-                  <div class="logoImgBox mb-4">
-                    <img
-                      class="logoImg"
-                      :src="weeklyCompany.imageUrl"
-                      :alt="`${weeklyCompany.title}企業logo`"
-                    />
-                  </div>
-                  <div class="txtBox d-flex flex-column justify-content-between">
-                    <router-link
-                      class="page__title mb-4 putPointer"
-                      :to="`/products-list/company/${weeklyCompany.id}`"
-                      >{{ weeklyCompany.title }}</router-link
-                    >
-                    <p class="mb-lg-4 mb-2">
-                      <span><i class="jobIcon--sm me-1 bi bi-geo-alt"></i></span
-                      >{{ weeklyCompany.options.companyAddressCity }}，{{
-                        weeklyCompany.options.companyAddressDetail
-                      }}
-                    </p>
-                    <p class="mb-lg-6 mb-2">
-                      <span><i class="jobIcon--sm me-1 bi bi-building"></i></span>
-                      {{ weeklyCompany.category }}
-                    </p>
-                    <router-link
-                      class="btn--goToCompany btn btn-outline-gray-line"
-                      :to="`/products-list/company/${weeklyCompany.id}`"
-                      >查看完整企業資料</router-link
-                    >
+          <div class="section--py border-bottom border-gray-line">
+            <div class="titleBox--tag justify-content-center">
+              <h3 class="titleBox__title">如何使用拍照申請功能？</h3>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <div class="card--howTo">
+                  <img src="@/assets/images/howto/snapJob-howto-1.png" alt="拍照申請說明圖" />
+                  <div class="card__txtBox">
+                    <h5>路過看到好工作</h5>
+                    <p>上班途中經過看到心愛的咖啡店在徵人，先拍下來！</p>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-9 col-12">
-                <h5 class="page__title mb-3">公司簡介</h5>
-                <div class="weeklyCompany__companyContentBox">
-                  <div class="companyContent mb-3" v-html="weeklyCompany.content"></div>
-                  <div class="imgBox">
-                    <swiper
-                      :slides-per-view="1"
-                      :space-between="20"
-                      :autoplay="companySwiperDetail.autoPlay"
-                      :pagination="companySwiperDetail.pagination"
-                      :loop="true"
-                      v-if="dataOk"
-                    >
-                      <swiper-slide
-                        v-for="companyImage in weeklyCompany.imagesUrl"
-                        :key="companyImage"
-                      >
-                        <img class="imgBox__img" :src="companyImage" alt="本週推薦企業logo" />
-                      </swiper-slide>
-                    </swiper>
+              <div class="col-4">
+                <div class="card--howTo">
+                  <img src="@/assets/images/howto/snapJob-howto-2.png" alt="拍照申請說明圖" />
+                  <div class="card__txtBox">
+                    <h5>上傳 sendCV</h5>
+                    <p>選擇搭配已經建立好的 sendCV 履歷，環保省時。</p>
                   </div>
                 </div>
-                <h5 class="page__title mb-3">現有職位</h5>
-                <div class="weeklyCompany__jobList">
-                  <template
-                    v-for="(companyJob, index) in weeklyCompany.jobsList"
-                    :key="companyJob.id"
-                  >
-                    <router-link
-                      class="list__item"
-                      v-if="index < 4"
-                      :to="`/products-list/product/${companyJob.id}`"
-                    >
-                      <p class="list__item__title mb-3">{{ companyJob.title }}</p>
-                      <div class="d-flex justify-content-between">
-                        <p class="subTxt" v-if="!companyJob.options.job.salaryInterView">
-                          {{ companyJob.price }} / 月薪
-                        </p>
-                        <p class="subTxt" v-if="companyJob.options.job.salaryInterView">薪資面議</p>
-                        <p class="subTxt">{{ $filters.date(companyJob.options.job.create) }}</p>
-                      </div>
-                    </router-link>
-                  </template>
+              </div>
+              <div class="col-4">
+                <div class="card--howTo">
+                  <img src="@/assets/images/howto/snapJob-howto-3.png" alt="拍照申請說明圖" />
+                  <div class="card__txtBox">
+                    <h5>幫你投遞履歷</h5>
+                    <p>經過 sendCV 審核，讓企業接受度 up up！</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="recommendCardList section--py">
+            <div class="titleBox--tag">
+              <h3 class="titleBox__title">興趣職位推薦</h3>
+              <div class="recommendTagList">
+                <button
+                  type="button"
+                  class="recommendTagList__btn btn btn-outline-gray-line active"
+                >
+                  根據個人興趣
+                </button>
+                <button
+                  type="button"
+                  class="
+                    recommendTagList__btn recommendTagList__btn--new
+                    btn btn-outline-companyColor
+                  "
+                >
+                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增興趣推薦條件
+                </button>
+              </div>
+            </div>
+            <ul class="row" v-if="sortHotJobs.length > 0">
+              <template v-for="(jobItem, index) in sortHotJobs" :key="jobItem.id">
+                <li class="col-lg-6 col-12" v-if="index < recommendCardList">
+                  <div :ref="`list__item--${jobItem.id}`" class="list__item">
+                    <button
+                      class="collectBtn btn btn-outline-gray-line position-absolute"
+                      :class="{ collected: jobItem.jobCollectCheck }"
+                      type="button"
+                      @click.stop="collectJob(jobItem)"
+                    >
+                      <i class="jobIcon bi bi-bookmark-fill"></i>
+                    </button>
+                    <div class="list__item__tagBox mb-3">
+                      <button type="button" class="jobTag btn me-2">100%</button>
+                      <button type="button" class="jobTag btn" @click="searchByJobCategory">
+                        {{ jobItem.category }}
+                      </button>
+                    </div>
+                    <div class="d-flex w-100 flex-md-row flex-column">
+                      <div class="list__item__imgBox">
+                        <img
+                          class="jobImage"
+                          :src="jobItem.imageUrl"
+                          :alt="`${jobItem.title}職位圖片`"
+                        />
+                        <div class="img-cover d-md-none d-block"></div>
+                        <div class="list__item__logoImgBox">
+                          <img
+                            class="logoImg"
+                            :src="jobItem.options.company.companyLogoUrl"
+                            :alt="`${jobItem.options.company.companyName}logo`"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="
+                          list__item__txtBox
+                          mb-0
+                          flex-grow-1
+                          d-flex
+                          flex-column
+                          justify-content-between
+                        "
+                      >
+                        <div class="mb-3 d-flex flex-column align-items-start">
+                          <router-link
+                            class="list__item__title mb-3 me-7"
+                            :to="`/products-list/product/${jobItem.id}`"
+                            >{{ jobItem.title }}</router-link
+                          >
+                          <router-link
+                            class="page__link subTxt mb-2 me-7"
+                            :to="`/products-list/company/${jobItem.options.company.companyLink}`"
+                            >{{ jobItem.options.company.companyName }}</router-link
+                          >
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <p class="text-dark" v-if="!jobItem.options.job.salaryInterView">
+                            {{ jobItem.price }} / 月薪
+                          </p>
+                          <p class="text-dark" v-if="jobItem.options.job.salaryInterView">
+                            薪資面議
+                          </p>
+                          <p class="subTxt text-secondary">
+                            {{ $filters.date(jobItem.options.job.create) }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </template>
+            </ul>
+            <div class="d-flex justify-content-center mt-3">
+              <button
+                type="button"
+                class="btn btn-gray-light"
+                @click="showMore('recommendCardList')"
+                v-if="recommendCardList < 12"
+              >
+                顯示更多
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="section--py">
+          <div class="titleBox--tag justify-content-center">
+            <h3 class="titleBox__title">如何使用寫郵件sendCV功能？</h3>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="card--howTo card--howTo--email">
+                <img src="@/assets/images/howto/write-email-send-cv-1.jpg" alt="寫郵件SendCV說明圖" />
+                <div class="card__txtBox">
+                  <h5>路過看到好工作</h5>
+                  <p>好想去好公司，不知道有沒有職缺？</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="card--howTo card--howTo--email">
+                <img src="@/assets/images/howto/write-email-send-cv-2.jpg" alt="寫郵件SendCV說明圖" />
+                <div class="card__txtBox">
+                  <h5>上傳 sendCV</h5>
+                  <p>使用sendCV 統整好自己的履歷與經歷! 找到心儀公司的信箱！</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="card--howTo card--howTo--email">
+                <img src="@/assets/images/howto/write-email-send-cv-3.jpg" alt="寫郵件SendCV說明圖" />
+                <div class="card__txtBox">
+                  <h5>幫你投遞履歷</h5>
+                  <p>不論有沒有職位， 我們都幫你投履歷，不放過任何機會！</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white">
+        <div class="container">
           <!-- 熱門職位類別 -->
           <div class="hotCategory section--py">
-            <div class="section__titleBox">
+            <div class="titleBox--tag">
               <h3 class="titleBox__title">熱門職位類別</h3>
             </div>
             <ul class="row hotCategoryList">
@@ -333,72 +448,6 @@
               </template>
             </ul>
           </div>
-        </div>
-      </div>
-      <!-- 招募企業廣告 -->
-      <div class="container">
-        <div class="section--py">
-          <div class="addCompanyBanner rounded p-5">
-            <div class="d-flex flex-column  mb-md-0 mb-6">
-              <div>
-                <h3 class="text-white mb-2">Find Job 免費刊登職位中</h3>
-                <h3 class="text-white mb-5">立即註冊加入，讓我們幫您找人才！</h3>
-              </div>
-              <div>
-                <a
-                  type="button"
-                  class="btn btn-light me-2"
-                  href="mailto:jordan.ttc.design@gmail.com"
-                  >聯絡我們</a
-                >
-                <router-link class="btn btn-primary" to="/add-company"
-                  >即刻前往註冊服務</router-link
-                >
-              </div>
-            </div>
-            <img
-              class="img-cover-top"
-              src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629426520813.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=VGyunGgfbYxREzdBzfxtOlZ%2FGgwJW52WvZjGX6AxS1fgszO%2Biu4GCXtEocLXwNwDRptFvTCF7jPKrjLJIKYIUPlS3YjQOd27p4UvD%2Fv1G5kXbgGAa2sviTYopohcbg%2BLKMejem6tkmyyXSIUUyshO%2BkTACpah1T%2FgY6Rt%2BJCQcrboNryurw0gl9K90w%2FCCSiA6rNWTRIVseOdhHq6tRjnOQ6B%2FjOwFymWjcB%2BbkeX9sdG718m38eV3pcvlqQfkVDqngKfih82%2Bu%2FkEmtAGemaIIUos%2Bq0bx18gJW8x0nIeML7aP7zxbKygtDEzmtaXFTXVgwNyyIhA29Qm8fREUwZg%3D%3D"
-              alt="圖片"
-            />
-            <img
-              class="img-cover-bottom"
-              src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629426544792.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=Wj3w4mc3AR0HrgsNubg6w9VRcOhym0LnsgoziOEX7cTy1Jvi8%2BcuQPSl%2FrdtPAayj24tIjXi4z2uZu%2BmkXJhh6WNBITFB6tPbeRb3qh24oaOCWlQaQgdhL8t5I6iFQGl%2BacQyrftOWC2EU20RjU%2B4jBf3Q0JwXYPiWPsmDnrx96inIAOSLy1hZx8shyK7yNUa7wI66i536jmQNXWr50zG13nVslgdynNASlyZ3nBEOFTa7I7o2poe%2BaQNEvjcTyaGJf322mft8svQ%2FWPYJsn%2BHzQwp4jwfKncjG7syPPQzxg502MEj%2Bokyb%2BhMtmUVpFwQmaMQ3T8omcacMfb7XVrg%3D%3D"
-              alt="圖片"
-            />
-            <img
-              class="addCompanyBanner__mainImg"
-              src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385051631.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=K0SDCsiCjMFqT%2BPW9u3jr7%2Fw92EQwMiBRO0n367Nd1v0HyECSutEygHbeomPPGV8nXCyDaP3qgVh3XA4eXi3NJaeon%2F8CkSW1V9ZRLympGTWzRGrh%2BiKiZfjjsrMgFo3Jtf4ynW4raT%2BY3pMdWAOCYsLUNZ00VsCbQJojpZYezGipDztgPOO4SrSqFcZ%2F51eTQwgZWhnaN9FYq9ikzzWgxxGczKiiEizu7bMSw%2Bf28lHMCCVjtZo%2FB78D2Of%2FXIKf%2BzoQ5AZa3g%2B9fFhOaj2ARc64aOCa0ssNqwOaXV2ihMMRn2CXppFCMAp4O7Kr4p4frXSALmKhTUxKyxaes2RUQ%3D%3D"
-              alt="圖片"
-            />
-          </div>
-        </div>
-        <!-- 合作企業 -->
-        <div class="cooperationCompany" v-if="sortCompany.length > 0">
-          <div class="section__titleBox justify-content-center">
-            <h3 class="titleBox__title text-dark">優質合作企業</h3>
-          </div>
-          <ul class="row">
-            <template v-for="(companyItem, index) in sortCompany" :key="companyItem.id">
-              <li
-                v-if="index > 0 && index < 13"
-                class="col-lg-2 col-md-4 col-6"
-                :class="{
-                  'd-lg-block d-none': index > 0 && index > 10,
-                  'd-lg-block d-md-none': index === 10,
-                }"
-              >
-                <div class="bg-white py-md-4 px-md-6 py-2 px-4 rounded mb-md-5 mb-3">
-                  <router-link :to="`/products-list/company/${companyItem.id}`"
-                    ><img
-                      class="w-100"
-                      :src="companyItem.imageUrl"
-                      :alt="`${companyItem.title}企業logo`"
-                  /></router-link>
-                </div>
-              </li>
-            </template>
-          </ul>
         </div>
       </div>
     </div>
@@ -479,6 +528,7 @@ export default {
         },
       },
       jobCollectionList: [],
+      recommendCardList: 4,
     };
   },
   watch: {
@@ -621,6 +671,7 @@ export default {
           this.jobsList.push(Obj);
         }
       });
+      console.log(this.jobsList);
       this.changeJobSort();
       this.checkJobCollect();
       this.dataOk = true;
