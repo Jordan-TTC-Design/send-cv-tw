@@ -252,7 +252,7 @@
     &:hover {
       background-color: $primary-light;
       .admin__subNav__txt {
-        color: $primary;
+        color: $dark;
       }
     }
     &.active {
@@ -261,7 +261,7 @@
         opacity: 1;
       }
       .admin__subNav__txt {
-        color: $primary;
+        color: $primary-dark;
       }
     }
   }
@@ -442,5 +442,236 @@
   border: 1px solid $primary-light;
   .jobIcon--sm {
     color: $primary;
+  }
+}
+.header__userMenuModal {
+  position: absolute;
+  top: 3.75rem;
+  width: 100%;
+  z-index: 1200;
+}
+.userMenu {
+  width: 100%;
+  background-color: rgba($color: $light, $alpha: 0.9);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  @include shadow-normal;
+  &__list {
+    .list__item {
+      cursor: pointer;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid $gray-line;
+      &:last-child {
+        border: 0;
+      }
+      &__link {
+        color: $dark;
+        padding: 0;
+      }
+      &:hover {
+        .list__item__link {
+          color: $primary-dark;
+        }
+      }
+    }
+    &__logOut {
+      background-color: $gray-light;
+      display: flex;
+      justify-content: center;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+    }
+  }
+}
+.setting__sideList {
+  position: sticky;
+  top: 86px;
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include shadow-normal;
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  &__nav {
+    padding-bottom: 1rem;
+    .nav__item {
+      cursor: pointer;
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.75rem;
+      border-bottom: 1px solid $gray-line;
+      position: relative;
+      &:first-child {
+        border-top: 1px solid $gray-line;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: $primary;
+        border-radius: 0.25rem 0 0 0.25rem;
+        width: 0rem;
+        opacity: 0;
+        transition: all 0.3s;
+      }
+      &.active {
+        background-color: $primary-light;
+        transition: all 0.3s;
+        .nav__item__title {
+          color: $primary-dark;
+        }
+        &::after {
+          width: 0.25rem;
+          opacity: 1;
+          transition: all 0.3s;
+        }
+      }
+      .jobIcon {
+        color: $gray-line;
+      }
+    }
+  }
+}
+.setting__personImgBox {
+  width: 120px;
+  height: 120px;
+  background-color: $gray-light;
+  border-radius: 50%;
+  overflow: hidden;
+  .personImgBox__img {
+    max-width: 100%;
+  }
+}
+.admin__mainContent {
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include shadow-normal;
+  padding: 1.5rem;
+  position: relative;
+  min-height: 480px;
+  &__title {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  &__btnBox {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+  }
+}
+.infoList__item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid $gray-line;
+  &.listLast {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  &:hover {
+    .infoList__item__title,
+    .infoList__item__jobTitle {
+      color: $primary-dark;
+    }
+  }
+  &__title {
+    font-size: 14px;
+    color: $secondary;
+    margin-bottom: 0.25rem;
+  }
+  &__socialMediaBox {
+    background-color: $gray-light;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    &:hover {
+      .socialMediaBox__title {
+        color: $primary-dark;
+      }
+    }
+    .socialMediaBox__link {
+      text-decoration: underline;
+      color: $secondary;
+    }
+  }
+  &__jobTitle {
+    color: $dark;
+  }
+  &__subTitle {
+    font-size: 14px;
+    color: $secondary;
+  }
+  &__contentBox {
+    padding: 0.75rem;
+    background-color: $gray-light;
+    border-radius: 0.5rem;
+    .contentBox__title {
+      font-size: 14px;
+      color: $secondary;
+    }
+  }
+  &.show--compressed {
+    .infoList__item__skillList {
+      display: flex;
+      flex-wrap: wrap;
+      &__skill {
+        position: relative;
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          border-right: 1px solid $gray-line;
+        }
+        &:last-child {
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            border-right: 0;
+          }
+        }
+      }
+    }
+  }
+  &.show--normal {
+    border-bottom: 0px;
+    .infoList__item__titleBox{
+      border-radius: 0.5rem;
+      background-color: $gray-light;
+      padding: 0.25rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      p{
+        color:$dark;
+        font-weight: $fw--md;
+      }
+    }
+    .infoList__item__skillList {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      &__skill {
+        position: relative;
+        width: calc( 50% - 10px );
+        padding:0.75rem 0;
+        border-bottom: 1px solid $gray-line;
+      }
+    }
   }
 }

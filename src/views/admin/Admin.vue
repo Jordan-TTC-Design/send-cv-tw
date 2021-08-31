@@ -16,7 +16,7 @@
         <ul class="header__nav" ref="headerNav">
           <li class="nav__item nav-item" :class="{ active: this.navState === '首頁' }">
             <router-link class="nav__item__link nav-link" aria-current="page" to="/"
-              >首頁</router-link
+              >優質職位</router-link
             >
           </li>
           <li class="nav__item nav-item" :class="{ active: this.navState === '優質企業' }">
@@ -28,7 +28,7 @@
             >
           </li>
           <li class="nav__item nav-item" :class="{ active: this.navState === '優質工作' }">
-            <router-link class="nav__item__link nav-link" to="/products-list">優質工作</router-link>
+            <router-link class="nav__item__link nav-link" to="/products-list">全部職位</router-link>
           </li>
           <li class="nav__item nav-item d-lg-block d-none">
             <button class="nav__item__link nav-link btn" type="button" @click="openSearchModal">
@@ -36,10 +36,17 @@
             </button>
           </li>
           <li class="nav__item nav-item" :class="{ active: this.navState === '收藏' }">
-            <router-link class="nav__item__link nav-link" to="/admin">登入</router-link>
-          </li>
-          <li class="nav__item nav-item">
-            <button type="button" class="btn btn-companyColor text-light">企業專區</button>
+            <div class="userBox">
+              <div class="userBox__person me-2">
+                <div class="userBox__person__box">
+                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
+                </div>
+              </div>
+              <div class="userBox__person__menu btn--circle" @click="openUserMenu">
+                <i v-if="userMenuState" class="text-dark jobIcon bi bi-chevron-up"></i>
+                <i v-if="!userMenuState" class="text-dark jobIcon bi bi-chevron-down"></i>
+              </div>
+            </div>
           </li>
           <li class="nav__item nav-item d-lg-none d-block">
             <router-link class="nav__item__link nav-link text-white" to="/add-company"
@@ -64,6 +71,37 @@
       </div>
     </div>
   </header>
+  <div v-if="userMenuState" class="header__userMenuModal">
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-3">
+          <div class="userMenu">
+            <ul class="userMenu__list">
+              <li class="list__item">
+                <router-link class="list__item__link nav-link" to="/admin/setting"
+                  >帳戶設定</router-link
+                >
+              </li>
+              <li class="list__item">
+                <router-link class="list__item__link nav-link" to="/admin/setting"
+                  >帳戶設定</router-link
+                >
+              </li>
+              <li class="list__item">
+                <router-link class="list__item__link nav-link" to="/admin/setting"
+                  >帳戶設定</router-link
+                >
+              </li>
+              <li class="list__item userMenu__list__logOut">
+                <p>登出</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 有點不知道分區要不要寫在外元件 -->
   <div class="main main--bg" ref="main">
     <router-view></router-view>
@@ -182,11 +220,19 @@ export default {
   },
   data() {
     return {
+      userMenuState: false,
       navState: '',
       language: 'Chinese',
     };
   },
   methods: {
+    openUserMenu() {
+      if (this.userMenuState === true) {
+        this.userMenuState = false;
+      } else if (this.userMenuState === false) {
+        this.userMenuState = true;
+      }
+    },
     changeLanguage() {
       if (this.language === 'Chinese') {
         this.language = 'English';

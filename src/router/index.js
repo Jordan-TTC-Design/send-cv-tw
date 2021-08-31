@@ -48,6 +48,27 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/admin',
+    component: () => import('../views/admin/Admin.vue'),
+    children: [
+      {
+        // 設定
+        path: 'setting',
+        component: () => import('../views/admin/SettingPersonalInfo.vue'),
+      },
+      {
+        // 設定
+        path: 'setting-career',
+        component: () => import('../views/admin/SettingCareer.vue'),
+      },
+      {
+        // 設定
+        path: 'setting-account',
+        component: () => import('../views/admin/SettingAccount.vue'),
+      },
+    ],
+  },
   // ---------- 其他路由 ----------
   {
     // 404

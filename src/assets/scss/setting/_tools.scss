@@ -265,3 +265,107 @@
     }
   }
 }
+.btn--text--dark {
+  color: $dark;
+}
+.userBox {
+  display: flex;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  &__person {
+    height: 44px;
+    width: 44px;
+    background-color: $light;
+    border-radius: 50%;
+    padding: 2px;
+  }
+  &__person__box {
+    border-radius: 50%;
+    overflow: hidden;
+    &:hover {
+      background-color: $gray-light;
+    }
+    img {
+      max-width: 100%;
+    }
+    .jobIcon {
+      line-height: 1rem;
+    }
+  }
+  &__person__menu {
+    height: 44px;
+    width: 44px;
+    background-color: rgba($color: $light, $alpha: 0.8);
+    border-radius: 50%;
+    &:hover {
+      background-color: rgba($color: $light, $alpha: 0.5);
+    }
+  }
+}
+.remind {
+  padding: 0.75rem;
+  background-color: $primary-light;
+  max-width: 37.5rem;
+  border-radius: 0.25rem;
+  &__title {
+    color: $primary-dark;
+    font-size: 14px;
+  }
+}
+.btn--switch {
+  display: flex;
+  align-items: center;
+  .switch__container {
+    position: relative;
+    height: 30px;
+    width: 50px;
+    background-color: $gray-line;
+    border-radius: 30px;
+    margin-right: 0.25rem;
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: $primary;
+      border: 1px solid $light;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      display: none;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: $secondary;
+      width: 8px;
+      height: 1px;
+      border-radius: 50%;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+    }
+    &.active {
+      background-color: $primary;
+      .switch__controller {
+        left: 22px;
+      }
+      &::before {
+        display: block;
+      }
+      &::after {
+        display: none;
+      }
+    }
+  }
+  .switch__controller {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: $light;
+    left: 2px;
+    top: 2px;
+  }
+}
