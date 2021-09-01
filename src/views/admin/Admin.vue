@@ -78,13 +78,13 @@
           <div class="userMenu">
             <ul class="userMenu__list">
               <li class="list__item">
-                <router-link class="list__item__link nav-link" to="/admin/setting"
-                  >帳戶設定</router-link
+                <router-link class="list__item__link nav-link" to="/admin/work-application"
+                  >工作</router-link
                 >
               </li>
               <li class="list__item">
-                <router-link class="list__item__link nav-link" to="/admin/setting"
-                  >帳戶設定</router-link
+                <router-link class="list__item__link nav-link" to="/admin/document-cv"
+                  >文件</router-link
                 >
               </li>
               <li class="list__item">

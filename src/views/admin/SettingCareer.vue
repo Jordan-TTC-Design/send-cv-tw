@@ -54,7 +54,7 @@
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
+                      <button type="button" class="btn text-dark">
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -74,7 +74,7 @@
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
+                      <button type="button" class="btn text-dark">
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -94,7 +94,7 @@
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
+                      <button type="button" class="btn text-dark">
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -114,7 +114,7 @@
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
+                      <button type="button" class="btn text-dark">
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -134,7 +134,7 @@
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
+                      <button type="button" class="btn text-dark">
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -151,7 +151,7 @@
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
+                      <button type="button" class="btn text-dark">
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -168,7 +168,7 @@
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
+                      <button type="button" class="btn text-dark">
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>

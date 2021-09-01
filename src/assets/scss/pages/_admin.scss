@@ -649,7 +649,7 @@
   }
   &.show--normal {
     border-bottom: 0px;
-    .infoList__item__titleBox{
+    .infoList__item__titleBox {
       border-radius: 0.5rem;
       background-color: $gray-light;
       padding: 0.25rem 0.75rem;
@@ -657,8 +657,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 0.75rem;
-      p{
-        color:$dark;
+      p {
+        color: $dark;
         font-weight: $fw--md;
       }
     }
@@ -668,10 +668,68 @@
       justify-content: space-between;
       &__skill {
         position: relative;
-        width: calc( 50% - 10px );
-        padding:0.75rem 0;
+        width: calc(50% - 10px);
+        padding: 0.75rem 0;
         border-bottom: 1px solid $gray-line;
       }
     }
   }
+}
+.card--application {
+  position: relative;
+  .unHandle {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}
+.docCard {
+  cursor: pointer;
+  padding: 0.75rem;
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include shadow-normal;
+  margin-bottom: 1.25rem;
+  min-height: 128px;
+  display: flex;
+  justify-content: space-between;
+  &__title {
+    font-weight: $fw--md;
+    color: $dark;
+    margin-bottom: 0.25rem;
+  }
+  &__cover {
+    width: 148px;
+    height: 108px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+  &:hover {
+    background-color: rgba($color: $light, $alpha: 0.5);
+  }
+}
+.docCard--new {
+  border: 1px dashed $secondary;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 1.25rem);
+  &:hover {
+    background-color: $gray-line;
+  }
+}
+.docCard.docCard--coverLetter {
+  flex-direction: column;
+  .docCard--coverLetter__content {
+    max-height: 2.5rem;
+    overflow: hidden;
+  }
+}
+.docCard.docCard--video{
+padding: 0;
+.card-body{
+  padding: 0.75rem;
+}
 }

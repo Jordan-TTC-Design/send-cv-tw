@@ -53,6 +53,41 @@ const routes = [
     component: () => import('../views/admin/Admin.vue'),
     children: [
       {
+        // 申請紀錄
+        path: 'work-application',
+        component: () => import('../views/admin/WorkApplication.vue'),
+      },
+      {
+        // 收藏夾
+        path: 'work-collection',
+        component: () => import('../views/admin/WorkCollection.vue'),
+      },
+      {
+        // 收藏夾
+        path: 'work-collection/:id',
+        component: () => import('../views/admin/WorkCollectionFolder.vue'),
+      },
+      {
+        // 瀏覽紀錄
+        path: 'work-read-record',
+        component: () => import('../views/admin/WorkReadRecord.vue'),
+      },
+      {
+        // 文件-履歷
+        path: 'document-cv',
+        component: () => import('../views/admin/DocCV.vue'),
+      },
+      {
+        // 文件-求職信
+        path: 'document-cover-letter',
+        component: () => import('../views/admin/DocCoverLetter.vue'),
+      },
+      {
+        // 文件-履歷
+        path: 'document-other',
+        component: () => import('../views/admin/DocOther.vue'),
+      },
+      {
         // 設定
         path: 'setting',
         component: () => import('../views/admin/SettingPersonalInfo.vue'),

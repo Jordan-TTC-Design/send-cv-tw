@@ -35,74 +35,130 @@
         <div class="col-lg-9 col-12">
           <div class="admin__mainContent">
             <h3 class="admin__mainContent__title">帳號設定</h3>
-            <div class="admin__mainContent__btnBox">
-              <button type="button" class="btn btn-outline-gray-line btn--text--dark">編輯</button>
-            </div>
             <div>
               <ul class="row">
-                <li class="col-6">
-                  <div class="infoList__item">
-                    <p class="infoList__item__title">姓名</p>
-                    <p class="infoList__item__content">曾鼎鈞</p>
+                <li class="col-12">
+                  <div class="infoList__item show--compressed">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="infoList__item__title">帳號信箱</p>
+                        <p class="infoList__item__content">jordanttcdesign@gmail.com</p>
+                      </div>
+                      <button type="button" class="btn text-dark">
+                        <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      </button>
+                    </div>
                   </div>
                 </li>
-                <li class="col-6">
-                  <div class="infoList__item">
-                    <p class="infoList__item__title">性別</p>
-                    <p class="infoList__item__content">男性</p>
+                <li class="col-12">
+                  <div class="infoList__item show--compressed">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="infoList__item__title">聯絡電話</p>
+                        <p class="infoList__item__content">0987-654-321</p>
+                      </div>
+                      <button type="button" class="btn text-dark">
+                        <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      </button>
+                    </div>
                   </div>
                 </li>
-                <li class="col-6">
-                  <div class="infoList__item">
-                    <p class="infoList__item__title">生日</p>
-                    <p class="infoList__item__content">1991年01月01日</p>
+                <li class="col-12">
+                  <div class="infoList__item show--compressed">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="infoList__item__title">密碼</p>
+                        <p class="infoList__item__content">*********</p>
+                      </div>
+                      <button type="button" class="btn text-dark">
+                        <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      </button>
+                    </div>
                   </div>
                 </li>
-              </ul>
-              <ul class="row">
-                <li class="col-6">
-                  <div class="infoList__item">
-                    <p class="infoList__item__title">電子信箱</p>
-                    <p class="infoList__item__content">曾鼎鈞</p>
-                  </div>
-                </li>
-                <li class="col-6">
-                  <div class="infoList__item">
-                    <p class="infoList__item__title">聯絡電話</p>
-                    <p class="infoList__item__content">0987-653-222</p>
+                <li class="col-12">
+                  <div class="infoList__item show--compressed">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="infoList__item__title">雙重認證</p>
+                        <p class="infoList__item__content">
+                          一經設定，後續除了需要填寫帳號密碼外，同時需要填寫行動裝置上的驗證碼才能進行登入。
+                        </p>
+                      </div>
+                      <button type="button" class="btn btn-primary text-dark">啟動雙重認證</button>
+                    </div>
                   </div>
                 </li>
                 <li class="col-12">
                   <div class="infoList__item">
-                    <p class="infoList__item__title">居住地址</p>
-                    <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
-                  </div>
-                </li>
-              </ul>
-              <ul class="row">
-                <li class="col-12">
-                  <div class="infoList__item listLast">
                     <p class="infoList__item__title">社群連結</p>
-                    <div class="infoList__item__socialMediaBox putPointer mb-2">
-                      <i class="jobIcon bi bi-facebook me-6"></i>
-                      <div>
-                        <p class="socialMediaBox__title mb-1">Jordan Tseng</p>
-                        <p class="socialMediaBox__link subTxt">FaceBook</p>
+                    <p class="infoList__item__content mb-3">
+                      連結您的社群帳號，除了可以快速登入外，也能增加企業聯繫方式。
+                    </p>
+                    <div
+                      class="infoList__item__socialMediaBox putPointer mb-2 justify-content-between"
+                    >
+                      <div class="d-flex align-items-center">
+                        <i class="jobIcon bi bi-facebook me-6"></i>
+                        <div>
+                          <p class="socialMediaBox__title">Jordan Tseng</p>
+                          <p class="socialMediaBox__link subTxt">Facebook</p>
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <button
+                          type="button"
+                          class="btn btn--switch me-2"
+                          @click="toogleData('skillShowStyle')"
+                        >
+                          <div class="switch__container" :class="{ active: skillShowStyle }">
+                            <div class="switch__controller"></div>
+                          </div>
+                          顯示在個人帳號
+                        </button>
+                        <button type="button" class="btn btn--text--dark">
+                          <i class="jobIcon-sm bi bi-x-lg"></i>
+                        </button>
                       </div>
                     </div>
-                    <div class="infoList__item__socialMediaBox putPointer mb-2">
-                      <i class="jobIcon bi bi-google me-6"></i>
-                      <div>
-                        <p class="socialMediaBox__title mb-1">Jordan Tseng</p>
-                        <p class="socialMediaBox__link subTxt">Google</p>
+                    <div
+                      class="infoList__item__socialMediaBox putPointer mb-2 justify-content-between"
+                    >
+                      <div class="d-flex align-items-center">
+                        <i class="jobIcon bi bi-google me-6"></i>
+                        <div>
+                          <p class="socialMediaBox__title">Jordan Tseng</p>
+                          <p class="socialMediaBox__link subTxt">Google</p>
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <button
+                          type="button"
+                          class="btn btn--switch me-2"
+                          @click="toogleData('skillShowStyle')"
+                        >
+                          <div class="switch__container" :class="{ active: skillShowStyle }">
+                            <div class="switch__controller"></div>
+                          </div>
+                          顯示在個人帳號
+                        </button>
+                        <button type="button" class="btn btn--text--dark">
+                          <i class="jobIcon-sm bi bi-x-lg"></i>
+                        </button>
                       </div>
                     </div>
-                    <div class="infoList__item__socialMediaBox putPointer">
-                      <i class="jobIcon bi bi-globe2 me-6"></i>
+                  </div>
+                </li>
+                <li class="col-12">
+                  <div class="infoList__item show--compressed listLast">
+                    <div class="d-flex justify-content-between align-items-center">
                       <div>
-                        <p class="socialMediaBox__title mb-1">個人作品網站</p>
-                        <p class="socialMediaBox__link subTxt">https://Jordan.ttc.design.com</p>
+                        <p class="infoList__item__title">刪除帳號</p>
+                        <p class="infoList__item__content">
+                          點擊刪除帳號後帳號依舊會保留7 天，於此期間內隨時可以選擇取消刪除。
+                        </p>
                       </div>
+                      <button type="button" class="btn btn-outline-danger">刪除帳號</button>
                     </div>
                   </div>
                 </li>
