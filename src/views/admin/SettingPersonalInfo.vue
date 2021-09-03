@@ -109,7 +109,13 @@
           <div class="admin__mainContent" v-if="settingSideList === '個人資料'">
             <h3 class="admin__mainContent__title">個人資料</h3>
             <div class="admin__mainContent__btnBox">
-              <button type="button" class="btn btn-outline-gray-line btn--text--dark">編輯</button>
+              <button
+                type="button"
+                class="btn btn-outline-gray-line btn--text--dark"
+                @click="toogleData('editMode')"
+              >
+                編輯
+              </button>
             </div>
             <div class="remind mb-5">
               <p class="remind__title">小提醒：</p>
@@ -118,12 +124,18 @@
                 將依照個人資料保護法保障您的個人隱私，請放心～
               </p>
             </div>
-            <div>
-              <ul class="row">
+            <div v-if="!editMode">
+              <ul class="row mb-5">
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">姓名</p>
                     <p class="infoList__item__content">曾鼎鈞</p>
+                  </div>
+                </li>
+                <li class="col-6">
+                  <div class="infoList__item">
+                    <p class="infoList__item__title">目前職稱</p>
+                    <p class="infoList__item__content">UI Designer</p>
                   </div>
                 </li>
                 <li class="col-6">
@@ -139,7 +151,7 @@
                   </div>
                 </li>
               </ul>
-              <ul class="row">
+              <ul class="row mb-5">
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">電子信箱</p>
@@ -188,6 +200,196 @@
                 </li>
               </ul>
             </div>
+            <div v-if="editMode">
+              <Form ref="editAccountPersonalData" v-slot="{ errors }">
+                <div class="row">
+                  <!-- 姓名 -->
+                  <div class="col-lg-6 col-12">
+                    <div class="form__inputBox">
+                      <div class="form__labelBox">
+                        <label for="accountDataName" class="form__label--custom form-label"
+                          >姓名</label
+                        >
+                        <p class="formTag--must">必填</p>
+                      </div>
+                      <Field
+                        id="accountDataName"
+                        ref="accountDataName"
+                        name="姓名"
+                        type="text"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors['姓名'] }"
+                        placeholder="請輸入姓名"
+                        rules="required"
+                        v-model="accountData.user.name"
+                      ></Field>
+                      <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
+                    </div>
+                  </div>
+                  <!-- 職稱 -->
+                  <div class="col-lg-6 col-12">
+                    <div class="form__inputBox">
+                      <div class="form__labelBox">
+                        <label for="accountDataJobTitle" class="form__label--custom form-label"
+                          >目前職稱</label
+                        >
+                      </div>
+                      <Field
+                        id="accountDataJobTitle"
+                        ref="accountDataJobTitle"
+                        name="目前職稱"
+                        type="text"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors['目前職稱'] }"
+                        placeholder="目前職稱"
+                        v-model="accountData.user.jobTitle"
+                      ></Field>
+                      <ErrorMessage name="目前職稱" class="invalid-feedback"></ErrorMessage>
+                    </div>
+                  </div>
+                  <!-- 性別 -->
+                  <div class="col-lg-6 col-12">
+                    <div class="form__inputBox">
+                      <div class="form__labelBox">
+                        <label for="accountDataGender" class="form__label--custom form-label"
+                          >性別</label
+                        >
+                        <p class="formTag--must">必填</p>
+                      </div>
+                      <Field
+                        id="accountDataGender"
+                        ref="accountDataGender"
+                        name="性別"
+                        type="text"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors['性別'] }"
+                        placeholder="請輸入性別"
+                        rules="required"
+                        v-model="accountData.user.gender"
+                      ></Field>
+                      <ErrorMessage name="性別" class="invalid-feedback"></ErrorMessage>
+                    </div>
+                  </div>
+                  <!-- 生日 -->
+                  <div class="col-lg-6 col-12">
+                    <div class="form__inputBox">
+                      <div class="form__labelBox">
+                        <label for="accountDataEmail" class="form__label--custom form-label"
+                          >生日</label
+                        >
+                        <p class="formTag--must">必填</p>
+                      </div>
+                      <Field
+                        id="accountDataBirthday"
+                        ref="accountDataBirthday"
+                        name="生日"
+                        type="date"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors['生日'] }"
+                        placeholder="請輸入生日"
+                        rules="required"
+                        :value="accountData.user.birthday"
+                      ></Field>
+                      <ErrorMessage name="生日" class="invalid-feedback"></ErrorMessage>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- 電子郵件 -->
+                  <div class="col-12">
+                    <div class="form__inputBox w-50">
+                      <div class="form__labelBox">
+                        <label for="accountDataEmail" class="form__label--custom form-label"
+                          >電子郵件</label
+                        >
+                      </div>
+                      <input
+                        id="accountDataEmail"
+                        ref="accountDataEmail"
+                        name="姓名"
+                        type="email"
+                        class="form-control"
+                        placeholder="請輸入姓名"
+                        v-model="accountData.user.email"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <!-- 聯絡電話 -->
+                  <div class="col-12">
+                    <div class="form__inputBox w-50">
+                      <div class="form__labelBox">
+                        <label for="accountDataPhone" class="form__label--custom form-label"
+                          >聯絡電話</label
+                        >
+                      </div>
+                      <input
+                        id="accountDataPhone"
+                        ref="accountDataPhone"
+                        name="聯絡電話"
+                        type="phone"
+                        class="form-control"
+                        placeholder="請輸入聯絡電話"
+                        v-model="accountData.user.phone"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 d-flex">
+                    <div class="form__inputBox me-2">
+                      <div class="form__labelBox">
+                        <label for="accountDataCity" class="form__label--custom form-label"
+                          >居住地址</label
+                        >
+                        <p class="formTag--must">必填</p>
+                      </div>
+                      <Field
+                        id="accountDataCity"
+                        ref="accountDataCity"
+                        name="縣市"
+                        as="select"
+                        class="form-control form-select w-auto mb-2"
+                        :class="{ 'is-invalid': errors['縣市'] }"
+                        rules="required"
+                        v-model="accountData.user.addressCity"
+                        @change="choose(accountData.user.addressCity)"
+                      >
+                        <option value="" disabled selected>請選擇縣市</option>
+                        <option v-for="city in formData.cities" :value="city" :key="city">
+                          {{ city }}
+                        </option>
+                      </Field>
+                      <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
+                    </div>
+                    <div class="form__inputBox">
+                      <div class="form__labelBox">
+                        <label for="accountDataCity" class="form__label--custom form-label"
+                          >區域鄉鎮</label
+                        >
+                        <p class="formTag--must">必填</p>
+                      </div>
+                      <Field
+                        id="accountDataDist"
+                        ref="accountDataDist"
+                        name="區域鄉鎮"
+                        as="select"
+                        class="form-control form-select w-auto mb-2"
+                        :class="{ 'is-invalid': errors['區域鄉鎮'] }"
+                        rules="required"
+                        v-model="accountData.user.addressDist"
+                        @change="show(accountData.user.addressDist)"
+                      >
+                        <option value="" disabled selected>請選擇區域鄉鎮</option>
+                        <option v-for="dist in chooseCityDist" :value="dist" :key="dist">
+                          {{ dist }}
+                        </option>
+                      </Field>
+                      <ErrorMessage name="區域鄉鎮" class="invalid-feedback"></ErrorMessage>
+                    </div>
+                  </div>
+                </div>
+              </Form>
+            </div>
           </div>
           <div class="admin__mainContent" v-if="settingSideList === '工作經驗'">
             <h3 class="admin__mainContent__title">工作經驗</h3>
@@ -220,6 +422,203 @@
                 </div>
               </div>
               <ul class="row">
+                <li class="col-12">
+                  <div v-if="editMode">
+                    <Form ref="editAccountworkExpData" v-slot="{ errors }">
+                      <div class="row">
+                        <!-- 企業名稱 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="workExpDataCompanyName"
+                                class="form__label--custom form-label"
+                                >企業名稱</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="workExpDataCompanyName"
+                              ref="workExpDataCompanyName"
+                              name="企業名稱"
+                              type="text"
+                              class="form-control"
+                              :class="{ 'is-invalid': errors['企業名稱'] }"
+                              placeholder="請輸入企業名稱"
+                              rules="required"
+                              v-model="tempWorkExp.companyName"
+                            ></Field>
+                            <ErrorMessage name="企業名稱" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <!-- 職位名稱 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label for="workExpDataJobName" class="form__label--custom form-label"
+                                >職位名稱</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="workExpDataJobName"
+                              ref="workExpDataJobName"
+                              name="職位名稱"
+                              type="text"
+                              class="form-control"
+                              :class="{ 'is-invalid': errors['職位名稱'] }"
+                              placeholder="請輸入職位名稱"
+                              rules="required"
+                              v-model="tempWorkExp.jobName"
+                            ></Field>
+                            <ErrorMessage name="職位名稱" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <!-- 到職年份 -->
+                        <div class="col-lg-6 col-12 d-flex">
+                          <div class="form__inputBox me-2">
+                            <div class="form__labelBox">
+                              <label
+                                for="workExpDataStartYear"
+                                class="form__label--custom form-label"
+                                >就讀年份</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="workExpDataStartYear"
+                              ref="workExpDataStartYear"
+                              name="到職年份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['到職年份'] }"
+                              rules="required"
+                              v-model="tempWorkExp.startYear"
+                              @change="createEndYears"
+                            >
+                              <option value="" disabled selected>請選擇到職年份</option>
+                              <option v-for="year in yearArray" :value="year" :key="year">
+                                {{ year }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="到職年份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="workExpDataStartMonth"
+                                class="form__label--custom form-label invisible"
+                                >到職月份</label
+                              >
+                            </div>
+                            <Field
+                              id="workExpDataStartMonth"
+                              ref="workExpDataStartMonth"
+                              name="到職月份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['到職月份'] }"
+                              rules="required"
+                              v-model="tempWorkExp.startMonth"
+                            >
+                              <option value="" disabled selected>請選擇到職月份</option>
+                              <option v-for="month in formData.months" :value="month" :key="month">
+                                {{ month }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="到職月份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <!-- 離職年份 -->
+                        <div class="col-lg-6 col-12 d-flex">
+                          <div class="form__inputBox me-2">
+                            <div class="form__labelBox">
+                              <label for="workExpDataEndYear" class="form__label--custom form-label"
+                                >離職日期</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="workExpDataEndYear"
+                              ref="workExpDataEndYear"
+                              name="離職年份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['離職年份'] }"
+                              rules="required"
+                              v-model="tempWorkExp.endYear"
+                            >
+                              <option value="" disabled selected>請選擇離職年份</option>
+                              <option v-for="year in endYearArray" :value="year" :key="year">
+                                {{ year }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="離職年份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="workExpDataEndMonth"
+                                class="form__label--custom form-label invisible"
+                                >離職月份</label
+                              >
+                            </div>
+                            <Field
+                              id="workExpDataEndMonth"
+                              ref="workExpDataEndMonth"
+                              name="離職月份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['離職月份'] }"
+                              rules="required"
+                              v-model="tempWorkExp.endMonth"
+                            >
+                              <option value="" disabled selected>請選擇離職月份</option>
+                              <option v-for="month in formData.months" :value="month" :key="month">
+                                {{ month }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="離職月份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <!-- 職務內容＆成就 -->
+                        <div class="col-12">
+                          <div class="form__inputBox form__infoEditBox">
+                            <div class="form__labelBox">
+                              <label for="workExpDataContent" class="form__label--custom form-label"
+                                >職務內容＆成就</label
+                              >
+                            </div>
+                            <ckeditor
+                              id="workExpDataContent"
+                              ref="workExpDataContent"
+                              name="職務內容＆成就"
+                              :editor="editor"
+                              tag-name="textarea"
+                              v-model="tempWorkExp.jobContent"
+                              :config="editorConfig"
+                            ></ckeditor>
+                            <Field
+                              name="職務內容＆成就"
+                              type="text"
+                              class="form-control d-none"
+                              :class="{ 'is-invalid': errors['職務內容＆成就'] }"
+                              placeholder="請輸入"
+                              v-model="tempWorkExp.jobContent"
+                              as="textarea"
+                              rules="required"
+                            >
+                            </Field>
+                            <ErrorMessage
+                              name="職務內容＆成就"
+                              class="invalid-feedback"
+                            ></ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+                    </Form>
+                  </div>
+                </li>
                 <li class="col-12">
                   <div class="infoList__item infoList__item--job">
                     <div class="d-flex justify-content-between align-items-start">
@@ -320,6 +719,246 @@
               </div>
               <ul class="row">
                 <li class="col-12">
+                  <div v-if="editMode">
+                    <Form ref="editAccountEducationData" v-slot="{ errors }">
+                      <div class="row">
+                        <!-- 學校名稱 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataSchoolName"
+                                class="form__label--custom form-label"
+                                >學校名稱</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="educationDataSchoolName"
+                              ref="educationDataSchoolName"
+                              name="學校名稱"
+                              type="text"
+                              class="form-control"
+                              :class="{ 'is-invalid': errors['學校名稱'] }"
+                              placeholder="請輸入學校名稱"
+                              rules="required"
+                              v-model="tempEducation.schoolName"
+                            ></Field>
+                            <ErrorMessage name="學校名稱" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <!-- 主修科目 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataMajorName"
+                                class="form__label--custom form-label"
+                                >主修科目</label
+                              >
+                            </div>
+                            <Field
+                              id="educationDataMajorName"
+                              ref="educationDataMajorName"
+                              name="主修科目"
+                              type="text"
+                              class="form-control"
+                              :class="{ 'is-invalid': errors['主修科目'] }"
+                              placeholder="請輸入主修科目"
+                              v-model="tempEducation.majorName"
+                            ></Field>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataEducationLevel"
+                                class="form__label--custom form-label"
+                                >學歷</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                              <div
+                                class="form-check me-2"
+                                v-for="(item, index) in formData.candidateEducation"
+                                :key="index"
+                              >
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  :value="item"
+                                  :id="`education${index}`"
+                                  name="學歷"
+                                  v-model="tempEducation.educationLevel"
+                                />
+                                <label class="form-check-label" :for="`education${index}`">
+                                  {{ item }}
+                                </label>
+                              </div>
+                              <Field
+                                id="educationDataEducationLevel"
+                                ref="educationDataEducationLevel"
+                                name="學歷"
+                                type="text"
+                                class="form-control d-none"
+                                :class="{ 'is-invalid': errors['學歷'] }"
+                                v-model="tempEducation.educationLevel"
+                                rules="required"
+                              ></Field>
+                              <ErrorMessage name="學歷" class="invalid-feedback"></ErrorMessage>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 就讀年份 -->
+                        <div class="col-lg-6 col-12 d-flex">
+                          <div class="form__inputBox me-2">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataStartYear"
+                                class="form__label--custom form-label"
+                                >就讀日期</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="educationDataStartYear"
+                              ref="educationDataStartYear"
+                              name="就讀年份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['就讀年份'] }"
+                              rules="required"
+                              v-model="tempEducation.startYear"
+                              @change="createEndYears"
+                            >
+                              <option value="" disabled selected>請選擇就讀年份</option>
+                              <option v-for="year in yearArray" :value="year" :key="year">
+                                {{ year }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="就讀年份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataStartMonth"
+                                class="form__label--custom form-label invisible"
+                                >就讀月份</label
+                              >
+                            </div>
+                            <Field
+                              id="educationDataStartMonth"
+                              ref="educationDataStartMonth"
+                              name="就讀月份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['就讀月份'] }"
+                              rules="required"
+                              v-model="tempEducation.startMonth"
+                            >
+                              <option value="" disabled selected>請選擇就讀月份</option>
+                              <option v-for="month in formData.months" :value="month" :key="month">
+                                {{ month }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="就讀月份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <!-- 畢業年份 -->
+                        <div class="col-lg-6 col-12 d-flex">
+                          <div class="form__inputBox me-2">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataEndYear"
+                                class="form__label--custom form-label"
+                                >畢業日期</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="educationDataEndYear"
+                              ref="educationDataEndYear"
+                              name="畢業年份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['畢業年份'] }"
+                              rules="required"
+                              v-model="tempEducation.endYear"
+                            >
+                              <option value="" disabled selected>請選擇畢業年份</option>
+                              <option v-for="year in endYearArray" :value="year" :key="year">
+                                {{ year }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="畢業年份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataEndMonth"
+                                class="form__label--custom form-label invisible"
+                                >畢業月份</label
+                              >
+                            </div>
+                            <Field
+                              id="educationDataEndMonth"
+                              ref="educationDataEndMonth"
+                              name="畢業月份"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['畢業月份'] }"
+                              rules="required"
+                              v-model="tempEducation.endMonth"
+                            >
+                              <option value="" disabled selected>請選擇畢業月份</option>
+                              <option v-for="month in formData.months" :value="month" :key="month">
+                                {{ month }}
+                              </option>
+                            </Field>
+                            <ErrorMessage name="畢業月份" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <!-- 在學表現＆成就 -->
+                        <div class="col-12">
+                          <div class="form__inputBox form__infoEditBox">
+                            <div class="form__labelBox">
+                              <label for="workExpDataContent" class="form__label--custom form-label"
+                                >在學表現＆成就</label
+                              >
+                            </div>
+                            <ckeditor
+                              id="workExpDataContent"
+                              ref="workExpDataContent"
+                              name="在學表現＆成就"
+                              :editor="editor"
+                              tag-name="textarea"
+                              v-model="tempEducation.educationContent"
+                              :config="editorConfig"
+                            ></ckeditor>
+                            <Field
+                              name="在學表現＆成就"
+                              type="text"
+                              class="form-control d-none"
+                              :class="{ 'is-invalid': errors['在學表現＆成就'] }"
+                              placeholder="請輸入"
+                              v-model="tempEducation.educationContent"
+                              as="textarea"
+                              rules="required"
+                            >
+                            </Field>
+                            <ErrorMessage
+                              name="在學表現＆成就"
+                              class="invalid-feedback"
+                            ></ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+                    </Form>
+                  </div>
+                </li>
+                <li class="col-12">
                   <div class="infoList__item infoList__item--job">
                     <div class="d-flex justify-content-between align-items-start">
                       <div>
@@ -410,6 +1049,113 @@
                   </div>
                 </li>
                 <li class="col-12">
+                  <div v-if="editMode">
+                    <Form ref="editLanguageData" v-slot="{ errors }">
+                      <div class="row">
+                        <!-- 語言 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label for="languageDataName" class="form__label--custom form-label"
+                                >語言</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="languageDataName"
+                              ref="languageDataName"
+                              name="語言"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['語言'] }"
+                              rules="required"
+                              v-model="tempLanguage.name"
+                            >
+                              <option value="" disabled selected>請選擇</option>
+                              <option
+                                v-for="language in formData.languages"
+                                :value="language"
+                                :key="language"
+                              >
+                                {{ language }}
+                              </option></Field
+                            >
+                            <ErrorMessage name="語言" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label for="languageDataLevel" class="form__label--custom form-label"
+                                >語言程度</label
+                              >
+                            </div>
+                            <Field
+                              id="languageDataLevel"
+                              ref="languageDataLevel"
+                              name="語言程度"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['語言程度'] }"
+                              v-model="tempLanguage.languageLevel"
+                            >
+                              <option value="" disabled selected>請選擇</option>
+                              <option
+                                v-for="level in formData.skillLevel"
+                                :value="level"
+                                :key="level"
+                              >
+                                {{ level }}
+                              </option>
+                            </Field>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-12 d-flex align-items-end">
+                          <button type="button" class="btn btn-outline-gray-line text-dark mb-4">
+                            新增證照考試證明
+                          </button>
+                        </div>
+                        <div class="col-12">
+                          <button
+                            type="button"
+                            class="btn--newSkill btn btn-outline-companyColor mb-4"
+                          >
+                            <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
+                            加入已建立項目
+                          </button>
+                        </div>
+                        <div class="col-12">
+                          <div class="editSkillListBox">
+                            <div class="editSkillListBox__header">
+                              <p>已建立項目</p>
+                            </div>
+                            <ul class="editSkillListBox__list">
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  英文<span class="list__item__skillLevel">精通</span>
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  中文<span class="list__item__skillLevel">精通</span>
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  日文<span class="list__item__skillLevel">精通</span>
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </Form>
+                  </div>
+                </li>
+                <li class="col-12">
                   <div class="infoList__item show--compressed">
                     <div class="d-flex justify-content-between align-items-start">
                       <div>
@@ -430,6 +1176,71 @@
                         <i class="jobIcon bi bi-three-dots"></i>
                       </button>
                     </div>
+                  </div>
+                </li>
+                <li class="col-12">
+                  <div v-if="editMode">
+                    <Form ref="editLanguageData" v-slot="{ errors }">
+                      <div class="row">
+                        <!-- 證照 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label for="languageDataName" class="form__label--custom form-label"
+                                >證照名稱</label
+                              >
+                            </div>
+                            <Field
+                              id="languageDataName"
+                              ref="languageDataName"
+                              name="證照名稱"
+                              type="text"
+                              class="form-control"
+                              :class="{ 'is-invalid': errors['證照名稱'] }"
+                              v-model="temLicense"
+                            >
+                            </Field>
+                            <ErrorMessage name="證照名稱" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <button
+                            type="button"
+                            class="btn--newSkill btn btn-outline-companyColor mb-4"
+                          >
+                            <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
+                            加入已建立項目
+                          </button>
+                        </div>
+                        <div class="col-12">
+                          <div class="editSkillListBox">
+                            <div class="editSkillListBox__header">
+                              <p>已建立項目</p>
+                            </div>
+                            <ul class="editSkillListBox__list">
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  美國風險管理師ARM
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  美國會計師CPA
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  國際ERP電腦稽核師CEAP
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </Form>
                   </div>
                 </li>
                 <li class="col-12">
@@ -456,6 +1267,132 @@
                         <i class="jobIcon bi bi-three-dots"></i>
                       </button>
                     </div>
+                  </div>
+                </li>
+                <li class="col-12">
+                  <div v-if="editMode">
+                    <Form ref="editSkillData" v-slot="{ errors }">
+                      <div class="row">
+                        <!-- 技能類別 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label for="skillDataCategory" class="form__label--custom form-label"
+                                >技能類別</label
+                              >
+                              <p class="formTag--must">必填</p>
+                            </div>
+                            <Field
+                              id="skillDataCategory"
+                              ref="skillDataCategory"
+                              name="技能類別"
+                              type="text"
+                              class="form-control"
+                              :class="{ 'is-invalid': errors['技能類別'] }"
+                              placeholder="請輸入技能類別"
+                              rules="required"
+                              v-model="tempEducation.schoolName"
+                            ></Field>
+                            <ErrorMessage name="技能類別" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <!-- 技能名稱 -->
+                        <div class="col-lg-6 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="educationDataMajorName"
+                                class="form__label--custom form-label"
+                                >技能名稱</label
+                              >
+                            </div>
+                            <Field
+                              id="educationDataMajorName"
+                              ref="educationDataMajorName"
+                              name="技能名稱"
+                              type="text"
+                              class="form-control"
+                              :class="{ 'is-invalid': errors['技能名稱'] }"
+                              placeholder="請輸入技能名稱"
+                              v-model="tempEducation.majorName"
+                            ></Field>
+                          </div>
+                        </div>
+                        <!-- 技能程度 -->
+                        <div class="col-lg-3 col-12">
+                          <div class="form__inputBox">
+                            <div class="form__labelBox">
+                              <label
+                                for="skillDataSkillLevel"
+                                class="form__label--custom form-label"
+                                >技能程度</label
+                              >
+                            </div>
+                            <Field
+                              id="skillDataSkillLevel"
+                              ref="skillDataSkillLevel"
+                              name="技能程度"
+                              as="select"
+                              class="form-control form-select"
+                              :class="{ 'is-invalid': errors['技能程度'] }"
+                              v-model="tempSkill.skillLevel"
+                            >
+                              <option value="" disabled selected>請選擇</option>
+                              <option
+                                v-for="level in formData.skillLevel"
+                                :value="level"
+                                :key="level"
+                              >
+                                {{ level }}
+                              </option>
+                            </Field>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-12 d-flex align-items-end">
+                          <button type="button" class="btn btn-outline-gray-line text-dark mb-4">
+                            新增證照考試證明
+                          </button>
+                        </div>
+                        <div class="col-12">
+                          <button
+                            type="button"
+                            class="btn--newSkill btn btn-outline-companyColor mb-4"
+                          >
+                            <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
+                            加入已建立項目
+                          </button>
+                        </div>
+                        <div class="col-12">
+                          <div class="editSkillListBox">
+                            <div class="editSkillListBox__header">
+                              <p>已建立項目</p>
+                            </div>
+                            <ul class="editSkillListBox__list">
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  ui設計<span class="list__item__skillLevel">精通</span>
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  ui設計<span class="list__item__skillLevel">精通</span>
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  ui設計<span class="list__item__skillLevel">精通</span>
+                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </Form>
                   </div>
                 </li>
               </ul>
@@ -600,22 +1537,147 @@
 </template>
 
 <script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import emitter from '@/methods/emitter';
+import webData from '@/methods/webData';
+
 export default {
   data() {
     return {
+      date: new Date(),
       subTopNav: '基本資料',
       personalState: true,
       settingSideList: '個人資料',
       skillShowStyle: true,
+      editMode: false,
+      formData: {},
+      chooseCityDist: [],
+      accountData: {
+        user: {
+          name: '',
+          jobTitle: '',
+          gender: '',
+          birthday: '',
+          email: 'jordan.tseng@talentgroup.asia',
+          phone: '0975286269',
+          addressCity: '',
+          addressDist: '',
+        },
+        workExp: [],
+        password: '',
+        socialMedia: [],
+      },
+      tempWorkExp: {
+        companyName: '',
+        jobName: '',
+        jobContent: '',
+        startYear: null,
+        startMonth: null,
+        endYear: null,
+        endMonth: null,
+        isStillWork: false,
+      },
+      tempEducation: {
+        schoolName: '',
+        majorName: '',
+        eductionContent: '',
+        eductionLevel: null,
+        startYear: null,
+        startMonth: null,
+        endYear: null,
+        endMonth: null,
+        isStillAtSchool: false,
+      },
+      tempSkill: {
+        skillCategory: '',
+        skillName: '',
+        skillLevel: '',
+      },
+      tempLanguage: {
+        name: '',
+        languageLevel: null,
+        otherSupport: '',
+      },
+      temLicense: '',
+      yearArray: [],
+      endYearArray: [],
+      // 編輯器套件
+      editor: ClassicEditor,
+      editorConfig: {
+        toolbar: ['heading', '|', 'bold', 'italic', 'link'],
+        language: 'zh',
+        placeholder: '請輸入...',
+        heading: {
+          // 設定 Heading 內的樣式，可新增多個
+          options: [
+            {
+              model: 'paragraph',
+              title: 'Paragraph',
+              class: 'ck-heading_paragraph',
+            },
+            {
+              model: 'heading1',
+              view: 'h2',
+              title: 'Heading 1',
+              class: 'ck-heading_heading1',
+            },
+            {
+              model: 'heading2',
+              view: 'h3',
+              title: 'Heading 2',
+              class: 'ck-heading_heading2',
+            },
+          ],
+        },
+      },
     };
   },
+  watch: {
+    date(newValue) {
+      const data = Math.ceil(newValue.valueOf() / 1000);
+      this.accountData.user.birthday = data;
+      console.log(data);
+      console.dir(this.$filters.date(data));
+      console.log(data);
+    },
+  },
   methods: {
+    createYears() {
+      const myDate = new Date();
+      const startYear = myDate.getFullYear() - 100;
+      const endYear = myDate.getFullYear();
+      for (let i = startYear; i <= endYear; i += 1) {
+        this.yearArray.unshift(i);
+      }
+      if (this.tempWorkExp.startYear) {
+        this.createEndYears();
+      } else if (!this.tempWorkExp.startYear) {
+        this.endYearArray = this.yearArray;
+      }
+    },
+    createEndYears() {
+      this.endYearArray = [];
+      const myDate = new Date();
+      const startYear = parseInt(this.tempWorkExp.startYear, 10);
+      const endYear = myDate.getFullYear();
+      for (let i = startYear; i <= endYear; i += 1) {
+        this.endYearArray.unshift(i);
+      }
+    },
+    choose(cityName) {
+      this.chooseCityDist = [];
+      this.chooseCityDist = this.formData.districts[cityName].district;
+      const [temDist] = this.chooseCityDist;
+      this.accountData.user.addressDist = temDist;
+    },
     toogleData(dataName) {
       if (this[dataName]) {
         this[dataName] = false;
       } else if (!this[dataName]) {
         this[dataName] = true;
       }
+      console.log(webData);
+      console.log(this.formData);
     },
     changePersonalState() {
       if (this.personalState) {
@@ -639,6 +1701,12 @@ export default {
         this.$router.push('/admin/setting-account');
       }
     },
+  },
+  created() {
+    this.formData = webData;
+    this.chooseCityDist = this.formData.districts['台北市'].district;
+    emitter.emit('spinner-open-bg', 800);
+    this.createYears();
   },
 };
 </script>

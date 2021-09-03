@@ -1683,11 +1683,11 @@
 }
 .formTag--must {
   padding: 1px 0.5rem;
-  margin-left: 4px;
+  margin-left: 0.25rem;
   border-radius: 0.25rem;
-  background-color: #09a758;
-  color: $white;
-  font-size: 8px;
+  background-color: $primary;
+  color: $dark;
+  font-size: 10px;
 }
 .form__inputBox {
   margin-bottom: 16px;

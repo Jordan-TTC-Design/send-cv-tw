@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import Modal from 'bootstrap/js/dist/modal';
+import emitter from '@/methods/emitter';
 
 export default {
   emits: ['return-company-collection'],

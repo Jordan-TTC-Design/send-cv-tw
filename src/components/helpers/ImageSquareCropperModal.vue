@@ -30,9 +30,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-primary" @click="processImage">
-            確定
-          </button>
+          <button type="button" class="btn btn-outline-primary" @click="processImage">確定</button>
         </div>
       </div>
     </div>
@@ -40,9 +38,9 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import Modal from 'bootstrap/js/dist/modal';
 import Cropper from 'cropperjs';
+import emitter from '@/methods/emitter';
 
 export default {
   data() {

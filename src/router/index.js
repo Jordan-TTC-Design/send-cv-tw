@@ -69,8 +69,18 @@ const routes = [
       },
       {
         // 瀏覽紀錄
+        path: 'work-company-read',
+        component: () => import('../views/admin/WorkCompanyRecord.vue'),
+      },
+      {
+        // 瀏覽紀錄
         path: 'work-read-record',
         component: () => import('../views/admin/WorkReadRecord.vue'),
+      },
+      {
+        // 審核紀錄
+        path: 'work-application-review',
+        component: () => import('../views/admin/WorkApplicationReview.vue'),
       },
       {
         // 文件-履歷

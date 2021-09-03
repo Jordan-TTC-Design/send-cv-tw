@@ -389,32 +389,32 @@
     color: $primary-dark;
   }
 }
-.searchInput{
+.searchInput {
   position: relative;
-  .jobIcon{
+  .jobIcon {
     position: absolute;
     top: 50%;
     left: 0.75rem;
     transform: translateY(-50%);
   }
-  input{
+  input {
     height: 100%;
     padding-left: 2.5rem;
     border: 1px solid $light;
   }
 }
-.boxSubNav{
+.boxSubNav {
   display: flex;
   border-top: 1px solid $gray-line;
   border-bottom: 1px solid $gray-line;
-  &__item{
-    padding: 0.75rem ;
+  &__item {
+    padding: 0.75rem;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    &::after{
+    &::after {
       content: '';
       width: 1px;
       height: 1.5rem;
@@ -424,7 +424,7 @@
       transform: translateY(-50%);
       position: absolute;
     }
-    &::before{
+    &::before {
       content: '';
       width: 4rem;
       height: 0.25rem;
@@ -436,26 +436,68 @@
       transform: translateX(-50%);
       display: none;
     }
-    &.active{
-      &::before{
+    &.active {
+      &::before {
         display: block;
       }
-      p{
-        color:$primary-dark;
+      p {
+        color: $primary-dark;
       }
     }
-    &:hover{
-      p{
-        color:$primary-dark;
+    &:hover {
+      p {
+        color: $primary-dark;
       }
     }
   }
-  &__item:last-child{
-    &::after{
+  &__item:last-child {
+    &::after {
       display: none;
     }
   }
-  &--50{
+  &--50 {
     width: 50%;
   }
 }
+.popModal {
+  .modal-content {
+    border-radius: 1rem;
+    position: relative;
+    .btn-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+    }
+  }
+  &__header {
+    padding: 1.5rem 2.5rem;
+    &__subTxt {
+      font-size: 14px;
+    }
+  }
+  &__title {
+    color: $dark;
+    font-weight: $fw--md;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  &__header--center {
+    .popModal__header__subTxt,
+    .popModal__title {
+      text-align: center;
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.5rem;
+  }
+}
+// .vc-day{
+//   .vc-highlight {
+//     background-color: $primary !important;
+//   }
+//   .vc-focusable {
+//     color: $dark !important;
+//   }
+// }

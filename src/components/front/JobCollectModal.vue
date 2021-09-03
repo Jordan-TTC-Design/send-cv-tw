@@ -164,9 +164,7 @@
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
             取消
           </button>
-          <button type="button" class="btn btn-primary" @click="updateProduct">
-            確認
-          </button>
+          <button type="button" class="btn btn-primary" @click="updateProduct">確認</button>
         </div>
       </div>
     </div>
@@ -174,8 +172,8 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import { Modal } from 'bootstrap/js/dist/modal';
+import emitter from '@/methods/emitter';
 
 export default {
   props: ['temProduct'],

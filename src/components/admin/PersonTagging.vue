@@ -108,9 +108,7 @@
                   <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                     取消
                   </button>
-                  <button type="submit" class="btn btn-primary flex-grow-1">
-                    確定
-                  </button>
+                  <button type="submit" class="btn btn-primary flex-grow-1">確定</button>
                 </div>
               </div>
             </div>
@@ -122,8 +120,8 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import Modal from 'bootstrap/js/dist/modal';
+import emitter from '@/methods/emitter';
 
 export default {
   emits: ['return-company-collection'],

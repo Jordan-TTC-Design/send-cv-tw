@@ -22,7 +22,7 @@
           </li>
           <li
             class="admin__subNav__item"
-            @click="goToPageLink('work-application')"
+            @click="goToPageLink('work-company-read')"
             :class="{ active: subTopNav === '企業來訪' }"
           >
             <p class="admin__subNav__txt me-1">企業來訪</p>
@@ -43,7 +43,7 @@
           </li>
           <li
             class="admin__subNav__item"
-            @click="goToPageLink('work-application')"
+            @click="goToPageLink('work-application-review')"
             :class="{ active: subTopNav === '審核紀錄' }"
           >
             <p class="admin__subNav__txt me-1">審核紀錄</p>

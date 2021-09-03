@@ -51,12 +51,61 @@
         </div>
       </div>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div
+            class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5"
+          >
+            <ul class="page__sideNav">
+              <li
+                ref="page__sideNav__item--job"
+                class="page__sideNav__item active putPointer"
+                @click="this.navState = 'job'"
+              >
+                <p class="page__sideNav__item__title">拍照申請</p>
+              </li>
+              <li
+                ref="page__sideNav__item--company"
+                class="page__sideNav__item putPointer"
+                @click="this.navState = 'company'"
+              >
+                <p class="page__sideNav__item__title">寫郵件 SendCV</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="d-flex justify-content-end">
+            <div class="searchInput me-2">
+              <i class="jobIcon bi bi-search"></i>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="職位關鍵字"
+                aria-describedby="關鍵字"
+                v-model="filterData.keyword"
+              />
+            </div>
+
+            <select
+              class="form-select form-select-lg w-auto border-0 text-gray-dark"
+              @change="changeJobSort($event)"
+              v-model="sortWay"
+            >
+              <option selected value="time">最新至最舊</option>
+              <option value="money">薪水高至低</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
     <div ref="jobsListContainer" class="jobsListContainer container">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
       <div class="row">
-        <div class="col-12" v-if="jobsList.length > 0">
+        <div class="col-lg-6 col-12" v-if="jobsList.length > 0">
           <div class="jobListBox">
             <div
               class="
@@ -71,74 +120,29 @@
               "
             >
               <p class="text-secondary fw-normal text-nowrap">
-                目前瀏覽過共 {{ jobsList.length }} 個職位
+                目前共 {{ jobsList.length }} 個職位
               </p>
             </div>
-            <ul ref="jobList" class="readRecordList">
-              <template v-for="jobItem in nowPageJobs" :key="jobItem.id">
-                <li
-                  v-if="nowPageJobs.length > 0"
-                  @click="selectJob"
-                  :data-id="jobItem.id"
-                  :ref="`list__item${jobItem.id}`"
-                  class="
-                    list__item
-                    d-flex
-                    box--shadow
-                    flex-md-row flex-column
-                    align-items-center
-                    justify-content-between
-                    card--application
-                  "
-                >
-                  <div class="list__item__jobContent">
-                    <div class="list__item__logoImgBox me-3">
-                      <img
-                        class="logoImg"
-                        :src="jobItem.options.company.companyLogoUrl"
-                        :alt="`${jobItem.options.company.companyName}logo`"
-                      />
-                    </div>
-                    <div class="list__item__txtBox d-flex flex-column justify-content-between">
-                      <div class="d-flex mb-2">
-                        <router-link
-                          class="list__item__title me-2"
-                          :to="`/products-list/product/${jobItem.id}`"
-                          >{{ jobItem.title }}</router-link
-                        >
-                        <p class="jobTag bg-primary me-2">
-                          <i class="jobIcon-sm bi bi-star-fill"></i>
-                        </p>
-                        <p class="jobTag">匹配度100%</p>
-                      </div>
-                      <router-link
-                        class="page__link subTxt mb-2"
-                        :to="`/products-list/company/${jobItem.options.company.companyLink}`"
-                        >{{ jobItem.options.company.companyName }}</router-link
-                      >
-                      <p class="subTxt text-secondary">
-                        申請時間：{{ $filters.date(jobItem.options.job.create) }}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="list__item__salaryBox">
-                    <p v-if="!jobItem.options.job.salaryInterView">{{ jobItem.price }} / 月薪</p>
-                    <p v-if="jobItem.options.job.salaryInterView">薪資面議</p>
-                  </div>
-                  <div class="list__item__btnBox">
-                    <button type="button" class="btn btn-gray-light me-2">相似職位</button>
-                    <button type="button" class="btn btn-primary me-2">申請職位</button>
-                    <button type="button" class="btn me-2">
-                      <i class="jobIcon bi bi-bookmark-fill"></i>
-                    </button>
-                    <button type="button" class="btn me-2">
-                      <i class="jobIcon bi bi-three-dots"></i>
-                    </button>
-                  </div>
+            <ul ref="jobList" class="allJobList">
+              <template v-for="item in nowPageJobs" :key="item.id">
+                <li v-if="nowPageJobs.length > 0">
+                  <ApplicationJobCard
+                    :ref="`jobList__item--${item.id}`"
+                    :job-list-item="item"
+                    @select-job="selectJob"
+                    @search-by-job-category="searchByJobCategory"
+                  />
                 </li>
               </template>
             </ul>
           </div>
+        </div>
+        <div class="col-lg-6 col-12 d-lg-block d-none" v-if="jobsList.length > 0">
+          <ApplicationJobSideBox
+            ref="jobSelectBox"
+            :select-job-item="jobItem"
+            @search-by-job-category="searchByJobCategory"
+          />
         </div>
         <div class="col-12 d-flex justify-content-center" v-if="jobsList.length === 0">
           <img
@@ -156,6 +160,11 @@
     />
   </div>
   <div class="sideBtnBox">
+    <FilterBtn
+      :tem-filter-data="filterData"
+      @send-filter-data="filter"
+      @get-filter-txt="getFilterTxt"
+    />
     <UpTopBtn />
   </div>
   <JobCollect ref="JobCollectModal" @return-job-collection="getJobCollect" />
@@ -167,7 +176,10 @@ import emitter from '@/methods/emitter';
 import searchFilter from '@/methods/searchFilter';
 import webData from '@/methods/webData';
 import PagenationModal from '@/components/helpers/Pagenation.vue';
+import ApplicationJobCard from '@/components/admin/ApplicationJobCard.vue';
+import ApplicationJobSideBox from '@/components/admin/ApplicationJobSideBox.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
+import FilterBtn from '@/components/helpers/FilterBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
@@ -175,14 +187,17 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
 export default {
   components: {
     PagenationModal,
+    ApplicationJobCard,
     UpTopBtn,
+    FilterBtn,
+    ApplicationJobSideBox,
     JobCollect,
   },
   data() {
     return {
       fullWidth: 0,
       fullHeight: 0,
-      subTopNav: '瀏覽紀錄',
+      subTopNav: '審核紀錄',
       products: [],
       jobsList: [],
       nowPageJobs: [],

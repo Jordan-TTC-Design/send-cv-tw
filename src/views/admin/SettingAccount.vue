@@ -44,7 +44,11 @@
                         <p class="infoList__item__title">帳號信箱</p>
                         <p class="infoList__item__content">jordanttcdesign@gmail.com</p>
                       </div>
-                      <button type="button" class="btn text-dark">
+                      <button
+                        type="button"
+                        class="btn text-dark"
+                        @click="openSettingAccountModal('變更帳號')"
+                      >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -57,7 +61,11 @@
                         <p class="infoList__item__title">聯絡電話</p>
                         <p class="infoList__item__content">0987-654-321</p>
                       </div>
-                      <button type="button" class="btn text-dark">
+                      <button
+                        type="button"
+                        class="btn text-dark"
+                        @click="openSettingAccountModal('變更電話')"
+                      >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -70,7 +78,11 @@
                         <p class="infoList__item__title">密碼</p>
                         <p class="infoList__item__content">*********</p>
                       </div>
-                      <button type="button" class="btn text-dark">
+                      <button
+                        type="button"
+                        class="btn text-dark"
+                        @click="openSettingAccountModal('變更密碼')"
+                      >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
                     </div>
@@ -158,7 +170,13 @@
                           點擊刪除帳號後帳號依舊會保留7 天，於此期間內隨時可以選擇取消刪除。
                         </p>
                       </div>
-                      <button type="button" class="btn btn-outline-danger">刪除帳號</button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger"
+                        @click="openSettingAccountModal('刪除帳號')"
+                      >
+                        刪除帳號
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -169,10 +187,15 @@
       </div>
     </div>
   </div>
+  <SettingAccountModal />
 </template>
 
 <script>
+import emitter from '@/methods/emitter';
+import SettingAccountModal from '@/components/admin/SettingAccountModal.vue';
+
 export default {
+  components: { SettingAccountModal },
   data() {
     return {
       subTopNav: '帳號設定',
@@ -182,6 +205,10 @@ export default {
     };
   },
   methods: {
+    openSettingAccountModal(action) {
+      console.log(action);
+      emitter.emit('open-setting-account-modal', action);
+    },
     toogleData(dataName) {
       if (this[dataName]) {
         this[dataName] = false;

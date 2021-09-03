@@ -71,10 +71,10 @@
               "
             >
               <p class="text-secondary fw-normal text-nowrap">
-                目前瀏覽過共 {{ jobsList.length }} 個職位
+                目前已有 {{ jobsList.length }} 企業來訪
               </p>
             </div>
-            <ul ref="jobList" class="readRecordList">
+            <ul ref="jobList" class="readRecordList companyRecord">
               <template v-for="jobItem in nowPageJobs" :key="jobItem.id">
                 <li
                   v-if="nowPageJobs.length > 0"
@@ -99,39 +99,36 @@
                         :alt="`${jobItem.options.company.companyName}logo`"
                       />
                     </div>
-                    <div class="list__item__txtBox d-flex flex-column justify-content-between">
+                    <div class="list__item__txtBoxn">
                       <div class="d-flex mb-2">
                         <router-link
                           class="list__item__title me-2"
-                          :to="`/products-list/product/${jobItem.id}`"
-                          >{{ jobItem.title }}</router-link
+                          :to="`/products-list/company/${jobItem.options.company.companyLink}`"
+                          >{{ jobItem.options.company.companyName }}</router-link
                         >
-                        <p class="jobTag bg-primary me-2">
-                          <i class="jobIcon-sm bi bi-star-fill"></i>
-                        </p>
-                        <p class="jobTag">匹配度100%</p>
                       </div>
-                      <router-link
-                        class="page__link subTxt mb-2"
-                        :to="`/products-list/company/${jobItem.options.company.companyLink}`"
-                        >{{ jobItem.options.company.companyName }}</router-link
-                      >
                       <p class="subTxt text-secondary">
-                        申請時間：{{ $filters.date(jobItem.options.job.create) }}
+                        來訪時間：{{ $filters.date(jobItem.options.job.create) }}
                       </p>
                     </div>
                   </div>
-                  <div class="list__item__salaryBox">
-                    <p v-if="!jobItem.options.job.salaryInterView">{{ jobItem.price }} / 月薪</p>
-                    <p v-if="jobItem.options.job.salaryInterView">薪資面議</p>
+                  <div class="list__item__industryBox">
+                    <p>
+                      <i class="jobIcon--sm me-1 bi bi-building"></i>
+                      {{ jobItem.options.company.industryCategory }}
+                    </p>
+                  </div>
+                  <div class="list__item__jobsBox">
+                    <p>
+                      <i class="jobIcon--sm me-1 bi bi-people"></i>
+                      16個工作機會
+                    </p>
                   </div>
                   <div class="list__item__btnBox">
-                    <button type="button" class="btn btn-gray-light me-2">相似職位</button>
-                    <button type="button" class="btn btn-primary me-2">申請職位</button>
-                    <button type="button" class="btn me-2">
+                    <button type="button" class="btn btn-gray-light btn--circle me-2">
                       <i class="jobIcon bi bi-bookmark-fill"></i>
                     </button>
-                    <button type="button" class="btn me-2">
+                    <button type="button" class="btn btn--circle me-2">
                       <i class="jobIcon bi bi-three-dots"></i>
                     </button>
                   </div>
@@ -182,7 +179,7 @@ export default {
     return {
       fullWidth: 0,
       fullHeight: 0,
-      subTopNav: '瀏覽紀錄',
+      subTopNav: '企業來訪',
       products: [],
       jobsList: [],
       nowPageJobs: [],
