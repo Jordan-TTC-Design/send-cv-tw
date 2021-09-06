@@ -449,10 +449,30 @@
   top: 3.75rem;
   width: 100%;
   z-index: 1200;
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+.userBox__person__menu {
+  .bi-chevron-up {
+    display: none;
+  }
+  .bi-chevron-down {
+    display: block;
+  }
+  &.active {
+    .bi-chevron-up {
+      display: block;
+    }
+    .bi-chevron-down {
+      display: none;
+    }
+  }
 }
 .userMenu {
   width: 100%;
-  background-color: rgba($color: $light, $alpha: 0.9);
+  background-color: $light;
   border-radius: 0.5rem;
   padding: 1rem;
   @include shadow-normal;
@@ -841,10 +861,197 @@
   .jobIcon--sm {
     color: $companyColor;
   }
-  &:hover{
+  &:hover {
     color: $light;
-  .jobIcon--sm {
-    color: $light;
+    .jobIcon--sm {
+      color: $light;
+    }
   }
+}
+.textarea--tag {
+  position: relative;
+  &__tagList {
+    display: flex;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  &__inputBox {
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+}
+.jobTag--letter {
+  position: relative;
+  padding-left: 1.5rem;
+  cursor: pointer;
+  &::before {
+    content: '';
+    background-color: $gray-dark;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    transform: translateY(-50%);
+  }
+}
+.chatRoom {
+  height: calc(100vh - 64px);
+  width: 100%;
+  display: flex;
+  position: fixed;
+  z-index: 99;
+  top: 64px;
+}
+.chatRoom__leftContainer {
+  width: 24%;
+  height: 100%;
+  overflow-y: scroll;
+  .chatRoom__filterBox {
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    .searchInput {
+      height: 44px;
+      border: 1px solid $gray-line;
+      border-radius: 0.5rem;
+    }
+  }
+}
+.chatRoom__card {
+  cursor: pointer;
+  background-color: $light;
+  border-bottom: 1px solid $gray-line;
+  padding: 0.75rem;
+  position: relative;
+  .card__img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 1px solid $gray-line;
+    background-color: $light;
+  }
+  .card__title {
+    font-weight: $fw--md;
+    color: $dark;
+  }
+  &:hover {
+    background-color: rgba($color: $gray-light, $alpha: 0.5);
+    .card__title {
+      color: $primary-dark;
+    }
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0.5rem;
+    background-color: $primary;
+    border-radius: 0 0.5rem 0.5rem 0;
+    display: none;
+  }
+  &.active {
+    background-color: rgba($color: $primary-light, $alpha: 0.5);
+    &::before {
+      display: block;
+      .card__title {
+        color: $primary-dark;
+      }
+    }
+  }
+}
+.chatRoom__chatArea {
+  width: 38%;
+  height: 100%;
+  position: relative;
+}
+.chatArea__userBox {
+  height: 50px;
+  padding: 0 0.75rem;
+  background-color: $light;
+  border-bottom: 1px solid $gray-line;
+  border-right: 1px solid $gray-line;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .companyLogo {
+    height: 28px;
+    border: 1px solid $gray-line;
+    border-radius: 0.25rem;
+  }
+}
+.chatArea__chatTxtContainer {
+  width: 100%;
+  height: calc(100% - 190px);
+  background-color: $gray-light;
+  overflow-y: scroll;
+  &.active {
+    height: calc(100% - 382px);
+  }
+}
+.chatArea__inputContainer {
+  background-color: $gray-line;
+  // height: 120px;
+  padding: 0.75rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .chatArea__txtInput {
+    border: 0;
+    resize: none;
+  }
+  .btn--openTextArea {
+    position: relative;
+    width: 3rem;
+    .jobIcon {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+    }
+  }
+}
+.chatRoom__infoArea {
+  background-color: $light;
+  width: 38%;
+  height: 100%;
+  overflow-y: scroll;
+  .boxSubNav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+  .boxSubNav__item.active {
+    background-color: $primary-light;
+  }
+  .companyImageContainer {
+    height: 10rem;
+    width: 100%;
+    position: relative;
+    &__img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .imgCover {
+      position: absolute;
+      background-color: rgba($color: $dark, $alpha: 0.5);
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+    &__txt {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+    }
   }
 }

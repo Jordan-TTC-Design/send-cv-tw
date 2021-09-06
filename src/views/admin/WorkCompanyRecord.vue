@@ -149,7 +149,6 @@
     <PagenationModal
       :jobs-list="jobsList"
       @change-page="changePage"
-      @search-by-job-category="searchByJobCategory"
     />
   </div>
   <div class="sideBtnBox">
@@ -299,12 +298,11 @@ export default {
           this.nowPageJobs.forEach((item) => {
             if (item.id === id) {
               this.jobItem = item;
-              this.$refs[`jobList__item--${item.id}`].openSelectEffect();
+              // this.$refs[`jobList__item--${item.id}`].openSelectEffect();
             } else if (item.id !== id) {
-              this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
+              // this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
             }
           });
-          this.$refs.jobSelectBox.toTop();
         }
       } else {
         this.$router.push(`/products-list/product/${id}`);
@@ -315,12 +313,11 @@ export default {
         this.nowPageJobs.forEach((item) => {
           if (item.id === id) {
             this.jobItem = item;
-            this.$refs[`jobList__item--${item.id}`].openSelectEffect();
+            // this.$refs[`jobList__item--${item.id}`].openSelectEffect();
           } else if (item.id !== id) {
-            this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
+            // this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
           }
         });
-        this.$refs.jobSelectBox.toTop();
       }
     },
     // 本頁職位

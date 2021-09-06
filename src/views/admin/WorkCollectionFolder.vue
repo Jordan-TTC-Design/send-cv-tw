@@ -244,9 +244,9 @@ export default {
           this.nowPageJobs.forEach((item) => {
             if (item.id === id) {
               this.jobItem = item;
-              this.$refs[`jobList__item--${item.id}`].openSelectEffect();
+              // this.$refs[`jobList__item--${item.id}`].openSelectEffect();
             } else if (item.id !== id) {
-              this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
+              // this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
             }
           });
           this.$refs.jobSelectBox.toTop();
@@ -261,9 +261,9 @@ export default {
           this.nowPageJobs.forEach((item) => {
             if (item.id === id) {
               this.jobItem = item;
-              this.$refs[`jobList__item--${item.id}`].openSelectEffect();
+              // this.$refs[`jobList__item--${item.id}`].openSelectEffect();
             } else if (item.id !== id) {
-              this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
+              // this.$refs[`jobList__item--${item.id}`].closeSelectEffect();
             }
           });
           this.$refs.jobSelectBox.toTop();

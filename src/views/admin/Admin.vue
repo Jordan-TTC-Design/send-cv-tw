@@ -42,9 +42,13 @@
                   <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
                 </div>
               </div>
-              <div class="userBox__person__menu btn--circle" @click="openUserMenu">
-                <i v-if="userMenuState" class="text-dark jobIcon bi bi-chevron-up"></i>
-                <i v-if="!userMenuState" class="text-dark jobIcon bi bi-chevron-down"></i>
+              <div
+                ref="userBoxPersonMenuBtn"
+                class="userBox__person__menu btn--circle"
+                @click="openHeaderMenuModal"
+              >
+                <i class="text-dark jobIcon bi bi-chevron-up"></i>
+                <i class="text-dark jobIcon bi bi-chevron-down"></i>
               </div>
             </div>
           </li>
@@ -71,35 +75,8 @@
       </div>
     </div>
   </header>
-  <div v-if="userMenuState" class="header__userMenuModal">
-    <div class="container">
-      <div class="row justify-content-end">
-        <div class="col-3">
-          <div class="userMenu">
-            <ul class="userMenu__list">
-              <li class="list__item">
-                <router-link class="list__item__link nav-link" to="/admin/work-application"
-                  >工作</router-link
-                >
-              </li>
-              <li class="list__item">
-                <router-link class="list__item__link nav-link" to="/admin/document-cv"
-                  >文件</router-link
-                >
-              </li>
-              <li class="list__item">
-                <router-link class="list__item__link nav-link" to="/admin/setting"
-                  >帳戶設定</router-link
-                >
-              </li>
-              <li class="list__item userMenu__list__logOut">
-                <p>登出</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div ref="headerUserMenuModal" class="header__userMenuModal">
+    <UserMenu />
   </div>
 
   <!-- 有點不知道分區要不要寫在外元件 -->
@@ -213,26 +190,20 @@
 </template>
 <script>
 import SearchModal from '@/components/front/SearchModal.vue';
+import UserMenu from '@/components/helpers/UserMenu.vue';
 
 export default {
   components: {
     SearchModal,
+    UserMenu,
   },
   data() {
     return {
-      userMenuState: false,
       navState: '',
       language: 'Chinese',
     };
   },
   methods: {
-    openUserMenu() {
-      if (this.userMenuState === true) {
-        this.userMenuState = false;
-      } else if (this.userMenuState === false) {
-        this.userMenuState = true;
-      }
-    },
     changeLanguage() {
       if (this.language === 'Chinese') {
         this.language = 'English';
@@ -272,15 +243,25 @@ export default {
     closeSearchModal() {
       this.$refs.Search.classList.remove('active');
     },
+    openHeaderMenuModal() {
+      this.$refs.headerUserMenuModal.classList.toggle('active');
+      this.$refs.userBoxPersonMenuBtn.classList.toggle('active');
+    },
+    closeHeaderMenuModal() {
+      this.$refs.headerUserMenuModal.classList.remove('active');
+      this.$refs.userBoxPersonMenuBtn.classList.remove('active');
+    },
   },
   mounted() {
     this.checkNavState();
     this.closeSearchModal();
     this.closeRwdMenu();
+    this.closeHeaderMenuModal();
   },
   updated() {
     this.checkNavState();
     this.closeSearchModal();
+    this.closeHeaderMenuModal();
     this.closeRwdMenu();
   },
 };

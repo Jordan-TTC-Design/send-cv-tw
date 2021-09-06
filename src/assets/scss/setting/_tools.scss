@@ -414,6 +414,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background-color: $light;
     &::after {
       content: '';
       width: 1px;
@@ -469,6 +470,9 @@
       right: 1.5rem;
     }
   }
+  .modal-body{
+    padding: 0 1.5rem;
+  }
   &__header {
     padding: 1.5rem 2.5rem;
     &__subTxt {
@@ -487,17 +491,43 @@
       text-align: center;
     }
   }
+  &__header--left {
+    padding-left: 1.5rem;
+    .popModal__header__subTxt,
+    .popModal__title {
+      text-align: left;
+    }
+  }
   &__footer {
     display: flex;
     justify-content: flex-end;
     padding: 1.5rem;
   }
 }
-// .vc-day{
-//   .vc-highlight {
-//     background-color: $primary !important;
-//   }
-//   .vc-focusable {
-//     color: $dark !important;
-//   }
-// }
+.chatBox{
+  padding: 0.75rem;
+  display: flex;
+  &__img{
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: $light;
+    border: 1px solid $gray-line;
+    margin-right: 0.5rem;
+  }
+  &__txtBox{
+    padding: 0.5rem;
+    background-color: $light;
+    border-radius: 0.5rem;
+    max-width: 360px;
+    @include shadow-normal;
+  }
+  &.checkBox--right{
+    flex-direction: row-reverse;
+    .chatBox__img{
+      margin-right: 0 ;
+      margin-left: 0.5rem;
+    }
+  }
+}

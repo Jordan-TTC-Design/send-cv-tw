@@ -33,7 +33,7 @@
     <div class="container">
       <ul class="row">
         <li class="col-4">
-          <div class="docCard--new putPointer">
+          <div class="docCard--new putPointer" @click="openDocModal('newCoverLetter')">
             <p><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增求職信</p>
           </div>
         </li>
@@ -91,22 +91,29 @@
   <div class="sideBtnBox">
     <UpTopBtn />
   </div>
+  <DocModal />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
+import DocModal from '@/components/admin/DocModal.vue';
 
 export default {
   components: {
     UpTopBtn,
+    DocModal,
   },
   data() {
     return {
       subTopNav: '求職信',
+      editLetterModal: {},
     };
   },
   methods: {
+    openDocModal(action) {
+      emitter.emit('open-doc-modal', action);
+    },
     goToPageLink(routerLink) {
       this.$router.push(routerLink);
     },
@@ -114,7 +121,6 @@ export default {
   created() {
     emitter.emit('spinner-open-bg', 1000);
   },
-  mounted() {},
 };
 </script>
 

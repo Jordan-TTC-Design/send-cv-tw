@@ -101,7 +101,6 @@
                 v-model="filterData.keyword"
               />
             </div>
-
             <select
               class="form-select form-select-lg w-auto border-0 text-gray-dark"
               @change="changeJobSort($event)"
@@ -144,7 +143,6 @@
                     :ref="`jobList__item--${item.id}`"
                     :job-list-item="item"
                     @select-job="selectJob"
-                    @search-by-job-category="searchByJobCategory"
                   />
                 </li>
               </template>
@@ -152,11 +150,7 @@
           </div>
         </div>
         <div class="col-lg-6 col-12 d-lg-block d-none" v-if="jobsList.length > 0">
-          <ApplicationJobSideBox
-            ref="jobSelectBox"
-            :select-job-item="jobItem"
-            @search-by-job-category="searchByJobCategory"
-          />
+          <ApplicationJobSideBox ref="jobSelectBox" :select-job-item="jobItem" />
         </div>
         <div class="col-12 d-flex justify-content-center" v-if="jobsList.length === 0">
           <img
@@ -167,11 +161,7 @@
         </div>
       </div>
     </div>
-    <PagenationModal
-      :jobs-list="jobsList"
-      @change-page="changePage"
-      @search-by-job-category="searchByJobCategory"
-    />
+    <PagenationModal :jobs-list="jobsList" @change-page="changePage" />
   </div>
   <div class="sideBtnBox">
     <FilterBtn

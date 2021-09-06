@@ -98,6 +98,11 @@ const routes = [
         component: () => import('../views/admin/DocOther.vue'),
       },
       {
+        // 文件-履歷
+        path: 'chatroom',
+        component: () => import('../views/admin/ChatRoom.vue'),
+      },
+      {
         // 設定
         path: 'setting',
         component: () => import('../views/admin/SettingPersonalInfo.vue'),
