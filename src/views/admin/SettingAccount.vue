@@ -42,7 +42,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                       <div>
                         <p class="infoList__item__title">帳號信箱</p>
-                        <p class="infoList__item__content">jordanttcdesign@gmail.com</p>
+                        <p v-if="user.account.email !== ''" class="infoList__item__content">
+                          {{ user.account.email }}
+                        </p>
+                        <p v-if="user.account.email === ''" class="infoList__item__content">
+                          尚未填寫
+                        </p>
                       </div>
                       <button
                         type="button"
@@ -59,7 +64,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                       <div>
                         <p class="infoList__item__title">聯絡電話</p>
-                        <p class="infoList__item__content">0987-654-321</p>
+                        <p v-if="user.account.phone !== ''" class="infoList__item__content">
+                          {{ user.account.phone }}
+                        </p>
+                        <p v-if="user.account.phone === ''" class="infoList__item__content">
+                          尚未填寫
+                        </p>
                       </div>
                       <button
                         type="button"
@@ -76,7 +86,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                       <div>
                         <p class="infoList__item__title">密碼</p>
-                        <p class="infoList__item__content">*********</p>
+                        <p v-if="user.account.password !== ''" class="infoList__item__content">
+                          {{ user.account.password }}
+                        </p>
+                        <p v-if="user.account.password === ''" class="infoList__item__content">
+                          尚未填寫
+                        </p>
                       </div>
                       <button
                         type="button"
@@ -187,7 +202,7 @@
       </div>
     </div>
   </div>
-  <SettingAccountModal />
+  <SettingAccountModal :userData="user" />
 </template>
 
 <script>
@@ -202,11 +217,48 @@ export default {
       personalState: true,
       settingSideList: '個人資料',
       skillShowStyle: true,
+      user: {
+        account: {
+          chineseName: '',
+          EnglishName: '',
+          jobTitle: '',
+          gender: '',
+          birthday: '',
+          email: '',
+          phone: '',
+          addressCity: '',
+          addressDist: '',
+          password: '',
+          socialMedia: [],
+        },
+        workExp: {
+          years: 0,
+          works: [],
+        },
+        educationExp: {
+          lastestEducation: '',
+          educations: [],
+        },
+        languages: [],
+        Licenses: [],
+        skill: [],
+        others: {
+          driverLicenses: [],
+          identity: [],
+          militaryService: '',
+        },
+      },
     };
   },
   methods: {
+    getLocalStorage() {
+      const tempData = JSON.parse(localStorage.getItem('sendCVTW-userData'));
+      console.log(tempData);
+      if (tempData) {
+        this.user = JSON.parse(JSON.stringify(tempData));
+      }
+    },
     openSettingAccountModal(action) {
-      console.log(action);
       emitter.emit('open-setting-account-modal', action);
     },
     toogleData(dataName) {
@@ -238,6 +290,9 @@ export default {
         this.$router.push('/admin/setting-account');
       }
     },
+  },
+  created() {
+    this.getLocalStorage();
   },
 };
 </script>

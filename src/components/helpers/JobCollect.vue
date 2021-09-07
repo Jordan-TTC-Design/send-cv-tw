@@ -106,9 +106,7 @@
               ></Field>
               <ErrorMessage name="收藏夾名稱" class="invalid-feedback"></ErrorMessage>
             </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">
-              建立
-            </button>
+            <button type="submit" class="btn btn-primary w-100 mb-3">建立</button>
             <button
               class="btn btn-gray-light w-100"
               data-bs-target="#exampleModalToggle"

@@ -106,6 +106,7 @@
           </div>
         </div>
         <div class="col-lg-9 col-12">
+          <!-- 個人資訊 -->
           <div class="admin__mainContent" v-if="settingSideList === '個人資料'">
             <h3 class="admin__mainContent__title">個人資料</h3>
             <div class="admin__mainContent__btnBox">
@@ -129,25 +130,27 @@
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">姓名</p>
-                    <p class="infoList__item__content">曾鼎鈞</p>
+                    <p class="infoList__item__content">{{ user.account.chineseName }}</p>
                   </div>
                 </li>
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">目前職稱</p>
-                    <p class="infoList__item__content">UI Designer</p>
+                    <p class="infoList__item__content">{{ user.account.jobTitle }}</p>
                   </div>
                 </li>
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">性別</p>
-                    <p class="infoList__item__content">男性</p>
+                    <p class="infoList__item__content">
+                      {{ user.account.gender === 'male' ? '男性' : '女性' }}
+                    </p>
                   </div>
                 </li>
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">生日</p>
-                    <p class="infoList__item__content">1991年01月01日</p>
+                    <p class="infoList__item__content">{{ user.account.birthday }}</p>
                   </div>
                 </li>
               </ul>
@@ -155,19 +158,21 @@
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">電子信箱</p>
-                    <p class="infoList__item__content">曾鼎鈞</p>
+                    <p class="infoList__item__content">{{ user.account.email }}</p>
                   </div>
                 </li>
                 <li class="col-6">
                   <div class="infoList__item">
                     <p class="infoList__item__title">聯絡電話</p>
-                    <p class="infoList__item__content">0987-653-222</p>
+                    <p class="infoList__item__content">{{ user.account.phone }}</p>
                   </div>
                 </li>
                 <li class="col-12">
                   <div class="infoList__item">
                     <p class="infoList__item__title">居住地址</p>
-                    <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
+                    <p class="infoList__item__content">
+                      {{ user.account.addressCity }}，{{ user.account.addressDist }}
+                    </p>
                   </div>
                 </li>
               </ul>
@@ -201,7 +206,7 @@
               </ul>
             </div>
             <div v-if="editMode">
-              <Form ref="editAccountPersonalData" v-slot="{ errors }">
+              <Form ref="editAccountPersonalData" v-slot="{ errors }" @submit="saveData">
                 <div class="row">
                   <!-- 姓名 -->
                   <div class="col-lg-6 col-12">
@@ -221,7 +226,7 @@
                         :class="{ 'is-invalid': errors['姓名'] }"
                         placeholder="請輸入姓名"
                         rules="required"
-                        v-model="accountData.user.name"
+                        v-model="user.account.chineseName"
                       ></Field>
                       <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -242,7 +247,7 @@
                         class="form-control"
                         :class="{ 'is-invalid': errors['目前職稱'] }"
                         placeholder="目前職稱"
-                        v-model="accountData.user.jobTitle"
+                        v-model="user.account.jobTitle"
                       ></Field>
                       <ErrorMessage name="目前職稱" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -256,16 +261,35 @@
                         >
                         <p class="formTag--must">必填</p>
                       </div>
+                      <div class="d-flex flex-wrap">
+                        <div
+                          class="form-check me-2"
+                          v-for="(item, index) in formData.gender"
+                          :key="index"
+                        >
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            :value="item"
+                            :id="`education${index}`"
+                            name="性別"
+                            v-model="user.account.gender"
+                          />
+                          <label class="form-check-label" :for="`education${index}`">
+                            {{ item }}
+                          </label>
+                        </div>
+                      </div>
                       <Field
                         id="accountDataGender"
                         ref="accountDataGender"
                         name="性別"
                         type="text"
-                        class="form-control"
+                        class="form-control d-none"
                         :class="{ 'is-invalid': errors['性別'] }"
                         placeholder="請輸入性別"
                         rules="required"
-                        v-model="accountData.user.gender"
+                        v-model="user.account.gender"
                       ></Field>
                       <ErrorMessage name="性別" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -288,7 +312,7 @@
                         :class="{ 'is-invalid': errors['生日'] }"
                         placeholder="請輸入生日"
                         rules="required"
-                        :value="accountData.user.birthday"
+                        v-model="user.account.birthday"
                       ></Field>
                       <ErrorMessage name="生日" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -306,11 +330,11 @@
                       <input
                         id="accountDataEmail"
                         ref="accountDataEmail"
-                        name="姓名"
+                        name="電子郵件"
                         type="email"
                         class="form-control"
-                        placeholder="請輸入姓名"
-                        v-model="accountData.user.email"
+                        placeholder="請輸入電子郵件"
+                        v-model="user.account.email"
                         readonly
                       />
                     </div>
@@ -330,7 +354,7 @@
                         type="phone"
                         class="form-control"
                         placeholder="請輸入聯絡電話"
-                        v-model="accountData.user.phone"
+                        v-model="user.account.phone"
                         readonly
                       />
                     </div>
@@ -351,8 +375,8 @@
                         class="form-control form-select w-auto mb-2"
                         :class="{ 'is-invalid': errors['縣市'] }"
                         rules="required"
-                        v-model="accountData.user.addressCity"
-                        @change="choose(accountData.user.addressCity)"
+                        v-model="user.account.addressCity"
+                        @change="choose(user.account.addressCity)"
                       >
                         <option value="" disabled selected>請選擇縣市</option>
                         <option v-for="city in formData.cities" :value="city" :key="city">
@@ -376,8 +400,8 @@
                         class="form-control form-select w-auto mb-2"
                         :class="{ 'is-invalid': errors['區域鄉鎮'] }"
                         rules="required"
-                        v-model="accountData.user.addressDist"
-                        @change="show(accountData.user.addressDist)"
+                        v-model="user.account.addressDist"
+                        @change="show(user.account.addressDist)"
                       >
                         <option value="" disabled selected>請選擇區域鄉鎮</option>
                         <option v-for="dist in chooseCityDist" :value="dist" :key="dist">
@@ -387,15 +411,29 @@
                       <ErrorMessage name="區域鄉鎮" class="invalid-feedback"></ErrorMessage>
                     </div>
                   </div>
+                  <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-gray-light me-2">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                  </div>
                 </div>
               </Form>
             </div>
           </div>
+          <!-- 工作經驗 -->
           <div class="admin__mainContent" v-if="settingSideList === '工作經驗'">
             <h3 class="admin__mainContent__title">工作經驗</h3>
             <div class="admin__mainContent__btnBox">
-              <button type="button" class="btn btn-outline-gray-line btn--text--dark">
-                <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增工作經驗
+              <button
+                type="button"
+                class="btn btn-outline-gray-line btn--text--dark"
+                @click="newWorkData"
+                :disabled="editMode"
+              >
+                <i
+                  class="jobIcon--sm bi bi-plus-lg me-1"
+                  :class="{ 'text-gray-line': editMode }"
+                ></i
+                >新增工作經驗
               </button>
             </div>
             <div class="remind mb-5">
@@ -423,8 +461,12 @@
               </div>
               <ul class="row">
                 <li class="col-12">
-                  <div v-if="editMode">
-                    <Form ref="editAccountworkExpData" v-slot="{ errors }">
+                  <div ref="workExpEdit--new" class="dataEditForm d-none">
+                    <Form
+                      ref="editAccountWorkExpData"
+                      v-slot="{ errors }"
+                      @submit="saveNewWorkData"
+                    >
                       <div class="row">
                         <!-- 企業名稱 -->
                         <div class="col-lg-6 col-12">
@@ -494,7 +536,7 @@
                               :class="{ 'is-invalid': errors['到職年份'] }"
                               rules="required"
                               v-model="tempWorkExp.startYear"
-                              @change="createEndYears"
+                              @change="createEndYears('work')"
                             >
                               <option value="" disabled selected>請選擇到職年份</option>
                               <option v-for="year in yearArray" :value="year" :key="year">
@@ -615,84 +657,304 @@
                             ></ErrorMessage>
                           </div>
                         </div>
+                        <div class="col-12 d-flex justify-content-end">
+                          <button
+                            type="button"
+                            class="btn btn-gray-light me-2"
+                            @click="closeWorkTemplateData(index)"
+                          >
+                            取消
+                          </button>
+                          <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
                       </div>
                     </Form>
                   </div>
                 </li>
-                <li class="col-12">
-                  <div class="infoList__item infoList__item--job">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__jobTitle mb-1">
-                          工業設計師 - 鴻海精密股份有限公司
-                        </p>
-                        <p class="infoList__item__subTitle mb-3">2017.09 ~ 仍在職</p>
+                <template v-for="(tempItem, index) in user.workExp.works" :key="index">
+                  <li class="col-12" :ref="`workExp--${index}`">
+                    <div class="infoList__item infoList__item--job">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                          <div class="d-flex">
+                            <p class="infoList__item__jobTitle mb-1 me-2">
+                              {{ tempItem.companyName }}
+                            </p>
+                            <p class="infoList__item__jobTitle mb-1">
+                              <span class="me-2">-</span>{{ tempItem.jobName }}
+                            </p>
+                          </div>
+                          <p class="infoList__item__subTitle mb-3">
+                            {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
+                            {{
+                              tempItem.isStillWork
+                                ? '仍在職'
+                                : `${tempItem.endYear}.${tempItem.endMonth}`
+                            }}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn position-relative"
+                          @click="openDropDownMenu(index)"
+                          :disabled="editMode"
+                        >
+                          <i class="jobIcon bi bi-three-dots"></i>
+                          <ul :ref="`dropDownMenu--${index}`" class="dropDownMenu">
+                            <li class="dropDownMenu__item" @click="toggleTemplateData(index)">
+                              編輯
+                            </li>
+                            <li class="dropDownMenu__item">調整排序</li>
+                            <li class="dropDownMenu__item" @click="deleteWorkExpData(index)">
+                              刪除
+                            </li>
+                          </ul>
+                        </button>
                       </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                    </div>
-
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">職務內容與成就</p>
-                      <p class="infoList__item__content">
-                        RWD製作 負責網站、行動裝置APP的UI及視覺設計
-                        參與產品規劃討論，以使用者體驗、視覺為出發點提出具體意見
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item infoList__item--job">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__jobTitle mb-1">
-                          工業設計師 - 鴻海精密股份有限公司
-                        </p>
-                        <p class="infoList__item__subTitle mb-3">2017.09 ~ 仍在職</p>
+                      <div class="infoList__item__contentBox">
+                        <p class="contentBox__title mb-1">職務內容與成就</p>
+                        <div class="infoList__item__content" v-html="tempItem.jobContent"></div>
                       </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
                     </div>
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">職務內容與成就</p>
-                      <p class="infoList__item__content">
-                        RWD製作 負責網站、行動裝置APP的UI及視覺設計
-                        參與產品規劃討論，以使用者體驗、視覺為出發點提出具體意見
-                      </p>
+                  </li>
+                  <li class="col-12">
+                    <div :ref="`workExpEdit--${index}`" class="dataEditForm d-none">
+                      <Form
+                        ref="editAccountWorkExpData"
+                        v-slot="{ errors }"
+                        @submit="saveTemplateData(index)"
+                      >
+                        <div class="row">
+                          <!-- 企業名稱 -->
+                          <div class="col-lg-6 col-12">
+                            <div class="form__inputBox">
+                              <div class="form__labelBox">
+                                <label
+                                  for="workExpDataCompanyName"
+                                  class="form__label--custom form-label"
+                                  >企業名稱</label
+                                >
+                                <p class="formTag--must">必填</p>
+                              </div>
+                              <Field
+                                id="workExpDataCompanyName"
+                                ref="workExpDataCompanyName"
+                                name="企業名稱"
+                                type="text"
+                                class="form-control"
+                                :class="{ 'is-invalid': errors['企業名稱'] }"
+                                placeholder="請輸入企業名稱"
+                                rules="required"
+                                v-model="tempWorkExp.companyName"
+                              ></Field>
+                              <ErrorMessage name="企業名稱" class="invalid-feedback"></ErrorMessage>
+                            </div>
+                          </div>
+                          <!-- 職位名稱 -->
+                          <div class="col-lg-6 col-12">
+                            <div class="form__inputBox">
+                              <div class="form__labelBox">
+                                <label
+                                  for="workExpDataJobName"
+                                  class="form__label--custom form-label"
+                                  >職位名稱</label
+                                >
+                                <p class="formTag--must">必填</p>
+                              </div>
+                              <Field
+                                id="workExpDataJobName"
+                                ref="workExpDataJobName"
+                                name="職位名稱"
+                                type="text"
+                                class="form-control"
+                                :class="{ 'is-invalid': errors['職位名稱'] }"
+                                placeholder="請輸入職位名稱"
+                                rules="required"
+                                v-model="tempWorkExp.jobName"
+                              ></Field>
+                              <ErrorMessage name="職位名稱" class="invalid-feedback"></ErrorMessage>
+                            </div>
+                          </div>
+                          <!-- 到職年份 -->
+                          <div class="col-lg-6 col-12 d-flex">
+                            <div class="form__inputBox me-2">
+                              <div class="form__labelBox">
+                                <label
+                                  for="workExpDataStartYear"
+                                  class="form__label--custom form-label"
+                                  >就讀年份</label
+                                >
+                                <p class="formTag--must">必填</p>
+                              </div>
+                              <Field
+                                id="workExpDataStartYear"
+                                ref="workExpDataStartYear"
+                                name="到職年份"
+                                as="select"
+                                class="form-control form-select"
+                                :class="{ 'is-invalid': errors['到職年份'] }"
+                                rules="required"
+                                v-model="tempWorkExp.startYear"
+                                @change="createEndYears('work')"
+                              >
+                                <option value="" disabled selected>請選擇到職年份</option>
+                                <option v-for="year in yearArray" :value="year" :key="year">
+                                  {{ year }}
+                                </option>
+                              </Field>
+                              <ErrorMessage name="到職年份" class="invalid-feedback"></ErrorMessage>
+                            </div>
+                            <div class="form__inputBox">
+                              <div class="form__labelBox">
+                                <label
+                                  for="workExpDataStartMonth"
+                                  class="form__label--custom form-label invisible"
+                                  >到職月份</label
+                                >
+                              </div>
+                              <Field
+                                id="workExpDataStartMonth"
+                                ref="workExpDataStartMonth"
+                                name="到職月份"
+                                as="select"
+                                class="form-control form-select"
+                                :class="{ 'is-invalid': errors['到職月份'] }"
+                                rules="required"
+                                v-model="tempWorkExp.startMonth"
+                              >
+                                <option value="" disabled selected>請選擇到職月份</option>
+                                <option
+                                  v-for="month in formData.months"
+                                  :value="month"
+                                  :key="month"
+                                >
+                                  {{ month }}
+                                </option>
+                              </Field>
+                              <ErrorMessage name="到職月份" class="invalid-feedback"></ErrorMessage>
+                            </div>
+                          </div>
+                          <!-- 離職年份 -->
+                          <div class="col-lg-6 col-12 d-flex">
+                            <div class="form__inputBox me-2">
+                              <div class="form__labelBox">
+                                <label
+                                  for="workExpDataEndYear"
+                                  class="form__label--custom form-label"
+                                  >離職日期</label
+                                >
+                                <p class="formTag--must">必填</p>
+                              </div>
+                              <Field
+                                id="workExpDataEndYear"
+                                ref="workExpDataEndYear"
+                                name="離職年份"
+                                as="select"
+                                class="form-control form-select"
+                                :class="{ 'is-invalid': errors['離職年份'] }"
+                                rules="required"
+                                v-model="tempWorkExp.endYear"
+                              >
+                                <option value="" disabled selected>請選擇離職年份</option>
+                                <option v-for="year in endYearArray" :value="year" :key="year">
+                                  {{ year }}
+                                </option>
+                              </Field>
+                              <ErrorMessage name="離職年份" class="invalid-feedback"></ErrorMessage>
+                            </div>
+                            <div class="form__inputBox">
+                              <div class="form__labelBox">
+                                <label
+                                  for="workExpDataEndMonth"
+                                  class="form__label--custom form-label invisible"
+                                  >離職月份</label
+                                >
+                              </div>
+                              <Field
+                                id="workExpDataEndMonth"
+                                ref="workExpDataEndMonth"
+                                name="離職月份"
+                                as="select"
+                                class="form-control form-select"
+                                :class="{ 'is-invalid': errors['離職月份'] }"
+                                rules="required"
+                                v-model="tempWorkExp.endMonth"
+                              >
+                                <option value="" disabled selected>請選擇離職月份</option>
+                                <option
+                                  v-for="month in formData.months"
+                                  :value="month"
+                                  :key="month"
+                                >
+                                  {{ month }}
+                                </option>
+                              </Field>
+                              <ErrorMessage name="離職月份" class="invalid-feedback"></ErrorMessage>
+                            </div>
+                          </div>
+                          <!-- 職務內容＆成就 -->
+                          <div class="col-12">
+                            <div class="form__inputBox form__infoEditBox">
+                              <div class="form__labelBox">
+                                <label
+                                  for="workExpDataContent"
+                                  class="form__label--custom form-label"
+                                  >職務內容＆成就</label
+                                >
+                              </div>
+                              <ckeditor
+                                id="workExpDataContent"
+                                ref="workExpDataContent"
+                                name="職務內容＆成就"
+                                :editor="editor"
+                                tag-name="textarea"
+                                v-model="tempWorkExp.jobContent"
+                                :config="editorConfig"
+                              ></ckeditor>
+                              <Field
+                                name="職務內容＆成就"
+                                type="text"
+                                class="form-control d-none"
+                                :class="{ 'is-invalid': errors['職務內容＆成就'] }"
+                                placeholder="請輸入"
+                                v-model="tempWorkExp.jobContent"
+                                as="textarea"
+                                rules="required"
+                              >
+                              </Field>
+                              <ErrorMessage
+                                name="職務內容＆成就"
+                                class="invalid-feedback"
+                              ></ErrorMessage>
+                            </div>
+                          </div>
+                          <div class="col-12 d-flex justify-content-end">
+                            <button
+                              type="button"
+                              class="btn btn-gray-light me-2"
+                              @click="closeWorkTemplateData(index)"
+                            >
+                              取消
+                            </button>
+                            <button type="submit" class="btn btn-primary">保存</button>
+                          </div>
+                        </div>
+                      </Form>
                     </div>
-                  </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item infoList__item--job listLast">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__jobTitle mb-1">
-                          工業設計師 - 鴻海精密股份有限公司
-                        </p>
-                        <p class="infoList__item__subTitle mb-3">2017.09 ~ 仍在職</p>
-                      </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                    </div>
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">職務內容與成就</p>
-                      <p class="infoList__item__content">
-                        RWD製作 負責網站、行動裝置APP的UI及視覺設計
-                        參與產品規劃討論，以使用者體驗、視覺為出發點提出具體意見
-                      </p>
-                    </div>
-                  </div>
-                </li>
+                  </li>
+                </template>
               </ul>
             </div>
           </div>
+          <!-- 教育程度 -->
           <div class="admin__mainContent" v-if="settingSideList === '教育程度'">
             <h3 class="admin__mainContent__title">教育程度</h3>
             <div class="admin__mainContent__btnBox">
-              <button type="button" class="btn btn-outline-gray-line btn--text--dark">
+              <button
+                type="button"
+                class="btn btn-outline-gray-line btn--text--dark"
+                @click="newEducationData"
+              >
                 <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增教育程度
               </button>
             </div>
@@ -719,8 +981,12 @@
               </div>
               <ul class="row">
                 <li class="col-12">
-                  <div v-if="editMode">
-                    <Form ref="editAccountEducationData" v-slot="{ errors }">
+                  <div ref="educationExpEdit--new" class="dataEditForm d-none">
+                    <Form
+                      ref="editAccountEducationData"
+                      v-slot="{ errors }"
+                      @submit="saveEducationData('new')"
+                    >
                       <div class="row">
                         <!-- 學校名稱 -->
                         <div class="col-lg-6 col-12">
@@ -831,7 +1097,7 @@
                               :class="{ 'is-invalid': errors['就讀年份'] }"
                               rules="required"
                               v-model="tempEducation.startYear"
-                              @change="createEndYears"
+                              @change="createEndYears('education')"
                             >
                               <option value="" disabled selected>請選擇就讀年份</option>
                               <option v-for="year in yearArray" :value="year" :key="year">
@@ -954,58 +1220,57 @@
                             ></ErrorMessage>
                           </div>
                         </div>
+                        <div class="col-12 d-flex justify-content-end">
+                          <button
+                            type="button"
+                            class="btn btn-gray-light me-2"
+                            @click="closeEducationTemplateData"
+                          >
+                            取消
+                          </button>
+                          <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
                       </div>
                     </Form>
                   </div>
                 </li>
-                <li class="col-12">
-                  <div class="infoList__item infoList__item--job">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__jobTitle mb-1">國立台灣師範大學 - 設計研究所</p>
-                        <p class="infoList__item__subTitle mb-3">
-                          1900 / 09 - 2012 / 06 <span class="ms-2 text-secondary">碩士畢業</span>
-                        </p>
+                <template v-for="(tempItem, index) in user.educationExp.educations" :key="index">
+                  <li class="col-12">
+                    <div class="infoList__item infoList__item--job">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                          <p class="infoList__item__jobTitle mb-1">
+                            {{ tempItem.schoolName }} - {{ tempItem.majorName }}
+                          </p>
+                          <p class="infoList__item__subTitle mb-3">
+                            {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
+                            {{
+                              tempItem.isStillAtSchool
+                                ? '仍在學'
+                                : `${tempItem.endYear}.${tempItem.endMonth}`
+                            }}
+                            <span class="ms-2 text-secondary">{{ tempItem.educationLevel }}</span>
+                          </p>
+                        </div>
+                        <button type="button" class="btn">
+                          <i class="jobIcon bi bi-three-dots"></i>
+                        </button>
                       </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                    </div>
 
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">學習專業與經歷</p>
-                      <p class="infoList__item__content">
-                        RWD製作 負責網站、行動裝置APP的UI及視覺設計
-                        參與產品規劃討論，以使用者體驗、視覺為出發點提出具體意見
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item infoList__item--job listLast">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__jobTitle mb-1">私立銘傳大學 - 商品設計系</p>
-                        <p class="infoList__item__subTitle mb-3">
-                          1900 / 09 - 2012 / 06 <span class="ms-2 text-secondary">學士畢業</span>
-                        </p>
+                      <div class="infoList__item__contentBox">
+                        <p class="contentBox__title mb-1">學習專業與經歷</p>
+                        <div
+                          class="infoList__item__content"
+                          v-html="tempItem.educationContent"
+                        ></div>
                       </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
                     </div>
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">學習專業與經歷</p>
-                      <p class="infoList__item__content">
-                        RWD製作 負責網站、行動裝置APP的UI及視覺設計
-                        參與產品規劃討論，以使用者體驗、視覺為出發點提出具體意見
-                      </p>
-                    </div>
-                  </div>
-                </li>
+                  </li>
+                </template>
               </ul>
             </div>
           </div>
+          <!-- 專業技能 -->
           <div class="admin__mainContent" v-if="settingSideList === '專業技能'">
             <h3 class="admin__mainContent__title">專業技能</h3>
             <div class="admin__mainContent__btnBox">
@@ -1469,6 +1734,7 @@
               </ul>
             </div>
           </div>
+          <!-- 其他 -->
           <div class="admin__mainContent" v-if="settingSideList === '其他'">
             <h3 class="admin__mainContent__title">其他</h3>
             <div>
@@ -1552,47 +1818,40 @@ export default {
       editMode: false,
       formData: {},
       chooseCityDist: [],
-      accountData: {
-        user: {
-          name: '',
+      user: {
+        account: {
+          chineseName: '',
+          englishName: '',
           jobTitle: '',
           gender: '',
           birthday: '',
-          email: 'jordan.tseng@talentgroup.asia',
-          phone: '0975286269',
+          email: '',
+          phone: '',
           addressCity: '',
           addressDist: '',
+          password: '',
+          socialMedia: [],
         },
-        workExp: [],
-        password: '',
-        socialMedia: [],
+        workExp: {
+          years: 0,
+          works: [],
+        },
+        educationExp: {
+          lastestEducation: '',
+          educations: [],
+        },
+        languages: [],
+        Licenses: [],
+        skill: [],
+        others: {
+          driverLicenses: [],
+          identity: [],
+          militaryService: '',
+        },
       },
-      tempWorkExp: {
-        companyName: '',
-        jobName: '',
-        jobContent: '',
-        startYear: null,
-        startMonth: null,
-        endYear: null,
-        endMonth: null,
-        isStillWork: false,
-      },
-      tempEducation: {
-        schoolName: '',
-        majorName: '',
-        eductionContent: '',
-        eductionLevel: null,
-        startYear: null,
-        startMonth: null,
-        endYear: null,
-        endMonth: null,
-        isStillAtSchool: false,
-      },
-      tempSkill: {
-        skillCategory: '',
-        skillName: '',
-        skillLevel: '',
-      },
+      tempWorkExp: {},
+      tempEducation: {},
+      tempSkill: {},
       tempLanguage: {
         name: '',
         languageLevel: null,
@@ -1635,13 +1894,125 @@ export default {
   watch: {
     date(newValue) {
       const data = Math.ceil(newValue.valueOf() / 1000);
-      this.accountData.user.birthday = data;
+      this.user.account.birthday = data;
       console.log(data);
       console.dir(this.$filters.date(data));
       console.log(data);
     },
   },
   methods: {
+    // 展開下拉選單
+    openDropDownMenu(index) {
+      console.log(index);
+      console.log(this.$refs[`dropDownMenu--${index}`].classList);
+      this.$refs[`dropDownMenu--${index}`].classList.toggle('active');
+    },
+    // 工作經驗
+    // 新增工作經驗
+    newWorkData() {
+      this.editMode = true;
+      this.$refs['workExpEdit--new'].classList.toggle('d-none');
+      this.clearTempData();
+    },
+    // 保存新工作經驗
+    saveNewWorkData() {
+      this.saveWorkData('new');
+    },
+    // 編輯工作經驗
+    toggleTemplateData(index) {
+      this.editMode = true;
+      this.$refs[`workExp--${index}`].classList.toggle('d-none');
+      this.$refs[`workExpEdit--${index}`].classList.toggle('d-none');
+      this.$refs[`dropDownMenu--${index}`].classList.toggle('active');
+      this.tempWorkExp = this.user.workExp.works[index];
+    },
+    // 保存現有工作經驗
+    saveTemplateData(index) {
+      this.saveWorkData('old', index);
+    },
+    // 保存工作經驗資料
+    saveWorkData(action, index) {
+      this.editMode = false;
+      console.log(this.tempWorkExp);
+      console.log(index);
+      if (action === 'old') {
+        this.user.workExp.works.splice(index, 1, this.tempWorkExp);
+      } else if (action === 'new') {
+        this.user.workExp.works.push(this.tempWorkExp);
+      }
+      this.closeWorkTemplateData(index);
+      this.saveData();
+      this.getLocalStorage();
+    },
+    // 刪除工作經驗
+    deleteWorkExpData(index) {
+      this.user.workExp.works.splice(index, 1);
+      this.saveData();
+      this.getLocalStorage();
+    },
+    // 關閉
+    closeWorkTemplateData(index) {
+      this.editMode = false;
+      if (index) {
+        this.$refs[`workExp--${index}`].classList.toggle('d-none');
+        this.$refs[`workExpEdit--${index}`].classList.toggle('d-none');
+      } else {
+        this.$refs['workExpEdit--new'].classList.toggle('d-none');
+      }
+      this.clearTempData();
+    },
+    // 教育程度
+    // 新增教育程度
+    newEducationData() {
+      this.editMode = true;
+      this.$refs['educationExpEdit--new'].classList.toggle('d-none');
+      this.clearTempData();
+    },
+    // 保存教育程度
+    saveNewEducationData() {
+      this.saveWorkData('new');
+    },
+    // 保存教育程度
+    saveEducationData(action, index) {
+      this.editMode = false;
+      if (action === 'old') {
+        this.user.educationExp.educations.splice(index, 1, this.tempEducation);
+      } else if (action === 'new') {
+        this.user.educationExp.educations.push(this.tempEducation);
+      }
+      console.log(this.tempEducation);
+      console.log(this.user.educationExp.educations);
+      this.closeEducationTemplateData(index);
+      this.saveData();
+      this.getLocalStorage();
+    },
+    // 關閉教育程度
+    closeEducationTemplateData(index) {
+      this.editMode = false;
+      if (index) {
+        this.$refs[`educationExp--${index}`].classList.toggle('d-none');
+        this.$refs[`educationExpEdit--${index}`].classList.toggle('d-none');
+      } else {
+        this.$refs['educationExpEdit--new'].classList.toggle('d-none');
+      }
+      this.clearTempData();
+    },
+    // 保存資料
+    saveData() {
+      console.log(this.user);
+      const temData = JSON.stringify(this.user);
+      localStorage.setItem('sendCVTW-userData', temData);
+      this.getLocalStorage();
+      this.editMode = false;
+    },
+    // 取得資料
+    getLocalStorage() {
+      const tempData = JSON.parse(localStorage.getItem('sendCVTW-userData'));
+      console.log(tempData);
+      if (tempData) {
+        this.user = JSON.parse(JSON.stringify(tempData));
+      }
+    },
     createYears() {
       const myDate = new Date();
       const startYear = myDate.getFullYear() - 100;
@@ -1649,16 +2020,19 @@ export default {
       for (let i = startYear; i <= endYear; i += 1) {
         this.yearArray.unshift(i);
       }
-      if (this.tempWorkExp.startYear) {
-        this.createEndYears();
-      } else if (!this.tempWorkExp.startYear) {
-        this.endYearArray = this.yearArray;
-      }
+      this.endYearArray = this.yearArray;
     },
-    createEndYears() {
+    createEndYears(text) {
       this.endYearArray = [];
       const myDate = new Date();
-      const startYear = parseInt(this.tempWorkExp.startYear, 10);
+      let startYear = 0;
+      console.log(text);
+      if (text === 'work') {
+        startYear = parseInt(this.tempWorkExp.startYear, 10);
+      } else if (text === 'education') {
+        startYear = parseInt(this.tempEducation.startYear, 10);
+      }
+      console.log(startYear);
       const endYear = myDate.getFullYear();
       for (let i = startYear; i <= endYear; i += 1) {
         this.endYearArray.unshift(i);
@@ -1668,7 +2042,7 @@ export default {
       this.chooseCityDist = [];
       this.chooseCityDist = this.formData.districts[cityName].district;
       const [temDist] = this.chooseCityDist;
-      this.accountData.user.addressDist = temDist;
+      this.user.account.addressDist = temDist;
     },
     toogleData(dataName) {
       if (this[dataName]) {
@@ -1688,6 +2062,7 @@ export default {
     },
     selectListItem(navName) {
       this.settingSideList = navName;
+      this.editMode = false;
     },
     changeSideHeader(navName) {
       if (navName === '基本資料') {
@@ -1701,13 +2076,44 @@ export default {
         this.$router.push('/admin/setting-account');
       }
     },
+    clearTempData() {
+      this.tempWorkExp = {
+        companyName: '',
+        jobName: '',
+        jobContent: '',
+        startYear: null,
+        startMonth: null,
+        endYear: null,
+        endMonth: null,
+        isStillWork: false,
+      };
+      this.tempEducation = {
+        schoolName: '',
+        majorName: '',
+        educationContent: '',
+        educationLevel: null,
+        startYear: null,
+        startMonth: null,
+        endYear: null,
+        endMonth: null,
+        isStillAtSchool: false,
+      };
+      this.tempSkill = {
+        skillCategory: '',
+        skillName: '',
+        skillLevel: '',
+      };
+    },
   },
   created() {
+    this.getLocalStorage();
     this.formData = webData;
     this.chooseCityDist = this.formData.districts['台北市'].district;
     emitter.emit('spinner-open-bg', 800);
     this.createYears();
+    this.clearTempData();
   },
+  mounted() {},
 };
 </script>
 

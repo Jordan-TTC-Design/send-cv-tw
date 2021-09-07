@@ -470,7 +470,7 @@
       right: 1.5rem;
     }
   }
-  .modal-body{
+  .modal-body {
     padding: 0 1.5rem;
   }
   &__header {
@@ -504,10 +504,10 @@
     padding: 1.5rem;
   }
 }
-.chatBox{
+.chatBox {
   padding: 0.75rem;
   display: flex;
-  &__img{
+  &__img {
     width: 44px;
     height: 44px;
     object-fit: cover;
@@ -516,18 +516,47 @@
     border: 1px solid $gray-line;
     margin-right: 0.5rem;
   }
-  &__txtBox{
+  &__txtBox {
     padding: 0.5rem;
     background-color: $light;
     border-radius: 0.5rem;
     max-width: 360px;
     @include shadow-normal;
   }
-  &.checkBox--right{
+  &.checkBox--right {
     flex-direction: row-reverse;
-    .chatBox__img{
-      margin-right: 0 ;
+    .chatBox__img {
+      margin-right: 0;
       margin-left: 0.5rem;
     }
+  }
+}
+.dropDownMenu {
+  background-color: $light;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateY(100%);
+  display: none;
+  border: 1px solid $gray-line;
+  z-index: 100;
+  &__item {
+    min-width: 120px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $gray-line;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.8);
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  &.active {
+    display: block;
   }
 }

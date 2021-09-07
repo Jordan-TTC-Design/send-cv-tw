@@ -886,7 +886,7 @@ const webData = {
       code: ['209', '210', '211', '212'],
     },
   },
-  gender: ['男性', '女性', '不區分'],
+  gender: ['男性', '女性'],
   skillLevel: ['略懂', '普通', '精通'],
   languages: [
     '中文',

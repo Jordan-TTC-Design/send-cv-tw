@@ -41,7 +41,7 @@
                         :class="{ 'is-invalid': errors['新帳號'] }"
                         placeholder="請輸入新帳號"
                         rules="required"
-                        v-model="accountData.email"
+                        v-model="tempAccountData.email"
                       ></Field>
                       <ErrorMessage name="新帳號" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -64,7 +64,7 @@
                         minlength="4"
                         maxlength="8"
                         size="8"
-                        v-model="accountData.password"
+                        v-model="tempAccountData.password"
                       ></Field>
                       <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -108,7 +108,7 @@
                         :class="{ 'is-invalid': errors['電話號碼'] }"
                         placeholder="請輸入電話號碼"
                         rules="required"
-                        v-model="accountData.phone"
+                        v-model="tempAccountData.phone"
                       ></Field>
                       <ErrorMessage name="電話號碼" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -131,7 +131,7 @@
                         minlength="4"
                         maxlength="8"
                         size="8"
-                        v-model="accountData.password"
+                        v-model="tempAccountData.password"
                       ></Field>
                       <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -320,11 +320,44 @@ import webData from '@/methods/webData';
 import emitter from '@/methods/emitter';
 
 export default {
+  emits: ['return-user-data'],
+  props: ['userData'],
   data() {
     return {
       modalAction: '',
       modal: {},
-      accountData: {
+      user: {
+        account: {
+          chineseName: '',
+          EnglishName: '',
+          jobTitle: '',
+          gender: '',
+          birthday: '',
+          email: '',
+          phone: '',
+          addressCity: '',
+          addressDist: '',
+          password: '',
+          socialMedia: [],
+        },
+        workExp: {
+          years: 0,
+          works: [],
+        },
+        educationExp: {
+          lastestEducation: '',
+          educations: [],
+        },
+        languages: [],
+        Licenses: [],
+        skill: [],
+        others: {
+          driverLicenses: [],
+          identity: [],
+          militaryService: '',
+        },
+      },
+      tempAccountData: {
         email: '',
         password: '',
         phone: '',
@@ -337,7 +370,17 @@ export default {
       formData: {},
     };
   },
+  watch: {
+    userData: {
+      deep: true,
+      handler(newValue) {
+        this.user = newValue;
+        console.log(this.user);
+      },
+    },
+  },
   methods: {
+    updateEmail() {},
     cleanData() {
       this.accountData = {
         email: '',
@@ -359,18 +402,45 @@ export default {
     closeModal() {
       this.modal.hide();
       this.cleanData();
-      this.formData = webData;
     },
+    returnUserData() {
+      this.$emit('return-user-data', this.user);
+    },
+    getLocalStorage() {
+      const tempData = JSON.parse(localStorage.getItem('sendCVTW-userData'));
+      if (tempData) {
+        console.log(tempData);
+        // this.user = tempData;
+        // this.collectFolder = JSON.parse(JSON.stringify(tempData));
+      }
+      // this.returnJobCollection();
+    },
+    saveEmail() {
+      this.user.account.email = this.tempAccountData.email;
+      this.saveUser();
+    },
+    saveUser() {
+      console.log(this.user);
+      const temData = JSON.stringify(this.user);
+      localStorage.setItem('sendCVTW-userData', temData);
+      this.getLocalStorage();
+    },
+  },
+  created() {
+    this.formData = webData;
+    this.user = this.userData;
   },
   mounted() {
     this.modal = new Modal(this.$refs.settingAccountModal);
     emitter.on('open-setting-account-modal', this.openModal);
     emitter.on('close-setting-account-modal', this.closeModal);
+    emitter.on('return-setting-account-modal', this.returnUserData);
   },
   unmounted() {
     this.modal.dispose();
     emitter.off('open-setting-account-modal', this.openModal);
     emitter.off('close-setting-account-modal', this.closeModal);
+    emitter.off('return-setting-account-modal', this.returnUserData);
   },
 };
 </script>
