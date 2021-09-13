@@ -57,10 +57,20 @@
                           <li><p class="jobTag jobTag--letter me-2">職位標籤</p></li>
                           <li><p class="jobTag jobTag--letter">公司標籤</p></li>
                         </ul>
+                        <ckeditor
+                          id="sendFormInfoOtherApplyInfo"
+                          ref="sendFormInfoOtherApplyInfo "
+                          name="申請備註"
+                          :editor="editor"
+                          tag-name="textarea"
+                          class="form-control textarea--tag__inputBox"
+                          v-model="coverLetter.content"
+                          :config="editorConfig"
+                        ></ckeditor>
                         <Field
                           name="求職信內容"
                           type="text"
-                          class="form-control textarea--tag__inputBox"
+                          class="form-control d-none"
                           :class="{ 'is-invalid': errors['求職信內容'] }"
                           placeholder="請輸入"
                           v-model="coverLetter.content"
@@ -90,8 +100,8 @@
 </template>
 <script>
 import Modal from 'bootstrap/js/dist/modal';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import webData from '@/methods/webData';
-
 import emitter from '@/methods/emitter';
 
 export default {
@@ -114,6 +124,17 @@ export default {
         content: '',
       },
       formData: {},
+      tempCoverLetter: {
+        title: '',
+        content: '',
+      },
+      // 編輯器套件
+      editor: ClassicEditor,
+      editorConfig: {
+        toolbar: [],
+        language: 'zh',
+        placeholder: '請輸入...',
+      },
     };
   },
   methods: {

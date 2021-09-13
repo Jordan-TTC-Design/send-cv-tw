@@ -461,6 +461,12 @@
   }
 }
 .popModal {
+  &__width--sm {
+    max-width: 420px;
+  }
+  &__width--lg {
+    max-width: 720px;
+  }
   .modal-content {
     border-radius: 1rem;
     position: relative;
@@ -558,5 +564,40 @@
   }
   &.active {
     display: block;
+  }
+}
+.dataForm {
+  width: 100%;
+  height: 360px;
+  background-color: $gray-light;
+  display: flex;
+  .list__item{
+    padding: 0.75rem 0.75rem;
+    background-color: $light;
+    border-bottom: 1px solid $gray-line;
+  }
+  .list__title {
+    background-color: $gray-light;
+    padding: 0.25rem 0.75rem;
+  }
+  &__leftList {
+    width: 40%;
+    max-height: 100%;
+    overflow-y: scroll;
+    background-color: $light;
+    border-right: 1px solid $gray-line;
+    padding-bottom: 1.5rem;
+
+  }
+  &__contentBox{
+    width: 60%;
+    max-height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 1.5rem;
+  }
+  &__contentBox__list{
+    .list__item--check{
+      padding-left: 2.5rem;
+    }
   }
 }

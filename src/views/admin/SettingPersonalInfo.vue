@@ -206,7 +206,7 @@
               </ul>
             </div>
             <div v-if="editMode">
-              <Form ref="editAccountPersonalData" v-slot="{ errors }" @submit="saveData">
+              <Form ref="editAccountPersonalData" v-slot="{ errors }" @submit="saveAllData">
                 <div class="row">
                   <!-- 姓名 -->
                   <div class="col-lg-6 col-12">
@@ -1806,6 +1806,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
+import database from '@/methods/firebaseinit';
 
 export default {
   data() {
@@ -1852,11 +1853,7 @@ export default {
       tempWorkExp: {},
       tempEducation: {},
       tempSkill: {},
-      tempLanguage: {
-        name: '',
-        languageLevel: null,
-        otherSupport: '',
-      },
+      tempLanguage: {},
       temLicense: '',
       yearArray: [],
       endYearArray: [],
@@ -1912,7 +1909,7 @@ export default {
     newWorkData() {
       this.editMode = true;
       this.$refs['workExpEdit--new'].classList.toggle('d-none');
-      this.clearTempData();
+      this.defaultTempData();
     },
     // 保存新工作經驗
     saveNewWorkData() {
@@ -1941,14 +1938,14 @@ export default {
         this.user.workExp.works.push(this.tempWorkExp);
       }
       this.closeWorkTemplateData(index);
-      this.saveData();
-      this.getLocalStorage();
+      this.saveAllData();
+      this.getFbData();
     },
     // 刪除工作經驗
     deleteWorkExpData(index) {
       this.user.workExp.works.splice(index, 1);
-      this.saveData();
-      this.getLocalStorage();
+      this.saveAllData();
+      this.getFbData();
     },
     // 關閉
     closeWorkTemplateData(index) {
@@ -1959,14 +1956,14 @@ export default {
       } else {
         this.$refs['workExpEdit--new'].classList.toggle('d-none');
       }
-      this.clearTempData();
+      this.defaultTempData();
     },
     // 教育程度
     // 新增教育程度
     newEducationData() {
       this.editMode = true;
       this.$refs['educationExpEdit--new'].classList.toggle('d-none');
-      this.clearTempData();
+      this.defaultTempData();
     },
     // 保存教育程度
     saveNewEducationData() {
@@ -1983,8 +1980,8 @@ export default {
       console.log(this.tempEducation);
       console.log(this.user.educationExp.educations);
       this.closeEducationTemplateData(index);
-      this.saveData();
-      this.getLocalStorage();
+      this.saveAllData();
+      this.getFbData();
     },
     // 關閉教育程度
     closeEducationTemplateData(index) {
@@ -1995,23 +1992,22 @@ export default {
       } else {
         this.$refs['educationExpEdit--new'].classList.toggle('d-none');
       }
-      this.clearTempData();
+      this.defaultTempData();
     },
     // 保存資料
-    saveData() {
-      console.log(this.user);
-      const temData = JSON.stringify(this.user);
-      localStorage.setItem('sendCVTW-userData', temData);
-      this.getLocalStorage();
+    saveAllData() {
+      const userRef = database.ref('user');
+      userRef.set(this.user);
+      this.getFbData();
       this.editMode = false;
     },
     // 取得資料
-    getLocalStorage() {
-      const tempData = JSON.parse(localStorage.getItem('sendCVTW-userData'));
-      console.log(tempData);
-      if (tempData) {
-        this.user = JSON.parse(JSON.stringify(tempData));
-      }
+    getFbData() {
+      const userRef = database.ref('user');
+      userRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.user = data;
+      });
     },
     createYears() {
       const myDate = new Date();
@@ -2076,7 +2072,7 @@ export default {
         this.$router.push('/admin/setting-account');
       }
     },
-    clearTempData() {
+    defaultTempData() {
       this.tempWorkExp = {
         companyName: '',
         jobName: '',
@@ -2103,17 +2099,21 @@ export default {
         skillName: '',
         skillLevel: '',
       };
+      this.tempLanguage = {
+        name: '',
+        languageLevel: null,
+        otherSupport: '',
+      };
     },
   },
   created() {
-    this.getLocalStorage();
+    this.getFbData();
     this.formData = webData;
     this.chooseCityDist = this.formData.districts['台北市'].district;
     emitter.emit('spinner-open-bg', 800);
     this.createYears();
-    this.clearTempData();
+    this.defaultTempData();
   },
-  mounted() {},
 };
 </script>
 

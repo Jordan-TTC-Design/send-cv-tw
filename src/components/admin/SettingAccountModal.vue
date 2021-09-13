@@ -16,12 +16,7 @@
                 <div class="popModal__header popModal__header--center">
                   <h5 class="popModal__title">變更帳號</h5>
                   <p class="popModal__header__subTxt">請輸入新的帳號，並輸入目前的密碼進行驗證。</p>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
                   <Form ref="editAccountEmail" v-slot="{ errors }">
@@ -71,10 +66,10 @@
                   </Form>
                 </div>
                 <div class="popModal__footer">
-                  <button type="button" class="btn btn-gray-light me-2" data-bs-dismiss="modal">
+                  <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                     取消
                   </button>
-                  <button type="button" class="btn btn-primary">保存</button>
+                  <button type="button" class="btn btn-primary" @click="saveEmail">保存</button>
                 </div>
               </div>
               <div v-if="modalAction === '變更電話'">
@@ -83,12 +78,7 @@
                   <p class="popModal__header__subTxt">
                     您將收到一組認證代碼，請於收到驗證碼後5分鐘內進行驗證。
                   </p>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
                   <Form ref="editAccountPhone" v-slot="{ errors }">
@@ -138,10 +128,10 @@
                   </Form>
                 </div>
                 <div class="popModal__footer">
-                  <button type="button" class="btn btn-gray-light me-2" data-bs-dismiss="modal">
+                  <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                     取消
                   </button>
-                  <button type="button" class="btn btn-primary">保存</button>
+                  <button type="button" class="btn btn-primary" @click="savePhone">保存</button>
                 </div>
               </div>
               <div v-if="modalAction === '變更密碼'">
@@ -150,12 +140,7 @@
                   <p class="popModal__header__subTxt">
                     可以混合使用英文字母、數字和符號；包含小寫和大寫拉丁字元；長度至少 8 個字元。
                   </p>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
                   <Form ref="editAccountPhone" v-slot="{ errors }">
@@ -180,7 +165,7 @@
                         minlength="4"
                         maxlength="8"
                         size="8"
-                        v-model="accountData.password"
+                        v-model="tempAccountData.newPassword.old"
                       ></Field>
                       <ErrorMessage name="目前密碼" class="invalid-feedback"></ErrorMessage>
                     </div>
@@ -203,20 +188,20 @@
                         minlength="4"
                         maxlength="8"
                         size="8"
-                        v-model="newPassword.password"
+                        v-model="tempAccountData.newPassword.password"
                       ></Field>
                       <ErrorMessage name="新密碼" class="invalid-feedback"></ErrorMessage>
                     </div>
                     <div class="form__inputBox mb-0">
                       <div class="form__labelBox">
-                        <label for="accountDataNewPassword" class="form__label--custom form-label"
+                        <label for="accountDataAgainPassword" class="form__label--custom form-label"
                           >確認密碼</label
                         >
                         <p class="formTag--must">必填</p>
                       </div>
                       <Field
-                        id="accountDataNewPassword"
-                        ref="accountDataNewPassword"
+                        id="accountDataAgainPassword"
+                        ref="accountDataAgainPassword"
                         name="確認密碼"
                         type="password"
                         class="form-control"
@@ -226,17 +211,17 @@
                         minlength="4"
                         maxlength="8"
                         size="8"
-                        v-model="newPassword.again"
+                        v-model="tempAccountData.newPassword.again"
                       ></Field>
                       <ErrorMessage name="確認密碼" class="invalid-feedback"></ErrorMessage>
                     </div>
                   </Form>
                 </div>
                 <div class="popModal__footer">
-                  <button type="button" class="btn btn-gray-light me-2" data-bs-dismiss="modal">
+                  <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                     取消
                   </button>
-                  <button type="button" class="btn btn-primary">保存</button>
+                  <button type="button" class="btn btn-primary" @click="savePassword">保存</button>
                 </div>
               </div>
               <div v-if="modalAction === '刪除帳號'">
@@ -245,12 +230,7 @@
                   <p class="popModal__header__subTxt">
                     想要刪除您的帳號嗎？請先輸入您的帳號及密碼，讓我們確認是您本人。
                   </p>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
                   <Form ref="deleteAccount" v-slot="{ errors }">
@@ -300,7 +280,7 @@
                   </Form>
                 </div>
                 <div class="popModal__footer">
-                  <button type="button" class="btn btn-gray-light me-2" data-bs-dismiss="modal">
+                  <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                     取消
                   </button>
                   <button type="button" class="btn btn-primary">確定</button>
@@ -316,7 +296,7 @@
 <script>
 import Modal from 'bootstrap/js/dist/modal';
 import webData from '@/methods/webData';
-
+import database from '@/methods/firebaseinit';
 import emitter from '@/methods/emitter';
 
 export default {
@@ -326,47 +306,8 @@ export default {
     return {
       modalAction: '',
       modal: {},
-      user: {
-        account: {
-          chineseName: '',
-          EnglishName: '',
-          jobTitle: '',
-          gender: '',
-          birthday: '',
-          email: '',
-          phone: '',
-          addressCity: '',
-          addressDist: '',
-          password: '',
-          socialMedia: [],
-        },
-        workExp: {
-          years: 0,
-          works: [],
-        },
-        educationExp: {
-          lastestEducation: '',
-          educations: [],
-        },
-        languages: [],
-        Licenses: [],
-        skill: [],
-        others: {
-          driverLicenses: [],
-          identity: [],
-          militaryService: '',
-        },
-      },
-      tempAccountData: {
-        email: '',
-        password: '',
-        phone: '',
-        socialMedia: [],
-      },
-      newPassword: {
-        password: '',
-        again: '',
-      },
+      user: {},
+      tempAccountData: {},
       formData: {},
     };
   },
@@ -375,18 +316,21 @@ export default {
       deep: true,
       handler(newValue) {
         this.user = newValue;
-        console.log(this.user);
       },
     },
   },
   methods: {
-    updateEmail() {},
-    cleanData() {
-      this.accountData = {
+    defaultData() {
+      this.tempAccountData = {
         email: '',
         password: '',
         phone: '',
         socialMedia: [],
+        newPassword: {
+          old: '',
+          password: '',
+          again: '',
+        },
       };
     },
     updateData() {
@@ -394,41 +338,51 @@ export default {
     },
     openModal(action) {
       this.modalAction = action;
-      console.log(this.modalAction);
       setTimeout(() => {
         this.modal.show();
       }, 100);
     },
     closeModal() {
       this.modal.hide();
-      this.cleanData();
+      this.defaultData();
     },
     returnUserData() {
       this.$emit('return-user-data', this.user);
     },
-    getLocalStorage() {
-      const tempData = JSON.parse(localStorage.getItem('sendCVTW-userData'));
-      if (tempData) {
-        console.log(tempData);
-        // this.user = tempData;
-        // this.collectFolder = JSON.parse(JSON.stringify(tempData));
-      }
-      // this.returnJobCollection();
-    },
     saveEmail() {
       this.user.account.email = this.tempAccountData.email;
-      this.saveUser();
+      this.saveAllData();
     },
-    saveUser() {
-      console.log(this.user);
-      const temData = JSON.stringify(this.user);
-      localStorage.setItem('sendCVTW-userData', temData);
-      this.getLocalStorage();
+    savePhone() {
+      this.user.account.phone = this.tempAccountData.phone;
+      this.saveAllData();
+    },
+    savePassword() {
+      if (this.tempAccountData.newPassword.password === this.tempAccountData.newPassword.again) {
+        this.user.account.password = this.tempAccountData.newPassword.password;
+        this.saveAllData();
+      }
+    },
+    // 保存資料
+    saveAllData() {
+      const userRef = database.ref('user');
+      userRef.set(this.user);
+      this.getFbData();
+      this.closeModal();
+    },
+    // 取得資料
+    getFbData() {
+      const userRef = database.ref('user');
+      userRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.user = data;
+      });
     },
   },
   created() {
     this.formData = webData;
     this.user = this.userData;
+    this.defaultData();
   },
   mounted() {
     this.modal = new Modal(this.$refs.settingAccountModal);

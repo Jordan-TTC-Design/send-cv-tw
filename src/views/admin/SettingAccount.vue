@@ -208,6 +208,7 @@
 <script>
 import emitter from '@/methods/emitter';
 import SettingAccountModal from '@/components/admin/SettingAccountModal.vue';
+import database from '@/methods/firebaseinit';
 
 export default {
   components: { SettingAccountModal },
@@ -251,12 +252,20 @@ export default {
     };
   },
   methods: {
-    getLocalStorage() {
-      const tempData = JSON.parse(localStorage.getItem('sendCVTW-userData'));
-      console.log(tempData);
-      if (tempData) {
-        this.user = JSON.parse(JSON.stringify(tempData));
-      }
+    // 保存資料
+    saveAllData() {
+      const userRef = database.ref('user');
+      userRef.set(this.user);
+      this.getFbData();
+      this.editMode = false;
+    },
+    // 取得資料
+    getFbData() {
+      const userRef = database.ref('user');
+      userRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.user = data;
+      });
     },
     openSettingAccountModal(action) {
       emitter.emit('open-setting-account-modal', action);
@@ -292,7 +301,7 @@ export default {
     },
   },
   created() {
-    this.getLocalStorage();
+    this.getFbData();
   },
 };
 </script>
