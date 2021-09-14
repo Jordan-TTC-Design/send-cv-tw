@@ -48,7 +48,7 @@
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
-              <button type="button" class="btn btn-primary" @click="saveWorkType">保存</button>
+              <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
             </div>
           </div>
           <div v-if="modalAction === '變更上班時段'">
@@ -77,7 +77,128 @@
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
-              <button type="button" class="btn btn-primary" @click="saveWorkTime">保存</button>
+              <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
+            </div>
+          </div>
+          <div v-if="modalAction === '變更目標職務'">
+            <div class="popModal__header popModal__header--left">
+              <h5 class="popModal__title">目標職務</h5>
+              <p class="subTxt text-secondary">最多選擇10項</p>
+              <button type="button" class="btn-close" @click="closeModal"></button>
+            </div>
+            <div class="modal-body px-0">
+              <div class="dataForm border-top border-gray-line">
+                <div class="dataForm__leftList">
+                  <ul>
+                    <li class="list__item list__title">職務類別</li>
+                    <template
+                      v-for="(item, index) in user.career.jobCategories"
+                      :key="item.groupName"
+                    >
+                      <li class="list__item putPointer" @click="this.tempWorkPlace.city = index">
+                        <p>{{ item.groupName }}</p>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+                <div class="dataForm__contentBox">
+                  <ul ref="collapse" class="dataForm__contentBox__list accordion accordion-flush">
+                    <li class="list__item list__title">
+                      <p>小類</p>
+                    </li>
+                    <template
+                      v-for="(item, index) in user.career.jobCategories[tempWorkPlace.city]
+                        .categories"
+                      :key="item.categoryName"
+                    >
+                      <li class="foldList__item accordion-item">
+                        <div class="foldList__item__title accordion-header">
+                          <div>
+                            <input
+                              class="form-check-input me-2"
+                              type="checkbox"
+                              :id="item.categoryName"
+                              v-model="item.selectAll"
+                            />
+                            <label class="form-check-label" :for="item.categoryName">
+                              {{ item.categoryName }}
+                            </label>
+                          </div>
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            :data-bs-target="`#jobCategory__categoryName--${index}`"
+                          ></button>
+                        </div>
+                        <div
+                          :id="`jobCategory__categoryName--${index}`"
+                          class="accordion-collapse collapse"
+                        >
+                          <div class="accordion-body p-0">
+                            <template v-for="job in item.categories" :key="job.name">
+                              <li class="list__item list__item--check putPointer">
+                                <input
+                                  class="form-check-input me-2"
+                                  type="checkbox"
+                                  :id="job.name"
+                                  v-model="job.select"
+                                />
+                                <label class="form-check-label" :for="job.name">
+                                  {{ job.name }}
+                                </label>
+                              </li>
+                            </template>
+                          </div>
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="popModal__footer border-top border-gray-line">
+              <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
+                取消
+              </button>
+              <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
+            </div>
+          </div>
+          <div v-if="modalAction === '變更目標行業'">
+            <div class="popModal__header popModal__header--left">
+              <h5 class="popModal__title">目標行業</h5>
+              <p class="subTxt text-secondary">最多選擇10項</p>
+              <button type="button" class="btn-close" @click="closeModal"></button>
+            </div>
+            <div class="modal-body px-0">
+              <div class="dataForm border-top border-gray-line">
+                <div class="dataForm__contentBox w-100">
+                  <ul class="dataForm__contentBox__list">
+                    <template
+                      v-for="item in user.career.industryCategories"
+                      :key="item.industryName"
+                    >
+                      <li class="list__item list__item--check form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          :id="item.industryName"
+                          v-model="item.select"
+                        />
+                        <label class="form-check-label" :for="item.industryName">
+                          {{ item.industryName }}
+                        </label>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="popModal__footer border-top border-gray-line">
+              <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
+                取消
+              </button>
+              <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
             </div>
           </div>
           <div v-if="modalAction === '變更求職地區'">
@@ -105,7 +226,7 @@
                   <ul class="dataForm__contentBox__list">
                     <li class="list__item list__title">區域</li>
                     <li
-                      v-if="tempWorkPlace.city >= 0 "
+                      v-if="tempWorkPlace.city >= 0"
                       class="list__item list__item--check form-check mb-0"
                     >
                       <input
@@ -142,7 +263,7 @@
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
-              <button type="button" class="btn btn-primary" @click="saveWorkTime">保存</button>
+              <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
             </div>
           </div>
           <div v-if="modalAction === '變更外派需求'">
@@ -155,7 +276,7 @@
                 <input
                   class="form-check-input"
                   type="checkbox"
-                  :id="expat"
+                  id="expat"
                   v-model="user.career.expat"
                 />
                 <label class="form-check-label" for="expat"> 是否接受企業外派 </label>
@@ -165,7 +286,7 @@
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
-              <button type="button" class="btn btn-primary" @click="saveWorkTime">保存</button>
+              <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
             </div>
           </div>
           <div v-if="modalAction === '變更薪資範圍'">
@@ -214,7 +335,7 @@
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
-              <button type="button" class="btn btn-primary" @click="saveWorkTime">保存</button>
+              <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
             </div>
           </div>
         </div>
@@ -260,18 +381,6 @@ export default {
     },
     closeModal() {
       this.modal.hide();
-    },
-    saveWorkType() {
-      console.log(this.user.career.workType);
-      // this.user.career = {
-      //   workTime: this.tempCareer.career.workTime,
-      //   workType: this.tempCareer.career.workType,
-      // };
-      this.saveAllData();
-    },
-    saveWorkTime() {
-      console.log(this.user.career.workTime);
-      this.saveAllData();
     },
     // 保存資料
     saveAllData() {

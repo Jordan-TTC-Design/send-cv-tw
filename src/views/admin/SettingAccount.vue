@@ -51,7 +51,7 @@
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn btn-gray-light text-dark"
                         @click="openSettingAccountModal('變更帳號')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -73,7 +73,7 @@
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn btn-gray-light text-dark"
                         @click="openSettingAccountModal('變更電話')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -95,7 +95,7 @@
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn btn-gray-light text-dark"
                         @click="openSettingAccountModal('變更密碼')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯

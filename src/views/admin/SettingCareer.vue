@@ -58,7 +58,7 @@
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn text-dark btn-gray-light"
                         @click="openSettingModal('變更工作性質')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -81,7 +81,7 @@
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn text-dark btn-gray-light"
                         @click="openSettingModal('變更上班時段')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -95,17 +95,26 @@
                       <div>
                         <p class="infoList__item__title">目標職務</p>
                         <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>UIUX 設計師</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>前端工程師</p>
-                          </li>
+                          <template v-for="(item, index) in user.career.jobCategories" :key="index">
+                            <template
+                              v-for="(cate, number) in item.categories"
+                              :key="`cate--${number}`"
+                            >
+                              <li v-if="cate.selectAll" class="infoList__item__skillList__skill">
+                                <p>{{ cate.categoryName }}全區</p>
+                              </li>
+                              <template v-for="(job, num) in cate.categories" :key="`job--${num}`">
+                                <li v-if="job.select" class="infoList__item__skillList__skill">
+                                  <p>{{ job.name }}</p>
+                                </li>
+                              </template>
+                            </template>
+                          </template>
                         </ul>
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn text-dark btn-gray-light"
                         @click="openSettingModal('變更目標職務')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -119,17 +128,19 @@
                       <div>
                         <p class="infoList__item__title">目標行業</p>
                         <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>網路科技業</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>金融業</p>
-                          </li>
+                          <template
+                            v-for="(item, index) in user.career.industryCategories"
+                            :key="index"
+                          >
+                            <li v-if="item.select" class="infoList__item__skillList__skill">
+                              <p>{{ item.industryName }}</p>
+                            </li>
+                          </template>
                         </ul>
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn text-dark btn-gray-light"
                         @click="openSettingModal('變更目標行業')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -145,8 +156,8 @@
                         <ul class="infoList__item__skillList">
                           <template v-for="(city, index) in user.career.workPlace" :key="index">
                             <li v-if="city.selectAll" class="infoList__item__skillList__skill">
-                                <p>{{ city.cityName }}全區</p>
-                              </li>
+                              <p>{{ city.cityName }}全區</p>
+                            </li>
                             <template v-for="dist in city.district" :key="dist.code">
                               <li v-if="dist.select" class="infoList__item__skillList__skill">
                                 <p>{{ city.cityName }}，{{ dist.distName }}</p>
@@ -157,7 +168,7 @@
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn text-dark btn-gray-light"
                         @click="openSettingModal('變更求職地區')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -173,14 +184,14 @@
                         <ul class="infoList__item__skillList">
                           <li class="infoList__item__skillList__skill">
                             <p>
-                              {{ `${user.career.expat}` ? '可接受企業外派' : '不接受企業外派' }}
+                              {{ user.career.expat ? '可接受企業外派' : '不接受企業外派' }}
                             </p>
                           </li>
                         </ul>
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn text-dark btn-gray-light"
                         @click="openSettingModal('變更外派需求')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -199,7 +210,7 @@
                               {{ user.career.salaryRange.salaryLow }}元 -
                               {{ user.career.salaryRange.salaryHeight }}元 ，
                               {{
-                                `${user.career.salaryRange.salaryInterView}`
+                                user.career.salaryRange.salaryInterView
                                   ? '可接受面議'
                                   : '不接受面議'
                               }}
@@ -209,7 +220,7 @@
                       </div>
                       <button
                         type="button"
-                        class="btn text-dark"
+                        class="btn--edit btn text-dark btn-gray-light"
                         @click="openSettingModal('變更薪資範圍')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
@@ -276,11 +287,11 @@ export default {
           targetJobs: [],
           targetIndustries: [],
           targetPlaces: [],
-          expat: true,
+          expat: null,
           salaryRange: {
             lowest: 0,
             highest: 0,
-            interview: false,
+            interview: null,
           },
         },
       },
@@ -330,7 +341,7 @@ export default {
         const data = snapshot.val();
         this.user = data;
       });
-      console.log(this.user);
+      console.log(this.user.career);
     },
     openSettingModal(action) {
       const obj = {

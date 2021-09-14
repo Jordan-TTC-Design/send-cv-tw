@@ -639,6 +639,9 @@
     }
   }
   &.show--compressed {
+    .btn--edit{
+      min-width: 78px;
+    }
     .infoList__item__skillList {
       display: flex;
       flex-wrap: wrap;

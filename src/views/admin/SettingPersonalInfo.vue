@@ -206,7 +206,7 @@
               </ul>
             </div>
             <div v-if="editMode">
-              <Form ref="editAccountPersonalData" v-slot="{ errors }" @submit="saveAllData">
+              <Form ref="editAccountPersonalData" v-slot="{ errors }" @submit.prevent="saveAllData">
                 <div class="row">
                   <!-- 姓名 -->
                   <div class="col-lg-6 col-12">
@@ -465,7 +465,7 @@
                     <Form
                       ref="editAccountWorkExpData"
                       v-slot="{ errors }"
-                      @submit="saveNewWorkData"
+                      @submit="saveWorkData('new')"
                     >
                       <div class="row">
                         <!-- 企業名稱 -->
@@ -701,11 +701,17 @@
                         >
                           <i class="jobIcon bi bi-three-dots"></i>
                           <ul :ref="`dropDownMenu--${index}`" class="dropDownMenu">
-                            <li class="dropDownMenu__item" @click="toggleTemplateData(index)">
+                            <li
+                              class="dropDownMenu__item"
+                              @click="toggleTemplateData('workExp', index)"
+                            >
                               編輯
                             </li>
                             <li class="dropDownMenu__item">調整排序</li>
-                            <li class="dropDownMenu__item" @click="deleteWorkExpData(index)">
+                            <li
+                              class="dropDownMenu__item"
+                              @click="deleteTemplateData('workExp', index)"
+                            >
                               刪除
                             </li>
                           </ul>
@@ -722,7 +728,7 @@
                       <Form
                         ref="editAccountWorkExpData"
                         v-slot="{ errors }"
-                        @submit="saveTemplateData(index)"
+                        @submit="saveWorkData('old', index)"
                       >
                         <div class="row">
                           <!-- 企業名稱 -->
@@ -1252,8 +1258,28 @@
                             <span class="ms-2 text-secondary">{{ tempItem.educationLevel }}</span>
                           </p>
                         </div>
-                        <button type="button" class="btn">
+                        <button
+                          type="button"
+                          class="btn position-relative"
+                          @click="openDropDownMenu(index)"
+                          :disabled="editMode"
+                        >
                           <i class="jobIcon bi bi-three-dots"></i>
+                          <ul :ref="`dropDownMenu--${index}`" class="dropDownMenu">
+                            <li
+                              class="dropDownMenu__item"
+                              @click="toggleTemplateData('education', index)"
+                            >
+                              編輯
+                            </li>
+                            <li class="dropDownMenu__item">調整排序</li>
+                            <li
+                              class="dropDownMenu__item"
+                              @click="deleteTemplateData('education', index)"
+                            >
+                              刪除
+                            </li>
+                          </ul>
                         </button>
                       </div>
 
@@ -1290,253 +1316,326 @@
             </div>
             <div>
               <ul class="row" v-if="skillShowStyle === true">
+                <!-- 語言 -->
                 <li class="col-12">
-                  <div class="infoList__item show--compressed">
+                  <div
+                    ref="languageData"
+                    class="infoList__item show--compressed"
+                    :class="{ 'd-none': editTemplate === 'editLanguage' }"
+                  >
                     <div class="d-flex justify-content-between align-items-start">
                       <div>
                         <p class="infoList__item__title">語言</p>
                         <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>中文 - 專業</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>英文 - 流利 / 雅思 6.5分</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>日文 - 專業 / 日檢 N2</p>
-                          </li>
+                          <template v-for="(item, index) in user.languages" :key="index">
+                            <li class="infoList__item__skillList__skill">
+                              <p>{{ item.name }} - {{ item.languageLevel }}</p>
+                            </li>
+                          </template>
                         </ul>
                       </div>
-                      <button type="button" class="btn">
+                      <button
+                        type="button"
+                        class="btn position-relative"
+                        @click="openDropDownMenu('language')"
+                        :disabled="editTemplate !== ''"
+                      >
                         <i class="jobIcon bi bi-three-dots"></i>
+                        <ul ref="dropDownMenu--language" class="dropDownMenu">
+                          <li
+                            class="dropDownMenu__item"
+                            @click="this.editTemplate = 'editLanguage'"
+                          >
+                            編輯
+                          </li>
+                          <li class="dropDownMenu__item">調整排序</li>
+                          <li class="dropDownMenu__item" @click="deleteWorkExpData(index)">刪除</li>
+                        </ul>
                       </button>
                     </div>
                   </div>
                 </li>
+                <!-- 語言編輯 -->
                 <li class="col-12">
-                  <div v-if="editMode">
-                    <Form ref="editLanguageData" v-slot="{ errors }">
-                      <div class="row">
-                        <!-- 語言 -->
-                        <div class="col-lg-6 col-12">
-                          <div class="form__inputBox">
-                            <div class="form__labelBox">
-                              <label for="languageDataName" class="form__label--custom form-label"
-                                >語言</label
-                              >
-                              <p class="formTag--must">必填</p>
-                            </div>
-                            <Field
-                              id="languageDataName"
-                              ref="languageDataName"
-                              name="語言"
-                              as="select"
-                              class="form-control form-select"
-                              :class="{ 'is-invalid': errors['語言'] }"
-                              rules="required"
-                              v-model="tempLanguage.name"
+                  <Form
+                    v-if="editTemplate === 'editLanguage'"
+                    v-slot="{ errors }"
+                    class="dataEditForm"
+                  >
+                    <div class="row">
+                      <div class="col-lg-6 col-12">
+                        <div class="form__inputBox">
+                          <div class="form__labelBox">
+                            <label for="languageDataName" class="form__label--custom form-label"
+                              >語言</label
                             >
-                              <option value="" disabled selected>請選擇</option>
-                              <option
-                                v-for="language in formData.languages"
-                                :value="language"
-                                :key="language"
-                              >
-                                {{ language }}
-                              </option></Field
-                            >
-                            <ErrorMessage name="語言" class="invalid-feedback"></ErrorMessage>
+                            <p class="formTag--must">必填</p>
                           </div>
-                        </div>
-                        <div class="col-lg-3 col-12">
-                          <div class="form__inputBox">
-                            <div class="form__labelBox">
-                              <label for="languageDataLevel" class="form__label--custom form-label"
-                                >語言程度</label
-                              >
-                            </div>
-                            <Field
-                              id="languageDataLevel"
-                              ref="languageDataLevel"
-                              name="語言程度"
-                              as="select"
-                              class="form-control form-select"
-                              :class="{ 'is-invalid': errors['語言程度'] }"
-                              v-model="tempLanguage.languageLevel"
-                            >
-                              <option value="" disabled selected>請選擇</option>
-                              <option
-                                v-for="level in formData.skillLevel"
-                                :value="level"
-                                :key="level"
-                              >
-                                {{ level }}
-                              </option>
-                            </Field>
-                          </div>
-                        </div>
-                        <div class="col-lg-3 col-12 d-flex align-items-end">
-                          <button type="button" class="btn btn-outline-gray-line text-dark mb-4">
-                            新增證照考試證明
-                          </button>
-                        </div>
-                        <div class="col-12">
-                          <button
-                            type="button"
-                            class="btn--newSkill btn btn-outline-companyColor mb-4"
+                          <Field
+                            id="languageDataName"
+                            ref="languageDataName"
+                            name="語言"
+                            as="select"
+                            class="form-control form-select"
+                            :class="{ 'is-invalid': errors['語言'] }"
+                            rules="required"
+                            v-model="tempLanguage.name"
                           >
-                            <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
-                            加入已建立項目
-                          </button>
-                        </div>
-                        <div class="col-12">
-                          <div class="editSkillListBox">
-                            <div class="editSkillListBox__header">
-                              <p>已建立項目</p>
-                            </div>
-                            <ul class="editSkillListBox__list">
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  英文<span class="list__item__skillLevel">精通</span>
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  中文<span class="list__item__skillLevel">精通</span>
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  日文<span class="list__item__skillLevel">精通</span>
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                            </ul>
-                          </div>
+                            <option value="" disabled selected>請選擇</option>
+                            <option
+                              v-for="language in formData.languages"
+                              :value="language"
+                              :key="language"
+                            >
+                              {{ language }}
+                            </option></Field
+                          >
+                          <ErrorMessage name="語言" class="invalid-feedback"></ErrorMessage>
                         </div>
                       </div>
-                    </Form>
-                  </div>
+                      <div class="col-lg-3 col-12">
+                        <div class="form__inputBox">
+                          <div class="form__labelBox">
+                            <label for="languageDataLevel" class="form__label--custom form-label"
+                              >語言程度</label
+                            >
+                          </div>
+                          <Field
+                            id="languageDataLevel"
+                            ref="languageDataLevel"
+                            name="語言程度"
+                            as="select"
+                            class="form-control form-select"
+                            :class="{ 'is-invalid': errors['語言程度'] }"
+                            v-model="tempLanguage.languageLevel"
+                          >
+                            <option value="" disabled selected>請選擇</option>
+                            <option
+                              v-for="level in formData.skillLevel"
+                              :value="level"
+                              :key="level"
+                            >
+                              {{ level }}
+                            </option>
+                          </Field>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-12 d-flex align-items-end">
+                        <button type="button" class="btn btn-outline-gray-line text-dark mb-4">
+                          新增證照考試證明
+                        </button>
+                      </div>
+                      <div class="col-12">
+                        <button
+                          type="button"
+                          class="btn--newSkill btn btn-outline-companyColor mb-4"
+                          @click="toogleTempData('language', 'add')"
+                        >
+                          <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
+                          加入已建立項目
+                        </button>
+                      </div>
+                      <div class="col-12">
+                        <div class="editSkillListBox mb-4">
+                          <div class="editSkillListBox__header">
+                            <p>已建立項目</p>
+                          </div>
+                          <ul class="editSkillListBox__list">
+                            <template v-for="(item, index) in user.languages" :key="index">
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  {{ item.name
+                                  }}<span class="list__item__skillLevel">{{
+                                    item.languageLevel
+                                  }}</span>
+                                  <span
+                                    ><i
+                                      class="jobTag__delete jobIcon-sm bi bi-x-lg"
+                                      @click="deleteTempData('language', index)"
+                                    ></i
+                                  ></span>
+                                </p>
+                              </li>
+                            </template>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-12 d-flex justify-content-end">
+                        <button
+                          type="button"
+                          class="btn btn-gray-light me-2"
+                          @click="this.editTemplate = ''"
+                        >
+                          取消
+                        </button>
+                        <button type="button" class="btn btn-primary" @click="saveEditTemplateData">
+                          保存
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
                 </li>
+                <!-- 證照 -->
                 <li class="col-12">
-                  <div class="infoList__item show--compressed">
+                  <div
+                    class="infoList__item show--compressed"
+                    :class="{ 'd-none': editTemplate === 'editLicense' }"
+                  >
                     <div class="d-flex justify-content-between align-items-start">
                       <div>
                         <p class="infoList__item__title">證照</p>
                         <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>美國風險管理師ARM</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>美國會計師CPA</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>國際ERP電腦稽核師CEAP</p>
-                          </li>
+                          <template v-for="(item, index) in user.licenses" :key="index">
+                            <li class="infoList__item__skillList__skill">
+                              <p>{{ item.name }}</p>
+                            </li>
+                          </template>
                         </ul>
                       </div>
-                      <button type="button" class="btn">
+                      <button
+                        type="button"
+                        class="btn position-relative"
+                        @click="openDropDownMenu('license')"
+                        :disabled="editTemplate !== ''"
+                      >
                         <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-12">
-                  <div v-if="editMode">
-                    <Form ref="editLanguageData" v-slot="{ errors }">
-                      <div class="row">
-                        <!-- 證照 -->
-                        <div class="col-lg-6 col-12">
-                          <div class="form__inputBox">
-                            <div class="form__labelBox">
-                              <label for="languageDataName" class="form__label--custom form-label"
-                                >證照名稱</label
-                              >
-                            </div>
-                            <Field
-                              id="languageDataName"
-                              ref="languageDataName"
-                              name="證照名稱"
-                              type="text"
-                              class="form-control"
-                              :class="{ 'is-invalid': errors['證照名稱'] }"
-                              v-model="temLicense"
-                            >
-                            </Field>
-                            <ErrorMessage name="證照名稱" class="invalid-feedback"></ErrorMessage>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <button
-                            type="button"
-                            class="btn--newSkill btn btn-outline-companyColor mb-4"
+                        <ul ref="dropDownMenu--license" class="dropDownMenu">
+                          <li
+                            class="dropDownMenu__item"
+                            @click="toggleTemplateData('license', 'license')"
                           >
-                            <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
-                            加入已建立項目
-                          </button>
-                        </div>
-                        <div class="col-12">
-                          <div class="editSkillListBox">
-                            <div class="editSkillListBox__header">
-                              <p>已建立項目</p>
-                            </div>
-                            <ul class="editSkillListBox__list">
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  美國風險管理師ARM
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  美國會計師CPA
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  國際ERP電腦稽核師CEAP
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </Form>
-                  </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item listLast show--compressed">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">設計</p>
-                        <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>Adobe Illustrator</p>
+                            編輯
                           </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>Adobe PhotoShop</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>Adobe XD</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>Sketch</p>
-                          </li>
+                          <li class="dropDownMenu__item">調整排序</li>
+                          <li class="dropDownMenu__item" @click="deleteWorkExpData(index)">刪除</li>
                         </ul>
-                      </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
                       </button>
                     </div>
                   </div>
                 </li>
+                <!-- 證照編輯 -->
                 <li class="col-12">
-                  <div v-if="editMode">
-                    <Form ref="editSkillData" v-slot="{ errors }">
+                  <Form
+                    v-if="editTemplate === 'editLicense'"
+                    v-slot="{ errors }"
+                    class="dataEditForm"
+                    @submit="saveEditTemplateData"
+                  >
+                    <div class="row">
+                      <!-- 證照 -->
+                      <div class="col-lg-6 col-12">
+                        <div class="form__inputBox">
+                          <div class="form__labelBox">
+                            <label for="languageDataName" class="form__label--custom form-label"
+                              >證照名稱</label
+                            >
+                          </div>
+                          <Field
+                            id="languageDataName"
+                            ref="languageDataName"
+                            name="證照名稱"
+                            type="text"
+                            class="form-control"
+                            :class="{ 'is-invalid': errors['證照名稱'] }"
+                            v-model="tempLicense"
+                          >
+                          </Field>
+                          <ErrorMessage name="證照名稱" class="invalid-feedback"></ErrorMessage>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <button
+                          type="button"
+                          class="btn--newSkill btn btn-outline-companyColor mb-4"
+                          @click="toogleLicenseData('add')"
+                        >
+                          <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
+                          加入已建立項目
+                        </button>
+                      </div>
+                      <div class="col-12">
+                        <div class="editSkillListBox mb-4">
+                          <div class="editSkillListBox__header">
+                            <p>已建立項目</p>
+                          </div>
+                          <ul class="editSkillListBox__list">
+                            <template v-for="(item, index) in user.licenses" :key="index">
+                              <li class="list__item">
+                                <p class="jobTag list__item__skill">
+                                  {{ item.name }}
+                                  <span
+                                    ><i
+                                      class="jobTag__delete jobIcon-sm bi bi-x-lg"
+                                      @click="toogleLicenseData('delete', index)"
+                                    ></i
+                                  ></span>
+                                </p>
+                              </li>
+                            </template>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-12 d-flex justify-content-end">
+                        <button
+                          type="button"
+                          class="btn btn-gray-light me-2"
+                          @click="this.editTemplate = ''"
+                        >
+                          取消
+                        </button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                      </div>
+                    </div>
+                  </Form>
+                </li>
+                <!-- 技能 -->
+                <template v-for="(skill, index) in user.skills" :key="index">
+                  <li class="col-12">
+                    <div
+                      class="infoList__item listLast show--compressed"
+                      :class="{ 'd-none': editTemplate === `editSkill--${index}` }"
+                    >
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                          <p class="infoList__item__title">{{ skill.groupName }}</p>
+                          <ul class="infoList__item__skillList">
+                            <template v-for="item in skill.skillList" :key="item.name">
+                              <li class="infoList__item__skillList__skill">
+                                <p>{{ item.name }}</p>
+                              </li>
+                            </template>
+                          </ul>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn position-relative"
+                          @click="openDropDownMenu(index)"
+                          :disabled="editTemplate !== ''"
+                        >
+                          <i class="jobIcon bi bi-three-dots"></i>
+                          <ul :ref="`dropDownMenu--${index}`" class="dropDownMenu">
+                            <li
+                              class="dropDownMenu__item"
+                              @click="toggleTemplateData('skill', index)"
+                            >
+                              編輯
+                            </li>
+                            <li class="dropDownMenu__item">調整排序</li>
+                            <li class="dropDownMenu__item" @click="deleteWorkExpData(index)">
+                              刪除
+                            </li>
+                          </ul>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- 技能編輯 -->
+                  <li class="col-12">
+                    <Form
+                      v-if="editTemplate === `editSkill--${index}`"
+                      v-slot="{ errors }"
+                      class="dataEditForm"
+                    >
                       <div class="row">
                         <!-- 技能類別 -->
                         <div class="col-lg-6 col-12">
@@ -1556,7 +1655,7 @@
                               :class="{ 'is-invalid': errors['技能類別'] }"
                               placeholder="請輸入技能類別"
                               rules="required"
-                              v-model="tempEducation.schoolName"
+                              v-model="skill.groupName"
                             ></Field>
                             <ErrorMessage name="技能類別" class="invalid-feedback"></ErrorMessage>
                           </div>
@@ -1568,51 +1667,21 @@
                           <div class="form__inputBox">
                             <div class="form__labelBox">
                               <label
-                                for="educationDataMajorName"
+                                for="skillDataCategorySkillName"
                                 class="form__label--custom form-label"
                                 >技能名稱</label
                               >
                             </div>
                             <Field
-                              id="educationDataMajorName"
-                              ref="educationDataMajorName"
+                              id="skillDataCategorySkillName"
+                              ref="skillDataCategorySkillName"
                               name="技能名稱"
                               type="text"
                               class="form-control"
                               :class="{ 'is-invalid': errors['技能名稱'] }"
                               placeholder="請輸入技能名稱"
-                              v-model="tempEducation.majorName"
+                              v-model="tempSkill.name"
                             ></Field>
-                          </div>
-                        </div>
-                        <!-- 技能程度 -->
-                        <div class="col-lg-3 col-12">
-                          <div class="form__inputBox">
-                            <div class="form__labelBox">
-                              <label
-                                for="skillDataSkillLevel"
-                                class="form__label--custom form-label"
-                                >技能程度</label
-                              >
-                            </div>
-                            <Field
-                              id="skillDataSkillLevel"
-                              ref="skillDataSkillLevel"
-                              name="技能程度"
-                              as="select"
-                              class="form-control form-select"
-                              :class="{ 'is-invalid': errors['技能程度'] }"
-                              v-model="tempSkill.skillLevel"
-                            >
-                              <option value="" disabled selected>請選擇</option>
-                              <option
-                                v-for="level in formData.skillLevel"
-                                :value="level"
-                                :key="level"
-                              >
-                                {{ level }}
-                              </option>
-                            </Field>
                           </div>
                         </div>
                         <div class="col-lg-3 col-12 d-flex align-items-end">
@@ -1624,42 +1693,54 @@
                           <button
                             type="button"
                             class="btn--newSkill btn btn-outline-companyColor mb-4"
+                            @click="toogleTempData('skill', 'add', index)"
                           >
                             <i class="jobIcon--sm bi bi-arrow-90deg-down me-1"></i>
                             加入已建立項目
                           </button>
                         </div>
                         <div class="col-12">
-                          <div class="editSkillListBox">
+                          <div class="editSkillListBox mb-4">
                             <div class="editSkillListBox__header">
                               <p>已建立項目</p>
                             </div>
                             <ul class="editSkillListBox__list">
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  ui設計<span class="list__item__skillLevel">精通</span>
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  ui設計<span class="list__item__skillLevel">精通</span>
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
-                              <li class="list__item">
-                                <p class="jobTag list__item__skill">
-                                  ui設計<span class="list__item__skillLevel">精通</span>
-                                  <span><i class="jobTag__delete jobIcon-sm bi bi-x-lg"></i></span>
-                                </p>
-                              </li>
+                              <template v-for="(item, num) in skill.skillList" :key="item.name">
+                                <li class="list__item">
+                                  <p class="jobTag list__item__skill">
+                                    {{ item.name }}
+                                    <span
+                                      ><i
+                                        class="jobTag__delete jobIcon-sm bi bi-x-lg"
+                                        @click="skill.skillList.splice(num, 1)"
+                                      ></i
+                                    ></span>
+                                  </p>
+                                </li>
+                              </template>
                             </ul>
                           </div>
                         </div>
+                        <div class="col-12 d-flex justify-content-end">
+                          <button
+                            type="button"
+                            class="btn btn-gray-light me-2"
+                            @click="this.editTemplate = ''"
+                          >
+                            取消
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="saveEditTemplateData"
+                          >
+                            保存
+                          </button>
+                        </div>
                       </div>
                     </Form>
-                  </div>
-                </li>
+                  </li>
+                </template>
               </ul>
               <ul class="row" v-if="skillShowStyle === false">
                 <li class="col-12">
@@ -1822,7 +1903,7 @@ export default {
       user: {
         account: {
           chineseName: '',
-          englishName: '',
+          EnglishName: '',
           jobTitle: '',
           gender: '',
           birthday: '',
@@ -1842,19 +1923,32 @@ export default {
           educations: [],
         },
         languages: [],
-        Licenses: [],
+        licenses: [],
         skill: [],
         others: {
           driverLicenses: [],
           identity: [],
           militaryService: '',
         },
+        career: {
+          workType: [],
+          workTime: [],
+          targetJobs: [],
+          targetIndustries: [],
+          targetPlaces: [],
+          expat: null,
+          salaryRange: {
+            lowest: 0,
+            highest: 0,
+            interview: null,
+          },
+        },
       },
       tempWorkExp: {},
       tempEducation: {},
       tempSkill: {},
       tempLanguage: {},
-      temLicense: '',
+      tempLicense: '',
       yearArray: [],
       endYearArray: [],
       // 編輯器套件
@@ -1886,6 +1980,8 @@ export default {
           ],
         },
       },
+      editTemplate: '',
+      skills: { groupName: '', skillList: [] },
     };
   },
   watch: {
@@ -1900,9 +1996,8 @@ export default {
   methods: {
     // 展開下拉選單
     openDropDownMenu(index) {
-      console.log(index);
+      this.$refs[`dropDownMenu--${index}`].classList.add('active');
       console.log(this.$refs[`dropDownMenu--${index}`].classList);
-      this.$refs[`dropDownMenu--${index}`].classList.toggle('active');
     },
     // 工作經驗
     // 新增工作經驗
@@ -1911,21 +2006,24 @@ export default {
       this.$refs['workExpEdit--new'].classList.toggle('d-none');
       this.defaultTempData();
     },
-    // 保存新工作經驗
-    saveNewWorkData() {
-      this.saveWorkData('new');
-    },
     // 編輯工作經驗
-    toggleTemplateData(index) {
+    toggleTemplateData(action, index) {
       this.editMode = true;
-      this.$refs[`workExp--${index}`].classList.toggle('d-none');
-      this.$refs[`workExpEdit--${index}`].classList.toggle('d-none');
-      this.$refs[`dropDownMenu--${index}`].classList.toggle('active');
-      this.tempWorkExp = this.user.workExp.works[index];
-    },
-    // 保存現有工作經驗
-    saveTemplateData(index) {
-      this.saveWorkData('old', index);
+      this.$refs[`dropDownMenu--${index}`].classList.remove('active');
+      if (action === 'workExp') {
+        this.$refs[`workExp--${index}`].classList.add('d-none');
+        this.$refs[`workExpEdit--${index}`].classList.remove('d-none');
+        this.tempWorkExp = this.user.workExp.works[index];
+      } else if (action === 'education') {
+        this.$refs[`workExp--${index}`].classList.add('d-none');
+        this.$refs[`workExpEdit--${index}`].classList.remove('d-none');
+      } else if (action === 'language') {
+        this.editTemplate = 'editLanguage';
+      } else if (action === 'license') {
+        this.editTemplate = 'editLicense';
+      } else if (action === 'skill') {
+        this.editTemplate = `editSkill--${index}`;
+      }
     },
     // 保存工作經驗資料
     saveWorkData(action, index) {
@@ -1977,11 +2075,67 @@ export default {
       } else if (action === 'new') {
         this.user.educationExp.educations.push(this.tempEducation);
       }
-      console.log(this.tempEducation);
-      console.log(this.user.educationExp.educations);
       this.closeEducationTemplateData(index);
       this.saveAllData();
       this.getFbData();
+    },
+    // 編輯已建立項目：證照
+    toogleLicenseData(action, ...theArgs) {
+      if (action === 'add') {
+        const obj = {
+          name: this.tempLicense,
+        };
+        this.user.licenses.push(obj);
+        this.tempLicense = '';
+      } else if (action === 'delete') {
+        this.user.licenses.splice(theArgs, 1);
+      }
+    },
+    toogleTempData(section, action, index) {
+      if (action === 'add') {
+        if (section === 'language') {
+          const obj = {
+            name: this.tempLanguage.name,
+            languageLevel: this.tempLanguage.languageLevel,
+            otherSupport: this.tempLanguage.otherSupport,
+          };
+          this.user.languages.push(obj);
+          console.log(this.user.languages);
+        }
+        if (section === 'skill') {
+          const obj = {
+            name: this.tempSkill.name,
+            otherSupport: '',
+          };
+          this.user.skills[index].skillList.push(obj);
+        }
+        this.defaultTempData();
+      }
+    },
+    saveSkillTemplateData() {
+      if (this.user.skills[this.skill.groupName]) {
+        this.user.skills[this.skill.groupName].skillList = this.skills.skillList;
+      } else {
+        const obj = {
+          groupName: this.skill.groupName,
+          skillList: this.skills.skillList,
+        };
+        this.user.skills.push(obj);
+      }
+      this.editTemplate = '';
+      this.saveAllData();
+    },
+    deleteTempData(section, index) {
+      if (section === 'language') {
+        this.user.languages.splice(index, 1);
+      }
+    },
+    deleteSkillData(index) {
+      this.user.languages.splice(index, 1);
+    },
+    saveEditTemplateData() {
+      this.editTemplate = '';
+      this.saveAllData();
     },
     // 關閉教育程度
     closeEducationTemplateData(index) {
@@ -2095,10 +2249,10 @@ export default {
         isStillAtSchool: false,
       };
       this.tempSkill = {
-        skillCategory: '',
-        skillName: '',
-        skillLevel: '',
+        name: '',
+        otherSupport: '',
       };
+      this.skills = { groupName: '', skillList: [] };
       this.tempLanguage = {
         name: '',
         languageLevel: null,
