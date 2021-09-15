@@ -1,35 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <div ref="adminSubHeader" class="admin__subHeader mb-6 box--shadow">
-      <div class="container">
-        <div class="admin__subNav">
-          <li class="d-flex align-items-center d-md-flex d-none">
-            <h2 class="admin__subNav__title">個人帳戶</h2>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="changeSideHeader('基本資料')"
-            :class="{ active: subTopNav === '基本資料' }"
-          >
-            <p class="admin__subNav__txt me-1">基本資料</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="changeSideHeader('求職意向')"
-            :class="{ active: subTopNav === '求職意向' }"
-          >
-            <p class="admin__subNav__txt me-1">求職意向</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="changeSideHeader('帳號設定')"
-            :class="{ active: subTopNav === '帳號設定' }"
-          >
-            <p class="admin__subNav__txt me-1">帳號設定</p>
-          </li>
-        </div>
-      </div>
-    </div>
+    <AdminNav :nowPage="nowPage" />
     <div class="container position-relative">
       <div class="row justify-content-center">
         <div class="col-lg-9 col-12">
@@ -242,12 +213,13 @@
 import emitter from '@/methods/emitter';
 import SettingCareerModal from '@/components/admin/SettingCareerModal.vue';
 import database from '@/methods/firebaseinit';
+import AdminNav from '@/components/admin/AdminNav.vue';
 
 export default {
-  components: { SettingCareerModal },
+  components: { SettingCareerModal, AdminNav },
   data() {
     return {
-      subTopNav: '求職意向',
+      nowPage: '求職意向',
       personalState: true,
       settingSideList: '個人資料',
       skillShowStyle: true,

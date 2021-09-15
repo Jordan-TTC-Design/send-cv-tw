@@ -1,35 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <div ref="adminSubHeader" class="admin__subHeader mb-6 box--shadow">
-      <div class="container">
-        <div class="admin__subNav">
-          <li class="d-flex align-items-center d-md-flex d-none">
-            <h2 class="admin__subNav__title">文件</h2>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('document-cv')"
-            :class="{ active: subTopNav === '履歷' }"
-          >
-            <p class="admin__subNav__txt me-1">履歷</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('document-cover-letter')"
-            :class="{ active: subTopNav === '求職信' }"
-          >
-            <p class="admin__subNav__txt me-1">求職信</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('document-other')"
-            :class="{ active: subTopNav === '其他文件' }"
-          >
-            <p class="admin__subNav__txt me-1">其他文件</p>
-          </li>
-        </div>
-      </div>
-    </div>
+    <AdminNav :nowPage="nowPage" />
     <div class="container">
       <ul class="row">
         <li class="col-4">
@@ -98,15 +69,17 @@
 import emitter from '@/methods/emitter';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import DocModal from '@/components/admin/DocModal.vue';
+import AdminNav from '@/components/admin/AdminNav.vue';
 
 export default {
   components: {
     UpTopBtn,
     DocModal,
+    AdminNav,
   },
   data() {
     return {
-      subTopNav: '求職信',
+      nowPage: '求職信',
       editLetterModal: {},
     };
   },

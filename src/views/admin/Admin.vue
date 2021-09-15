@@ -78,8 +78,6 @@
   <div ref="headerUserMenuModal" class="header__userMenuModal">
     <UserMenu />
   </div>
-
-  <!-- 有點不知道分區要不要寫在外元件 -->
   <div class="main main--bg" ref="main">
     <router-view></router-view>
   </div>

@@ -1,35 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <div ref="adminSubHeader" class="admin__subHeader mb-6 box--shadow">
-      <div class="container">
-        <div class="admin__subNav">
-          <li class="d-flex align-items-center d-md-flex d-none">
-            <h2 class="admin__subNav__title">個人帳戶</h2>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="changeSideHeader('基本資料')"
-            :class="{ active: subTopNav === '基本資料' }"
-          >
-            <p class="admin__subNav__txt me-1">基本資料</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="changeSideHeader('求職意向')"
-            :class="{ active: subTopNav === '求職意向' }"
-          >
-            <p class="admin__subNav__txt me-1">求職意向</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="changeSideHeader('帳號設定')"
-            :class="{ active: subTopNav === '帳號設定' }"
-          >
-            <p class="admin__subNav__txt me-1">帳號設定</p>
-          </li>
-        </div>
-      </div>
-    </div>
+    <AdminNav :nowPage="nowPage" />
     <div class="container position-relative">
       <div class="row">
         <div class="col-lg-3 col-12">
@@ -206,7 +177,7 @@
               </ul>
             </div>
             <div v-if="editMode">
-              <Form ref="editAccountPersonalData" v-slot="{ errors }" @submit.prevent="saveAllData">
+              <Form ref="editAccountPersonalData" v-slot="{ errors }" @submit="saveAllData">
                 <div class="row">
                   <!-- 姓名 -->
                   <div class="col-lg-6 col-12">
@@ -952,6 +923,7 @@
               </ul>
             </div>
           </div>
+          <WorkExpTemplate :workExpData="tempWorkExp" @returnWorkExpData="saveWorkExpData" />
           <!-- 教育程度 -->
           <div class="admin__mainContent" v-if="settingSideList === '教育程度'">
             <h3 class="admin__mainContent__title">教育程度</h3>
@@ -1282,7 +1254,6 @@
                           </ul>
                         </button>
                       </div>
-
                       <div class="infoList__item__contentBox">
                         <p class="contentBox__title mb-1">學習專業與經歷</p>
                         <div
@@ -1818,63 +1789,138 @@
           <!-- 其他 -->
           <div class="admin__mainContent" v-if="settingSideList === '其他'">
             <h3 class="admin__mainContent__title">其他</h3>
-            <div>
-              <ul class="row">
-                <li class="col-12">
-                  <div class="infoList__item show--compressed">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">駕照</p>
-                        <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>重型機車</p>
-                          </li>
-                          <li class="infoList__item__skillList__skill">
-                            <p>小型汽車</p>
-                          </li>
-                        </ul>
-                      </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
+            <div class="admin__mainContent__btnBox">
+              <button
+                type="button"
+                class="btn btn-outline-gray-line btn--text--dark"
+                @click="toogleData('editMode')"
+              >
+                編輯
+              </button>
+            </div>
+            <ul class="row" v-if="!editMode">
+              <li class="col-12">
+                <div class="infoList__item show--compressed">
+                  <p class="infoList__item__title">駕照</p>
+                  <ul class="infoList__item__skillList">
+                    <template v-for="(item, index) in user.others.driverLicenses" :key="index">
+                      <li v-if="item.select" class="infoList__item__skillList__skill">
+                        <p>{{ item.name }}</p>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </li>
+              <li class="col-12">
+                <div class="infoList__item show--compressed">
+                  <p class="infoList__item__title">身份</p>
+                  <ul class="infoList__item__skillList">
+                    <template v-for="(item, index) in user.others.identities" :key="index">
+                      <li v-if="item.select" class="infoList__item__skillList__skill">
+                        <p>{{ item.name }}</p>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </li>
+              <li class="col-12">
+                <div class="infoList__item listLast show--compressed">
+                  <p class="infoList__item__title">兵役</p>
+                  <ul class="infoList__item__skillList">
+                    <template v-for="(item, index) in user.others.militaryServices" :key="index">
+                      <li v-if="item.select" class="infoList__item__skillList__skill">
+                        <p>{{ item.name }}</p>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+            <div v-if="editMode">
+              <Form ref="editOthersData" @submit="saveAllData">
+                <div class="form__inputBox">
+                  <div class="form__labelBox">
+                    <label for="othersDataDriverLicenses" class="form__label--custom form-label"
+                      >駕照</label
+                    >
+                  </div>
+                  <div class="d-flex flex-wrap">
+                    <div
+                      class="form-check me-2"
+                      v-for="(item, index) in user.others.driverLicenses"
+                      :key="index"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        :value="item.name"
+                        :id="`driverLicenses--${index}`"
+                        name="駕照"
+                        v-model="item.select"
+                      />
+                      <label class="form-check-label" :for="`driverLicenses--${index}`">
+                        {{ item.name }}
+                      </label>
                     </div>
                   </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item show--compressed">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">身份</p>
-                        <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>無特殊身份</p>
-                          </li>
-                        </ul>
-                      </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
+                </div>
+                <div class="form__inputBox">
+                  <div class="form__labelBox">
+                    <label for="othersDataIdentity" class="form__label--custom form-label"
+                      >身份</label
+                    >
+                  </div>
+                  <div class="d-flex flex-wrap">
+                    <div
+                      class="form-check me-2"
+                      v-for="(item, index) in user.others.identities"
+                      :key="index"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        :value="item.name"
+                        :id="`identity--${index}`"
+                        name="身份"
+                        v-model="item.select"
+                      />
+                      <label class="form-check-label" :for="`identity--${index}`">
+                        {{ item.name }}
+                      </label>
                     </div>
                   </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item listLast show--compressed">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">兵役</p>
-                        <ul class="infoList__item__skillList">
-                          <li class="infoList__item__skillList__skill">
-                            <p>役畢</p>
-                          </li>
-                        </ul>
-                      </div>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
+                </div>
+                <div class="form__inputBox">
+                  <div class="form__labelBox">
+                    <label for="othersDataMilitaryService" class="form__label--custom form-label"
+                      >兵役</label
+                    >
+                  </div>
+                  <div class="d-flex flex-wrap">
+                    <div
+                      class="form-check me-2"
+                      v-for="(item, index) in user.others.militaryServices"
+                      :key="index"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        :value="item.name"
+                        :id="`militaryService--${index}`"
+                        name="兵役"
+                        v-model="item.select"
+                      />
+                      <label class="form-check-label" :for="`militaryService--${index}`">
+                        {{ item.name }}
+                      </label>
                     </div>
                   </div>
-                </li>
-              </ul>
+                </div>
+                <div class="d-flex justify-content-end">
+                  <button type="button" class="btn btn-gray-light me-2">取消</button>
+                  <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+              </Form>
             </div>
           </div>
         </div>
@@ -1887,13 +1933,19 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
+import AdminNav from '@/components/admin/AdminNav.vue';
+import WorkExpTemplate from '@/components/admin/WorkExpTemplate.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
+  components: {
+    AdminNav,
+    WorkExpTemplate,
+  },
   data() {
     return {
       date: new Date(),
-      subTopNav: '基本資料',
+      nowPage: '基本資料',
       personalState: true,
       settingSideList: '個人資料',
       skillShowStyle: true,
@@ -1927,8 +1979,8 @@ export default {
         skill: [],
         others: {
           driverLicenses: [],
-          identity: [],
-          militaryService: '',
+          identities: [],
+          militaryServices: [],
         },
         career: {
           workType: [],
@@ -1994,6 +2046,9 @@ export default {
     },
   },
   methods: {
+    saveWorkExpData(obj) {
+      console.log(obj);
+    },
     // 展開下拉選單
     openDropDownMenu(index) {
       this.$refs[`dropDownMenu--${index}`].classList.add('active');
@@ -2268,6 +2323,7 @@ export default {
     this.createYears();
     this.defaultTempData();
   },
+  mounted() {},
 };
 </script>
 

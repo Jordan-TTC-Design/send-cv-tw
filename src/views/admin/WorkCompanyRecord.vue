@@ -1,56 +1,7 @@
 <template>
   <div class="adminPage--py">
-    <div ref="adminSubHeader" class="admin__subHeader mb-6 box--shadow">
-      <div class="container">
-        <div class="admin__subNav">
-          <li class="d-flex align-items-center d-md-flex d-none">
-            <h2 class="admin__subNav__title">工作</h2>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('work-application')"
-            :class="{ active: subTopNav === '行事曆' }"
-          >
-            <p class="admin__subNav__txt me-1">行事曆</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('work-application')"
-            :class="{ active: subTopNav === '職位申請' }"
-          >
-            <p class="admin__subNav__txt me-1">職位申請</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('work-company-read')"
-            :class="{ active: subTopNav === '企業來訪' }"
-          >
-            <p class="admin__subNav__txt me-1">企業來訪</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('work-collection')"
-            :class="{ active: subTopNav === '收藏' }"
-          >
-            <p class="admin__subNav__txt me-1">收藏</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('work-read-record')"
-            :class="{ active: subTopNav === '瀏覽紀錄' }"
-          >
-            <p class="admin__subNav__txt me-1">瀏覽紀錄</p>
-          </li>
-          <li
-            class="admin__subNav__item"
-            @click="goToPageLink('work-application-review')"
-            :class="{ active: subTopNav === '審核紀錄' }"
-          >
-            <p class="admin__subNav__txt me-1">審核紀錄</p>
-          </li>
-        </div>
-      </div>
-    </div>
+        <AdminNav :nowPage="nowPage"/>
+
     <div ref="jobsListContainer" class="jobsListContainer container">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
@@ -165,6 +116,7 @@ import webData from '@/methods/webData';
 import PagenationModal from '@/components/helpers/Pagenation.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
+import AdminNav from '@/components/admin/AdminNav.vue';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -173,12 +125,13 @@ export default {
     PagenationModal,
     UpTopBtn,
     JobCollect,
+    AdminNav,
   },
   data() {
     return {
       fullWidth: 0,
       fullHeight: 0,
-      subTopNav: '企業來訪',
+      nowPage: '企業來訪',
       products: [],
       jobsList: [],
       nowPageJobs: [],
