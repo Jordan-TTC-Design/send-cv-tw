@@ -250,10 +250,10 @@ export default {
     workExpData: {
       deep: true,
       handler(newValue) {
-        this.tempWorkExp = newValue;
+        this.tempWorkExp = JSON.parse(JSON.stringify(newValue));
       },
     },
-    formNUmber: {
+    formNumber: {
       deep: true,
       handler(newValue) {
         this.formIndex = newValue;
@@ -261,9 +261,12 @@ export default {
     },
   },
   methods: {
-    saveFormData() {
-      this.closeForm();
-      this.$emit('returnWorkExpData', this.tempWorkExp);
+    saveWorkData() {
+      const obj = {
+        data: this.tempWorkExp,
+        num: this.formIndex,
+      };
+      this.$emit('returnWorkExpData', obj);
     },
     closeForm() {
       this.$emit('reuturnCloseForm', this.formIndex);
@@ -296,11 +299,10 @@ export default {
   },
   created() {
     this.formData = webData;
-    this.tempWorkExp = this.workExpData;
+    this.tempWorkExp = JSON.parse(JSON.stringify(this.workExpData));
     this.formIndex = this.formNumber;
     this.createYears();
   },
-  mounted() {},
 };
 </script>
 

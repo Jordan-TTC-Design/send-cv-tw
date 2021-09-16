@@ -88,6 +88,16 @@ const routes = [
         component: () => import('../views/admin/DocCV.vue'),
       },
       {
+        // 文件-履歷
+        path: 'document-cv/cv',
+        component: () => import('../views/admin/CV.vue'),
+      },
+      {
+        // 文件-履歷
+        path: 'document-cv/cv/edit',
+        component: () => import('../views/admin/CVEdit.vue'),
+      },
+      {
         // 文件-求職信
         path: 'document-cover-letter',
         component: () => import('../views/admin/DocCoverLetter.vue'),

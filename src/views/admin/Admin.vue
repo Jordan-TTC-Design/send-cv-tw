@@ -5,7 +5,7 @@
     </div>
     <div class="container d-flex justify-content-between align-items-center">
       <h1>
-        <router-link aria-current="page" to="/"
+        <router-link ia-current="page" to="/"
           ><img
             class="header__logo"
             src="@/assets/images/logo/sendCV-logo-black.svg"

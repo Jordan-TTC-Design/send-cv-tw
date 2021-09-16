@@ -148,7 +148,7 @@
                   </div>
                 </li>
                 <li class="col-12">
-                  <div class="infoList__item show--compressed listLast">
+                  <div class="infoList__item show--compressed list--last">
                     <div class="d-flex justify-content-between align-items-center">
                       <div>
                         <p class="infoList__item__title">刪除帳號</p>
@@ -179,14 +179,14 @@
 <script>
 import emitter from '@/methods/emitter';
 import SettingAccountModal from '@/components/admin/SettingAccountModal.vue';
-import database from '@/methods/firebaseinit';
 import AdminNav from '@/components/admin/AdminNav.vue';
+import database from '@/methods/firebaseinit';
 
 export default {
   components: { SettingAccountModal, AdminNav },
   data() {
     return {
-      nwPage: '帳號設定',
+      nowPage: '帳號設定',
       personalState: true,
       settingSideList: '個人資料',
       skillShowStyle: true,

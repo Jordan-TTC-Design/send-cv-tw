@@ -128,7 +128,7 @@
             </div>
           </div>
         </li>
-        <li class="infoList__item listLast mb-5">
+        <li class="infoList__item list--last mb-5">
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <p class="infoList__item__title">應徵紀錄</p>

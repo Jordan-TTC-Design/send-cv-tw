@@ -4,9 +4,9 @@
     <div class="container">
       <ul class="row">
         <li class="col-4">
-          <div class="docCard--new putPointer">
+          <router-link class="docCard--new putPointer" to="document-cv/cv/edit">
             <p><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增履歷</p>
-          </div>
+          </router-link>
         </li>
         <li class="col-4">
           <div class="docCard">
@@ -45,7 +45,7 @@
         <li class="col-4">
           <div class="docCard">
             <div class="d-flex flex-column justify-content-between flex-grow-1 me-2">
-              <p class="docCard__title">UI設計</p>
+              <router-link to="document-cv/cv" class="docCard__title">UI設計</router-link>
               <p class="subTxt mb-3">更新時間：2020.12.12 12:30</p>
               <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-outline-gray-line text-dark">

@@ -591,7 +591,7 @@
 .infoList__item {
   padding: 0.75rem 0;
   border-bottom: 1px solid $gray-line;
-  &.listLast {
+  &.list--last {
     border-bottom: 0;
     padding-bottom: 0;
   }
@@ -1062,4 +1062,106 @@
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid $gray-line;
+}
+.cvContainer{
+  padding: 1.5rem;
+  background-color: $light;
+  border-radius: 0.5rem;
+  &__title{
+    font-size: 1.25rem;
+    color:$dark;
+    font-weight: $fw--bd;
+    display: flex;
+    align-items: center;
+    &__tag{
+      background-color: $primary-light;
+      width: 1.25rem;
+      height: 0.75rem;
+      border-radius: 0.5rem;
+      position: relative;
+      &::before{
+        content: '';
+        position: absolute;
+        background-color: $primary;
+        border-radius: 50%;
+        height: 0.75rem;
+        width: 0.75rem;
+      }
+    }
+  }
+  &__titleBox{
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $gray-line;
+  }
+}
+.cvSideBox{
+  background-color: $light;
+  @include shadow-normal;
+  border-radius: 0.5rem;
+  position: sticky;
+  top: 72px;
+  &__title{
+    background-color: $primary;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    p{
+      color:$dark;
+    }
+  }
+  &__sectionList{
+    padding: 0.75rem 0rem;
+    border-bottom: 1px solid $gray-line;
+    .list__item{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.5rem 0 1rem;
+      position: relative;
+      &:hover{
+        background-color: $gray-light;
+      }
+      &.cvSideBox__sectionList--change{
+        padding-left: 2rem;
+      }
+    }
+    &__txt{
+      display: flex;
+      align-items: center;
+    }
+    &__check{
+      color:$gray-line;
+    }
+    &__changeBtn{
+      height: 100%;
+      width: 1.5rem;
+      position: absolute;
+      left: 0.5rem;
+      cursor: pointer;
+      &::before{
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 25%;
+        background-color: $gray-dark;
+        width: 2px;
+        height: 50%;
+        border-radius: 2px;
+      }
+      &::after{
+        content: '';
+        position: absolute;
+        right: 8px;
+        top: 25%;
+        background-color: $gray-dark;
+        width: 2px;
+        height: 50%;
+        border-radius: 2px;
+      }
+    }
+  }
+  &__footer{
+    padding: 0.5rem 0.75rem;
+  }
 }
