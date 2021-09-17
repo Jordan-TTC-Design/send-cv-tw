@@ -622,3 +622,50 @@
     }
   }
 }
+.editorSelectBoxList{
+  display: flex;
+  justify-content: space-between;
+}
+.editorSelectBox{
+  border-radius: 0.5rem;
+  border: 1px solid $gray-line;
+  width: calc(33.333% - 0.5rem);
+  cursor: pointer;
+  &__title{
+    padding: 0.25rem 0.75rem;
+    background-color: $gray-light;
+    border-radius: 0.5rem 0.5rem 0 0 ;
+  }
+  &__imgBox{
+    min-height: 120px;
+  }
+}
+
+.form__infoEditBox {
+  .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
+  .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+    border-radius: 0.5rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
+  .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+    border-radius: 0.5rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .ck-editor__editable_inline {
+    min-height: 240px;
+  }
+  .ck-content h2 {
+    font-size: 24px;
+  }
+}
+.form__infoEditBox--sm {
+  .ck-editor__editable_inline {
+    min-height: 160px;
+  }
+}
+.cropImgBox--lg{
+  min-height: 360px;
+}

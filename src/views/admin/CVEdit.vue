@@ -319,15 +319,55 @@
               </template>
             </ul>
           </div>
-          <div class="cvContainer mb-5">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
-                特殊經歷
-              </h3>
+          <template v-for="(listItem, listIndex) in cvData.cvSectionList" :key="listIndex">
+            <div class="cvContainer mb-5">
+              <div class="cvContainer__titleBox">
+                <h3 class="cvContainer__title" :ref="`expDataTitle--${listIndex}`">
+                  <div class="cvContainer__title__tag me-2"></div>
+                  {{ listItem.sectionTitle }}
+                  <button type="button" class="btn ms-2" @click="editSectionName(listIndex)">
+                    <i class="jobIcon bi bi-pencil-square text-dark"></i>
+                  </button>
+                </h3>
+                <div class="d-flex d-none" :ref="`expDataTitle--${listIndex}--edit`">
+                  <div class="form__inputBox mb-0 me-2">
+                    <input
+                      :id="`expDataTitle--${listIndex}--input`"
+                      name="標題"
+                      type="text"
+                      class="form-control h-100"
+                      placeholder="請輸入標題"
+                      v-model="listItem.sectionTitle"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-gray-light text-dark"
+                    @click="saveSectionTitle(listIndex)"
+                  >
+                    保存
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line text-dark"
+                  @click="newTemplateData(listIndex)"
+                >
+                  新增
+                </button>
+              </div>
+              <template v-for="(item, index) in listItem.sectionDataList" :key="index">
+                <CVExpTemplate
+                  :tempExpSectionData="item"
+                  :formNumber="index"
+                  :listNumber="listIndex"
+                  @returnExpSectionData="saveExpSectionData"
+                  @deleteData="deleteExpSectionData"
+                  @reLoadData="getFbData"
+                />
+              </template>
             </div>
-            <CVExpTemplate :tempExpSectionData="tempExpSectionData" />
-          </div>
+          </template>
         </div>
         <div class="col-xxl-3 col-xl-4 col-12">
           <div class="cvSideBox">
@@ -397,9 +437,30 @@
                 </p>
                 <button type="buttonn" class="btn"><i class="jobIcon bi bi-three-dots"></i></button>
               </li>
+              <template v-for="(listItem, listIndex) in cvData.cvSectionList" :key="listIndex">
+                <li class="list__item cvSideBox__sectionList--change">
+                  <div class="cvSideBox__sectionList__changeBtn"></div>
+                  <p class="cvSideBox__sectionList__txt">
+                    {{ listItem.sectionTitle
+                    }}<i
+                      class="cvSideBox__sectionList__check jobIcon-sm ms-1 bi bi-check-circle-fill"
+                    ></i>
+                  </p>
+                  <DropDownMenu
+                    :sendMenuName="`cvSectionList--${listIndex}`"
+                    :sendActionName="'特殊經歷'"
+                    :sendIndex="listIndex"
+                    @deleteData="deleteCvSection"
+                  />
+                </li>
+              </template>
             </ul>
             <div class="cvSideBox__footer">
-              <button type="button" class="btn btn-outline-gray-line text-dark">
+              <button
+                type="button"
+                class="btn btn-outline-gray-line text-dark"
+                @click="newCvSection"
+              >
                 新增履歷板塊
               </button>
             </div>
@@ -416,12 +477,14 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CVExpTemplate from '@/components/admin/CVExpTemplate.vue';
+import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import database from '@/methods/firebaseinit';
+import DropDownMenu from '@/components/helpers/DropDownMenu.vue';
 
 export default {
-  components: { CVExpTemplate },
+  components: { CVExpTemplate, UpTopBtn, DropDownMenu },
   data() {
     return {
       date: new Date(),
@@ -477,9 +540,10 @@ export default {
           },
         },
       },
-      cvList: [
-        { cvName: '第一份履歷', expSectionList: [{ title: '我的大學經歷', content: '我的' }] },
-      ],
+      cvData: {
+        cvName: '第一份履歷',
+        expSectionList: [{ title: '我的大學經歷', content: '我的' }],
+      },
       tempWorkExp: {},
       tempEducation: {},
       tempSkill: {},
@@ -515,25 +579,112 @@ export default {
         },
       },
       tempSkillList: { groupName: '', skillList: [] },
-      tempExpSectionData: { title: '', content: '' },
+      tempExpSectionData: {
+        title: '',
+        content: '',
+        imgUrl: '',
+        editorStyle: '',
+      },
     };
   },
   watch: {
     date(newValue) {
       const data = Math.ceil(newValue.valueOf() / 1000);
       this.user.account.birthday = data;
-      console.log(data);
       console.dir(this.$filters.date(data));
-      console.log(data);
     },
   },
   methods: {
-    newExpSection() {
+    saveSectionTitle(listIndex) {
+      console.log(this.cvData.cvSectionList[listIndex].sectionTitle);
+      if (this.cvData.cvSectionList[listIndex].sectionTitle === '') {
+        this.cvData.cvSectionList[listIndex].sectionTitle = '未命名板塊';
+      }
+      this.editSectionName(listIndex);
+      this.saveAllData();
+    },
+    editSectionName(listIndex) {
+      this.$refs[`expDataTitle--${listIndex}--edit`].classList.toggle('d-none');
+      this.$refs[`expDataTitle--${listIndex}`].classList.toggle('d-none');
+    },
+    deleteCvSection(templateData) {
+      this.cvData.cvSectionList.splice(templateData.index, 1);
+      this.saveAllData();
+    },
+    deleteExpSectionData(templateData) {
+      console.log(templateData);
+      const listNum = templateData.listIndex;
+      const itemNum = templateData.index;
+      console.log(this.cvData.cvSectionList[listNum]);
+      this.cvData.cvSectionList[listNum].sectionDataList.splice(itemNum, 1);
+      this.saveAllData();
+    },
+    newTemplateData(listIndex) {
       const obj = {
-        name: this.tempExpSectionData.name,
-        content: this.tempExpSectionData.content,
+        title: '',
+        content: '',
+        imgUrl: '',
+        editorStyle: '',
+        editMode: true,
       };
-      this.cvList.expSectionList.push(obj);
+      if (this.cvData.cvSectionList[listIndex].sectionDataList) {
+        this.cvData.cvSectionList[listIndex].sectionDataList.push(obj);
+      } else {
+        this.cvData.cvSectionList[listIndex].sectionDataList = [obj];
+      }
+    },
+    // newCvSection() {
+    //   this.cvData.cvSectionList = [];
+    //   this.cvData.cvSectionList[0] = [
+    //     {
+    //       sectionTitle: '未命名板塊',
+    //       sectionDataList: [
+    //         {
+    //           title: '',
+    //           content: '',
+    //           imgUrl: '',
+    //           editorStyle: '',
+    //         },
+    //       ],
+    //     },
+    //   ];
+    //   console.log(this.cvData);
+    //   this.saveAllData();
+    // },
+    newCvSection() {
+      this.cvData.cvSectionList[this.cvData.cvSectionList.length] = {
+        sectionTitle: '未命名板塊',
+        sectionNumber: this.cvData.cvSectionList.length - 1,
+        sectionDataList: [
+          // {
+          //   title: '',
+          //   content: '',
+          //   imgUrl: '',
+          //   editorStyle: '',
+          // },
+        ],
+      };
+      console.log(this.cvData);
+      this.saveAllData();
+    },
+    saveExpSectionData(templateData) {
+      const listNum = templateData.listIndex;
+      const itemNum = templateData.index;
+      const { data } = templateData;
+      if (templateData.index !== 'new') {
+        this.cvData.cvSectionList[listNum].sectionDataList[itemNum] = data;
+        // const sectionRef = database.ref(`cvList/0/expSectionList/${templateData.index}`);
+        // sectionRef.set(templateData.data);
+      } else {
+        const obj = {
+          title: data.title,
+          editorStyle: data.editorStyle,
+          imgUrl: data.imgUrl,
+          content: data.content,
+        };
+        this.cvData.cvSectionList[templateData.listIndex].sectionDataList.push(obj);
+      }
+      this.saveAllData();
     },
     editTemplateData(txt) {
       this.editMode = true;
@@ -597,12 +748,9 @@ export default {
     },
     // 保存資料
     saveAllData() {
-      this.cvList = [
-        { cvName: '第一份履歷', expSectionList: [{ title: '我的大學經歷', content: '我的' }] },
-      ];
-      const cvRef = database.ref('cvList');
+      const cvRef = database.ref('cvList/0');
       const userRef = database.ref('user');
-      cvRef.set(this.cvList);
+      cvRef.set(this.cvData);
       userRef.set(this.user);
       this.getFbData();
       this.editMode = false;
@@ -614,12 +762,12 @@ export default {
         const data = snapshot.val();
         this.user = data;
       });
-      const cvRef = database.ref('cvList');
+      const cvRef = database.ref('cvList/0');
       cvRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        const [cv] = data;
-        this.cvList = cv;
-        console.log(this.cvList);
+        const cv = data;
+        this.cvData = cv;
+        console.log(this.cvData);
       });
     },
     choose(cityName) {

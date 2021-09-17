@@ -189,13 +189,13 @@
       <div class="col-12">
         <div class="form__inputBox form__infoEditBox">
           <div class="form__labelBox">
-            <label for="workExpDataContent" class="form__label--custom form-label"
+            <label for="educationDataContent" class="form__label--custom form-label"
               >在學表現＆成就</label
             >
           </div>
           <ckeditor
-            id="workExpDataContent"
-            ref="workExpDataContent"
+            id="educationDataContent"
+            ref="educationDataContent"
             name="在學表現＆成就"
             :editor="editor"
             tag-name="textarea"

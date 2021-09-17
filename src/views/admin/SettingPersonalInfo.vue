@@ -1007,7 +1007,6 @@
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import AdminNav from '@/components/admin/AdminNav.vue';
@@ -1089,35 +1088,6 @@ export default {
       tempSkill: {},
       tempLanguage: {},
       tempLicense: '',
-      // 編輯器套件
-      editor: ClassicEditor,
-      editorConfig: {
-        toolbar: ['heading', '|', 'bold', 'italic', 'link'],
-        language: 'zh',
-        placeholder: '請輸入...',
-        heading: {
-          // 設定 Heading 內的樣式，可新增多個
-          options: [
-            {
-              model: 'paragraph',
-              title: 'Paragraph',
-              class: 'ck-heading_paragraph',
-            },
-            {
-              model: 'heading1',
-              view: 'h2',
-              title: 'Heading 1',
-              class: 'ck-heading_heading1',
-            },
-            {
-              model: 'heading2',
-              view: 'h3',
-              title: 'Heading 2',
-              class: 'ck-heading_heading2',
-            },
-          ],
-        },
-      },
       tempSkillList: { groupName: '', skillList: [] },
     };
   },

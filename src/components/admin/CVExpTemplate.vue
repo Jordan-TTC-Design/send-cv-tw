@@ -1,11 +1,115 @@
 <template>
+  <div class="cvExpSection" v-if="!expSectionData.editMode">
+    <div class="cvExpSection__titleBox mb-4">
+      <p class="cvExpSection__title">{{ expSectionData.title }}</p>
+      <div class="dropdown">
+        <button
+          class="btn position-relative"
+          type="button"
+          :id="`dropdownMenuButton--cvExpData--${formIndex}`"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="jobIcon bi bi-three-dots"></i>
+        </button>
+        <ul
+          :ref="`dropDownMenu--${formIndex}`"
+          class="dropDownMenu dropdown-menu"
+          :aria-labelledby="`dropdownMenuButton--cvExpData--${formIndex}`"
+        >
+          <li class="dropDownMenu__item" @click="editFrom">編輯</li>
+          <li class="dropDownMenu__item">調整排序</li>
+          <li class="dropDownMenu__item" @click="deleteData">刪除</li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="cvExpSection__content"
+      :class="{
+        'cvExpSection--largeImg':
+          expSectionData.editorStyle === 'largeImg' || expSectionData.editorStyle === 'onlyTxt',
+      }"
+    >
+      <div class="cvExpSection__content__txt" v-html="expSectionData.content"></div>
+      <div class="cvExpSection__content__imgBox" v-if="expSectionData.editorStyle !== 'onlyTxt'">
+        <img :src="expSectionData.imgUrl" :alt="`${expSectionData.title}圖片`" />
+      </div>
+    </div>
+  </div>
   <Form
-    ref="editAccountEducationData"
     v-slot="{ errors }"
-    @submit="saveEducationData('new')"
-    class="pt-4"
+    @submit="saveData"
+    class="cvExpSection--edit"
+    v-if="expSectionData.editMode"
   >
-    <div class="row">
+    <div v-if="expSectionData.editorStyle === '' && expSectionData.editMode">
+      <div class="form__inputBox">
+        <div class="form__labelBox">
+          <label for="editorStyle" class="form__label--custom form-label">選擇模板樣式</label>
+        </div>
+        <ul class="editorSelectBoxList">
+          <li class="editorSelectBox me-2" @click="tempalteStyle = 'onlyTxt'">
+            <div class="editorSelectBox__title">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="editorStyle--onlyTxt"
+                  value="onlyTxt"
+                  name="模板樣式"
+                  v-model="tempalteStyle"
+                />
+                <label class="form-check-label" for="editorStyle--onlyTxt"> 文字模板 </label>
+              </div>
+            </div>
+            <div class="editorSelectBox__imgBox"></div>
+          </li>
+          <li class="editorSelectBox me-2" @click="tempalteStyle = 'smallImg'">
+            <div class="editorSelectBox__title">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="editorStyle--smallImg"
+                  value="smallImg"
+                  name="模板樣式"
+                  v-model="tempalteStyle"
+                />
+                <label class="form-check-label" for="editorStyle--smallImg"> 小圖模版 </label>
+              </div>
+            </div>
+            <div class="editorSelectBox__imgBox"></div>
+          </li>
+          <li class="editorSelectBox" @click="tempalteStyle = 'largeImg'">
+            <div class="editorSelectBox__title">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="editorStyle--largeImg"
+                  value="largeImg"
+                  name="模板樣式"
+                  v-model="tempalteStyle"
+                />
+                <label class="form-check-label" for="editorStyle--largeImg"> 大圖模版 </label>
+              </div>
+            </div>
+            <div class="editorSelectBox__imgBox"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-gray-light me-2" @click="closeForm">取消</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="expSectionData.editorStyle = tempalteStyle"
+        >
+          確定
+        </button>
+      </div>
+    </div>
+    <div class="row" v-if="expSectionData.editorStyle !== '' && expSectionData.editMode">
       <!-- 標題 -->
       <div class="col-lg-6 col-12">
         <div class="form__inputBox">
@@ -27,38 +131,55 @@
           <ErrorMessage name="標題" class="invalid-feedback"></ErrorMessage>
         </div>
       </div>
+    </div>
+    <div
+      class="row"
+      v-if="expSectionData.editorStyle !== ''"
+      :class="{ 'flex-column  -reverse': expSectionData.editorStyle === 'largeImg' }"
+    >
       <!-- 內容 -->
-      <div class="col-8">
-        <div class="form__inputBox form__infoEditBox">
+      <div
+        class="col-md-8 col-12"
+        :class="{
+          'col-md-12':
+            expSectionData.editorStyle === 'largeImg' || expSectionData.editorStyle === 'onlyTxt',
+        }"
+      >
+        <div
+          class="form__inputBox form__infoEditBox"
+          :class="{ 'form__infoEditBox--sm': expSectionData.editorStyle === 'largeImg' }"
+        >
           <div class="form__labelBox">
-            <label for="workExpDataContent" class="form__label--custom form-label"
-              >內容</label
-            >
+            <label for="expSectionContent" class="form__label--custom form-label">內容</label>
           </div>
           <ckeditor
-            id="workExpDataContent"
-            ref="workExpDataContent"
-            name="在學表現＆成就"
+            id="expSectionContent"
+            ref="expSectionContent"
+            name="內容"
             :editor="editor"
             tag-name="textarea"
-            v-model="tempEducationExp.educationContent"
+            v-model="expSectionData.content"
             :config="editorConfig"
           ></ckeditor>
           <Field
-            name="在學表現＆成就"
+            name="內容"
             type="text"
             class="form-control d-none"
-            :class="{ 'is-invalid': errors['在學表現＆成就'] }"
+            :class="{ 'is-invalid': errors['內容'] }"
             placeholder="請輸入"
-            v-model="tempEducationExp.educationContent"
+            v-model="expSectionData.content"
             as="textarea"
             rules="required"
           >
           </Field>
-          <ErrorMessage name="在學表現＆成就" class="invalid-feedback"></ErrorMessage>
+          <ErrorMessage name="內容" class="invalid-feedback"></ErrorMessage>
         </div>
       </div>
-      <div class="col-md-4 col-12">
+      <div
+        class="col-md-4 col-12"
+        :class="{ 'col-md-12': expSectionData.editorStyle === 'largeImg' }"
+        v-if="expSectionData.editorStyle !== 'onlyTxt'"
+      >
         <div class="form__inputBox">
           <div class="form__labelBox">
             <label for="upLoadSectionImg" class="form__label--custom form-label">圖片</label>
@@ -75,7 +196,10 @@
             accept="image/*"
             @change="loadingImg($event)"
           />
-          <div class="cropImgBox">
+          <div
+            class="cropImgBox"
+            :class="{ 'cropImgBox--lg': expSectionData.editorStyle === 'largeImg' }"
+          >
             <div class="cropImgBox__cover" v-if="tempImg.src"></div>
             <p class="subTxt" v-if="tempImg.src == ''">(上限 5 mb )</p>
             <img
@@ -125,36 +249,52 @@
           <ErrorMessage name="圖片" class="invalid-feedback"></ErrorMessage>
         </div>
       </div>
-      <div class="col-12 d-flex justify-content-end">
+    </div>
+    <div
+      class="d-flex justify-content-between"
+      v-if="expSectionData.editorStyle !== '' && expSectionData.editMode"
+    >
+      <button
+        type="button"
+        class="btn btn-outline-gray-line text-dark"
+        @click="expSectionData.editorStyle = ''"
+      >
+        重新選擇模板樣式
+      </button>
+      <div class="d-flex">
         <button type="button" class="btn btn-gray-light me-2" @click="closeForm">取消</button>
         <button type="submit" class="btn btn-primary">保存</button>
       </div>
     </div>
   </Form>
-  <ImageCropper @emit-send-img-data="getImg" />
+  <ImageCropper @emit-send-img-data="getImg" v-if="callImgCropper" />
 </template>
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import webData from '@/methods/webData';
 import ImageCropper from '@/components/helpers/ImageCropperModal.vue';
 import emitter from '@/methods/emitter';
+import database from '@/methods/firebaseinit';
 
 export default {
   components: { ImageCropper },
-  emits: ['returnExpSectionData', 'reuturnCloseForm'],
-  props: ['tempExpSectionData', 'formNumber'],
+  emits: ['returnExpSectionData', 'reuturnCloseForm', 'reLoadData', 'deleteData'],
+  props: ['tempExpSectionData', 'formNumber', 'listNumber'],
   data() {
     return {
       expSectionData: {
         title: '',
         content: '',
-        imgUrl: 'https://i.imgur.com/ctKogiV.jpg',
+        imgUrl: '',
+        editorStyle: '',
+        editMode: false,
       },
       tempImg: {
-        src: 'https://i.imgur.com/ctKogiV.jpg',
-        isUpDated: true,
+        src: '',
+        isUpDated: false,
       },
       formIndex: null,
+      listIndex: null,
       formData: {},
       // 編輯器套件
       editor: ClassicEditor,
@@ -185,6 +325,11 @@ export default {
           ],
         },
       },
+      // 圖片套件
+      cropper: {},
+      tempalteStyle: '',
+      nowEdit: '',
+      callImgCropper: false,
     };
   },
   watch: {
@@ -200,27 +345,41 @@ export default {
         this.formIndex = newValue;
       },
     },
-    // 圖片套件
-    cropper: {},
+    listNumber: {
+      deep: true,
+      handler(newValue) {
+        this.listIndex = newValue;
+      },
+    },
   },
   methods: {
-    saveExpSectionData() {
+    saveData() {
+      this.closeForm();
       const obj = {
         data: this.expSectionData,
-        num: this.formIndex,
+        index: this.formIndex,
+        listIndex: this.listIndex,
       };
       this.$emit('returnExpSectionData', obj);
     },
-    closeForm() {
-      this.$emit('reuturnCloseForm', this.formIndex);
+    editFrom() {
+      this.expSectionData.editMode = true;
+      if (this.expSectionData.imgUrl !== '') {
+        this.tempImg.src = this.expSectionData.imgUrl;
+        this.tempImg.isUpDated = true;
+      }
     },
-
+    closeForm() {
+      this.expSectionData.editMode = false;
+      this.nowEdit = '';
+    },
     // 上傳第一步：觸發圖片input
     clickInput(e) {
       if (e.target.dataset.input === 'upLoadSingleImg') {
         this.$refs.upLoadSectionImg.click();
         this.uploadImgState = 'upLoadSingleImg';
       }
+      this.callImgCropper = true;
     },
     // 上傳第二步：取得圖片傳給modal
     loadingImg(e) {
@@ -232,6 +391,7 @@ export default {
       if (this.uploadImgState === 'upLoadSingleImg') {
         this.tempImg.src = data;
       }
+      this.callImgCropper = false;
     },
     // 上傳第四步：上傳圖片
     updateImg(e) {
@@ -266,11 +426,28 @@ export default {
           emitter.emit('alertMessage-open', err);
         });
     },
+    // 保存資料
+    saveSectionData() {
+      console.log(this.expSectionData);
+      const cvRef = database.ref(`cvList/${this.formIndex}`);
+      cvRef.set(this.expSectionData);
+      this.nowEdit = '';
+      this.$emit('reLoadData');
+    },
+    deleteData() {
+      const obj = {
+        data: this.expSectionData,
+        index: this.formIndex,
+        listIndex: this.listIndex,
+      };
+      this.$emit('deleteData', obj);
+    },
   },
   created() {
     this.formData = webData;
-    this.tempEducationExp = JSON.parse(JSON.stringify(this.tempExpSectionData));
+    this.expSectionData = JSON.parse(JSON.stringify(this.tempExpSectionData));
     this.formIndex = this.formNumber;
+    this.listIndex = this.listNumber;
   },
 };
 </script>

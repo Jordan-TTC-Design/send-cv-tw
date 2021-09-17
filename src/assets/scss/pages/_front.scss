@@ -1763,27 +1763,7 @@
   }
 }
 
-// helper
-.form__infoEditBox {
-  .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
-  .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
-    border-radius: 0.5rem;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
-  .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
-    border-radius: 0.5rem;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .ck-editor__editable_inline {
-    min-height: 240px;
-  }
-  .ck-content h2 {
-    font-size: 24px;
-  }
-}
+
 
 .form-check {
   padding-top: 8px;
