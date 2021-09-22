@@ -716,6 +716,7 @@
   min-height: 128px;
   display: flex;
   justify-content: space-between;
+  position: relative;
   &__title {
     font-weight: $fw--md;
     color: $dark;
@@ -729,6 +730,11 @@
   }
   &:hover {
     background-color: rgba($color: $light, $alpha: 0.5);
+  }
+  &__btnBox{
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
   }
 }
 .docCard--new {
@@ -745,6 +751,7 @@
 }
 .docCard.docCard--coverLetter {
   flex-direction: column;
+  min-height: 142px;
   .docCard--coverLetter__content {
     max-height: 2.5rem;
     overflow: hidden;
