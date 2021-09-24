@@ -29,7 +29,7 @@
         <template v-for="(item, index) in user.docData.videoList" :key="index">
           <li class="col-4">
             <div class="docCard docCard--video card">
-              <img class="card-img-top meＦ-2" :src="item.imgUrl" alt="影片封面" />
+              <img class="card-img-top" :src="item.imgUrl" alt="影片封面" />
               <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
                 <p class="docCard__title mb-2">{{ item.title }}</p>
                 <p class="subTxt text-secondary mb-3">更新時間:{{ $filters.date(item.time) }}</p>
@@ -67,10 +67,10 @@
         <template v-for="(item, index) in user.docData.productList" :key="index">
           <li class="col-4">
             <div class="docCard">
-              <img class="docCard__cover me-2" :src="item.imgUrl" alt="CV封面" />
+              <img class="docCard__cover me-3" :src="item.imgUrl" alt="CV封面" />
               <div class="d-flex flex-column flex-grow-1">
-                <p class="docCard__title">{{ item.title }}</p>
-                <p class="subTxt text-secondary mb-2">更新時間:{{ $filters.date(item.time) }}</p>
+                <p class="docCard__title mb-2">{{ item.title }}</p>
+                <p class="subTxt text-secondary mb-1">更新時間:{{ $filters.date(item.time) }}</p>
                 <p class="subTxt text-secondary">檔案格式：jpg</p>
                 <div class="docCard__btnBox">
                   <button type="button" class="btn">

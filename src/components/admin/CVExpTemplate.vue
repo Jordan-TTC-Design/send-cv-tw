@@ -278,7 +278,7 @@ import database from '@/methods/firebaseinit';
 
 export default {
   components: { ImageCropper },
-  emits: ['returnExpSectionData', 'reuturnCloseForm', 'reLoadData', 'deleteData'],
+  emits: ['returnExpSectionData', 'reuturnCloseForm', 'deleteData'],
   props: ['tempExpSectionData', 'formNumber', 'listNumber'],
   data() {
     return {
@@ -432,7 +432,6 @@ export default {
       const cvRef = database.ref(`cvList/${this.formIndex}`);
       cvRef.set(this.expSectionData);
       this.nowEdit = '';
-      this.$emit('reLoadData');
     },
     deleteData() {
       const obj = {

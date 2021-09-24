@@ -731,7 +731,7 @@
   &:hover {
     background-color: rgba($color: $light, $alpha: 0.5);
   }
-  &__btnBox{
+  &__btnBox {
     position: absolute;
     bottom: 0.75rem;
     right: 0.75rem;
@@ -1209,10 +1209,10 @@
   display: flex;
   justify-content: space-between;
   &__txt {
-    width: calc( 60% - 0.5rem );
+    width: calc(60% - 0.5rem);
   }
   &__imgBox {
-    width: calc( 40% - 0.5rem );
+    width: calc(40% - 0.5rem);
     background-color: $gray-light;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -1231,5 +1231,53 @@
   }
   .cvExpSection__content__imgBox {
     width: 100%;
+  }
+}
+.cvExpSection__content--works {
+  .cvExpSection__content__txt {
+    width: calc(50% - 0.5rem);
+  }
+  .cvExpSection__content__imgBox {
+    width: calc(50% - 0.5rem);
+  }
+}
+.workPickerBox {
+  border-top: 1px solid $gray-line;
+  padding: 1rem 1.5rem;
+  background-color: $gray-light;
+  height: 360px;
+  overflow-y: scroll;
+  .docCard {
+    border: 0;
+    position: relative;
+    z-index: 1;
+    .img-cover{
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+    &__checkBox{
+      width: 44px;
+      height: 44px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      left: 0;
+      top: 0;
+      z-index: 2;
+    }
+    &:hover{
+      .docCard__title{
+        color: $primary-dark;
+      }
+    }
+  }
+  .docCard--product{
+    .img-cover{
+      border-radius: 0.25rem;
+    }
+    .docCard__checkBox{
+      top: 0.25rem;
+      left: 0.25rem;
+    }
   }
 }
