@@ -85,7 +85,7 @@
                           class="form-check-input"
                           type="checkbox"
                           name="資料庫文件"
-                          :checked="item.cvSelect"
+                          :checked="item.cvSelect === true"
                           @click.stop="chooseCV('product', index)"
                         />
                       </div>
@@ -148,8 +148,8 @@ export default {
       deep: true,
       handler(newValue) {
         this.user = JSON.parse(JSON.stringify(newValue));
-        this.checkCvSelect();
         if (this.user !== {}) {
+          this.checkCvSelect();
           this.dataReady = true;
         }
       },

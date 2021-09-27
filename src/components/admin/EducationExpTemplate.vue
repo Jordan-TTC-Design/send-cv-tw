@@ -1,5 +1,10 @@
 <template>
-  <Form ref="editAccountEducationData" v-slot="{ errors }" @submit="saveEducationData('new')">
+  <Form
+    ref="editAccountEducationData"
+    class="dataEditForm"
+    v-slot="{ errors }"
+    @submit="saveEducationData('new')"
+  >
     <div class="row">
       <!-- 學校名稱 -->
       <div class="col-lg-6 col-12">

@@ -146,6 +146,7 @@ export default {
         name: this.tempSkill.name,
         otherSupport: '',
       };
+      this.tempSkill.name = '';
       this.tempSkillList.skillList.push(obj);
     },
   },

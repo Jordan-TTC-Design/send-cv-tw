@@ -4,7 +4,27 @@
       <div class="row">
         <div class="col-xxl-9 col-xl-8 col-12">
           <div class="admin__subNav bg-gray-mid align-items-center justify-content-between">
-            <h2 class="admin__subNav__title">{{ tempCvData.cvName }}</h2>
+            <h2 class="admin__subNav__title ms-4" ref="cvTitle">
+              {{ tempCvData.cvName }}
+              <button type="button" class="btn ms-2" @click="toggleCvTitleInput">
+                <i class="jobIcon bi bi-pencil-square text-dark"></i>
+              </button>
+            </h2>
+            <div class="d-flex d-none" ref="cvTitle--edit">
+              <div class="form__inputBox mb-0 me-2">
+                <input
+                  id="cvTitle--edit"
+                  name="履歷名稱"
+                  type="text"
+                  class="form-control h-100"
+                  placeholder="請輸入履歷名稱"
+                  v-model="tempCvData.cvName"
+                />
+              </div>
+              <button type="button" class="btn btn-gray-light text-dark" @click="saveCvTitle">
+                保存
+              </button>
+            </div>
             <div class="d-flex">
               <button type="button" class="btn btn-outline-gray-line text-dark me-2">
                 <i class="jobIcon me-1 bi bi-cloud-download"></i>預覽履歷
@@ -17,23 +37,59 @@
               </button>
             </div>
           </div>
-          <div class="cvContainer mb-5">
+          <div class="cvContainer mb-5 position-relative">
             <div class="cvContainer__titleBox mb-5">
               <h3 class="cvContainer__title">
                 <div class="cvContainer__title__tag me-2"></div>
                 個人資訊
               </h3>
             </div>
+            <div class="cvContainer__userBg">
+              <img
+                class="cvContainer__userBg__img"
+                src="https://images.unsplash.com/photo-1632684141688-327e9678f486?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80"
+                alt=""
+              />
+              <button type="button" class="cvContainer__userBg__btn btn btn--circle">
+                <i class="jobIcon bi bi-pencil-square text-dark"></i>
+              </button>
+              <div class="cv__userImgBox">
+                <img
+                  class="cv__userImgBox__img"
+                  src="https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80"
+                  alt=""
+                />
+                <div class="cv__userImgBox__editBtn">
+                  <button type="button" class="btn btn--circle">
+                    <i class="jobIcon bi bi-pencil-square text-dark"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
             <h4 class="mb-1 text-dark">{{ tempCvData.userData.account.chineseName }}</h4>
-            <p class="mb-1">{{ tempCvData.userData.account.jobTitle }}</p>
+            <p class="mb-3">{{ tempCvData.userData.account.jobTitle }}</p>
             <p class="mb-1">{{ tempCvData.userData.account.birthday }}</p>
             <p class="mb-1">{{ tempCvData.userData.account.email }}</p>
             <p class="mb-1">{{ tempCvData.userData.account.phone }}</p>
-            <p class="mb-1">
+            <p class="mb-5">
               {{ tempCvData.userData.account.addressCity }}，{{
                 tempCvData.userData.account.addressDist
               }}
             </p>
+            <div class="cvContainer__titleBox mb-4">
+              <h3 class="cvContainer__title">
+                <div class="cvContainer__title__tag me-2"></div>
+                自我介紹
+              </h3>
+            </div>
+            <div class="introVideoBox mb-2">
+              <img
+                class="introVideoBox__video"
+                :src="tempCvData.userData.docData.videoList[2].imgUrl"
+                alt=""
+              />
+            </div>
+            <div v-html="tempCvData.userData.docData.videoList[2].content"></div>
           </div>
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
@@ -41,8 +97,24 @@
                 <div class="cvContainer__title__tag me-2"></div>
                 工作經驗
               </h3>
+              <button
+                type="button"
+                class="btn btn-outline-gray-line btn--text--dark"
+                @click="editTemplateData('editWorkExp--new')"
+              >
+                新增工作經驗
+              </button>
             </div>
             <ul>
+              <li class="col-12">
+                <WorkExpTemplate
+                  v-if="editTemplate === 'editWorkExp--new'"
+                  :workExpData="tempWorkExp"
+                  :formNumber="'new'"
+                  @returnWorkExpData="saveWorkExpData"
+                  @reuturnCloseForm="closeTemplate"
+                />
+              </li>
               <template v-for="(tempItem, index) in tempCvData.userData.workExp.works" :key="index">
                 <li class="col-12">
                   <div
@@ -50,7 +122,7 @@
                     :ref="`workExp--${index}`"
                     :class="{
                       'd-none': editTemplate === `editWorkExp--${index}`,
-                      'list--last': index === user.workExp.works.length - 1,
+                      'list--last': index === tempCvData.userData.workExp.works.length - 1,
                     }"
                   >
                     <div class="d-flex justify-content-between align-items-start">
@@ -110,6 +182,15 @@
                     </div>
                   </div>
                 </li>
+                <li class="col-12">
+                  <WorkExpTemplate
+                    v-if="editTemplate === `editWorkExp--${index}`"
+                    :workExpData="tempItem"
+                    :formNumber="index"
+                    @returnWorkExpData="saveWorkExpData"
+                    @reuturnCloseForm="closeTemplate"
+                  />
+                </li>
               </template>
             </ul>
           </div>
@@ -119,8 +200,24 @@
                 <div class="cvContainer__title__tag me-2"></div>
                 學歷
               </h3>
+              <button
+                type="button"
+                class="btn btn-outline-gray-line btn--text--dark"
+                @click="editTemplateData('editEducationExp--new')"
+              >
+                新增學歷
+              </button>
             </div>
             <ul>
+              <li class="col-12">
+                <EducationExpTemplate
+                  v-if="editTemplate === `editEducationExp--new`"
+                  :educationExpData="tempEducation"
+                  :formNumber="'new'"
+                  @returnEducationExpData="saveEducationExpData"
+                  @reuturnCloseForm="closeTemplate"
+                />
+              </li>
               <template
                 v-for="(tempItem, index) in tempCvData.userData.educationExp.educations"
                 :key="index"
@@ -131,7 +228,8 @@
                     :ref="`educationExp--${index}`"
                     :class="{
                       'd-none': editTemplate === `editEducationExp--${index}`,
-                      'list--last': index === user.educationExp.educations.length - 1,
+                      'list--last':
+                        index === tempCvData.userData.educationExp.educations.length - 1,
                     }"
                   >
                     <div class="d-flex justify-content-between align-items-start">
@@ -187,6 +285,15 @@
                     </div>
                   </div>
                 </li>
+                <li class="col-12">
+                  <EducationExpTemplate
+                    v-if="editTemplate === `editEducationExp--${index}`"
+                    :educationExpData="tempItem"
+                    :formNumber="index"
+                    @returnEducationExpData="saveEducationExpData"
+                    @reuturnCloseForm="closeTemplate"
+                  />
+                </li>
               </template>
             </ul>
           </div>
@@ -196,100 +303,84 @@
                 <div class="cvContainer__title__tag me-2"></div>
                 專業技能
               </h3>
+              <button
+                type="button"
+                class="btn btn-outline-gray-line btn--text--dark"
+                @click="editTemplateData('editSkill--new')"
+              >
+                新增專業技能
+              </button>
             </div>
-            <div
-              ref="languageData"
-              class="infoList__item show--compressed"
-              :class="{ 'd-none': editTemplate === 'editLanguage' }"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <p class="infoList__item__title">語言</p>
-                  <ul class="infoList__item__skillList">
-                    <template v-for="(item, index) in tempCvData.userData.languages" :key="index">
-                      <li class="infoList__item__skillList__skill">
-                        <p>{{ item.name }} - {{ item.languageLevel }}</p>
-                      </li>
-                    </template>
-                  </ul>
-                </div>
-                <div class="dropdown">
-                  <button
-                    class="btn position-relative"
-                    type="button"
-                    :id="`dropdownMenuButton--language`"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    :disabled="editMode"
-                  >
-                    <i class="jobIcon bi bi-three-dots"></i>
-                  </button>
-                  <ul
-                    :ref="`dropDownMenu--language`"
-                    class="dropDownMenu dropdown-menu"
-                    :aria-labelledby="`dropdownMenuButton--language`"
-                  >
-                    <li class="dropDownMenu__item" @click="editTemplateData(`editLanguage`)">
-                      編輯
-                    </li>
-                    <li class="dropDownMenu__item">調整排序</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              class="infoList__item show--compressed"
-              :class="{ 'd-none': editTemplate === 'editLicense' }"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <p class="infoList__item__title">證照</p>
-                  <ul class="infoList__item__skillList">
-                    <template v-for="(item, index) in tempCvData.userData.licenses" :key="index">
-                      <li class="infoList__item__skillList__skill">
-                        <p>{{ item.name }}</p>
-                      </li>
-                    </template>
-                  </ul>
-                </div>
-                <div class="dropdown">
-                  <button
-                    class="btn position-relative"
-                    type="button"
-                    :id="`dropdownMenuButton--license`"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    :disabled="editMode"
-                  >
-                    <i class="jobIcon bi bi-three-dots"></i>
-                  </button>
-                  <ul
-                    :ref="`dropDownMenu--license`"
-                    class="dropDownMenu dropdown-menu"
-                    :aria-labelledby="`dropdownMenuButton--license`"
-                  >
-                    <li class="dropDownMenu__item" @click="editTemplateData(`editLicense`)">
-                      編輯
-                    </li>
-                    <li class="dropDownMenu__item">調整排序</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <ul class="infoList__item__skillList">
-              <template v-for="(skill, index) in tempCvData.userData.skills" :key="index">
-                <li
+            <ul class="row" v-if="skillShowStyle === true">
+              <!-- 語言 -->
+              <li class="col-12">
+                <div
+                  ref="languageData"
                   class="infoList__item show--compressed"
-                  :class="{
-                    'd-none': editTemplate === `editSkill--${index}`,
-                    'list--last': index === tempCvData.userData.skills.length - 1,
-                  }"
+                  :class="{ 'd-none': editTemplate === 'editLanguage' }"
                 >
                   <div class="d-flex justify-content-between align-items-start">
                     <div>
-                      <p class="infoList__item__title">{{ skill.groupName }}</p>
+                      <p class="infoList__item__title">語言</p>
                       <ul class="infoList__item__skillList">
-                        <template v-for="item in skill.skillList" :key="item.name">
+                        <template
+                          v-for="(item, index) in tempCvData.userData.languages"
+                          :key="index"
+                        >
+                          <li class="infoList__item__skillList__skill">
+                            <p>{{ item.name }} - {{ item.languageLevel }}</p>
+                          </li>
+                        </template>
+                      </ul>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        class="btn position-relative"
+                        type="button"
+                        :id="`dropdownMenuButton--language`"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        :disabled="editMode"
+                      >
+                        <i class="jobIcon bi bi-three-dots"></i>
+                      </button>
+                      <ul
+                        :ref="`dropDownMenu--language`"
+                        class="dropDownMenu dropdown-menu"
+                        :aria-labelledby="`dropdownMenuButton--language`"
+                      >
+                        <li class="dropDownMenu__item" @click="editTemplateData(`editLanguage`)">
+                          編輯
+                        </li>
+                        <li class="dropDownMenu__item">調整排序</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <!-- 語言編輯 -->
+              <li class="col-12">
+                <LanguageDataTemplate
+                  v-if="editTemplate === `editLanguage`"
+                  :sendLanguages="tempCvData.userData.languages"
+                  @returnLanguageData="saveLanguageData"
+                  @reuturnCloseForm="closeTemplate"
+                />
+              </li>
+              <!-- 證照 -->
+              <li class="col-12">
+                <div
+                  class="infoList__item show--compressed"
+                  :class="{ 'd-none': editTemplate === 'editLicense' }"
+                >
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <p class="infoList__item__title">證照</p>
+                      <ul class="infoList__item__skillList">
+                        <template
+                          v-for="(item, index) in tempCvData.userData.licenses"
+                          :key="index"
+                        >
                           <li class="infoList__item__skillList__skill">
                             <p>{{ item.name }}</p>
                           </li>
@@ -300,7 +391,7 @@
                       <button
                         class="btn position-relative"
                         type="button"
-                        :id="`dropdownMenuButton--skill--${index}`"
+                        :id="`dropdownMenuButton--license`"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                         :disabled="editMode"
@@ -308,25 +399,104 @@
                         <i class="jobIcon bi bi-three-dots"></i>
                       </button>
                       <ul
-                        :ref="`dropDownMenu--${index}`"
+                        :ref="`dropDownMenu--license`"
                         class="dropDownMenu dropdown-menu"
-                        :aria-labelledby="`dropdownMenuButton--skill--${index}`"
+                        :aria-labelledby="`dropdownMenuButton--license`"
                       >
-                        <li
-                          class="dropDownMenu__item"
-                          @click="editTemplateData(`editSkill--${index}`)"
-                        >
+                        <li class="dropDownMenu__item" @click="editTemplateData(`editLicense`)">
                           編輯
                         </li>
                         <li class="dropDownMenu__item">調整排序</li>
-                        <li class="dropDownMenu__item" @click="deleteTemplateData('skill', index)">
-                          刪除
-                        </li>
                       </ul>
                     </div>
                   </div>
+                </div>
+              </li>
+              <!-- 證照編輯 -->
+              <li class="col-12">
+                <LicenseDataTemplate
+                  v-if="editTemplate === `editLicense`"
+                  :sendLicenses="tempCvData.userData.licenses"
+                  @returnLicenseData="saveLicenseData"
+                  @reuturnCloseForm="closeTemplate"
+                />
+              </li>
+              <!-- 技能 -->
+              <template v-for="(skill, index) in tempCvData.userData.skills" :key="index">
+                <li class="col-12">
+                  <div
+                    class="infoList__item show--compressed"
+                    :class="{
+                      'd-none': editTemplate === `editSkill--${index}`,
+                      'list--last': index === tempCvData.userData.skills.length - 1,
+                    }"
+                  >
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <p class="infoList__item__title">{{ skill.groupName }}</p>
+                        <ul class="infoList__item__skillList">
+                          <template v-for="item in skill.skillList" :key="item.name">
+                            <li class="infoList__item__skillList__skill">
+                              <p>{{ item.name }}</p>
+                            </li>
+                          </template>
+                        </ul>
+                      </div>
+                      <div class="dropdown">
+                        <button
+                          class="btn position-relative"
+                          type="button"
+                          :id="`dropdownMenuButton--skill--${index}`"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          :disabled="editMode"
+                        >
+                          <i class="jobIcon bi bi-three-dots"></i>
+                        </button>
+                        <ul
+                          :ref="`dropDownMenu--${index}`"
+                          class="dropDownMenu dropdown-menu"
+                          :aria-labelledby="`dropdownMenuButton--skill--${index}`"
+                        >
+                          <li
+                            class="dropDownMenu__item"
+                            @click="editTemplateData(`editSkill--${index}`)"
+                          >
+                            編輯
+                          </li>
+                          <li class="dropDownMenu__item">調整排序</li>
+                          <li
+                            class="dropDownMenu__item"
+                            @click="deleteTemplateData('skill', index)"
+                          >
+                            刪除
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- 技能編輯 -->
+                <li class="col-12">
+                  <SkillDataTemplate
+                    v-if="editTemplate === `editSkill--${index}`"
+                    :sendSkillData="skill"
+                    :formNumber="index"
+                    @returnSkillData="saveSkillData"
+                    @reuturnCloseForm="closeTemplate"
+                  />
                 </li>
               </template>
+              <!-- 新增技能 -->
+              <li class="col-12">
+                <SkillDataTemplate
+                  v-if="editTemplate === `editSkill--new`"
+                  :sendSkillData="tempSkillList"
+                  :formNumber="'new'"
+                  @returnSkillData="saveSkillData"
+                  @reuturnCloseForm="closeTemplate"
+                />
+              </li>
             </ul>
           </div>
           <template v-for="(listItem, listIndex) in tempCvData.cvSectionList" :key="listIndex">
@@ -519,21 +689,29 @@
                 </p>
                 <button type="buttonn" class="btn"><i class="jobIcon bi bi-three-dots"></i></button>
               </li>
-              <template v-for="(listItem, listIndex) in cvData.cvSectionList" :key="listIndex">
+              <template v-for="(listItem, listIndex) in tempCvData.cvSectionList" :key="listIndex">
                 <li class="list__item cvSideBox__sectionList--change">
                   <div class="cvSideBox__sectionList__changeBtn"></div>
                   <p class="cvSideBox__sectionList__txt">
-                    {{ listItem.sectionTitle
-                    }}<i
-                      class="cvSideBox__sectionList__check jobIcon-sm ms-1 bi bi-check-circle-fill"
-                    ></i>
+                    {{ listItem.sectionTitle }}
                   </p>
-                  <DropDownMenu
-                    :sendMenuName="`cvSectionList--${listIndex}`"
-                    :sendActionName="'特殊經歷'"
-                    :sendIndex="listIndex"
-                    @deleteData="deleteCvSection"
-                  />
+                  <button
+                    class="btn position-relative"
+                    type="button"
+                    :id="`dropdownMenuButton--cvSectionList--${listIndex}`"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="jobIcon bi bi-three-dots"></i>
+                  </button>
+                  <ul
+                    :ref="`cvSectionList--${listIndex}`"
+                    class="dropDownMenu dropdown-menu"
+                    :aria-labelledby="`dropdownMenuButton--cvSectionList--${listIndex}`"
+                  >
+                    <li class="dropDownMenu__item">調整排序</li>
+                    <li class="dropDownMenu__item" @click="deleteExpCvSection(listIndex)">刪除</li>
+                  </ul>
                 </li>
               </template>
             </ul>
@@ -564,19 +742,27 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CVExpTemplate from '@/components/admin/CVExpTemplate.vue';
+import WorkExpTemplate from '@/components/admin/WorkExpTemplate.vue';
+import EducationExpTemplate from '@/components/admin/EducationExpTemplate.vue';
+import LanguageDataTemplate from '@/components/admin/LanguageDataTemplate.vue';
+import LicenseDataTemplate from '@/components/admin/LicenseDataTemplate.vue';
+import SkillDataTemplate from '@/components/admin/SkillDataTemplate.vue';
 import WorkPickerModal from '@/components/admin/WorkPickerModal.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import database from '@/methods/firebaseinit';
-import DropDownMenu from '@/components/helpers/DropDownMenu.vue';
 
 export default {
   components: {
     CVExpTemplate,
+    WorkExpTemplate,
+    EducationExpTemplate,
+    SkillDataTemplate,
+    LanguageDataTemplate,
+    LicenseDataTemplate,
     WorkPickerModal,
     UpTopBtn,
-    DropDownMenu,
   },
   data() {
     return {
@@ -690,14 +876,60 @@ export default {
     },
   },
   methods: {
-    uploadCvToCvList() {
-      const cvRef = database.ref('cvList');
-      cvRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        data.push(this.tempCvData);
-        cvRef.set(data);
-        this.cleanTempCvData();
-      });
+    // 刪除履歷列表項目
+    deleteExpCvSection(listIndex) {
+      this.tempCvData.cvSectionList.splice(listIndex, 1);
+      this.saveTempCvData();
+    },
+    editTemplateData(txt) {
+      this.editMode = true;
+      this.editTemplate = txt;
+    },
+    // 保存履歷中的工作經驗
+    saveWorkExpData(obj) {
+      if (obj.num === 'new') {
+        this.tempCvData.userData.workExp.works.push(obj.data);
+      } else {
+        this.tempCvData.userData.workExp.works[obj.num] = obj.data;
+      }
+      this.saveTempCvData();
+      this.closeTemplate();
+    },
+    // 保存履歷中的學歷
+    saveEducationExpData(obj) {
+      if (obj.num === 'new') {
+        this.tempCvData.userData.educationExp.educations.push(obj.data);
+      } else {
+        this.tempCvData.userData.educationExp.educations[obj.num] = obj.data;
+      }
+      this.saveTempCvData();
+      this.closeTemplate();
+    },
+    // 保存履歷中的技能
+    saveSkillData(obj) {
+      if (obj.num === 'new') {
+        this.tempCvData.userData.skills.push(obj.data);
+      } else {
+        this.tempCvData.userData.skills[obj.num] = obj.data;
+      }
+      this.saveTempCvData();
+      this.closeTemplate();
+    },
+    // 保存履歷中的語言
+    saveLanguageData(obj) {
+      this.tempCvData.userData.languages = obj;
+      this.saveTempCvData();
+      this.closeTemplate();
+    },
+    // 保存履歷中的證照
+    saveLicenseData(obj) {
+      this.tempCvData.userData.licenses = obj;
+      this.saveTempCvData();
+      this.closeTemplate();
+    },
+    closeTemplate() {
+      this.editTemplate = '';
+      this.editMode = false;
     },
     cleanTempCvData() {
       const tempCvDataRef = database.ref('tempCvData');
@@ -713,6 +945,19 @@ export default {
     deleteCvSection(templateData) {
       this.cvData.cvSectionList.splice(templateData.index, 1);
       this.saveAllData();
+    },
+    // 切換編籬履歷板塊大標題輸入框
+    toggleCvTitleInput() {
+      this.$refs.cvTitle.classList.toggle('d-none');
+      this.$refs['cvTitle--edit'].classList.toggle('d-none');
+    },
+    // 保存履歷板塊大標題
+    saveCvTitle() {
+      if (this.tempCvData.cvName === '') {
+        this.tempCvData.cvName = '未命名履歷';
+      }
+      this.toggleCvTitleInput();
+      this.saveTempCvData();
     },
     // 以下是針對特殊履歷板塊的操作
     // 新增履歷板塊
@@ -735,7 +980,12 @@ export default {
       }
       this.saveTempCvData();
     },
-    // 編輯履歷板塊大標題
+    // 切換編籬履歷板塊大標題輸入框
+    toggleCvSectionTitleInput(listIndex) {
+      this.$refs[`expDataTitle--${listIndex}`].classList.toggle('d-none');
+      this.$refs[`expDataTitle--${listIndex}--edit`].classList.toggle('d-none');
+    },
+    // 保存履歷板塊大標題
     saveCvSectionTitle(listIndex) {
       console.log(this.tempCvData.cvSectionList[listIndex].sectionTitle);
       if (this.tempCvData.cvSectionList[listIndex].sectionTitle === '') {
@@ -743,11 +993,6 @@ export default {
       }
       this.toggleCvSectionTitleInput(listIndex);
       this.saveTempCvData();
-    },
-    // 切換編籬履歷板塊大標題輸入框
-    toggleCvSectionTitleInput(listIndex) {
-      this.$refs[`expDataTitle--${listIndex}--edit`].classList.toggle('d-none');
-      this.$refs[`expDataTitle--${listIndex}`].classList.toggle('d-none');
     },
     // 特殊履歷板塊新增資料
     newCvSectionTemplateData(listIndex) {
@@ -788,74 +1033,15 @@ export default {
       this.tempCvData.cvSectionList[listNum].sectionDataList.splice(itemNum, 1);
       this.saveTempCvData();
     },
-    editTemplateData(txt) {
-      this.editMode = true;
-      this.editTemplate = txt;
-    },
-    saveWorkExpData(obj) {
-      if (obj.num === 'new') {
-        this.user.workExp.works.push(obj.data);
-      } else {
-        this.user.workExp.works[obj.num] = obj.data;
-      }
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveSkillData(obj) {
-      if (obj.num === 'new') {
-        this.user.skills.push(obj.data);
-      } else {
-        this.user.skills[obj.num] = obj.data;
-      }
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveEducationExpData(obj) {
-      if (obj.num === 'new') {
-        this.user.educationExp.educations.push(obj.data);
-      } else {
-        this.user.educationExp.educations[obj.num] = obj.data;
-      }
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveLanguageData(obj) {
-      this.user.languages = obj;
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveLicenseData(obj) {
-      this.user.licenses = obj;
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveEditTemplateData() {
-      this.editTemplate = '';
-      this.saveAllData();
-    },
-    closeTemplate() {
-      this.editTemplate = '';
-      this.editMode = false;
-    },
     deleteTemplateData(action, index) {
       if (action === 'workExp') {
-        this.user.workExp.works.splice(index, 1);
+        this.tempCvData.userData.workExp.works.splice(index, 1);
       } else if (action === 'education') {
-        this.user.educationExp.educations.splice(index, 1);
+        this.tempCvData.userData.educationExp.educations.splice(index, 1);
       } else if (action === 'skill') {
-        this.user.skills.splice(index, 1);
+        this.tempCvData.userData.skills.splice(index, 1);
       }
-      this.saveAllData();
-      this.getFbData();
-    },
-    // 保存資料
-    saveAllData() {
-      const cvRef = database.ref('cvList/0');
-      const userRef = database.ref('user');
-      cvRef.set(this.cvData);
-      userRef.set(this.user);
-      this.getFbData();
-      this.editMode = false;
+      this.saveTempCvData();
     },
     // 取得資料
     getFbData() {
@@ -918,6 +1104,16 @@ export default {
     saveTempCvData() {
       const tempCvDataRef = database.ref('tempCvData');
       tempCvDataRef.set(this.tempCvData);
+    },
+    // 新增履歷至履歷列表
+    uploadCvToCvList() {
+      const cvRef = database.ref('cvList');
+      cvRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        data.push(this.tempCvData);
+        cvRef.set(data);
+        this.cleanTempCvData();
+      });
     },
     choose(cityName) {
       this.chooseCityDist = [];
