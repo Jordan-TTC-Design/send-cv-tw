@@ -7,10 +7,10 @@
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('work-application')"
-          :class="{ active: subTopNav === '行事曆' }"
+          @click="goToPageLink('')"
+          :class="{ active: subTopNav === '總覽' }"
         >
-          <p class="admin__subNav__txt me-1">行事曆</p>
+          <p class="admin__subNav__txt me-1">總覽</p>
         </li>
         <li
           class="admin__subNav__item"
@@ -127,7 +127,7 @@ export default {
     },
     checkMainSection() {
       if (
-        this.subTopNav === '行事曆'
+        this.subTopNav === '總覽'
         || this.subTopNav === '職位申請'
         || this.subTopNav === '企業來訪'
         || this.subTopNav === '收藏'

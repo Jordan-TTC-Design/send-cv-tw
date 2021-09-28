@@ -20,6 +20,19 @@
           </li>
         </ul>
       </div>
+      <div class="bg-light rounded p-4 mb-5 d-flex">
+        <div class="bg-gray-line d-flex flex-column justify-content-center px-8">
+          <h4 class="mb-4">
+            立即上傳 <span class="text-companyColor">影像短片</span
+            > ，做個簡單的自我介紹或盡情發揮所長，找工作更快更方便！
+          </h4>
+          <p>
+            Upload your video clips to introduce yourself or your creative works for betterjob
+            seeking experience.
+          </p>
+        </div>
+        <img class="w-50" src="https://i.imgur.com/tOFpDha.png" alt="" />
+      </div>
       <ul class="row" v-if="subMainNav === '影片' && dataReady">
         <li class="col-4">
           <div class="docCard--new putPointer" @click="openDocModal('newVideo')">

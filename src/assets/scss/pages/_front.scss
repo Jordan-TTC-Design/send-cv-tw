@@ -118,8 +118,7 @@
     max-width: 5.5rem;
   }
   &__title {
-    font-size: 3rem;
-    color: $white;
+    font-size: 1.25rem;
     @include md {
       font-size: 2.5rem;
     }
@@ -128,9 +127,8 @@
     }
   }
   &__innerBox {
-    padding-top: 6.75rem;
-    padding-bottom: 4.5rem;
-    margin-top: -4rem;
+    margin: 5rem 0;
+    padding: 1.5rem;
     @include md {
       padding-top: 2.75rem;
     }
@@ -145,30 +143,47 @@
       padding-bottom: 7rem;
     }
   }
-  &__img--bg {
+  &__bgBox {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    &__bg {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      &--left{
+        width: 20%;
+        left: 0;
+      }
+      &--right{
+        width: 80%;
+        right: 0;
+      }
+    }
+  }
+  &__img {
     position: absolute;
     object-fit: cover;
     height: 100%;
+    max-width: 100%;
     top: 0;
-    right: 0%;
+    left: 0;
     z-index: -1;
-    @include xl {
-      height: 80%;
-      top: 10%;
-    }
-    @include lg {
-      height: 60%;
-      top: 20%;
-    }
     @include md {
-      height: 48%;
-      top: 28%;
-      right: 50%;
-      transform: translateX(50%);
     }
     @include sm {
-      height: 28%;
-      top: 27%;
+    }
+  }
+  &__searchBar__tagList{
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: -0.75rem;
+    .jobTag{
+      margin-right: 0.5rem;
+      margin-bottom: 0.75rem;
     }
   }
 }
@@ -1763,8 +1778,6 @@
   }
 }
 
-
-
 .form-check {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -1799,51 +1812,51 @@
       @include sm {
         width: 100%;
       }
-      .nav__title{
-        color:$light;
+      .nav__title {
+        color: $light;
         margin-right: 0.5rem;
         transition: all 0.3s;
       }
-      &:hover{
-      padding-left: 1.5rem;
+      &:hover {
+        padding-left: 1.5rem;
       }
     }
   }
 }
-.footer__followUsList{
+.footer__followUsList {
   display: flex;
   align-items: center;
-  li{
+  li {
     margin-right: 0.5rem;
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
   }
-  .btn--circle{
+  .btn--circle {
     height: 44px;
     width: 44px;
     transition: all 0.3s;
-    .jobIcon{
-      color:$light;
+    .jobIcon {
+      color: $light;
       line-height: 1rem;
     }
-    &:hover{
+    &:hover {
       background-color: rgba($color: $gray-light, $alpha: 0.5);
     }
   }
 }
-.footer__appleDownLoadList{
+.footer__appleDownLoadList {
   display: flex;
   align-items: center;
-  li{
+  li {
     margin-right: 0.5rem;
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
   }
-  .btn{
+  .btn {
     padding: 0;
-    &:hover{
+    &:hover {
       background-color: rgba($color: $gray-light, $alpha: 0.5);
     }
   }

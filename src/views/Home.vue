@@ -1,43 +1,20 @@
 <template>
-  <div class="page--pt home">
+  <div class="page--pt pt-0">
     <div class="container-fuild">
       <!-- 搜尋banner -->
-      <div class="mainBanner bg-primary">
-        <div class="container position-relative">
-          <div class="mainBanner__innerBox">
-            <img
-              class="mainBanner__img--bg"
-              src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629384864182.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=lrxb6YYCe3pDqItObF%2Ff3RqYkJBSvdUSOxx4SLF9J7%2Fne0iFfars3%2BRNM%2F7pr2Os5hbzVcydgkAc61AMAseT6CuBGVSwutfBq9ZCOzip1j7WNRzmut9ZwQ5BFlW%2FjecR5Ihb2tbanUWeBzglRVR3FcHvGXmNDxGy9T3Cue0mvp4ZkY4EDJVD5c3a%2BwlReVbsKw%2BXvMYGv3WvAT%2FBPP3LDppdcH6ManHUFyaM%2B8LywWkddodlAmSTSnWW692CdLm%2FnVEbN53%2B43I3sMJf3no8gwhuDQEUfJUCQpOmqI41LiGqaDn2uoYz0yU1yK5dL2U7jtAAH3kLUhSaGN%2FU3TA4eA%3D%3D"
-              alt="找工作在這裡"
-            />
-            <div class="mainBanner__txtBox">
-              <h2 class="mainBanner__title mb-md-4 mb-2">立即搜尋職位</h2>
-              <h2 class="mainBanner__title mb-md-9 mb-6">Got Youself A Fine Job !</h2>
-            </div>
-            <div class="bg-white rounded box-shadow p-md-6 p-4">
-              <form
-                class="
-                  mainBanner__searchBar
-                  d-flex
-                  flex-md-row flex-column
-                  align-items-md-center align-items-stretch
-                "
-                @submit="toSearchJob"
-              >
-                <img
-                  class="mainBanner__logo me-3"
-                  src="https://i.imgur.com/vaxK9gX.png"
-                  alt="Fine Job logo"
-                />
-                <div
-                  class="
-                    d-flex
-                    justify-content-between
-                    align-items-md-end align-items-stretch
-                    flex-grow-1 flex-md-row flex-column
-                  "
-                >
-                  <div class="inputGroup--item flex-grow-1 me-md-4">
+      <div class="mainBanner position-relative">
+        <div class="mainBanner__bgBox">
+          <div class="mainBanner__bgBox__bg bg-dark mainBanner__bgBox__bg--left"></div>
+          <div class="mainBanner__bgBox__bg bg-primary mainBanner__bgBox__bg--right"></div>
+        </div>
+        <img class="mainBanner__img" src="https://i.imgur.com/FP1Aa4K.png" alt="找工作在這裡" />
+        <div class="container">
+          <div class="row justify-content-end">
+            <div class="col-lg-5">
+              <div class="mainBanner__innerBox bg-white rounded">
+                <h2 class="mainBanner__title text-dark mb-4">搜尋職位</h2>
+                <form class="mainBanner__searchBar" @submit="toSearchJob">
+                  <div class="inputGroup--item mb-3">
                     <label for="searchFilterTop-keyword" class="form-label inputItem__title"
                       >關鍵字</label
                     >
@@ -50,30 +27,82 @@
                       v-model="filterData.keyword"
                     />
                   </div>
-                  <div class="inputGroup--item flex-grow-1 me-md-4 mb-md-0 mb-3">
-                    <label for="searchFilterTop-city" class="form-label inputItem__title"
-                      >地區</label
-                    >
-                    <select
-                      class="form-select"
-                      aria-label="地區"
-                      id="searchFilterTop-city"
-                      v-model="filterData.city"
-                    >
-                      <option disabled>請選擇地區</option>
-                      <option selected value="不限">不限</option>
-                      <option
-                        v-for="(item, index) in formData.city"
-                        :value="item"
-                        :key="`地區${index}`"
+                  <div
+                    class="
+                      d-flex
+                      justify-content-between
+                      align-items-md-end align-items-stretch
+                      flex-grow-1 flex-md-row flex-column
+                    "
+                  >
+                    <div class="inputGroup--item flex-grow-1 me-md-4 mb-3">
+                      <label for="searchFilterTop-city" class="form-label inputItem__title"
+                        >地區</label
                       >
-                        {{ item }}
-                      </option>
-                    </select>
+                      <select
+                        class="form-select"
+                        aria-label="地區"
+                        id="searchFilterTop-city"
+                        v-model="filterData.city"
+                      >
+                        <option disabled>請選擇地區</option>
+                        <option selected value="不限">不限</option>
+                        <option
+                          v-for="(item, index) in formData.city"
+                          :value="item"
+                          :key="`地區${index}`"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="inputGroup--item flex-grow-1 mb-3">
+                      <label for="searchFilterTop-city" class="form-label inputItem__title"
+                        >職位類別</label
+                      >
+                      <select
+                        class="form-select"
+                        aria-label="地區"
+                        id="searchFilterTop-city"
+                        v-model="filterData.jobCategory"
+                      >
+                        <option disabled>請選擇職位類別</option>
+                        <option selected value="不限">不限</option>
+                        <option
+                          v-for="(item, index) in formData.jobCategory"
+                          :value="item"
+                          :key="`職位類別${index}`"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                    </div>
                   </div>
+                  <div class="d-flex mb-4">
+                    <p class="subTxt text-nowrap me-2 mt-1">推薦關鍵字：</p>
+                    <ul class="mainBanner__searchBar__tagList">
+                      <li class="jobTag">UIDesigner</li>
+                      <li class="jobTag">前端工程師</li>
+                      <li class="jobTag">營銷經理</li>
+                      <li class="jobTag">店長</li>
+                      <li class="jobTag">土木技師</li>
+                      <li class="jobTag">機構工程</li>
+                      <li class="jobTag">食品管理</li>
+                    </ul>
+                  </div>
+                  <div
+                    class="
+                      d-flex
+                      justify-content-between
+                      align-items-md-end align-items-stretch
+                      flex-grow-1 flex-md-row flex-column
+                    "
+                  >
+                  <button class="btn btn-outline-gray-line text-dark" type="button">近期搜尋</button>
                   <button class="btn btn-primary" type="submit">搜尋職位</button>
-                </div>
-              </form>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -377,7 +406,10 @@
           <div class="row">
             <div class="col-4">
               <div class="card--howTo card--howTo--email">
-                <img src="@/assets/images/howto/write-email-send-cv-1.jpg" alt="寫郵件SendCV說明圖" />
+                <img
+                  src="@/assets/images/howto/write-email-send-cv-1.jpg"
+                  alt="寫郵件SendCV說明圖"
+                />
                 <div class="card__txtBox">
                   <h5>路過看到好工作</h5>
                   <p>好想去好公司，不知道有沒有職缺？</p>
@@ -386,7 +418,10 @@
             </div>
             <div class="col-4">
               <div class="card--howTo card--howTo--email">
-                <img src="@/assets/images/howto/write-email-send-cv-2.jpg" alt="寫郵件SendCV說明圖" />
+                <img
+                  src="@/assets/images/howto/write-email-send-cv-2.jpg"
+                  alt="寫郵件SendCV說明圖"
+                />
                 <div class="card__txtBox">
                   <h5>上傳 sendCV</h5>
                   <p>使用sendCV 統整好自己的履歷與經歷! 找到心儀公司的信箱！</p>
@@ -395,7 +430,10 @@
             </div>
             <div class="col-4">
               <div class="card--howTo card--howTo--email">
-                <img src="@/assets/images/howto/write-email-send-cv-3.jpg" alt="寫郵件SendCV說明圖" />
+                <img
+                  src="@/assets/images/howto/write-email-send-cv-3.jpg"
+                  alt="寫郵件SendCV說明圖"
+                />
                 <div class="card__txtBox">
                   <h5>幫你投遞履歷</h5>
                   <p>不論有沒有職位， 我們都幫你投履歷，不放過任何機會！</p>

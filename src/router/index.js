@@ -53,6 +53,11 @@ const routes = [
     component: () => import('../views/admin/Admin.vue'),
     children: [
       {
+        // 總覽
+        path: '',
+        component: () => import('../views/admin/WorkOverView.vue'),
+      },
+      {
         // 申請紀錄
         path: 'work-application',
         component: () => import('../views/admin/WorkApplication.vue'),

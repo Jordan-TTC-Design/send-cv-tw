@@ -571,7 +571,7 @@
   height: 360px;
   background-color: $gray-light;
   display: flex;
-  .list__item{
+  .list__item {
     padding: 0.75rem 0.75rem;
     background-color: $light;
     border-bottom: 1px solid $gray-line;
@@ -587,56 +587,54 @@
     background-color: $light;
     border-right: 1px solid $gray-line;
     padding-bottom: 1.5rem;
-
   }
-  &__contentBox{
+  &__contentBox {
     width: 60%;
     max-height: 100%;
     overflow-y: scroll;
     padding-bottom: 1.5rem;
   }
-  &__contentBox__list{
-    
-    .list__item--check{
+  &__contentBox__list {
+    .list__item--check {
       padding-left: 2.5rem;
     }
-    .accordion-item{
+    .accordion-item {
       border-bottom: 1px solid $gray-line;
     }
   }
 }
-.foldList__item{
-  &__title{
+.foldList__item {
+  &__title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem;
     position: relative;
     z-index: 1;
-    .accordion-button{
+    .accordion-button {
       position: absolute;
       z-index: -1;
-      padding:0.875rem 0.75rem;
+      padding: 0.875rem 0.75rem;
       right: 0;
-      top: 0
+      top: 0;
     }
   }
 }
-.editorSelectBoxList{
+.editorSelectBoxList {
   display: flex;
   justify-content: space-between;
 }
-.editorSelectBox{
+.editorSelectBox {
   border-radius: 0.5rem;
   border: 1px solid $gray-line;
   width: calc(33.333% - 0.5rem);
   cursor: pointer;
-  &__title{
+  &__title {
     padding: 0.25rem 0.75rem;
     background-color: $gray-light;
-    border-radius: 0.5rem 0.5rem 0 0 ;
+    border-radius: 0.5rem 0.5rem 0 0;
   }
-  &__imgBox{
+  &__imgBox {
     min-height: 120px;
   }
 }
@@ -666,27 +664,27 @@
     min-height: 160px;
   }
 }
-.cropImgBox--lg{
+.cropImgBox--lg {
   min-height: 360px;
 }
-.inputReader{
+.inputReader {
   display: flex;
   flex-direction: column;
-  &__title{
+  &__title {
     padding-left: 0.75rem;
     font-size: 0.875rem;
     margin-bottom: 0.25rem;
   }
-  &__contentBox{
+  &__contentBox {
     background-color: $gray-light;
     padding: 0.75rem;
     border-radius: 0.5rem;
-    &--minHeight{
-      min-height: 120px ;
+    &--minHeight {
+      min-height: 120px;
     }
   }
 }
-.docVideo__contentBox{
+.docVideo__contentBox {
   background-color: $gray-light;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -694,4 +692,72 @@
   align-items: center;
   justify-content: center;
   min-height: 360px;
+}
+.notificationList {
+  &__item {
+    height: 120px;
+    border-radius: 0.5rem;
+    background-color: $light;
+    @include shadow-normal;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.8);
+    }
+    &__img {
+      height: 100%;
+    }
+  }
+}
+.calendar {
+  background-color: $light;
+  border-radius: 0.5rem;
+  table {
+    width: 100%;
+    td {
+      border-right: 1px solid $gray-line;
+      border-bottom: 1px solid $gray-line;
+      &:last-child{
+        border-right: 0;
+      }
+    }
+  }
+  &__header {
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $gray-line;
+  }
+  &__weekBox {
+    display: flex;
+    border-bottom: 1px solid $gray-line;
+    &__day {
+      flex-grow: 1;
+      width: calc(100% / 7);
+      padding: 0.75rem 0;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: $fw--rg;
+      &:hover {
+        background-color: $gray-light;
+      }
+    }
+  }
+  &__dayBox {
+    display: flex;
+    &__date {
+      flex-grow: 1;
+      width: calc(100% / 7);
+      padding: 0.75rem;
+      min-height: 120px;
+      &.nextMonth{
+        background-color: rgba($color: $gray-line, $alpha: 0.5);
+      }
+      &:hover {
+        background-color: $gray-light;
+      }
+    }
+  }
 }
