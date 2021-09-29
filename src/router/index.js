@@ -54,7 +54,7 @@ const routes = [
     children: [
       {
         // 總覽
-        path: '',
+        path: 'work-over-view',
         component: () => import('../views/admin/WorkOverView.vue'),
       },
       {

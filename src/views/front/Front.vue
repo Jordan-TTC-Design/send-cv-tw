@@ -36,7 +36,9 @@
             </button>
           </li>
           <li class="nav__item nav-item" :class="{ active: this.navState === '收藏' }">
-            <router-link class="nav__item__link nav-link" to="/admin">登入</router-link>
+            <router-link class="nav__item__link nav-link" to="/admin/work-over-view"
+              >登入</router-link
+            >
           </li>
           <li class="nav__item nav-item">
             <button type="button" class="btn btn-companyColor text-light">企業專區</button>

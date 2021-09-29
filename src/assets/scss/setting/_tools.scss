@@ -761,3 +761,76 @@
     }
   }
 }
+.userImgBox {
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+  padding: 0.25rem;
+  background-color: $light;
+  position: relative;
+  &__img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &__editBtn {
+    position: absolute;
+    bottom: -0.75rem;
+    right: -0.75rem;
+    padding: 0.25rem;
+    border-radius: 50%;
+    background-color: $light;
+    .btn--circle {
+      background-color: $gray-light;
+    }
+  }
+}
+.timeLine{
+  display: flex;
+  position: relative;
+  z-index: 1;
+  &::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 0.25rem;
+    z-index: -1;
+    background-color: $gray-line;
+  }
+  &__dot{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: $gray-line;
+    position: relative;
+    z-index: 1;
+  }
+  &__dot:not(:last-child){
+    margin-right: 4rem;
+    &::before{
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%);
+      width: 4.75rem;
+      height: 0.25rem;
+      z-index: -1;
+      background-color: $primary;
+      display: none;
+    }
+  }
+  &__dot.active{
+    background-color: $primary;
+  }
+  &__dot.line-active{
+    background-color: $primary;
+    &::before{
+      display: block;
+    }
+  }
+}

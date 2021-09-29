@@ -53,13 +53,13 @@
               <button type="button" class="cvContainer__userBg__btn btn btn--circle">
                 <i class="jobIcon bi bi-pencil-square text-dark"></i>
               </button>
-              <div class="cv__userImgBox">
+              <div class="userImgBox">
                 <img
-                  class="cv__userImgBox__img"
+                  class="userImgBox__img"
                   src="https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80"
                   alt=""
                 />
-                <div class="cv__userImgBox__editBtn">
+                <div class="userImgBox__editBtn">
                   <button type="button" class="btn btn--circle">
                     <i class="jobIcon bi bi-pencil-square text-dark"></i>
                   </button>
@@ -551,7 +551,7 @@
               </template>
             </div>
           </template>
-          <div class="cvContainer" v-if="tempCvData.userData.docData">
+          <div class="cvContainer mb-5" v-if="tempCvData.userData.docData">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
                 <div class="cvContainer__title__tag me-2"></div>
@@ -619,6 +619,74 @@
                 </div>
               </div>
             </template>
+          </div>
+          <!-- 其他資訊 -->
+          <div class="cvContainer" v-if="tempCvData.userData.docData">
+            <div class="cvContainer__titleBox">
+              <h3 class="cvContainer__title">
+                <div class="cvContainer__title__tag me-2"></div>
+                其他資訊
+              </h3>
+            </div>
+            <ul class="row">
+              <li class="col-12">
+                <div class="infoList__item show--compressed">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="infoList__item__title">駕照</p>
+                      <ul class="infoList__item__skillList">
+                        <template
+                          v-for="(item, index) in tempCvData.userData.others.driverLicenses"
+                          :key="index"
+                        >
+                          <li v-if="item.select" class="infoList__item__skillList__skill">
+                            <p>{{ item.name }}</p>
+                          </li>
+                        </template>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col-12">
+                <div class="infoList__item show--compressed">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="infoList__item__title">特殊身份</p>
+                      <ul class="infoList__item__skillList">
+                        <template
+                          v-for="(item, index) in tempCvData.userData.others.identities"
+                          :key="index"
+                        >
+                          <li v-if="item.select" class="infoList__item__skillList__skill">
+                            <p>{{ item.name }}</p>
+                          </li>
+                        </template>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="col-12">
+                <div class="infoList__item show--compressed">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="infoList__item__title">兵役</p>
+                      <ul class="infoList__item__skillList">
+                        <template
+                          v-for="(item, index) in tempCvData.userData.others.militaryServices"
+                          :key="index"
+                        >
+                          <li v-if="item.select" class="infoList__item__skillList__skill">
+                            <p>{{ item.name }}</p>
+                          </li>
+                        </template>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="col-xxl-3 col-xl-4 col-12">
@@ -775,50 +843,7 @@ export default {
       editTemplate: '', // 編輯哪一塊
       formData: {},
       chooseCityDist: [],
-      user: {
-        account: {
-          chineseName: '',
-          EnglishName: '',
-          jobTitle: '',
-          gender: '',
-          birthday: '',
-          email: '',
-          phone: '',
-          addressCity: '',
-          addressDist: '',
-          password: '',
-          socialMedia: [],
-        },
-        workExp: {
-          years: 0,
-          works: [],
-        },
-        educationExp: {
-          lastestEducation: '',
-          educations: [],
-        },
-        languages: [],
-        licenses: [],
-        skill: [],
-        others: {
-          driverLicenses: [],
-          identities: [],
-          militaryServices: [],
-        },
-        career: {
-          workType: [],
-          workTime: [],
-          targetJobs: [],
-          targetIndustries: [],
-          targetPlaces: [],
-          expat: null,
-          salaryRange: {
-            lowest: 0,
-            highest: 0,
-            interview: null,
-          },
-        },
-      },
+      user: {},
       cvData: {
         cvName: '第一份履歷',
         expSectionList: [{ title: '我的大學經歷', content: '我的' }],
@@ -931,27 +956,21 @@ export default {
       this.editTemplate = '';
       this.editMode = false;
     },
-    cleanTempCvData() {
-      const tempCvDataRef = database.ref('tempCvData');
-      tempCvDataRef.remove();
-    },
+    // 取得modal資料
     getUserDataFromModal(obj) {
       this.tempCvData.userData = JSON.parse(JSON.stringify(obj));
       this.saveTempCvData();
     },
+    // 打開選擇文件
     openSelectWorkModal() {
       emitter.emit('open-work-picker-modal');
     },
-    deleteCvSection(templateData) {
-      this.cvData.cvSectionList.splice(templateData.index, 1);
-      this.saveAllData();
-    },
-    // 切換編籬履歷板塊大標題輸入框
+    // 切換編輯履歷大標題輸入框
     toggleCvTitleInput() {
       this.$refs.cvTitle.classList.toggle('d-none');
       this.$refs['cvTitle--edit'].classList.toggle('d-none');
     },
-    // 保存履歷板塊大標題
+    // 保存履歷大標題
     saveCvTitle() {
       if (this.tempCvData.cvName === '') {
         this.tempCvData.cvName = '未命名履歷';
@@ -994,7 +1013,12 @@ export default {
       this.toggleCvSectionTitleInput(listIndex);
       this.saveTempCvData();
     },
-    // 特殊履歷板塊新增資料
+    // 刪除指定履歷板塊
+    deleteCvSection(templateData) {
+      this.cvData.cvSectionList.splice(templateData.index, 1);
+      this.saveAllData();
+    },
+    // 新增特殊履歷板塊資料
     newCvSectionTemplateData(listIndex) {
       const obj = {
         title: '',
@@ -1009,6 +1033,7 @@ export default {
         this.tempCvData.cvSectionList[listIndex].sectionDataList = [obj];
       }
     },
+    // 保存特殊履歷板塊資料
     saveCvSectionTemplateData(templateData) {
       const listNum = templateData.listIndex;
       const itemNum = templateData.index;
@@ -1026,6 +1051,7 @@ export default {
       }
       this.saveTempCvData();
     },
+    // 刪除特殊履歷板塊資料
     deleteCvSectionTemplateData(templateData) {
       const listNum = templateData.listIndex;
       const itemNum = templateData.index;
@@ -1033,6 +1059,7 @@ export default {
       this.tempCvData.cvSectionList[listNum].sectionDataList.splice(itemNum, 1);
       this.saveTempCvData();
     },
+    // 刪除工作、學歷、技能紀錄
     deleteTemplateData(action, index) {
       if (action === 'workExp') {
         this.tempCvData.userData.workExp.works.splice(index, 1);
@@ -1115,7 +1142,12 @@ export default {
         this.cleanTempCvData();
       });
     },
-    choose(cityName) {
+    // 清除暫存履歷資料
+    cleanTempCvData() {
+      const tempCvDataRef = database.ref('tempCvData');
+      tempCvDataRef.remove();
+    },
+    chooseCity(cityName) {
       this.chooseCityDist = [];
       this.chooseCityDist = this.formData.districts[cityName].district;
       const [temDist] = this.chooseCityDist;
@@ -1128,11 +1160,6 @@ export default {
       } else if (!this[dataName]) {
         this[dataName] = true;
       }
-    },
-    // 切換頁面
-    selectListItem(navName) {
-      this.settingSideList = navName;
-      this.closeTemplate();
     },
     // 編輯其他資訊
     openSettingModal(action) {

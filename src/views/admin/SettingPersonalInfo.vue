@@ -6,8 +6,13 @@
         <div class="col-lg-3 col-12">
           <div class="setting__sideList">
             <div class="setting__sideList__top">
-              <div class="setting__personImgBox mb-4">
-                <img class="personImgBox__img" src="https://i.imgur.com/ZWHoRPi.png" alt="" />
+              <div class="userImgBox mb-4 bg-gray-light">
+                <img class="userImgBox__img" :src="user.account.userImgUrl" alt="" />
+                <div class="userImgBox__editBtn">
+                  <button type="button" class="btn btn--circle" @click="OpenEditUserPhotoModal">
+                    <i class="jobIcon bi bi-pencil-square text-dark"></i>
+                  </button>
+                </div>
               </div>
               <p class="mb-3">曾鼎鈞</p>
               <div class="inputGroup--item w-100">
@@ -1004,12 +1009,14 @@
     </div>
   </div>
   <SettingPersonalDataModal @reload="getFbData" />
+  <UserPhotoEdit :userImgUrl="user.account.userImgUrl" @emit-send-img-data="getImg" />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import AdminNav from '@/components/admin/AdminNav.vue';
+import UserPhotoEdit from '@/components/admin/UserPhotoEdit.vue';
 import WorkExpTemplate from '@/components/admin/WorkExpTemplate.vue';
 import EducationExpTemplate from '@/components/admin/EducationExpTemplate.vue';
 import LanguageDataTemplate from '@/components/admin/LanguageDataTemplate.vue';
@@ -1022,6 +1029,7 @@ export default {
   components: {
     AdminNav,
     WorkExpTemplate,
+    UserPhotoEdit,
     EducationExpTemplate,
     SkillDataTemplate,
     LanguageDataTemplate,
@@ -1083,6 +1091,7 @@ export default {
           },
         },
       },
+      tempImgurl: '',
       tempWorkExp: {},
       tempEducation: {},
       tempSkill: {},
@@ -1101,6 +1110,41 @@ export default {
     },
   },
   methods: {
+    // 上傳第三步：從modal抓回圖片
+    getImg(data) {
+      this.tempImgurl = data;
+      this.updateImg();
+    },
+    // 上傳第四步：上傳圖片
+    updateImg() {
+      emitter.emit('spinner-open');
+      const item = this.tempImgurl;
+      const base64String = item.replace('data:image/jpeg;base64,', '');
+      console.log(item);
+      this.$http({
+        method: 'POST',
+        url: 'https://api.imgur.com/3/image',
+        data: {
+          image: base64String,
+          type: 'base64',
+        },
+        headers: {
+          Authorization: 'Client-ID ef6e862acf052df',
+        },
+      })
+        .then((res) => {
+          this.user.account.userImgUrl = res.data.data.link;
+          this.saveAllData();
+          emitter.emit('spinner-close');
+        })
+        .catch((err) => {
+          console.log(err);
+          emitter.emit('spinner-close');
+        });
+    },
+    OpenEditUserPhotoModal() {
+      emitter.emit('open-uploadUserImgModal', '個人照片說明1');
+    },
     editTemplateData(txt) {
       this.editMode = true;
       this.editTemplate = txt;

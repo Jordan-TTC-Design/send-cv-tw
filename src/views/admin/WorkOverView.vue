@@ -85,7 +85,7 @@
           <button type="button" class="btn"><i class="jobIcon bi bi-arrow-left"></i></button>
           <div class="d-flex">
             <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-              2020/07<i class="jobIcon ms-1 bi bi-calendar"></i>
+              2020/07<i class="jobIcon-sm ms-1 bi bi-calendar"></i>
             </button>
             <button type="button" class="btn btn-outline-primary text-primary-dark me-2">
               今日
@@ -108,13 +108,19 @@
           </thead>
           <tbody>
             <tr class="calendar__dayBox">
-              <td class="calendar__dayBox__date"><p class="">1/1</p></td>
-              <td class="calendar__dayBox__date"><p class="">1/2</p></td>
-              <td class="calendar__dayBox__date"><p class="">1/3</p></td>
-              <td class="calendar__dayBox__date"><p class="">1/4</p></td>
-              <td class="calendar__dayBox__date"><p class="">1/5</p></td>
-              <td class="calendar__dayBox__date"><p class="">1/6</p></td>
-              <td class="calendar__dayBox__date"><p class="">1/7</p></td>
+              <td class="calendar__dayBox__date"><p>1/1</p></td>
+              <td class="calendar__dayBox__date"><p>1/2</p></td>
+              <td class="calendar__dayBox__date"><p>1/3</p></td>
+              <td class="calendar__dayBox__date"><p>1/4</p></td>
+              <td class="calendar__dayBox__date"><p>1/5</p></td>
+              <td class="calendar__dayBox__date">
+                <p>1/6</p>
+                <ul class="mt-1">
+                  <li class="jobTag putPointer mb-1">15:30 - 聚賢亞洲</li>
+                  <li class="jobTag putPointer">17:30 - 台灣電通</li>
+                </ul>
+              </td>
+              <td class="calendar__dayBox__date"><p>1/7</p></td>
             </tr>
             <tr class="calendar__dayBox">
               <td class="calendar__dayBox__date"><p class="">1/8</p></td>

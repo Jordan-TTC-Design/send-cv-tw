@@ -1125,35 +1125,11 @@
       right: 0.75rem;
       background-color: rgba($color: $gray-light, $alpha: 0.5);
     }
-    .cv__userImgBox {
+    .userImgBox {
       position: absolute;
       bottom: 0;
       right: 1.5rem;
       transform: translateY(50%);
-    }
-    .cv__userImgBox {
-      width: 7.5rem;
-      height: 7.5rem;
-      border-radius: 50%;
-      padding: 0.25rem;
-      background-color: $light;
-      &__img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-      &__editBtn {
-        position: absolute;
-        bottom: -0.75rem;
-        right: -0.75rem;
-        padding: 0.25rem;
-        border-radius: 50%;
-        background-color: $light;
-        .btn--circle {
-          background-color: $gray-light;
-        }
-      }
     }
   }
     .introVideoBox{
@@ -1347,4 +1323,15 @@
       left: 0.25rem;
     }
   }
+}
+.uploadUserImgIntro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  min-height: 280px;
+  &__img{
+    width: 160px;
+    border-radius: 0.5rem;
+  } 
 }

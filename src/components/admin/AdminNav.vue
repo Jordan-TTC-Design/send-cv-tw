@@ -7,7 +7,7 @@
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('')"
+          @click="goToPageLink('work-over-view')"
           :class="{ active: subTopNav === '總覽' }"
         >
           <p class="admin__subNav__txt me-1">總覽</p>

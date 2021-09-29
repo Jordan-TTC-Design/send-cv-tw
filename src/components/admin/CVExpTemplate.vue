@@ -135,7 +135,7 @@
     <div
       class="row"
       v-if="expSectionData.editorStyle !== ''"
-      :class="{ 'flex-column  -reverse': expSectionData.editorStyle === 'largeImg' }"
+      :class="{ 'flex-column-reverse': expSectionData.editorStyle === 'largeImg' }"
     >
       <!-- 內容 -->
       <div
