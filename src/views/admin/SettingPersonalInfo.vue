@@ -1110,12 +1110,10 @@ export default {
     },
   },
   methods: {
-    // 上傳第三步：從modal抓回圖片
     getImg(data) {
       this.tempImgurl = data;
       this.updateImg();
     },
-    // 上傳第四步：上傳圖片
     updateImg() {
       emitter.emit('spinner-open');
       const item = this.tempImgurl;

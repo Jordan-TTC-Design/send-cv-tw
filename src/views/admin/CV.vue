@@ -342,7 +342,6 @@ export default {
       nowPage: '基本資料',
       personalState: true,
       settingSideList: '個人資料',
-      skillShowStyle: true,
       editMode: false,
       editTemplate: '', // 編輯哪一塊
       formData: {},

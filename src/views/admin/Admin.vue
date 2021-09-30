@@ -3,6 +3,9 @@
     <div ref="Search" class="header__searchModal">
       <SearchModal />
     </div>
+    <div ref="headerUserMenuModal" class="header__userMenuModal" @click="closeHeaderMenuModal">
+      <UserMenu />
+    </div>
     <div class="container d-flex justify-content-between align-items-center">
       <h1>
         <router-link ia-current="page" to="/"
@@ -75,9 +78,6 @@
       </div>
     </div>
   </header>
-  <div ref="headerUserMenuModal" class="header__userMenuModal">
-    <UserMenu />
-  </div>
   <div class="main main--bg" ref="main">
     <router-view></router-view>
   </div>

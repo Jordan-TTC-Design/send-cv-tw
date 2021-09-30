@@ -10,21 +10,40 @@
         </li>
         <template v-for="(item, index) in cvList" :key="index">
           <li class="col-4">
-            <div class="docCard">
+            <router-link class="docCard" :to="`document-cv/cv/${item.cvKey}`">
               <div class="d-flex flex-column justify-content-between flex-grow-1 me-2">
                 <p class="docCard__title">{{ item.cvName }}</p>
-                <p class="subTxt mb-3">更新時間：2020.12.12 12:30</p>
+                <p class="subTxt mb-3">更新時間：{{ $filters.date(item.cvKey) }}</p>
                 <div class="d-flex justify-content-between">
-                  <button type="button" class="btn btn-outline-gray-line text-dark">
+                  <button
+                    type="button"
+                    class="btn btn-outline-gray-line text-dark"
+                    @click="toggleCvState(index)"
+                  >
                     <i class="jobIcon-sm bi bi-eye me-1"></i>隱藏履歷
                   </button>
-                  <button type="button" class="btn">
-                    <i class="jobIcon-sm bi bi-three-dots"></i>
-                  </button>
+                  <div class="dropdown">
+                    <button
+                      class="btn position-relative"
+                      type="button"
+                      :id="`dropdownMenuButton--cvExpData--${index}`"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="jobIcon bi bi-three-dots"></i>
+                    </button>
+                    <ul
+                      :ref="`dropDownMenu--${index}`"
+                      class="dropDownMenu dropdown-menu"
+                      :aria-labelledby="`dropdownMenuButton--cvExpData--${index}`"
+                    >
+                      <li class="dropDownMenu__item" @click="deleteData(index)">刪除</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <img class="docCard__cover" src="https://i.imgur.com/qcSwLsr.jpg" alt="CV封面" />
-            </div>
+              <img class="docCard__cover" :src="item.cvImgUrl" alt="CV封面" />
+            </router-link>
           </li>
         </template>
       </ul>
@@ -63,9 +82,18 @@ export default {
         const data = snapshot.val();
         const cv = data;
         this.cvList = cv;
-        console.log(this.cvList);
         this.dataReady = true;
       });
+    },
+    // 保存Cv資料
+    saveCvData() {
+      const cvRef = database.ref('cvList');
+      cvRef.set(this.cvList);
+    },
+    // 刪除履歷列表項目
+    deleteData(index) {
+      this.cvList.splice(index, 1);
+      this.saveCvData();
     },
   },
   created() {

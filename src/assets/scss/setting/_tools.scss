@@ -485,6 +485,13 @@
       font-size: 14px;
     }
   }
+  &__subHeaderNav{
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid $gray-line;
+  }
   &__title {
     color: $dark;
     font-weight: $fw--md;
@@ -579,6 +586,21 @@
   .list__title {
     background-color: $gray-light;
     padding: 0.25rem 0.75rem;
+  }
+  &--interestForm{
+    height: 407px;
+  }
+  &__innerList{
+    width: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 1.5rem;
+    background-color: $light;
+    .formCheck--btn{
+      padding-left: 2rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ced4da;
+    }
   }
   &__leftList {
     width: 40%;
@@ -833,4 +855,13 @@
       display: block;
     }
   }
+}
+.fakeInput{
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  padding: 3px 6px 3px 0.75rem;
 }

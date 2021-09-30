@@ -446,10 +446,12 @@
 }
 .header__userMenuModal {
   position: absolute;
-  top: 3.75rem;
+  top: 0rem;
   width: 100%;
   z-index: 1200;
   display: none;
+  height: 100vh;
+  padding-top: 3.75rem;
   &.active {
     display: block;
   }

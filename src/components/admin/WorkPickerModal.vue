@@ -141,7 +141,6 @@ export default {
       deep: true,
       handler(newValue) {
         this.nowCvKey = newValue;
-        console.log(this.nowCvKey);
       },
     },
     userData: {
@@ -227,10 +226,8 @@ export default {
     },
     checkCvSelect() {
       this.user.docData.videoList.forEach((item, index) => {
-        console.log(item);
         if (item.cvList) {
           const place = item.cvList.indexOf(this.nowCvKey);
-          console.log(place);
           if (place > -1) {
             this.user.docData.videoList[index].cvSelect = true;
           } else {
@@ -248,7 +245,6 @@ export default {
           }
         }
       });
-      console.log(this.user.docData);
     },
     saveData() {
       this.putVideoInToData();

@@ -98,8 +98,10 @@
                       flex-grow-1 flex-md-row flex-column
                     "
                   >
-                  <button class="btn btn-outline-gray-line text-dark" type="button">近期搜尋</button>
-                  <button class="btn btn-primary" type="submit">搜尋職位</button>
+                    <button class="btn btn-outline-gray-line text-dark" type="button">
+                      近期搜尋
+                    </button>
+                    <button class="btn btn-primary" type="submit">搜尋職位</button>
                   </div>
                 </form>
               </div>
@@ -307,6 +309,7 @@
                     recommendTagList__btn recommendTagList__btn--new
                     btn btn-outline-companyColor
                   "
+                  @click="openInterestModal('新增興趣推薦條件')"
                 >
                   <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增興趣推薦條件
                 </button>
@@ -494,6 +497,7 @@
     <UpTopBtn />
   </div>
   <JobCollect ref="JobCollectModal" @return-job-collection="getJobCollect" />
+  <InterestModal />
 </template>
 
 <script>
@@ -502,16 +506,19 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import GoodJobCard from '@/components/front/GoodJobCard.vue';
+import InterestModal from '@/components/front/InterestModal.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
+import database from '@/methods/firebaseinit';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 export default {
   components: {
+    InterestModal,
     GoodJobCard,
     Swiper,
     SwiperSlide,
@@ -556,6 +563,8 @@ export default {
         },
         slidesPerView: this.swiperNum,
       },
+      user: {},
+      dataReady: false,
       companySwiperDetail: {
         autoPlay: {
           delay: 2000,
@@ -647,6 +656,22 @@ export default {
     },
   },
   methods: {
+    // 取得資料
+    getFbData() {
+      const userRef = database.ref('user');
+      userRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.user = data;
+        this.dataReady = true;
+      });
+    },
+    openInterestModal(actionTxt) {
+      const obj = {
+        action: actionTxt,
+        user: this.user,
+      };
+      emitter.emit('open-setting-interest-modal', obj);
+    },
     goToPage(pageUrl) {
       this.$router.push(pageUrl);
     },
@@ -739,6 +764,7 @@ export default {
   created() {
     this.formData = webData;
     this.getOgData();
+    this.getFbData();
     emitter.emit('spinner-open-bg', 1500);
   },
   mounted() {

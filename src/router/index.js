@@ -99,7 +99,7 @@ const routes = [
       },
       {
         // 文件-履歷
-        path: 'document-cv/cv/edit',
+        path: 'document-cv/cv/:id',
         component: () => import('../views/admin/CVEdit.vue'),
       },
       {

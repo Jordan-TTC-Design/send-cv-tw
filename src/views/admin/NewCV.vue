@@ -1,6 +1,6 @@
 <template>
-  <div class="adminPage--py" v-if="dataReady">
-    <div class="container">
+  <div class="adminPage--py">
+    <div class="container" v-if="dataReady">
       <div class="row">
         <div class="col-xxl-9 col-xl-8 col-12">
           <div class="admin__subNav bg-gray-mid align-items-center justify-content-between">
@@ -45,33 +45,41 @@
               </h3>
             </div>
             <div class="cvContainer__userBg">
-              <img
-                class="cvContainer__userBg__img"
-                src="https://images.unsplash.com/photo-1632684141688-327e9678f486?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80"
-                alt=""
-              />
-              <button type="button" class="cvContainer__userBg__btn btn btn--circle">
+              <img class="cvContainer__userBg__img" :src="tempCvData.cvImgUrl" alt="履歷封面" />
+              <button
+                type="button"
+                class="cvContainer__userBg__btn btn btn--circle"
+                @click="openExsitImgEditModal(tempCvData.cvImgUrl)"
+              >
                 <i class="jobIcon bi bi-pencil-square text-dark"></i>
               </button>
               <div class="userImgBox">
                 <img
                   class="userImgBox__img"
-                  src="https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80"
-                  alt=""
+                  :src="tempCvData.userData.account.userImgUrl"
+                  alt="個人照片"
                 />
-                <div class="userImgBox__editBtn">
-                  <button type="button" class="btn btn--circle">
-                    <i class="jobIcon bi bi-pencil-square text-dark"></i>
-                  </button>
-                </div>
               </div>
             </div>
-            <h4 class="mb-1 text-dark">{{ tempCvData.userData.account.chineseName }}</h4>
-            <p class="mb-3">{{ tempCvData.userData.account.jobTitle }}</p>
-            <p class="mb-1">{{ tempCvData.userData.account.birthday }}</p>
-            <p class="mb-1">{{ tempCvData.userData.account.email }}</p>
-            <p class="mb-1">{{ tempCvData.userData.account.phone }}</p>
+            <h4 class="mb-3 text-dark">{{ tempCvData.userData.account.chineseName }}</h4>
+            <p class="mb-1">
+              <span class="me-3 text-secondary">職稱</span
+              >{{ tempCvData.userData.account.jobTitle }}
+            </p>
+            <p class="mb-1">
+              <span class="me-3 text-secondary">生日</span
+              >{{ tempCvData.userData.account.birthday }}
+            </p>
+            <p class="mb-1">
+              <span class="me-3 text-secondary">聯絡信箱</span
+              >{{ tempCvData.userData.account.email }}
+            </p>
+            <p class="mb-1">
+              <span class="me-3 text-secondary">聯絡電話</span
+              >{{ tempCvData.userData.account.phone }}
+            </p>
             <p class="mb-5">
+              <span class="me-3 text-secondary">居住區域</span>
               {{ tempCvData.userData.account.addressCity }}，{{
                 tempCvData.userData.account.addressDist
               }}
@@ -311,7 +319,7 @@
                 新增專業技能
               </button>
             </div>
-            <ul class="row" v-if="skillShowStyle === true">
+            <ul class="row">
               <!-- 語言 -->
               <li class="col-12">
                 <div
@@ -805,6 +813,7 @@
     :cvKey="tempCvData.cvKey"
     @returnUserData="getUserDataFromModal"
   />
+  <ExsitImgEditModal @emit-send-img-data="getImg" />
 </template>
 
 <script>
@@ -817,6 +826,7 @@ import LicenseDataTemplate from '@/components/admin/LicenseDataTemplate.vue';
 import SkillDataTemplate from '@/components/admin/SkillDataTemplate.vue';
 import WorkPickerModal from '@/components/admin/WorkPickerModal.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
+import ExsitImgEditModal from '@/components/helpers/ExsitImgEditModal.vue';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import database from '@/methods/firebaseinit';
@@ -829,6 +839,7 @@ export default {
     SkillDataTemplate,
     LanguageDataTemplate,
     LicenseDataTemplate,
+    ExsitImgEditModal,
     WorkPickerModal,
     UpTopBtn,
   },
@@ -838,7 +849,7 @@ export default {
       nowPage: '基本資料',
       personalState: true,
       settingSideList: '個人資料',
-      skillShowStyle: true,
+      ＧＦ: true,
       editMode: false,
       editTemplate: '', // 編輯哪一塊
       formData: {},
@@ -848,6 +859,7 @@ export default {
         cvName: '第一份履歷',
         expSectionList: [{ title: '我的大學經歷', content: '我的' }],
       },
+      tempImgurl: '',
       tempWorkExp: {},
       tempEducation: {},
       tempSkill: {},
@@ -897,10 +909,46 @@ export default {
     date(newValue) {
       const data = Math.ceil(newValue.valueOf() / 1000);
       this.user.account.birthday = data;
-      console.dir(this.$filters.date(data));
     },
   },
   methods: {
+    // 打開普通圖片編輯器
+    openExsitImgEditModal(imgUrl) {
+      console.log(imgUrl);
+      emitter.emit('open-ExistImgEditModal', imgUrl);
+    },
+    // 取得圖片
+    getImg(data) {
+      this.tempImgurl = data;
+      this.updateImg();
+    },
+    // 上傳圖片
+    updateImg() {
+      emitter.emit('spinner-open');
+      const item = this.tempImgurl;
+      const base64String = item.replace('data:image/jpeg;base64,', '');
+      console.log(item);
+      this.$http({
+        method: 'POST',
+        url: 'https://api.imgur.com/3/image',
+        data: {
+          image: base64String,
+          type: 'base64',
+        },
+        headers: {
+          Authorization: 'Client-ID ef6e862acf052df',
+        },
+      })
+        .then((res) => {
+          this.tempCvData.cvImgUrl = res.data.data.link;
+          this.saveTempCvData();
+          emitter.emit('spinner-close');
+        })
+        .catch((err) => {
+          console.log(err);
+          emitter.emit('spinner-close');
+        });
+    },
     // 刪除履歷列表項目
     deleteExpCvSection(listIndex) {
       this.tempCvData.cvSectionList.splice(listIndex, 1);
@@ -952,6 +1000,7 @@ export default {
       this.saveTempCvData();
       this.closeTemplate();
     },
+    // 關閉工作經驗、教育程度、技能等modal
     closeTemplate() {
       this.editTemplate = '';
       this.editMode = false;
@@ -977,6 +1026,14 @@ export default {
       }
       this.toggleCvTitleInput();
       this.saveTempCvData();
+    },
+    // 編輯其他資訊
+    openSettingModal(action) {
+      const obj = {
+        action,
+        user: this.user,
+      };
+      emitter.emit('open-setting-career-modal', obj);
     },
     // 以下是針對特殊履歷板塊的操作
     // 新增履歷板塊
@@ -1070,23 +1127,7 @@ export default {
       }
       this.saveTempCvData();
     },
-    // 取得資料
-    getFbData() {
-      const userRef = database.ref('user');
-      userRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        this.user = data;
-        console.log(this.user);
-      });
-      const cvRef = database.ref('cvList/0');
-      cvRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        const cv = data;
-        this.cvData = cv;
-        console.log(this.cvData);
-        this.dataReady = true;
-      });
-    },
+    // 以下針對履歷資料操作
     // 取得 tempCvData 資料
     getTempCvData() {
       const tempCvDataRef = database.ref('tempCvData');
@@ -1140,6 +1181,7 @@ export default {
         data.push(this.tempCvData);
         cvRef.set(data);
         this.cleanTempCvData();
+        this.$router.push('document-cv/cv');
       });
     },
     // 清除暫存履歷資料
@@ -1160,14 +1202,6 @@ export default {
       } else if (!this[dataName]) {
         this[dataName] = true;
       }
-    },
-    // 編輯其他資訊
-    openSettingModal(action) {
-      const obj = {
-        action,
-        user: this.user,
-      };
-      emitter.emit('open-setting-career-modal', obj);
     },
     defaultTempData() {
       this.tempWorkExp = {
@@ -1214,3 +1248,4 @@ export default {
 </script>
 
 <style lang="scss"></style>
+ＦＦ
