@@ -263,12 +263,12 @@
             <div class="titleBox--tag justify-content-center">
               <h3 class="titleBox__title">如何使用拍照申請功能？</h3>
             </div>
-            <div class="row">
+            <div class="row mb-5">
               <div class="col-4">
                 <div class="card--howTo">
                   <img src="@/assets/images/howto/snapJob-howto-1.png" alt="拍照申請說明圖" />
                   <div class="card__txtBox">
-                    <h5>路過看到好工作</h5>
+                    <h5 class="text-dark">路過看到好工作</h5>
                     <p>上班途中經過看到心愛的咖啡店在徵人，先拍下來！</p>
                   </div>
                 </div>
@@ -277,7 +277,7 @@
                 <div class="card--howTo">
                   <img src="@/assets/images/howto/snapJob-howto-2.png" alt="拍照申請說明圖" />
                   <div class="card__txtBox">
-                    <h5>上傳 sendCV</h5>
+                    <h5 class="text-dark">上傳 sendCV</h5>
                     <p>選擇搭配已經建立好的 sendCV 履歷，環保省時。</p>
                   </div>
                 </div>
@@ -286,14 +286,21 @@
                 <div class="card--howTo">
                   <img src="@/assets/images/howto/snapJob-howto-3.png" alt="拍照申請說明圖" />
                   <div class="card__txtBox">
-                    <h5>幫你投遞履歷</h5>
+                    <h5 class="text-dark">幫你投遞履歷</h5>
                     <p>經過 sendCV 審核，讓企業接受度 up up！</p>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="row d-flex justify-content-center">
+            <div class="col-4">
+              <button type="button" class="btn btn-primary w-100">
+                立即使用拍照申請功能
+              </button>
+            </div>
           </div>
-          <div class="recommendCardList section--py">
+          </div>
+          <div class="recommendCardList section--py" v-if="dataReady">
             <div class="titleBox--tag">
               <h3 class="titleBox__title">興趣職位推薦</h3>
               <div class="recommendTagList">
@@ -303,15 +310,24 @@
                 >
                   根據個人興趣
                 </button>
+                <template v-for="(item, index) in user.recommedJobList" :key="index">
+                  <button type="button" class="recommendTagList__btn btn btn-outline-gray-line">
+                    {{ item.title }}
+                    <i
+                      class="ms-1 jobIcon-sm bi bi-pencil-square"
+                      @click="openRecommedModal('編輯興趣推薦條件', index)"
+                    ></i>
+                  </button>
+                </template>
                 <button
                   type="button"
                   class="
                     recommendTagList__btn recommendTagList__btn--new
                     btn btn-outline-companyColor
                   "
-                  @click="openInterestModal('新增興趣推薦條件')"
+                  @click="openRecommedModal('新增興趣推薦條件')"
                 >
-                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增興趣推薦條件
+                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增
                 </button>
               </div>
             </div>
@@ -406,7 +422,7 @@
           <div class="titleBox--tag justify-content-center">
             <h3 class="titleBox__title">如何使用寫郵件sendCV功能？</h3>
           </div>
-          <div class="row">
+          <div class="row mb-5">
             <div class="col-4">
               <div class="card--howTo card--howTo--email">
                 <img
@@ -414,7 +430,7 @@
                   alt="寫郵件SendCV說明圖"
                 />
                 <div class="card__txtBox">
-                  <h5>路過看到好工作</h5>
+                  <h5 class="text-dark">路過看到好工作</h5>
                   <p>好想去好公司，不知道有沒有職缺？</p>
                 </div>
               </div>
@@ -426,7 +442,7 @@
                   alt="寫郵件SendCV說明圖"
                 />
                 <div class="card__txtBox">
-                  <h5>上傳 sendCV</h5>
+                  <h5 class="text-dark">上傳 sendCV</h5>
                   <p>使用sendCV 統整好自己的履歷與經歷! 找到心儀公司的信箱！</p>
                 </div>
               </div>
@@ -438,10 +454,17 @@
                   alt="寫郵件SendCV說明圖"
                 />
                 <div class="card__txtBox">
-                  <h5>幫你投遞履歷</h5>
+                  <h5 class="text-dark">幫你投遞履歷</h5>
                   <p>不論有沒有職位， 我們都幫你投履歷，不放過任何機會！</p>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-4">
+              <button type="button" class="btn btn-primary w-100">
+                立即使用寫郵件SendCV
+              </button>
             </div>
           </div>
         </div>
@@ -497,7 +520,10 @@
     <UpTopBtn />
   </div>
   <JobCollect ref="JobCollectModal" @return-job-collection="getJobCollect" />
-  <InterestModal />
+  <RecommedModal
+    @return-recommed-data="saveRecommedData"
+    @delete-recommed-data="deleteRecommedData"
+  />
 </template>
 
 <script>
@@ -506,7 +532,7 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import GoodJobCard from '@/components/front/GoodJobCard.vue';
-import InterestModal from '@/components/front/InterestModal.vue';
+import RecommedModal from '@/components/front/RecommedModal.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 import 'swiper/swiper.scss';
@@ -518,7 +544,7 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 export default {
   components: {
-    InterestModal,
+    RecommedModal,
     GoodJobCard,
     Swiper,
     SwiperSlide,
@@ -665,12 +691,36 @@ export default {
         this.dataReady = true;
       });
     },
-    openInterestModal(actionTxt) {
+    // 保存資料
+    saveUserData() {
+      const userRef = database.ref('user');
+      userRef.set(this.user);
+    },
+    openRecommedModal(actionTxt, index) {
       const obj = {
         action: actionTxt,
-        user: this.user,
+        data: this.user,
+        index,
       };
-      emitter.emit('open-setting-interest-modal', obj);
+      emitter.emit('open-recommed-modal', obj);
+    },
+    saveRecommedData(obj) {
+      if (obj.action === '新增興趣推薦條件') {
+        if (this.user.recommedJobList) {
+          this.user.recommedJobList.push(obj.data);
+        } else if (!this.user.recommedJobList) {
+          this.user.recommedJobList = [];
+          this.user.recommedJobList.push(obj.data);
+        }
+      } else if (obj.action === '編輯興趣推薦條件') {
+        this.user.recommedJobList.splice(obj.index, 1, obj.data);
+      }
+      console.log(this.user.recommedJobList);
+      this.saveUserData();
+    },
+    deleteRecommedData(index) {
+      this.user.recommedJobList.splice(index, 1);
+      this.saveUserData();
     },
     goToPage(pageUrl) {
       this.$router.push(pageUrl);
@@ -734,7 +784,6 @@ export default {
           this.jobsList.push(Obj);
         }
       });
-      console.log(this.jobsList);
       this.changeJobSort();
       this.checkJobCollect();
       this.dataOk = true;

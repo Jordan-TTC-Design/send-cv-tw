@@ -10,11 +10,13 @@ const InterestData = {
     { title: '夜班', select: false },
     { title: '假日班', select: false },
   ],
+  workTimeSelect: [],
   workType: [
     { title: '全職', select: false },
     { title: '兼職', select: false },
     { title: '實習', select: false },
   ],
+  workTypeSelect: [],
   workPlace: [
     {
       cityName: '台北市',
@@ -520,6 +522,7 @@ const InterestData = {
       ],
     },
   ],
+  workPlaceSelect: [],
   industryCategories: [
     { industryName: '批發、零售、傳直銷業', select: false },
     { industryName: '文教相關業', select: false },
@@ -538,6 +541,7 @@ const InterestData = {
     { industryName: '礦業及土石採取業', select: false },
     { industryName: '住宿、餐飲服務業', select: false },
   ],
+  industryCategoriesSelect: [],
   jobCategories: [
     {
       groupName: '經營管理、人資人事',
@@ -1529,5 +1533,6 @@ const InterestData = {
       ],
     },
   ],
+  jobCategoriesSelect: [],
 };
 export default InterestData;

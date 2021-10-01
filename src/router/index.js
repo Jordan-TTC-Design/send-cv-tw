@@ -46,6 +46,11 @@ const routes = [
         path: 'search/',
         component: () => import('../views/front/SearchPage.vue'),
       },
+      {
+        // 申請職位頁面
+        path: 'apply-job/:id',
+        component: () => import('../views/front/ApplyJob.vue'),
+      },
     ],
   },
   {

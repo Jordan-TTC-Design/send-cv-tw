@@ -197,14 +197,24 @@
                 >
                   根據個人興趣
                 </button>
+                <template v-for="(item, index) in user.recommedCompanyList" :key="index">
+                  <button type="button" class="recommendTagList__btn btn btn-outline-gray-line">
+                    {{ item.title }}
+                    <i
+                      class="ms-1 jobIcon-sm bi bi-pencil-square"
+                      @click="openRecommedModal('編輯興趣行業推薦條件', index)"
+                    ></i>
+                  </button>
+                </template>
                 <button
                   type="button"
                   class="
                     recommendTagList__btn recommendTagList__btn--new
                     btn btn-outline-companyColor
                   "
+                  @click="openRecommedModal('新增興趣行業推薦條件')"
                 >
-                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增興趣推薦條件
+                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增
                 </button>
               </div>
             </div>
@@ -467,6 +477,10 @@
     <UpTopBtn />
   </div>
   <JobCollect ref="JobCollectModal" @return-job-collection="getJobCollect" />
+  <RecommedModal
+    @return-recommed-data="saveRecommedData"
+    @delete-recommed-data="deleteRecommedData"
+  />
 </template>
 
 <script>
@@ -476,9 +490,11 @@ import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
+import RecommedModal from '@/components/front/RecommedModal.vue';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
+import database from '@/methods/firebaseinit';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -488,6 +504,7 @@ export default {
     SwiperSlide,
     UpTopBtn,
     JobCollect,
+    RecommedModal,
   },
   data() {
     return {
@@ -520,6 +537,8 @@ export default {
         },
         slidesPerView: this.swiperNum,
       },
+      user: {},
+      dataReady: false,
       companySwiperDetail: {
         autoPlay: {
           delay: 2000,
@@ -612,6 +631,46 @@ export default {
     },
   },
   methods: {
+    // 取得資料
+    getFbData() {
+      const userRef = database.ref('user');
+      userRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.user = data;
+        this.dataReady = true;
+      });
+    },
+    // 保存資料
+    saveUserData() {
+      const userRef = database.ref('user');
+      userRef.set(this.user);
+    },
+    openRecommedModal(actionTxt, index) {
+      const obj = {
+        action: actionTxt,
+        data: this.user,
+        index,
+      };
+      emitter.emit('open-recommed-modal', obj);
+    },
+    saveRecommedData(obj) {
+      if (obj.action === '新增興趣行業推薦條件') {
+        if (this.user.recommedCompanyList) {
+          this.user.recommedCompanyList.push(obj.data);
+        } else if (!this.user.recommedCompanyList) {
+          this.user.recommedCompanyList = [];
+          this.user.recommedCompanyList.push(obj.data);
+        }
+      } else if (obj.action === '編輯興趣行業推薦條件') {
+        this.user.recommedCompanyList.splice(obj.index, 1, obj.data);
+      }
+      console.log(this.user.recommedCompanyList);
+      this.saveUserData();
+    },
+    deleteRecommedData(index) {
+      this.user.recommedCompanyList.splice(index, 1);
+      this.saveUserData();
+    },
     showMore(dataList) {
       this[dataList] += 4;
     },
@@ -713,6 +772,7 @@ export default {
   created() {
     this.formData = webData;
     this.getOgData();
+    this.getFbData();
     emitter.emit('spinner-open-bg', 1500);
   },
   mounted() {

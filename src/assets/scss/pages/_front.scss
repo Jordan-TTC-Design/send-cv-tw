@@ -1988,3 +1988,31 @@
     }
   }
 }
+.docSelector{
+  &__titleBox{
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: $gray-light;
+    display: flex;
+    align-items: center;
+  }
+  &__contentBox{
+    background-color: $gray-light;
+    border-radius: 0.5rem;
+    width: 100%;
+    min-height: 160px;
+    display: flex;
+    padding: 0.5rem;
+    &.overFlow--x{
+      overflow-x: initial;
+    }
+    .docCard{
+      padding: 0.5rem;
+      width: 45%;
+      &__cover{
+        width: 4rem;
+        height: 100%;
+      }
+    }
+  }
+}

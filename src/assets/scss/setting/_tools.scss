@@ -864,4 +864,15 @@
   border-radius: 0.5rem;
   border: 1px solid #ced4da;
   padding: 3px 6px 3px 0.75rem;
+  &__txtList{
+    display: flex;
+    max-width: 80%;
+    overflow-x: hidden;
+    &__line{
+      height: 0.75rem;
+      border-right:1px solid $gray-line ;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
 }
