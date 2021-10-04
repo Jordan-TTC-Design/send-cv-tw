@@ -1989,6 +1989,8 @@
   }
 }
 .docSelector{
+  display: flex;
+  flex-direction: column;
   &__titleBox{
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
@@ -2000,19 +2002,33 @@
     background-color: $gray-light;
     border-radius: 0.5rem;
     width: 100%;
-    min-height: 160px;
+    min-height: 96px;
     display: flex;
     padding: 0.5rem;
+    flex-grow: 1;
     &.overFlow--x{
-      overflow-x: initial;
+      overflow-x: auto;
     }
     .docCard{
       padding: 0.5rem;
       width: 45%;
+      flex-shrink: 0;
       &__cover{
         width: 4rem;
         height: 100%;
       }
+    }
+    .docCard--video{
+      .card-img-top{
+        height: 80px;
+        object-fit: cover;
+      }
+    }
+    .docCard.docCard--coverLetter{
+      min-height: 64px;
+      height: 92px;
+      justify-content: start;
+      width: 40%;
     }
   }
 }

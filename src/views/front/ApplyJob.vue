@@ -160,65 +160,165 @@
               </div>
             </div>
             <div class="applyContainer__applyInfoBox">
-              <Form ref="sendFormInfoForm1" @submit="sendApplyFormProcess">
+              <Form ref="sendFormInfoForm1" @submit="sendApply" v-slot="{ errors }">
                 <h3 class="section__title--sub mb-4">
                   <span class="title__icon"></span>求職者申請資訊
                 </h3>
                 <div class="row">
                   <div class="col-md-8 col-12 mb-4">
-                    <div class="docSelector">
+                    <!-- 履歷 -->
+                    <div class="docSelector h-100">
                       <div class="docSelector__titleBox mb-2">
                         <p>履歷</p>
                         <p class="formTag--must">必選</p>
                       </div>
                       <div class="docSelector__contentBox overFlow--x">
                         <template v-for="(item, index) in docData.cvList" :key="index">
-                          <div class="docCard me-2 mb-0">
-                            <div
-                              class="d-flex flex-column  flex-grow-1 me-2"
-                            >
-                              <p class="docCard__title">{{ item.cvName }}</p>
-                              <p class="subTxt">{{ $filters.date(item.cvKey) }}</p>
+                          <div class="docCard me-2 mb-0" @click="form.cvSelect = item.cvKey">
+                            <div class="d-flex flex-column flex-grow-1 me-2">
+                              <div>
+                                <p class="docCard__title">{{ item.cvName }}</p>
+                                <p class="subTxt">{{ $filters.date(item.cvKey) }}</p>
+                              </div>
+                              <div class="form-check position-absolute bottom-0 start-0 ms-2">
+                                <input
+                                  class="form-check-input mt-0"
+                                  type="radio"
+                                  :value="item.cvKey"
+                                  v-model="form.cvSelect"
+                                />
+                              </div>
                             </div>
                             <img class="docCard__cover" :src="item.cvImgUrl" alt="CV封面" />
                           </div>
                         </template>
                       </div>
+                      <Field
+                        id="applyJobCvData"
+                        ref="applyJobCvData"
+                        name="履歷"
+                        type="select"
+                        class="form-control d-none"
+                        :class="{ 'is-invalid': errors['履歷'] }"
+                        v-model="form.cvSelect"
+                        rules="required"
+                      ></Field>
+                      <ErrorMessage name="履歷" class="invalid-feedback"></ErrorMessage>
                     </div>
                   </div>
                   <div class="col-md-4 col-12 mb-4">
-                    <!-- 表單2-2：職位名稱(必填) -->
-                    <div class="docSelector">
-                      <div class="docSelector__titleBox mb-2">
+                    <!-- 自我介紹 -->
+                    <div class="docSelector h-100">
+                      <div class="docSelector__titleBox mb-2 position-relative">
                         <p>自我介紹</p>
-                        <p class="formTag--must">必選</p>
+                        <div class="form-check position-absolute top-0 end-0 pe-2">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value="顯示"
+                            id="applyJobIntroVideo"
+                            v-model="form.introVideo"
+                          />
+                          <label class="form-check-label text-nowrap" for="applyJobIntroVideo">
+                            顯示
+                          </label>
+                        </div>
                       </div>
-                      <div class="docSelector__contentBox"></div>
+                      <div class="docSelector__contentBox">
+                        <template v-for="(item, index) in docData.videoList" :key="index">
+                          <div
+                            class="docCard docCard--video card w-100 mb-0"
+                            v-if="item.introSelect"
+                          >
+                            <img class="card-img-top" :src="item.imgUrl" alt="影片封面" />
+                            <div class="card-body p-2">
+                              <p class="docCard__title mb-0">{{ item.title }}</p>
+                            </div>
+                          </div>
+                        </template>
+                      </div>
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="docSelector mb-4">
                       <div class="docSelector__titleBox mb-2">
-                        <p>求職信</p>
-                        <p class="formTag--must">必選</p>
+                        <p class="me-2">求職信</p>
+                        <p class="subTxt">(可使用文字模板快速建立求職信)</p>
                       </div>
-                      <div class="docSelector__contentBox"></div>
+                      <div class="docSelector__contentBox overFlow--x">
+                        <template v-for="(item, index) in docData.coverLetterList" :key="index">
+                          <div
+                            class="docCard docCard--coverLetter mb-0 me-2"
+                            @click="useThisTempalte(index)"
+                          >
+                            <div class="d-flex align-items-center justify-content-between">
+                              <p class="docCard__title">{{ item.title }}</p>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input mt-0"
+                                  type="checkbox"
+                                  value="顯示"
+                                  id="applyJobIntroVideo"
+                                  v-model="item.select"
+                                />
+                              </div>
+                            </div>
+                            <div
+                              class="docCard--coverLetter__content subTxt"
+                              v-html="item.content"
+                            ></div>
+                          </div>
+                        </template>
+                      </div>
                     </div>
                     <div class="form__inputBox form__infoEditBox">
                       <div class="form__labelBox">
-                        <label for="sendFormInfoMessage" class="form__label--custom form-label"
+                        <label for="coverLetterContent" class="form__label--custom form-label"
                           >求職信內容</label
                         >
                       </div>
-                      <ckeditor
-                        id="sendFormInfoMessage"
-                        ref="sendFormInfoMessage"
-                        name="求職信"
-                        :editor="editor"
-                        tag-name="textarea"
-                        v-model="form.message"
-                        :config="editorConfig"
-                      ></ckeditor>
+                      <div class="textarea--tag">
+                        <ul class="textarea--tag__tagList">
+                          <li><p class="jobTag jobTag--letter me-2">職位標籤</p></li>
+                          <li><p class="jobTag jobTag--letter">公司標籤</p></li>
+                        </ul>
+                        <ckeditor
+                          id="coverLetterContent"
+                          ref="coverLetterContent"
+                          name="求職信內容"
+                          :editor="editor"
+                          tag-name="textarea"
+                          class="form-control textarea--tag__inputBox"
+                          v-model="form.coverLetterContent"
+                          :config="editorConfig"
+                        ></ckeditor>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="form-check me-4" v-if="coverLetterSaveOld.show">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="coverLetterSaveOld"
+                        @change="changeCoverLetter('old')"
+                        v-model="coverLetterSaveOld.replace"
+                      />
+                      <label class="form-check-label text-nowrap" for="coverLetterSaveOld">
+                        覆蓋舊求職信
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="coverLetterSaveNew"
+                        v-model="coverLetterSaveNew"
+                        @change="changeCoverLetter('new')"
+                      />
+                      <label class="form-check-label text-nowrap" for="coverLetterSaveNew">
+                        另存新求職信
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -265,12 +365,11 @@ export default {
         jobKey: '',
         jobName: '',
         key: null,
+        time: null,
         cvSelect: '',
-        introVideo: false,
+        introVideo: true,
         coverLettertitle: '',
         coverLetterContent: '',
-        productList: [],
-        videoList: [],
       },
       cvList: [],
       docData: {},
@@ -281,31 +380,9 @@ export default {
       // 編輯器套件
       editor: ClassicEditor,
       editorConfig: {
-        toolbar: ['heading', '|', 'bold', 'italic', 'link'],
+        toolbar: [],
         language: 'zh',
         placeholder: '請輸入...',
-        heading: {
-          // 設定 Heading 內的樣式，可新增多個
-          options: [
-            {
-              model: 'paragraph',
-              title: 'Paragraph',
-              class: 'ck-heading_paragraph',
-            },
-            {
-              model: 'heading1',
-              view: 'h2',
-              title: 'Heading 1',
-              class: 'ck-heading_heading1',
-            },
-            {
-              model: 'heading2',
-              view: 'h3',
-              title: 'Heading 2',
-              class: 'ck-heading_heading2',
-            },
-          ],
-        },
       },
       tempArticle: {
         tag: [''],
@@ -313,9 +390,56 @@ export default {
       cropper: {}, // 圖片套件
       uploadImgState: 'upLoadSingleImg',
       applyJobContentStage: '', // 左側職位資訊欄區塊
+      coverLetterSaveOld: { key: null, replace: false, show: false },
+      coverLetterSaveNew: false,
     };
   },
   methods: {
+    sendApply() {
+      this.form.time = `${Math.floor(Date.now() / 1000)}`;
+      this.form.key = `${Math.floor(Date.now() / 1000)}`;
+      console.log(this.form);
+      if (this.coverLetterSaveOld.replace) {
+        const number = this.coverLetterSaveOld.key;
+        console.log(this.docData.coverLetterList);
+        this.docData.coverLetterList.forEach((item, index) => {
+          if (item.time === number) {
+            this.docData.coverLetterList[index].content = this.form.coverLetterContent;
+          }
+        });
+        console.log(this.docData.coverLetterList);
+      } else if (this.coverLetterSaveNew) {
+        // this.newcoverLetterModalOpen();
+      }
+    },
+    changeCoverLetter(action) {
+      if (action === 'old') {
+        this.coverLetterSaveNew = false;
+        this.docData.coverLetterList.forEach((item) => {
+          if (item.select) {
+            this.coverLetterSaveOld.key = item.time;
+          }
+        });
+      } else {
+        this.coverLetterSaveOld.replace = false;
+        this.coverLetterSaveOld.key = '';
+      }
+      console.log(this.coverLetterSaveOld);
+      console.log(this.coverLetterSaveNew);
+    },
+    useThisTempalte(index) {
+      this.coverLetterSaveOld.replace = false;
+      this.coverLetterSaveOld.show = true;
+      this.docData.coverLetterList.forEach((item, number) => {
+        if (number === index) {
+          this.docData.coverLetterList[number].select = !item.select;
+          this.form.coverLetterContent = '';
+          this.form.coverLetterContent = item.content;
+        } else {
+          this.docData.coverLetterList[number].select = false;
+        }
+      });
+    },
     // 用來打開左側職位資訊欄的區塊
     openApplySideSection(sectionName) {
       if (this.applyJobContentStage !== sectionName) {
@@ -505,8 +629,7 @@ export default {
       const cvRef = database.ref('cvList');
       cvRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        const cv = data;
-        this.cvList = cv;
+        this.cvList = data;
         this.getFbData();
       });
     },
@@ -515,8 +638,8 @@ export default {
       const userRef = database.ref('user');
       userRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        this.docData = data.docData;
-        this.docData.cvList = this.cvList;
+        this.docData = JSON.parse(JSON.stringify(data.docData));
+        this.docData.cvList = JSON.parse(JSON.stringify(this.cvList));
         this.dataReady = true;
         console.log(this.docData);
       });
