@@ -51,6 +51,16 @@ const routes = [
         path: 'apply-job/:id',
         component: () => import('../views/front/ApplyJob.vue'),
       },
+      {
+        // 寫郵件SendCV
+        path: 'other-apply/mail',
+        component: () => import('../views/front/OtherApplyMail.vue'),
+      },
+      {
+        // 拍照求職
+        path: 'other-apply/shot',
+        component: () => import('../views/front/OtherApplyShot.vue'),
+      },
     ],
   },
   {

@@ -293,12 +293,10 @@
               </div>
             </div>
             <div class="row d-flex justify-content-center">
-            <div class="col-4">
-              <button type="button" class="btn btn-primary w-100">
-                立即使用拍照申請功能
-              </button>
+              <div class="col-4">
+                <button type="button" class="btn btn-primary w-100">立即使用拍照申請功能</button>
+              </div>
             </div>
-          </div>
           </div>
           <div class="recommendCardList section--py" v-if="dataReady">
             <div class="titleBox--tag">
@@ -462,9 +460,7 @@
           </div>
           <div class="row d-flex justify-content-center">
             <div class="col-4">
-              <button type="button" class="btn btn-primary w-100">
-                立即使用寫郵件SendCV
-              </button>
+              <button type="button" class="btn btn-primary w-100">立即使用寫郵件SendCV</button>
             </div>
           </div>
         </div>
@@ -517,6 +513,13 @@
     </div>
   </div>
   <div class="sideBtnBox">
+    <button
+      type="button"
+      class="sideIconBtn btn btn-light mb-2"
+      @click="callEmitter('open-other-apply-modal')"
+    >
+      <i class="jobIcon bi bi-camera-fill"></i>
+    </button>
     <UpTopBtn />
   </div>
   <JobCollect ref="JobCollectModal" @return-job-collection="getJobCollect" />
@@ -524,6 +527,7 @@
     @return-recommed-data="saveRecommedData"
     @delete-recommed-data="deleteRecommedData"
   />
+  <OtherApplyModal />
 </template>
 
 <script>
@@ -534,6 +538,7 @@ import webData from '@/methods/webData';
 import GoodJobCard from '@/components/front/GoodJobCard.vue';
 import RecommedModal from '@/components/front/RecommedModal.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
+import OtherApplyModal from '@/components/helpers/OtherApplyModal.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.min.css';
@@ -549,6 +554,7 @@ export default {
     Swiper,
     SwiperSlide,
     UpTopBtn,
+    OtherApplyModal,
     JobCollect,
   },
   data() {
@@ -682,6 +688,9 @@ export default {
     },
   },
   methods: {
+    callEmitter(funcationName) {
+      emitter.emit(funcationName);
+    },
     // 取得資料
     getFbData() {
       const userRef = database.ref('user');

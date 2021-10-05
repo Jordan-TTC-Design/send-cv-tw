@@ -162,8 +162,8 @@
             <div class="applyContainer__applyInfoBox">
               <Form ref="sendFormInfoForm1" @submit="sendApply" v-slot="{ errors }">
                 <h3 class="section__title--sub mb-4">
-                  <span class="title__icon"></span>求職者申請資訊
-                </h3>
+                <span class="titleTag--doubleCircle me-2"></span>求職者申請資訊
+              </h3>
                 <div class="row">
                   <div class="col-md-8 col-12 mb-4">
                     <!-- 履歷 -->
@@ -271,7 +271,7 @@
                         </template>
                       </div>
                     </div>
-                    <div class="form__inputBox form__infoEditBox">
+                    <div class="form__inputBox form__infoEditBox mb-1">
                       <div class="form__labelBox">
                         <label for="coverLetterContent" class="form__label--custom form-label"
                           >求職信內容</label
@@ -294,31 +294,31 @@
                         ></ckeditor>
                       </div>
                     </div>
-                  </div>
-                  <div class="d-flex">
-                    <div class="form-check me-4" v-if="coverLetterSaveOld.show">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="coverLetterSaveOld"
-                        @change="changeCoverLetter('old')"
-                        v-model="coverLetterSaveOld.replace"
-                      />
-                      <label class="form-check-label text-nowrap" for="coverLetterSaveOld">
-                        覆蓋舊求職信
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="coverLetterSaveNew"
-                        v-model="coverLetterSaveNew"
-                        @change="changeCoverLetter('new')"
-                      />
-                      <label class="form-check-label text-nowrap" for="coverLetterSaveNew">
-                        另存新求職信
-                      </label>
+                    <div class="d-flex">
+                      <div class="form-check me-4" v-if="coverLetterSaveOld.show">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="coverLetterSaveOld"
+                          @change="changeCoverLetter('old')"
+                          v-model="coverLetterSaveOld.replace"
+                        />
+                        <label class="form-check-label text-nowrap" for="coverLetterSaveOld">
+                          覆蓋舊求職信
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="coverLetterSaveNew"
+                          v-model="coverLetterSaveNew"
+                          @change="changeCoverLetter('new')"
+                        />
+                        <label class="form-check-label text-nowrap" for="coverLetterSaveNew">
+                          另存新求職信
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -335,18 +335,15 @@
       </div>
     </div>
   </div>
-  <ImageSquareCropper @emit-send-img-data="getImg" />
 </template>
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
-import ImageSquareCropper from '@/components/helpers/ImageSquareCropperModal.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
-  components: { ImageSquareCropper },
   data() {
     return {
       // 申請的職位
@@ -373,8 +370,6 @@ export default {
       },
       cvList: [],
       docData: {},
-      // 圖片用
-      personalImg: { src: '', isUpDated: false },
       // 表單資料
       formData: {},
       // 編輯器套件
@@ -447,65 +442,6 @@ export default {
       } else {
         this.applyJobContentStage = '';
       }
-    },
-    // 取得圖片傳給modal
-    loadingImg(e) {
-      const nowId = '';
-      emitter.emit('open-imageSquareCropper', [e.target.files[0], nowId]);
-    },
-    // 從modal抓回圖片
-    getImg(data, img, id) {
-      if (this.uploadImgState === 'upLoadMutiImg') {
-        this.temImageInputs[id].src = data;
-        this.temImages[id] = img.src;
-      } else if (this.uploadImgState === 'upLoadSingleImg') {
-        this.personalImg.src = data;
-      }
-    },
-    // 觸發 圖片input
-    clickInput(e) {
-      if (e.target.dataset.input === 'upLoadSingleImg') {
-        this.$refs.sendFormInfoPersonalImg.click();
-        this.uploadImgState = 'upLoadSingleImg';
-      }
-    },
-    // 上傳圖片
-    updateImg(e) {
-      emitter.emit('spinner-open');
-      this.uploadImgState = e.target.dataset.input;
-      let item = null;
-      if (this.uploadImgState === 'upLoadSingleImg') {
-        item = this.personalImg.src;
-      }
-      const base64String = item.replace('data:image/jpeg;base64,', '');
-      this.$http({
-        method: 'POST',
-        url: 'https://api.imgur.com/3/image',
-        data: {
-          image: base64String,
-          type: 'base64',
-        },
-        headers: {
-          Authorization: 'Client-ID ef6e862acf052df',
-        },
-      })
-        .then((res) => {
-          if (this.uploadImgState === 'upLoadSingleImg') {
-            this.personalImg.isUpDated = true;
-            this.form.user.options.personalImg = res.data.data.link;
-            emitter.emit('alertMessage-open', this.form.user.options.personalImg);
-          }
-          emitter.emit('spinner-close');
-        })
-        .catch((err) => {
-          emitter.emit('spinner-close');
-          emitter.emit('alertMessage-open', err);
-        });
-    },
-    deleteImgInput() {
-      this.personalImg.src = '';
-      this.personalImg.isUpDated = false;
-      this.form.user.options.personalImg = '';
     },
     // 以下是表單送出的過程
     // 1.由於api限制，先將職位加入購物車

@@ -70,14 +70,16 @@
         </button>
       </div>
       <div class="chatArea__chatTxtContainer py-4" :class="{ active: chatInput === 10 }">
-        <div class="chatBox checkBox--left">
-          <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
-          <div class="chatBox__txtBox">
-            <p class="chatBox__txtBox__content">
-              你好你好你好你好你好你好你好你好你好你好你好你好你好～
-            </p>
+        <template v-for="item in chatroom" :key="item.key">
+          <div class="chatBox checkBox--left">
+            <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
+            <div class="chatBox__txtBox">
+              <p class="chatBox__txtBox__content">
+                {{ item.message }}
+              </p>
+            </div>
           </div>
-        </div>
+        </template>
         <div class="chatBox checkBox--left">
           <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
           <div class="chatBox__txtBox">
@@ -142,6 +144,7 @@
             placeholder="請輸入"
             aria-describedby="basic-addon1"
             :rows="chatInput"
+            v-model="message"
           />
           <button
             type="button"
@@ -163,7 +166,7 @@
               <i class="jobIcon bi bi-chat-left-quote-fill"></i>
             </button>
           </div>
-          <button type="button" class="btn btn-primary">送出</button>
+          <button type="button" class="btn btn-primary" @click="addMessage">送出</button>
         </div>
       </div>
     </div>
@@ -465,6 +468,7 @@
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { Autoplay, Pagination } from 'swiper/core';
+import database from '@/methods/firebaseinit';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import JobCollect from '@/components/helpers/JobCollect.vue';
@@ -494,6 +498,7 @@ export default {
           job: {},
         },
       },
+      user: {},
       pageNumber: 1,
       sortWay: 'time',
       formData: {},
@@ -518,6 +523,13 @@ export default {
         slidesPerView: this.swiperNum,
       },
       chatInput: 2,
+      chatroom: [],
+      tempChatRoomData: {
+        user: '',
+        otherSide: '',
+      },
+      message: '',
+      userRef: database.ref('user'),
     };
   },
   computed: {
@@ -535,6 +547,9 @@ export default {
     },
   },
   methods: {
+    goToPageLink(routerLink) {
+      this.$router.push(routerLink);
+    },
     // 調整列表排序方式
     changeJobSort() {
       if (this.sortWay === 'time') {
@@ -662,16 +677,50 @@ export default {
           emitter.emit('alertMessage-open', err);
         });
     },
-    goToPageLink(routerLink) {
-      this.$router.push(routerLink);
+    // firebase user data
+    getFbData() {
+      this.userRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.user = JSON.parse(JSON.stringify(data));
+        this.tempChatRoomData.user = this.user.account.chineseName;
+        this.dataReady = true;
+      });
+    },
+    // firebase chatroom data
+    getChatListData() {
+      const chatroomRef = database.ref('chatroom');
+      chatroomRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.chatroom = data;
+        console.log(data);
+      });
+    },
+    // put message to chatList and render
+    addMessage() {
+      const chatroomRef = database.ref('chatroom');
+      if (!this.message.trim()) {
+        return;
+      }
+      const { key } = chatroomRef.push();
+      console.log(key);
+      chatroomRef.child(key).set({
+        userName: this.tempChatRoomData.user,
+        time: new Date(),
+        message: this.message,
+        key,
+      });
+      this.message = '';
+      this.getChatListData();
     },
   },
   created() {
     this.getOgData();
+    this.getFbData();
     this.formData = webData;
     emitter.emit('spinner-open-bg', 1200);
   },
   mounted() {
+    this.getChatListData();
     const vm = this;
     vm.fullWidth = window.innerWidth;
     vm.fullHeight = window.innerHeight;
