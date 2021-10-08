@@ -1,7 +1,6 @@
 <template>
   <div class="adminPage--py">
-        <AdminNav :nowPage="nowPage"/>
-
+    <AdminNav :nowPage="nowPage" />
     <div ref="jobsListContainer" class="jobsListContainer container">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
@@ -97,10 +96,7 @@
         </div>
       </div>
     </div>
-    <PagenationModal
-      :jobs-list="jobsList"
-      @change-page="changePage"
-    />
+    <PagenationModal :jobs-list="jobsList" @change-page="changePage" />
   </div>
   <div class="sideBtnBox">
     <UpTopBtn />

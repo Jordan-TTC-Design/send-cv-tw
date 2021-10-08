@@ -99,8 +99,8 @@ const routes = [
       },
       {
         // 審核紀錄
-        path: 'work-application-review',
-        component: () => import('../views/admin/WorkApplicationReview.vue'),
+        path: 'work-other-application',
+        component: () => import('../views/admin/WorkOtherApplication.vue'),
       },
       {
         // 文件-履歷

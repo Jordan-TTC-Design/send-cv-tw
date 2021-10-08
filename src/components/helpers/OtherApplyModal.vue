@@ -21,7 +21,7 @@
                   <img class="mb-4" src="https://i.imgur.com/1tFHUpr.png" alt="寫郵件 Send CV" />
                   <div>
                     <p class="otherApplyModalBox__title mb-2">寫郵件 Send CV</p>
-                    <p>填入目標公司資訊＆職位，我們幫您認證並投遞！</p>
+                    <p>最強快速申請方式，只要填寫公司信箱，填寫好下面資料，我們幫您投遞履歷！</p>
                   </div>
                 </router-link>
               </div>

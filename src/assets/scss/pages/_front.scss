@@ -153,11 +153,11 @@
       height: 100%;
       width: 100%;
       z-index: -1;
-      &--left{
+      &--left {
         width: 20%;
         left: 0;
       }
-      &--right{
+      &--right {
         width: 80%;
         right: 0;
       }
@@ -176,12 +176,12 @@
     @include sm {
     }
   }
-  &__searchBar__tagList{
+  &__searchBar__tagList {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
     margin-bottom: -0.75rem;
-    .jobTag{
+    .jobTag {
       margin-right: 0.5rem;
       margin-bottom: 0.75rem;
     }
@@ -982,6 +982,20 @@
       border-bottom: 0;
     }
   }
+  &__jobInfoImgBox{
+    border-radius: 0.5rem;
+    background-color: $gray-light;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    &:last-child{
+      margin-bottom: 0;
+    }
+    &__img{
+      border-radius: 0.25rem;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
 }
 .sideJobBox--sticky {
   position: sticky;
@@ -1377,7 +1391,7 @@
 }
 .addProcessBox {
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: $light;
   text-align: center;
   position: relative;
   &__title {
@@ -1399,7 +1413,7 @@
       align-items: center;
       width: 2rem;
       height: 2rem;
-      background-color: #9fb3a2;
+      background-color: $primary-light;
       border-radius: 50%;
     }
     .jobIcon {
@@ -1409,19 +1423,36 @@
   }
 }
 .addProcessBox.unActive {
-  background-color: $gray-line;
+  background-color: $gray-light;
   color: #979797;
+  .addProcessBox__txt,
   .addProcessBox__title {
     color: #979797;
   }
 }
 .addProcessBox.completed {
-  background-color: #9fb3a2;
+  background-color: $primary-light;
   .addProcessBox__txt {
     color: $primary;
   }
   .icon--okBox {
     display: block;
+  }
+}
+.addProcessBox--inner {
+  background-color: $primary-light;
+  .icon--okBox {
+    background-color: $light;
+  }
+  .addProcessBox__txt,
+    .addProcessBox__title {
+      color: $primary-dark;
+    }
+  &.completed {
+    .addProcessBox__txt,
+    .addProcessBox__title {
+      color: $primary-dark;
+    }
   }
 }
 .cropImgBox {
@@ -1457,7 +1488,7 @@
     // 設置背景混和模式為相乘模式
   }
   .iconBox {
-    background-color: $gray-light;
+    background-color: $light;
     border-radius: 50%;
     padding: 4px;
     position: absolute;
@@ -1470,12 +1501,12 @@
       align-items: center;
       width: 2rem;
       height: 2rem;
-      background-color: #9fb3a2;
+      background-color: $gray-light;
       border-radius: 50%;
     }
     .jobIcon {
       font-size: 16px;
-      color: $primary;
+      color: $dark;
     }
   }
 }
@@ -1988,17 +2019,17 @@
     }
   }
 }
-.docSelector{
+.docSelector {
   display: flex;
   flex-direction: column;
-  &__titleBox{
+  &__titleBox {
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     background-color: $gray-light;
     display: flex;
     align-items: center;
   }
-  &__contentBox{
+  &__contentBox {
     background-color: $gray-light;
     border-radius: 0.5rem;
     width: 100%;
@@ -2006,29 +2037,49 @@
     display: flex;
     padding: 0.5rem;
     flex-grow: 1;
-    &.overFlow--x{
+    &.overFlow--x {
       overflow-x: auto;
     }
-    .docCard{
+    .docCard {
       padding: 0.5rem;
       width: 45%;
       flex-shrink: 0;
-      &__cover{
+      &__cover {
         width: 4rem;
         height: 100%;
       }
     }
-    .docCard--video{
-      .card-img-top{
+    .docCard--video {
+      .card-img-top {
         height: 80px;
         object-fit: cover;
       }
     }
-    .docCard.docCard--coverLetter{
+    .docCard.docCard--coverLetter {
       min-height: 64px;
       height: 92px;
       justify-content: start;
       width: 40%;
     }
   }
+}
+.newImgInputBtn{
+  border-radius: 0.5rem;
+  border: 1px dashed $secondary;
+  height: 160px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: $gray-line;
+  }
+}
+.formStepBtnBox{
+  display: flex;
+}
+.formStepBtnBox--border{
+  border-top: 1px solid $gray-line;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
 }

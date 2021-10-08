@@ -42,10 +42,10 @@
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('work-application-review')"
-          :class="{ active: subTopNav === '審核紀錄' }"
+          @click="goToPageLink('work-other-application')"
+          :class="{ active: subTopNav === '自我推薦' }"
         >
-          <p class="admin__subNav__txt me-1">審核紀錄</p>
+          <p class="admin__subNav__txt me-1">自我推薦</p>
         </li>
       </div>
       <div v-if="adminMainSection === '文件'" class="admin__subNav">
@@ -132,7 +132,7 @@ export default {
         || this.subTopNav === '企業來訪'
         || this.subTopNav === '收藏'
         || this.subTopNav === '瀏覽紀錄'
-        || this.subTopNav === '審核紀錄'
+        || this.subTopNav === '自我推薦'
       ) {
         this.adminMainSection = '工作';
       } else if (

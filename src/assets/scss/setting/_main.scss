@@ -191,7 +191,7 @@ p {
     }
     &.active {
       .page__sideNav__item__title {
-        color: $primary;
+        color: $primary-dark;
       }
       &::after {
         height: 0.25rem;
