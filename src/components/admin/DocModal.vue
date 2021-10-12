@@ -27,7 +27,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <Form ref="editAccountEmail" v-slot="{ errors }" @submit="saveCoverLetterData">
+          <Form ref="editCoverLetterForm" v-slot="{ errors }" @submit="saveCoverLetterData">
             <div class="modal-body">
               <div class="form__inputBox">
                 <div class="form__labelBox">
@@ -131,6 +131,242 @@
               編輯
             </button>
           </div>
+        </div>
+        <div
+          class="modal-content"
+          v-if="modalAction === 'newMessageTemplate' || modalAction === 'editMessageTemplate'"
+        >
+          <div class="popModal__header popModal__header--left">
+            <h5 class="popModal__title">
+              {{ `${modalAction === 'newMessageTemplate' ? '新增文字模板' : '編輯文字模板'}` }}
+            </h5>
+            <p class="popModal__header__subTxt">
+              請善加利用標籤，系統會自動帶入欲該職位之相關內容。
+            </p>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <Form ref="editMessageTemplateForm" v-slot="{ errors }" @submit="saveMessageTemplateData">
+            <div class="modal-body">
+              <div class="form__inputBox">
+                <div class="form__labelBox">
+                  <label for="messageTemplateTitle" class="form__label--custom form-label"
+                    >文字模板名稱</label
+                  >
+                  <p class="formTag--must">必填</p>
+                </div>
+                <Field
+                  id="messageTemplateTitle"
+                  ref="messageTemplateTitle"
+                  name="文字模板名稱"
+                  type="text"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors['文字模板名稱'] }"
+                  placeholder="請輸入文字模板名稱"
+                  rules="required"
+                  v-model="messageTemplate.title"
+                ></Field>
+                <ErrorMessage name="文字模板名稱" class="invalid-feedback"></ErrorMessage>
+              </div>
+              <div class="form__inputBox form__infoEditBox mb-0">
+                <div class="form__labelBox">
+                  <label for="messageTemplateContent" class="form__label--custom form-label"
+                    >文字模板內容</label
+                  >
+                  <p class="formTag--must">必填</p>
+                </div>
+                <div class="textarea--tag">
+                  <ul class="textarea--tag__tagList">
+                    <li><p class="jobTag jobTag--letter me-2">職位標籤</p></li>
+                    <li><p class="jobTag jobTag--letter">公司標籤</p></li>
+                  </ul>
+                  <ckeditor
+                    id="messageTemplateContent"
+                    ref="messageTemplateContent "
+                    name="文字模板內容"
+                    :editor="editor"
+                    tag-name="textarea"
+                    class="form-control textarea--tag__inputBox"
+                    v-model="messageTemplate.content"
+                    :config="editorConfig"
+                  ></ckeditor>
+                  <Field
+                    name="文字模板內容"
+                    type="text"
+                    class="form-control d-none"
+                    :class="{ 'is-invalid': errors['文字模板內容'] }"
+                    placeholder="請輸入"
+                    v-model="messageTemplate.content"
+                    as="textarea"
+                    rules="required"
+                    rows="5"
+                  >
+                  </Field>
+                  <ErrorMessage name="文字模板內容" class="invalid-feedback"></ErrorMessage>
+                </div>
+              </div>
+            </div>
+            <div class="popModal__footer">
+              <button type="button" class="btn btn-gray-light me-2" data-bs-dismiss="modal">
+                取消
+              </button>
+              <button type="submit" class="btn btn-primary">儲存</button>
+            </div>
+          </Form>
+        </div>
+        <div class="modal-content" v-if="modalAction === 'readMessageTemplate'">
+          <div class="popModal__header popModal__header--left">
+            <h5 class="popModal__title">{{ messageTemplate.title }}</h5>
+            <p class="popModal__header__subTxt">更新時間：2021/09/18</p>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="inputReader">
+              <label class="inputReader__title">文字模板內容</label>
+              <div
+                class="inputReader__contentBox inputReader__contentBox--minHeight"
+                v-html="messageTemplate.content"
+              ></div>
+            </div>
+          </div>
+          <div class="popModal__footer justify-content-between">
+            <button
+              type="button"
+              class="btn btn-outline-gray-line text-dark me-2"
+              @click="deletemessageTemplateData"
+            >
+              刪除
+            </button>
+            <button
+              type="button"
+              class="btn btn-gray-light"
+              @click="modalAction = 'editMessageTemplate'"
+            >
+              編輯
+            </button>
+          </div>
+        </div>
+        <div class="modal-content" v-if="modalAction === 'sendMessageTemplate'">
+          <div class="popModal__header popModal__header--left">
+            <h5 class="popModal__title">
+              {{ messageTemplate.title }}
+            </h5>
+            <p class="popModal__header__subTxt">
+              請善加利用標籤，系統會自動帶入欲該職位之相關內容。
+            </p>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <Form ref="sendMessageTemplateForm" v-slot="{ errors }" @submit="sendMessageTemplateData">
+            <div class="modal-body">
+              <div class="form__inputBox form__infoEditBox mb-0">
+                <div class="form__labelBox">
+                  <label for="messageTemplateContent" class="form__label--custom form-label"
+                    >文字模板內容</label
+                  >
+                  <p class="formTag--must">必填</p>
+                </div>
+                <div class="textarea--tag">
+                  <ul class="textarea--tag__tagList">
+                    <li><p class="jobTag jobTag--letter me-2">職位標籤</p></li>
+                    <li><p class="jobTag jobTag--letter">公司標籤</p></li>
+                  </ul>
+                  <ckeditor
+                    id="messageTemplateContent"
+                    ref="messageTemplateContent "
+                    name="文字模板內容"
+                    :editor="editor"
+                    tag-name="textarea"
+                    class="form-control textarea--tag__inputBox"
+                    v-model="messageTemplate.content"
+                    :config="editorConfig"
+                  ></ckeditor>
+                  <Field
+                    name="文字模板內容"
+                    type="text"
+                    class="form-control d-none"
+                    :class="{ 'is-invalid': errors['文字模板內容'] }"
+                    placeholder="請輸入"
+                    v-model="messageTemplate.content"
+                    as="textarea"
+                    rules="required"
+                    rows="5"
+                  >
+                  </Field>
+                  <ErrorMessage name="文字模板內容" class="invalid-feedback"></ErrorMessage>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="form-check me-4">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="messageTemplateSaveOld"
+                    @change="changeMessageTemplate('old')"
+                    v-model="messageTemplateSaveOld.replace"
+                  />
+                  <label class="form-check-label text-nowrap" for="messageTemplateSaveOld">
+                    覆蓋舊文字模板
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="messageTemplateSaveNew"
+                    v-model="messageTemplateSaveNew.replace"
+                    @change="changeMessageTemplate('new')"
+                  />
+                  <label
+                    class="form-check-label text-nowrap"
+                    for="messageTemplateSaveNew"
+                    @click="changeMessageTemplate('new')"
+                  >
+                    另存新文字模板
+                  </label>
+                </div>
+              </div>
+              <div class="form__inputBox mt-2" v-if="messageTemplateSaveNew.replace">
+                <div class="form__labelBox">
+                  <label for="newMessageTemplateTitle" class="form__label--custom form-label"
+                    >新文字模板名稱</label
+                  >
+                  <p class="formTag--must">必填</p>
+                </div>
+                <Field
+                  id="newMessageTemplateTitle"
+                  ref="newMessageTemplateTitle"
+                  name="新文字模板名稱"
+                  type="text"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors['新文字模板名稱'] }"
+                  placeholder="請輸入新文字模板名稱"
+                  rules="required"
+                  v-model="messageTemplateSaveNew.title"
+                ></Field>
+                <ErrorMessage name="新文字模板名稱" class="invalid-feedback"></ErrorMessage>
+              </div>
+            </div>
+            <div class="popModal__footer">
+              <button type="button" class="btn btn-gray-light me-2" data-bs-dismiss="modal">
+                取消
+              </button>
+              <button type="submit" class="btn btn-primary">傳送</button>
+            </div>
+          </Form>
         </div>
         <div class="modal-content" v-if="modalAction === 'newVideo' || modalAction === 'editVideo'">
           <div class="popModal__header popModal__header--left">
@@ -429,7 +665,7 @@ import emitter from '@/methods/emitter';
 
 export default {
   components: { ImageCropper },
-  emits: ['return-user-data'],
+  emits: ['return-user-data', 'send-message'],
   props: ['userData'],
   data() {
     return {
@@ -437,12 +673,20 @@ export default {
       modalAction: '',
       modal: {},
       coverLetterIndex: null,
+      messageTemplateIndex: null,
       formData: {},
       coverLetter: {
         title: '',
         content: '',
         time: null,
       },
+      messageTemplate: {
+        title: '',
+        content: '',
+        time: null,
+      },
+      messageTemplateSaveOld: { key: null, replace: false, show: false },
+      messageTemplateSaveNew: { key: null, title: '', replace: false },
       tempImg: {
         src: '',
         isUpDated: false,
@@ -508,6 +752,19 @@ export default {
     },
   },
   methods: {
+    changeMessageTemplate(action) {
+      if (action === 'old') {
+        this.messageTemplateSaveNew.replace = false;
+        this.user.messageTemplateList.forEach((item) => {
+          if (item.select) {
+            this.messageTemplateSaveOld.key = item.time;
+          }
+        });
+      } else if (action === 'new') {
+        this.messageTemplateSaveOld.replace = false;
+        this.messageTemplateSaveOld.key = '';
+      }
+    },
     saveVideoData() {
       console.log(this.modalAction);
       if (this.modalAction === 'newVideo') {
@@ -567,8 +824,57 @@ export default {
       }
       this.returnUserData();
     },
+    saveMessageTemplateData() {
+      console.log(this.modalAction);
+      const obj = {
+        title: this.messageTemplate.title,
+        content: this.messageTemplate.content,
+        time: `${Math.floor(Date.now() / 1000)}`,
+      };
+      if (this.modalAction === 'newMessageTemplate') {
+        if (!this.user.messageTemplateList) {
+          this.user.messageTemplateList = [obj];
+        } else {
+          this.user.messageTemplateList.push(obj);
+        }
+      } else if (this.modalAction === 'editMessageTemplate') {
+        this.user.messageTemplateList.splice(this.messageTemplateIndex, 1, obj);
+      }
+      this.returnUserData();
+    },
+    sendMessageTemplateData() {
+      const message = this.messageTemplate.content;
+      if (this.messageTemplateSaveOld.replace) {
+        const obj = {
+          title: this.messageTemplate.title,
+          content: this.messageTemplate.content,
+          time: `${Math.floor(Date.now() / 1000)}`,
+        };
+        this.user.messageTemplateList.splice(this.messageTemplateIndex, 1, obj);
+        this.returnUserData();
+      } else if (this.messageTemplateSaveNew.replace) {
+        const obj = {
+          title: this.messageTemplateSaveNew.title,
+          content: this.messageTemplate.content,
+          time: `${Math.floor(Date.now() / 1000)}`,
+        };
+        if (!this.user.messageTemplateList) {
+          this.user.messageTemplateList = [obj];
+        } else {
+          this.user.messageTemplateList.push(obj);
+        }
+        this.returnUserData();
+      }
+      this.$emit('send-message', message);
+      this.closeModal();
+    },
     cleanData() {
       this.coverLetter = {
+        index: null,
+        title: '',
+        content: '',
+      };
+      this.messageTemplate = {
         index: null,
         title: '',
         content: '',
@@ -581,6 +887,8 @@ export default {
         content: '',
         imgUrl: '',
       };
+      this.messageTemplateSaveOld = { key: null, replace: false, show: false };
+      this.messageTemplateSaveNew = { key: null, title: '', replace: false };
     },
     openModal(obj) {
       this.modalAction = obj.action;
@@ -588,8 +896,10 @@ export default {
         this.coverLetterIndex = obj.index;
         this.coverLetter = this.user.docData.coverLetterList[this.coverLetterIndex];
       }
-      console.log(this.modalAction);
-      console.log(this.coverLetter);
+      if (obj.action === 'readMessageTemplate' || obj.action === 'sendMessageTemplate') {
+        this.messageTemplateIndex = obj.index;
+        this.messageTemplate = this.user.messageTemplateList[this.messageTemplateIndex];
+      }
       setTimeout(() => {
         this.modal.show();
       }, 100);

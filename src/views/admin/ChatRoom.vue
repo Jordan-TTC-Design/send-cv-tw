@@ -74,9 +74,7 @@
           <div class="chatBox checkBox--left">
             <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
             <div class="chatBox__txtBox">
-              <p class="chatBox__txtBox__content">
-                {{ item.message }}
-              </p>
+              <div class="chatBox__txtBox__content" v-html="item.message"></div>
             </div>
           </div>
         </template>
@@ -162,15 +160,18 @@
             <button type="button" class="btn btn--circle">
               <i class="jobIcon bi bi-folder-fill"></i>
             </button>
-            <button type="button" class="btn btn--circle">
-              <i class="jobIcon bi bi-chat-left-quote-fill"></i>
+            <button type="button" class="btn btn--circle" @click="rightContainer = '文字模板'">
+              <i
+                class="jobIcon bi bi-chat-left-quote-fill"
+                :class="{ 'text-primary-dark': rightContainer === '文字模板' }"
+              ></i>
             </button>
           </div>
           <button type="button" class="btn btn-primary" @click="addMessage">送出</button>
         </div>
       </div>
     </div>
-    <div class="chatRoom__infoArea">
+    <div v-if="rightContainer === '資訊欄'" class="chatRoom__infoArea">
       <ul class="boxSubNav">
         <li
           class="boxSubNav__item boxSubNav--50"
@@ -461,8 +462,45 @@
         </div>
       </div>
     </div>
+    <div v-if="rightContainer === '文字模板'" class="chatRoom__infoArea">
+      <div></div>
+      <div class="sideContainerTitleBox ps-1">
+        <button type="button" class="btn" @click="rightContainer = '資訊欄'">
+          <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+        </button>
+      </div>
+      <ul class="toolList">
+        <li class="toolList__title">純文字模板</li>
+        <template v-for="(item, index) in user.messageTemplateList" :key="index">
+          <li class="toolList__item putPointer" @click="openDocModal('sendMessageTemplate', index)">
+            {{ item.title }}
+          </li>
+        </template>
+      </ul>
+      <div class="chatRoom__infoArea__footer">
+        <button
+          type="button"
+          class="btn btn-outline-gray-line text-companyColor me-2"
+          @click="openDocModal('newMessageTemplate')"
+        >
+          新增文字模板
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-gray-line text-dark"
+          @click="goToPageLink('setting-message-template')"
+        >
+          前往管理模板
+        </button>
+      </div>
+    </div>
   </div>
   <JobCollect></JobCollect>
+  <DocModal
+    :userData="user"
+    @returnUserData="getUserDataFromModal"
+    @sendMessage="getMessageDataFromModal"
+  />
 </template>
 
 <script>
@@ -472,12 +510,14 @@ import database from '@/methods/firebaseinit';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import JobCollect from '@/components/helpers/JobCollect.vue';
+import DocModal from '@/components/admin/DocModal.vue';
 
 SwiperCore.use([Autoplay, Pagination]);
 
 export default {
   components: {
     JobCollect,
+    DocModal,
     Swiper,
     SwiperSlide,
   },
@@ -487,6 +527,7 @@ export default {
       fullHeight: 0,
       subTopNav: '企業來訪',
       boxSubNav: '申請資料',
+      rightContainer: '資訊欄',
       products: [],
       jobsList: [],
       nowPageJobs: [],
@@ -547,6 +588,25 @@ export default {
     },
   },
   methods: {
+    getMessageDataFromModal(messageData) {
+      this.message = messageData;
+      this.addMessage();
+    },
+    openDocModal(action, index) {
+      const obj = {
+        action,
+      };
+      if (action === 'newMessageTemplate') {
+        emitter.emit('open-doc-modal', obj);
+      } else if (action === 'sendMessageTemplate') {
+        obj.index = index;
+        emitter.emit('open-doc-modal', obj);
+      }
+    },
+    getUserDataFromModal(userData) {
+      this.user = JSON.parse(JSON.stringify(userData));
+      this.saveFbData();
+    },
     goToPageLink(routerLink) {
       this.$router.push(routerLink);
     },
@@ -685,6 +745,12 @@ export default {
         this.tempChatRoomData.user = this.user.account.chineseName;
         this.dataReady = true;
       });
+    },
+    // 保存資料
+    saveFbData() {
+      const userRef = database.ref('user');
+      userRef.set(this.user);
+      this.getFbData();
     },
     // firebase chatroom data
     getChatListData() {

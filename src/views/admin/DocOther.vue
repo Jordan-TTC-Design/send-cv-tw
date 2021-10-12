@@ -20,7 +20,7 @@
           </li>
         </ul>
       </div>
-      <div class="bg-light rounded p-4 mb-5 d-flex">
+      <div class="bg-light rounded p-4 mb-5 d-flex" v-if="subMainNav === '影片' && dataReady">
         <div class="bg-gray-line d-flex flex-column justify-content-center px-8">
           <h4 class="mb-4">
             立即上傳 <span class="text-companyColor">影像短片</span

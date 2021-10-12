@@ -485,7 +485,7 @@
       font-size: 14px;
     }
   }
-  &__subHeaderNav{
+  &__subHeaderNav {
     padding: 0.5rem 0.75rem;
     display: flex;
     justify-content: space-between;
@@ -587,16 +587,16 @@
     background-color: $gray-light;
     padding: 0.25rem 0.75rem;
   }
-  &--interestForm{
+  &--interestForm {
     height: 407px;
   }
-  &__innerList{
+  &__innerList {
     width: 100%;
     max-height: 100%;
     overflow-y: scroll;
     padding-bottom: 1.5rem;
     background-color: $light;
-    .formCheck--btn{
+    .formCheck--btn {
       padding-left: 2rem;
       border-radius: 0.5rem;
       border: 1px solid #ced4da;
@@ -740,7 +740,7 @@
     td {
       border-right: 1px solid $gray-line;
       border-bottom: 1px solid $gray-line;
-      &:last-child{
+      &:last-child {
         border-right: 0;
       }
     }
@@ -774,7 +774,7 @@
       width: calc(100% / 7);
       padding: 0.75rem;
       min-height: 120px;
-      &.nextMonth{
+      &.nextMonth {
         background-color: rgba($color: $gray-line, $alpha: 0.5);
       }
       &:hover {
@@ -808,11 +808,11 @@
     }
   }
 }
-.timeLine{
+.timeLine {
   display: flex;
   position: relative;
   z-index: 1;
-  &::before{
+  &::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -823,7 +823,7 @@
     z-index: -1;
     background-color: $gray-line;
   }
-  &__dot{
+  &__dot {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
@@ -831,9 +831,9 @@
     position: relative;
     z-index: 1;
   }
-  &__dot:not(:last-child){
+  &__dot:not(:last-child) {
     margin-right: 4rem;
-    &::before{
+    &::before {
       content: '';
       position: absolute;
       top: 50%;
@@ -846,17 +846,17 @@
       display: none;
     }
   }
-  &__dot.active{
+  &__dot.active {
     background-color: $primary;
   }
-  &__dot.line-active{
+  &__dot.line-active {
     background-color: $primary;
-    &::before{
+    &::before {
       display: block;
     }
   }
 }
-.fakeInput{
+.fakeInput {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -864,13 +864,13 @@
   border-radius: 0.5rem;
   border: 1px solid #ced4da;
   padding: 3px 6px 3px 0.75rem;
-  &__txtList{
+  &__txtList {
     display: flex;
     max-width: 80%;
     overflow-x: hidden;
-    &__line{
+    &__line {
       height: 0.75rem;
-      border-right:1px solid $gray-line ;
+      border-right: 1px solid $gray-line;
       margin-left: 0.5rem;
       margin-right: 0.5rem;
     }
@@ -891,10 +891,33 @@
     width: 0.75rem;
   }
 }
-.mapBox{
+.mapBox {
   width: 100%;
-  &__map{
+  &__map {
     width: 100%;
     border-radius: 0.5rem;
+  }
+}
+.sideContainerTitleBox {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $gray-line;
+  min-height: 50px;
+}
+.toolList {
+  padding-left: 0.75rem;
+  &__title {
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    font-weight: $fw--md;
+    color:$dark;
+  }
+  &__item {
+    margin-left: 0.75rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
   }
 }

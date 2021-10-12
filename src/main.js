@@ -8,7 +8,7 @@ import { localize, setLocale } from '@vee-validate/i18n';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import { dropdown } from 'bootstrap';
+import { Dropdown } from 'bootstrap/js/dist/dropdown';
 import date from '@/methods/filters';
 import App from './App.vue';
 import router from './router';
@@ -29,7 +29,7 @@ app.component('Form', Form);
 app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);
 app.use(router);
-app.use(dropdown);
+app.use(Dropdown);
 app.use(VueAxios, axios);
 
 app.mount('#app');

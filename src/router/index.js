@@ -138,17 +138,22 @@ const routes = [
         component: () => import('../views/admin/ChatRoom.vue'),
       },
       {
-        // 設定
+        // 設定-個人資料
         path: 'setting',
         component: () => import('../views/admin/SettingPersonalInfo.vue'),
       },
       {
-        // 設定
+        // 設定-求職意向
         path: 'setting-career',
         component: () => import('../views/admin/SettingCareer.vue'),
       },
       {
-        // 設定
+        // 設定-文字模板
+        path: 'setting-message-template',
+        component: () => import('../views/admin/SettingMessageTemplate.vue'),
+      },
+      {
+        // 設定-帳號設定
         path: 'setting-account',
         component: () => import('../views/admin/SettingAccount.vue'),
       },

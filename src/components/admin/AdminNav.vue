@@ -94,6 +94,13 @@
         </li>
         <li
           class="admin__subNav__item"
+          @click="goToPageLink('setting-message-template')"
+          :class="{ active: subTopNav === '文字模板' }"
+        >
+          <p class="admin__subNav__txt me-1">文字模板</p>
+        </li>
+        <li
+          class="admin__subNav__item"
           @click="goToPageLink('setting-account')"
           :class="{ active: subTopNav === '帳號設定' }"
         >
@@ -144,6 +151,7 @@ export default {
       } else if (
         this.subTopNav === '基本資料'
         || this.subTopNav === '求職意向'
+        || this.subTopNav === '文字模板'
         || this.subTopNav === '帳號設定'
       ) {
         this.adminMainSection = '個人帳戶';
