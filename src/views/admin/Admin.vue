@@ -100,7 +100,9 @@
                   ></router-link>
                 </li>
                 <li class="footer__nav__item nav-item">
-                  <router-link class="footer__nav__item__link nav-link" to="/add-company"
+                  <router-link
+                    class="footer__nav__item__link nav-link"
+                    to="/company-admin/company-over-view"
                     ><span class="nav__title">企業專區</span>
                     <i class="text-light bi bi-arrow-right-circle"></i
                   ></router-link>

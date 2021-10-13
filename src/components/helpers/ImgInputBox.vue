@@ -7,6 +7,12 @@
       <label for="imageUrl" class="form__label--custom form-label" v-if="inputAction === 'single'"
         >職位圖片</label
       >
+      <label
+        for="imageUrl"
+        class="form__label--custom form-label"
+        v-if="dataName === 'companyLogoUrl'"
+        >公司logo</label
+      >
       <p class="formTag--must" v-if="mustUpload">必填</p>
     </div>
     <input

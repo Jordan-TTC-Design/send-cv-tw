@@ -63,6 +63,7 @@ const routes = [
       },
     ],
   },
+  // ---------- 後台路由 ----------
   {
     path: '/admin',
     component: () => import('../views/admin/Admin.vue'),
@@ -164,6 +165,29 @@ const routes = [
     // 404
     path: '/:pathMatch(.*)*',
     component: () => import('../views/other/NotFound.vue'),
+  },
+  // ---------- 其他路由 ----------
+  {
+    // 企業後台
+    path: '/company-admin',
+    component: () => import('../views/company/CompanyAdmin.vue'),
+    children: [
+      {
+        // 企業中心
+        path: 'company-over-view',
+        component: () => import('../views/company/CompanyCenter.vue'),
+      },
+      {
+        // 企業資料
+        path: 'company-info',
+        component: () => import('../views/company/CompanyInfo.vue'),
+      },
+      {
+        // 公司頁面
+        path: 'company-page-view',
+        component: () => import('../views/company/CompanyPageView.vue'),
+      },
+    ],
   },
 ];
 

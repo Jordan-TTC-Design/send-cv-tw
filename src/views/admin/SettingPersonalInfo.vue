@@ -298,8 +298,8 @@
                 </div>
                 <div class="row">
                   <!-- 電子郵件 -->
-                  <div class="col-12">
-                    <div class="form__inputBox w-50">
+                  <div class="col-lg-6 col-12">
+                    <div class="form__inputBox">
                       <div class="form__labelBox">
                         <label for="accountDataEmail" class="form__label--custom form-label"
                           >電子郵件</label
@@ -318,8 +318,8 @@
                     </div>
                   </div>
                   <!-- 聯絡電話 -->
-                  <div class="col-12">
-                    <div class="form__inputBox w-50">
+                  <div class="col-lg-6 col-12">
+                    <div class="form__inputBox">
                       <div class="form__labelBox">
                         <label for="accountDataPhone" class="form__label--custom form-label"
                           >聯絡電話</label
@@ -337,7 +337,7 @@
                       />
                     </div>
                   </div>
-                  <div class="col-12 d-flex">
+                  <div class="col-lg-6 col-12 d-flex">
                     <div class="form__inputBox me-2">
                       <div class="form__labelBox">
                         <label for="accountDataCity" class="form__label--custom form-label"

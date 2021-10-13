@@ -2449,5 +2449,6 @@ const webData = {
       ],
     },
   ],
+  companySize: ['10人以下', '10~50人', '50~100人', '100~500人', '500人以上'],
 };
 export default webData;

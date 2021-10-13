@@ -68,6 +68,10 @@
     }
   }
 }
+.btn--circle--lg {
+  width: 44px;
+  height: 44px;
+}
 .btn--circle.active {
   background-color: $white;
   border: 0;
@@ -856,6 +860,22 @@
     }
   }
 }
+.timeLine.timeLine--company {
+  .timeLine::before {
+    background-color: $companyColor;
+  }
+  .timeLine__dot:not(:last-child) {
+    &::before {
+      background-color: $companyColor;
+    }
+  }
+  .timeLine__dot.active {
+    background-color: $companyColor;
+  }
+  .timeLine__dot.line-active {
+    background-color: $companyColor;
+  }
+}
 .fakeInput {
   cursor: pointer;
   display: flex;
@@ -910,7 +930,7 @@
     padding: 0.75rem;
     border-bottom: 1px solid $gray-line;
     font-weight: $fw--md;
-    color:$dark;
+    color: $dark;
   }
   &__item {
     margin-left: 0.75rem;

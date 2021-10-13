@@ -1,51 +1,30 @@
 <template>
   <div ref="adminSubHeader" class="admin__subHeader mb-6 box--shadow">
     <div class="container">
-      <ul v-if="adminMainSection === '工作'" class="admin__subNav">
+      <ul v-if="adminMainSection === '企業中心'" class="admin__subNav admin__subNav--company">
         <li class="d-flex align-items-center d-md-flex d-none">
-          <h2 class="admin__subNav__title">工作</h2>
+          <h2 class="admin__subNav__title">企業中心</h2>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('work-over-view')"
+          @click="goToPageLink('company-over-view')"
           :class="{ active: subTopNav === '總覽' }"
         >
           <p class="admin__subNav__txt me-1">總覽</p>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('work-application')"
-          :class="{ active: subTopNav === '職位申請' }"
+          @click="goToPageLink('company-info')"
+          :class="{ active: subTopNav === '企業資料' }"
         >
-          <p class="admin__subNav__txt me-1">職位申請</p>
+          <p class="admin__subNav__txt me-1">企業資料</p>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('work-company-read')"
-          :class="{ active: subTopNav === '企業來訪' }"
+          @click="goToPageLink('company-page-view')"
+          :class="{ active: subTopNav === '公司頁面' }"
         >
-          <p class="admin__subNav__txt me-1">企業來訪</p>
-        </li>
-        <li
-          class="admin__subNav__item"
-          @click="goToPageLink('work-collection')"
-          :class="{ active: subTopNav === '收藏' }"
-        >
-          <p class="admin__subNav__txt me-1">收藏</p>
-        </li>
-        <li
-          class="admin__subNav__item"
-          @click="goToPageLink('work-read-record')"
-          :class="{ active: subTopNav === '瀏覽紀錄' }"
-        >
-          <p class="admin__subNav__txt me-1">瀏覽紀錄</p>
-        </li>
-        <li
-          class="admin__subNav__item"
-          @click="goToPageLink('work-other-application')"
-          :class="{ active: subTopNav === '自我推薦' }"
-        >
-          <p class="admin__subNav__txt me-1">自我推薦</p>
+          <p class="admin__subNav__txt me-1">公司頁面</p>
         </li>
       </ul>
       <ul v-if="adminMainSection === '文件'" class="admin__subNav">
@@ -135,13 +114,10 @@ export default {
     checkMainSection() {
       if (
         this.subTopNav === '總覽'
-        || this.subTopNav === '職位申請'
-        || this.subTopNav === '企業來訪'
-        || this.subTopNav === '收藏'
-        || this.subTopNav === '瀏覽紀錄'
-        || this.subTopNav === '自我推薦'
+        || this.subTopNav === '企業資料'
+        || this.subTopNav === '公司頁面'
       ) {
-        this.adminMainSection = '工作';
+        this.adminMainSection = '企業中心';
       } else if (
         this.subTopNav === '履歷'
         || this.subTopNav === '求職信'

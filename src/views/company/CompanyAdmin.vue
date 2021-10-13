@@ -1,47 +1,89 @@
 <template>
-  <header class="header header--front">
+  <header class="header header--company">
     <div ref="Search" class="header__searchModal">
       <SearchModal />
     </div>
+    <div ref="headerUserMenuModal" class="header__userMenuModal" @click="closeHeaderMenuModal">
+      <div class="container">
+        <div class="row justify-content-end">
+          <div class="col-3">
+            <div class="userMenu userMenu--company">
+              <ul class="userMenu__list">
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/work-application"
+                    >企業中心</router-link
+                  >
+                </li>
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/document-cv"
+                    >職位管理</router-link
+                  >
+                </li>
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/chatroom"
+                    >人才資料</router-link
+                  >
+                </li>
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/setting"
+                    >加值服務</router-link
+                  >
+                </li>
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/setting"
+                    >帳戶設定</router-link
+                  >
+                </li>
+                <li class="list__item userMenu__list__logOut">
+                  <p>登出</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container d-flex justify-content-between align-items-center">
       <h1>
-        <router-link aria-current="page" to="/"
+        <router-link ia-current="page" to="/"
           ><img
             class="header__logo"
-            src="@/assets/images/logo/sendCV-logo-black.svg"
+            src="@/assets/images/logo/sendCV-logo-white.svg"
             alt="SendCVTW logo"
         /></router-link>
       </h1>
       <div class="header__navBox" ref="headerNavBox">
         <ul class="header__nav" ref="headerNav">
-          <li class="nav__item nav-item" :class="{ active: this.navState === '首頁' }">
-            <router-link class="nav__item__link nav-link" aria-current="page" to="/"
-              >首頁</router-link
+          <li class="nav__item nav-item d-lg-block d-none">
+            <button
+              class="nav__item__link btn btn--circle btn--circle--lg me-2"
+              type="button"
+              @click="openSearchModal"
             >
-          </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '優質企業' }">
-            <router-link
-              class="nav__item__link nav-link"
-              aria-current="page"
-              to="/company-recommend"
-              >優質企業</router-link
-            >
-          </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '優質工作' }">
-            <router-link class="nav__item__link nav-link" to="/products-list">優質工作</router-link>
+              <i class="jobIcon bi bi-search text-light"></i>
+            </button>
           </li>
           <li class="nav__item nav-item d-lg-block d-none">
-            <button class="nav__item__link nav-link btn" type="button" @click="openSearchModal">
-              搜尋
+            <button class="nav__item__link btn btn--circle btn--circle--lg me-2" type="button">
+              <i class="jobIcon bi bi-chat-left-dots text-light"></i>
             </button>
           </li>
           <li class="nav__item nav-item" :class="{ active: this.navState === '收藏' }">
-            <router-link class="nav__item__link nav-link" to="/admin/work-over-view"
-              >登入</router-link
-            >
-          </li>
-          <li class="nav__item nav-item">
-            <button type="button" class="btn btn-companyColor text-light">企業專區</button>
+            <div class="userBox">
+              <div class="userBox__person me-2">
+                <div class="userBox__person__box">
+                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
+                </div>
+              </div>
+              <div
+                ref="userBoxPersonMenuBtn"
+                class="userBox__person__menu btn--circle"
+                @click="openHeaderMenuModal"
+              >
+                <i class="text-dark jobIcon bi bi-chevron-up"></i>
+                <i class="text-dark jobIcon bi bi-chevron-down"></i>
+              </div>
+            </div>
           </li>
           <li class="nav__item nav-item d-lg-none d-block">
             <router-link class="nav__item__link nav-link text-white" to="/add-company"
@@ -66,7 +108,6 @@
       </div>
     </div>
   </header>
-  <!-- 有點不知道分區要不要寫在外元件 -->
   <div class="main main--bg" ref="main">
     <router-view></router-view>
   </div>
@@ -230,15 +271,25 @@ export default {
     closeSearchModal() {
       this.$refs.Search.classList.remove('active');
     },
+    openHeaderMenuModal() {
+      this.$refs.headerUserMenuModal.classList.toggle('active');
+      this.$refs.userBoxPersonMenuBtn.classList.toggle('active');
+    },
+    closeHeaderMenuModal() {
+      this.$refs.headerUserMenuModal.classList.remove('active');
+      this.$refs.userBoxPersonMenuBtn.classList.remove('active');
+    },
   },
   mounted() {
     this.checkNavState();
     this.closeSearchModal();
     this.closeRwdMenu();
+    this.closeHeaderMenuModal();
   },
   updated() {
     this.checkNavState();
     this.closeSearchModal();
+    this.closeHeaderMenuModal();
     this.closeRwdMenu();
   },
 };

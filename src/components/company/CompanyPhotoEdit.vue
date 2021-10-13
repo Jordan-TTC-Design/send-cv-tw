@@ -1,25 +1,26 @@
 <template>
   <div class="container">
     <div
-      ref="uploadUserImgModal"
-      class="settingCareerModal popModal modal fade"
+      ref="uploadCompanyLogoModal"
+      class="popModal modal fade"
       tabindex="-1"
-      id="uploadUserImgModal"
+      id="uploadCompanyLogoModal"
       aria-hidden="true"
-      aria-labelledby="uploadUserImgModalLabel"
+      aria-labelledby="uploadCompanyLogoModalLabel"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered"
+      :class="{'modal-lg':introAction === 3}">
         <div class="modal-content">
-          <div v-if="modalAction === '個人照片說明1'">
+          <div v-if="modalAction === '公司Logo'">
             <div
               class="popModal__header popModal__header--center border-bottom border-gray-line mb-5"
             >
-              <h5 class="popModal__title">編輯大頭貼</h5>
+              <h5 class="popModal__title">編輯公司Logo</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <div class="modal-body border-bottom border-gray-line">
               <div class="d-flex justify-content-center mb-5" v-if="introAction < 3">
-                <ul class="timeLine">
+                <ul class="timeLine timeLine--company">
                   <li
                     class="timeLine__dot"
                     :class="{
@@ -101,8 +102,32 @@
                 </div>
               </div>
               <div v-if="introAction === 3">
-                <div class="cropperImageBox mb-5">
-                  <img class="cropperImage d-none" ref="cropperImage" src="" alt="原圖" />
+                <div class="row mb-5">
+                  <div class="col-8">
+                    <div class="cropperImageBox">
+                      <img class="cropperImage d-none" ref="cropperImage" src="" alt="原圖" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="preViewImgBox bg-gray-light rounded p-5">
+                      <div class="w-100 d-flex flex-column align-items-center mb-4">
+                        <p class="mb-1">長型預覽圖</p>
+                        <div class="bg-light p-1 rounded">
+                          <img class="preViewImgBox__img" :src="destination" alt="長型圖片預覽圖" />
+                        </div>
+                      </div>
+                      <div class="w-100 d-flex flex-column align-items-center">
+                        <p class="mb-1">圓型預覽圖</p>
+                        <div class="bg-light p-1 rounded-circle">
+                          <img
+                            class="preViewImgBox__img preViewImgBox__img--circle"
+                            :src="destination"
+                            alt="圓型圖片預覽圖"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <input
                   id="upLoadSectionImg"
@@ -144,7 +169,7 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-companyColor text-light"
                   @click="introAction += 1"
                   v-if="introAction < 2"
                 >
@@ -152,15 +177,15 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-companyColor text-light"
                   @click="setImgCropper"
                   v-if="introAction === 2"
                 >
-                  更換大頭貼
+                  更換企業logo
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-companyColor text-light"
                   @click="processImage"
                   v-if="introAction === 3"
                 >
@@ -185,7 +210,6 @@ export default {
   props: ['userImgUrl'],
   data() {
     return {
-      imageSquareCropperModal: {},
       cropper: {},
       cropsrc: '',
       nowId: 0,
@@ -240,7 +264,7 @@ export default {
           this.imgData = this.$refs.cropperImage;
           this.imgData.src = dataURL;
           this.cropper = new Cropper(this.imgData, {
-            aspectRatio: 1,
+            aspectRatio: 16 / 9,
             viewMode: 0,
             dragMode: 'move',
             minContainerWidth: 360,
@@ -280,13 +304,13 @@ export default {
       this.$emit('emit-send-img-data', this.cropsrc);
       this.closeModal();
     },
-    openUserImgModal(action) {
+    openModal(action) {
       this.modalAction = action;
       this.introAction = 0;
-      this.uploadUserImgModal.show();
+      this.uploadCompanyLogoModal.show();
     },
-    closeUserImgModal() {
-      this.uploadUserImgModal.hide();
+    closeModal() {
+      this.uploadCompanyLogoModal.hide();
     },
     setImgCropper() {
       this.introAction = 3;
@@ -297,14 +321,14 @@ export default {
     this.tempImgUrl = this.userImgUrl;
   },
   mounted() {
-    this.uploadUserImgModal = new Modal(this.$refs.uploadUserImgModal);
-    emitter.on('open-uploadUserImgModal', this.openUserImgModal);
-    emitter.on('close-uploadUserImgModal', this.closeUserImgModal);
+    this.uploadCompanyLogoModal = new Modal(this.$refs.uploadCompanyLogoModal);
+    emitter.on('open-uploadCompanyLogoModal', this.openModal);
+    emitter.on('close-uploadCompanyLogoModal', this.closeModal);
   },
   unmounted() {
-    this.uploadUserImgModal.dispose();
-    emitter.off('open-uploadUserImgModal', this.openUserImgModal);
-    emitter.off('close-uploadUserImgModal', this.closeUserImgModal);
+    this.uploadCompanyLogoModal.dispose();
+    emitter.off('open-uploadCompanyLogoModal', this.openModal);
+    emitter.off('close-uploadCompanyLogoModal', this.closeModal);
   },
 };
 </script>
@@ -314,7 +338,7 @@ export default {
   display: block;
   width: 100%;
   background-color: #f7f7f7;
-  min-height: 480px;
+  min-height: 320px;
   .cropperImage {
     max-width: 80%;
     max-height: 80%;
@@ -334,20 +358,20 @@ export default {
     width: 100%;
   }
 }
-.compeletedImgBox--square {
+.preViewImgBox {
   width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  img {
+  min-height: 100%;
+  &__img {
+    object-fit: contain;
+    border-radius: 0.25rem;
     width: 160px !important;
-    height: 160px !important;
+    height: 90px !important;
   }
-}
-.img-preview--square {
-  max-width: 160px;
-  max-height: 160px;
+  &__img--circle {
+    object-fit: contain;
+    border-radius: 50%;
+    width: 132px !important;
+    height: 132px !important;
+  }
 }
 </style>
