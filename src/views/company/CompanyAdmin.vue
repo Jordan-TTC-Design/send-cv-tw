@@ -10,12 +10,14 @@
             <div class="userMenu userMenu--company">
               <ul class="userMenu__list">
                 <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/work-application"
+                  <router-link
+                    class="list__item__link nav-link"
+                    to="/company-admin/company-over-view"
                     >企業中心</router-link
                   >
                 </li>
                 <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/document-cv"
+                  <router-link class="list__item__link nav-link" to="/company-admin/job-list"
                     >職位管理</router-link
                   >
                 </li>

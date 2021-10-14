@@ -27,33 +27,40 @@
           <p class="admin__subNav__txt me-1">公司頁面</p>
         </li>
       </ul>
-      <ul v-if="adminMainSection === '文件'" class="admin__subNav">
-        <li class="d-flex align-items-center d-md-flex d-none">
-          <h2 class="admin__subNav__title">文件</h2>
+      <ul
+        v-if="adminMainSection === '職位管理'"
+        class="admin__subNav admin__subNav--company position-relative w-100"
+      >
+        <li class="d-md-flex align-items-center d-none">
+          <h2 class="admin__subNav__title">{{ `職位管理` }}</h2>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('document-cv')"
-          :class="{ active: subTopNav === '履歷' }"
+          @click="goToPageLink('job-list')"
+          :class="{ active: subTopNav === '刊登中職位' }"
         >
-          <p class="admin__subNav__txt me-1">履歷</p>
+          <p class="admin__subNav__txt me-1">刊登中職位</p>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('document-cover-letter')"
-          :class="{ active: subTopNav === '求職信' }"
+          @click="goToPageLink('close-job-list')"
+          :class="{ active: subTopNav === '已關閉職位' }"
         >
-          <p class="admin__subNav__txt me-1">求職信</p>
+          <p class="admin__subNav__txt me-1">已關閉職位</p>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('document-other')"
-          :class="{ active: subTopNav === '其他文件' }"
+          @click="goToPageLink('application-list')"
+          :class="{ active: subTopNav === '應徵管理' }"
         >
-          <p class="admin__subNav__txt me-1">其他文件</p>
+          <p class="admin__subNav__txt me-1">應徵管理</p>
+        </li>
+        <li class="d-flex align-items-center position-absolute end-0 h-100">
+          <buttom type="btn" class="btn btn-companyColor text-light"
+          @click="goToPageLink('new-job')">新增職位</buttom>
         </li>
       </ul>
-      <ul v-if="adminMainSection === '個人帳戶'" class="admin__subNav">
+      <ul v-if="adminMainSection === '個人帳戶'" class="admin__subNav admin__subNav--company">
         <li class="d-flex align-items-center d-md-flex d-none">
           <h2 class="admin__subNav__title">個人帳戶</h2>
         </li>
@@ -119,11 +126,11 @@ export default {
       ) {
         this.adminMainSection = '企業中心';
       } else if (
-        this.subTopNav === '履歷'
-        || this.subTopNav === '求職信'
-        || this.subTopNav === '其他文件'
+        this.subTopNav === '刊登中職位'
+        || this.subTopNav === '已關閉職位'
+        || this.subTopNav === '應徵管理'
       ) {
-        this.adminMainSection = '文件';
+        this.adminMainSection = '職位管理';
       } else if (
         this.subTopNav === '基本資料'
         || this.subTopNav === '求職意向'

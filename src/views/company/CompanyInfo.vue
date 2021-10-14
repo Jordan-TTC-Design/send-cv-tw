@@ -175,7 +175,7 @@
                       <label for="companyDataName" class="form__label--custom form-label"
                         >企業名稱</label
                       >
-                      <p class="formTag--must">必填</p>
+                      <p class="formTag--must company">必填</p>
                     </div>
                     <Field
                       id="companyDataName"
@@ -215,7 +215,7 @@
                       <label for="companyDataCompanySize" class="form__label--custom form-label"
                         >公司人數</label
                       >
-                      <p class="formTag--must">必選</p>
+                      <p class="formTag--must company">必選</p>
                     </div>
                     <Field
                       id="companyDataCompanySize"
@@ -241,7 +241,7 @@
                       <label for="companyDataCompanyIndustry" class="form__label--custom form-label"
                         >所屬行業</label
                       >
-                      <p class="formTag--must">必選</p>
+                      <p class="formTag--must company">必選</p>
                     </div>
                     <Field
                       id="companyDataCompanyIndustry"
@@ -295,7 +295,7 @@
                         <label for="companyDataCompanyCity" class="form__label--custom form-label"
                           >公司地址</label
                         >
-                        <p class="formTag--must">必填</p>
+                        <p class="formTag--must company">必填</p>
                       </div>
                       <Field
                         id="companyDataCompanyCity"
@@ -320,7 +320,7 @@
                         <label for="companyDataCompanyDist" class="form__label--custom form-label"
                           >區域鄉鎮</label
                         >
-                        <p class="formTag--must">必填</p>
+                        <p class="formTag--must company">必填</p>
                       </div>
                       <Field
                         id="companyDataCompanyDist"
@@ -346,7 +346,7 @@
                       <label for="compnayDataaddressDetail" class="form__label--custom form-label"
                         >公司詳細地址</label
                       >
-                      <p class="formTag--must">必填</p>
+                      <p class="formTag--must company">必填</p>
                     </div>
                     <Field
                       id="compnayDataaddressDetail"
@@ -371,7 +371,7 @@
                       <label for="mainContactName" class="form__label--custom form-label"
                         >聯絡人姓名</label
                       >
-                      <p class="formTag--must">必填</p>
+                      <p class="formTag--must company">必填</p>
                     </div>
                     <Field
                       id="mainContactName"
@@ -393,7 +393,7 @@
                       <label for="mainContactJobTitle" class="form__label--custom form-label"
                         >聯絡人職稱</label
                       >
-                      <p class="formTag--must">必填</p>
+                      <p class="formTag--must company">必填</p>
                     </div>
                     <Field
                       id="mainContactJobTitle"
@@ -460,21 +460,18 @@
       </div>
     </div>
   </div>
-  <CompanyPhotoEdit :userImgUrl="company.companyInfo.companyLogoUrl" @emit-send-img-data="getImg" />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
-import CompanyPhotoEdit from '@/components/company/CompanyPhotoEdit.vue';
 
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
     CompanyAdminNav,
-    CompanyPhotoEdit,
   },
   data() {
     return {
@@ -506,67 +503,8 @@ export default {
           phone: '',
         },
       },
-      user: {
-        account: {
-          chineseName: '',
-          EnglishName: '',
-          jobTitle: '',
-          gender: '',
-          birthday: '',
-          email: '',
-          phone: '',
-          addressCity: '',
-          addressDist: '',
-          password: '',
-          socialMedia: [],
-        },
-        workExp: {
-          years: 0,
-          works: [],
-        },
-        educationExp: {
-          lastestEducation: '',
-          educations: [],
-        },
-        languages: [],
-        licenses: [],
-        skill: [],
-        others: {
-          driverLicenses: [],
-          identities: [],
-          militaryServices: [],
-        },
-        career: {
-          workType: [],
-          workTime: [],
-          targetJobs: [],
-          targetIndustries: [],
-          targetPlaces: [],
-          expat: null,
-          salaryRange: {
-            lowest: 0,
-            highest: 0,
-            interview: null,
-          },
-        },
-      },
       tempImgurl: '',
-      tempWorkExp: {},
-      tempEducation: {},
-      tempSkill: {},
-      tempLanguage: {},
-      tempLicense: '',
-      tempSkillList: { groupName: '', skillList: [] },
     };
-  },
-  watch: {
-    date(newValue) {
-      const data = Math.ceil(newValue.valueOf() / 1000);
-      this.user.account.birthday = data;
-      console.log(data);
-      console.dir(this.$filters.date(data));
-      console.log(data);
-    },
   },
   methods: {
     getImg(data) {
@@ -605,43 +543,6 @@ export default {
     editTemplateData(txt) {
       this.editMode = true;
       this.editTemplate = txt;
-    },
-    saveWorkExpData(obj) {
-      if (obj.num === 'new') {
-        this.user.workExp.works.push(obj.data);
-      } else {
-        this.user.workExp.works[obj.num] = obj.data;
-      }
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveSkillData(obj) {
-      if (obj.num === 'new') {
-        this.user.skills.push(obj.data);
-      } else {
-        this.user.skills[obj.num] = obj.data;
-      }
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveEducationExpData(obj) {
-      if (obj.num === 'new') {
-        this.user.educationExp.educations.push(obj.data);
-      } else {
-        this.user.educationExp.educations[obj.num] = obj.data;
-      }
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveLanguageData(obj) {
-      this.user.languages = obj;
-      this.saveAllData();
-      this.closeTemplate();
-    },
-    saveLicenseData(obj) {
-      this.user.licenses = obj;
-      this.saveAllData();
-      this.closeTemplate();
     },
     saveFormData() {
       this.setAddress();
@@ -696,59 +597,12 @@ export default {
         this[dataName] = true;
       }
     },
-    // 切換頁面
-    selectListItem(navName) {
-      this.settingSideList = navName;
-      this.closeTemplate();
-    },
-    // 編輯其他資訊
-    openSettingModal(action) {
-      const obj = {
-        action,
-        user: this.user,
-      };
-      emitter.emit('open-setting-career-modal', obj);
-    },
-    defaultTempData() {
-      this.tempWorkExp = {
-        companyName: '',
-        jobName: '',
-        jobContent: '',
-        startYear: null,
-        startMonth: null,
-        endYear: null,
-        endMonth: null,
-        isStillWork: false,
-      };
-      this.tempEducation = {
-        schoolName: '',
-        majorName: '',
-        educationContent: '',
-        educationLevel: null,
-        startYear: null,
-        startMonth: null,
-        endYear: null,
-        endMonth: null,
-        isStillAtSchool: false,
-      };
-      this.tempSkill = {
-        name: '',
-        otherSupport: '',
-      };
-      this.tempSkillList = { groupName: '', skillList: [] };
-      this.tempLanguage = {
-        name: '',
-        languageLevel: null,
-        otherSupport: '',
-      };
-    },
   },
   created() {
     this.getFbData();
     this.formData = webData;
     this.chooseCityDist = this.formData.districts['台北市'].district;
     emitter.emit('spinner-open-bg', 800);
-    this.defaultTempData();
   },
 };
 </script>

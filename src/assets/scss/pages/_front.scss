@@ -1150,9 +1150,9 @@
   }
   .companyPage__companyImage {
     border-radius: 8px;
-    max-width: calc(33.333% - 12px);
+    width: calc(33.333% - 12px);
     @include sm {
-      max-width: 100%;
+      width: 100%;
     }
   }
   .companyJobList {
@@ -1712,7 +1712,6 @@
 // 工具類
 .inputGroup--item {
   .inputItem__title {
-    // color:#1d1d1d;
     font-size: 14px;
     margin-left: 0.75rem;
     margin-bottom: 0.25rem;
@@ -1734,6 +1733,10 @@
   background-color: $primary;
   color: $dark;
   font-size: 10px;
+}
+.formTag--must.company {
+  background-color: $companyColor;
+  color: $light;
 }
 .form__inputBox {
   margin-bottom: 16px;

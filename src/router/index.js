@@ -187,6 +187,26 @@ const routes = [
         path: 'company-page-view',
         component: () => import('../views/company/CompanyPageView.vue'),
       },
+      {
+        // 刊登中職位
+        path: 'job-list',
+        component: () => import('../views/company/JobList.vue'),
+      },
+      {
+        // 新增職位
+        path: 'new-job',
+        component: () => import('../views/company/NewJobPage.vue'),
+      },
+      {
+        // 已關閉職位
+        path: 'cost-job-list',
+        component: () => import('../views/company/CloseJobList.vue'),
+      },
+      {
+        // 應徵管理
+        path: 'application-list',
+        component: () => import('../views/company/ApplicationList.vue'),
+      },
     ],
   },
 ];

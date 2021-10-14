@@ -2450,5 +2450,6 @@ const webData = {
     },
   ],
   companySize: ['10人以下', '10~50人', '50~100人', '100~500人', '500人以上'],
+  salaryType: ['月薪', '週薪', '日薪', '時薪'],
 };
 export default webData;

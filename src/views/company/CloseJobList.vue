@@ -323,7 +323,7 @@ export default {
   data() {
     return {
       date: new Date(),
-      nowPage: '公司頁面',
+      nowPage: '已關閉職位',
       editMode: false,
       editDataSection: '', // 編輯哪一塊
       formData: {},
