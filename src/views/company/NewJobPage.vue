@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py jobPage">
-    <Form v-slot="{ errors }" @submit="updateJobData">
+    <Form v-slot="{ errors }" @submit="uploadJob">
       <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
         <div class="container admin__subNav justify-content-between align-items-center">
           <div class="d-flex align-items-center">
@@ -33,7 +33,7 @@
             <div class="jobInfoBox box--shadow mb-3 position-relative">
               <div class="d-flex flex-lg-row flex-column">
                 <div class="jobInfoBox__imgBox mb-md-0 mb-4 me-5">
-                  <ImgInputBox
+                  <ImgInputBoxCompany
                     :imgNumber="0"
                     :mustUpload="false"
                     :inputAction="'single'"
@@ -41,6 +41,7 @@
                     :tempImgUrl="jobForm.jobImgUrl.url"
                     @send-img-to-page="getImg"
                   />
+                  <p class="subTxt">*如無職位圖片，將使用職位類別預設圖片。</p>
                 </div>
                 <div class="jobInfoBox__txtBox d-flex flex-column justify-content-between">
                   <!-- 職位名稱 -->
@@ -220,18 +221,18 @@
 
               <div class="form__inputBox form__infoEditBox">
                 <div class="form__labelBox">
-                  <label for="sendFormInfoJobContent" class="form__label--custom form-label"
+                  <label for="jobFormJobContent" class="form__label--custom form-label"
                     >工作內容</label
                   >
                   <p class="formTag--must company">必填</p>
                 </div>
                 <ckeditor
-                  id="sendFormInfoJobContent"
-                  ref="sendFormInfoJobContent"
+                  id="jobFormJobContent"
+                  ref="jobFormJobContent"
                   name="工作內容"
                   :editor="editor"
                   tag-name="textarea"
-                  v-model="jobItem.content"
+                  v-model="jobForm.jobContent"
                   :config="editorConfig"
                 ></ckeditor>
                 <Field
@@ -240,7 +241,7 @@
                   class="form-control d-none"
                   :class="{ 'is-invalid': errors['工作內容'] }"
                   placeholder="請輸入"
-                  v-model="jobItem.content"
+                  v-model="jobForm.jobContent"
                   as="textarea"
                   rules="required"
                 >
@@ -253,10 +254,11 @@
                 <span class="titleTag--doubleCircle me-2"></span>應徵條件
               </h3>
               <div class="row">
+                <!-- 學歷 -->
                 <div class="col-md-6 col-12">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoEducation" class="form__label--custom form-label"
+                      <label for="jobFormEducation" class="form__label--custom form-label"
                         >學歷要求</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -273,7 +275,7 @@
                           :value="item"
                           :id="`education${index}`"
                           name="學歷要求"
-                          v-model="jobItem.options.job.education"
+                          v-model="jobForm.conditions.educations"
                         />
                         <label class="form-check-label" :for="`education${index}`">
                           {{ item }}
@@ -281,22 +283,23 @@
                       </div>
                     </div>
                     <Field
-                      id="sendFormInfoEducationCheck"
-                      ref="sendFormInfoEducationCheck"
+                      id="jobFormEducationCheck"
+                      ref="jobFormEducationCheck"
                       name="學歷要求"
                       type="text"
                       class="form-control d-none"
                       :class="{ 'is-invalid': errors['學歷要求'] }"
-                      v-model="jobItem.options.job.education"
+                      v-model="jobForm.conditions.educations"
                       rules="required"
                     ></Field>
                     <ErrorMessage name="學歷要求" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
+                <!-- 工作經驗 -->
                 <div class="col-md-6 col-12">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoworkExp" class="form__label--custom form-label"
+                      <label for="jobFormWorkExp" class="form__label--custom form-label"
                         >工作經驗</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -313,7 +316,7 @@
                           :value="item"
                           :id="`workExp${index}`"
                           name="工作經驗"
-                          v-model="jobItem.options.job.workExp"
+                          v-model="jobForm.conditions.workExp"
                         />
                         <label class="form-check-label" :for="`workExp${index}`">
                           {{ item }}
@@ -321,18 +324,19 @@
                       </div>
                     </div>
                     <Field
-                      id="sendFormInfoworkExpCheck"
-                      ref="sendFormInfoworkExpCheck"
+                      id="jobFormWorkExpCheck"
+                      ref="jobFormWorkExpCheck"
                       name="工作經驗"
                       type="text"
                       class="form-control d-none"
                       :class="{ 'is-invalid': errors['工作經驗'] }"
-                      v-model="jobItem.options.job.workExp"
+                      v-model="jobForm.conditions.workExp"
                       rules="required"
                     ></Field>
                     <ErrorMessage name="工作經驗" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
+                <!-- 語言 -->
                 <div class="col-lg-6 col-12">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
@@ -417,7 +421,7 @@
                     </ul>
                   </div>
                 </div>
-                <!-- 技能名稱 -->
+                <!-- 技能 -->
                 <div class="col-lg-6 col-12">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
@@ -469,22 +473,21 @@
                     </ul>
                   </div>
                 </div>
+                <!-- 其他 -->
                 <div class="col-12">
                   <div class="form__inputBox form__infoEditBox">
                     <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoOtherRequirement"
-                        class="form__label--custom form-label"
+                      <label for="jobFormOtherRequirement" class="form__label--custom form-label"
                         >其他自訂條件</label
                       >
                     </div>
                     <ckeditor
-                      id="sendFormInfoOtherRequirement"
-                      ref="sendFormInfoOtherRequirement"
+                      id="jobFormOtherRequirement"
+                      ref="jobFormOtherRequirement"
                       name="其他自訂條件"
                       :editor="editor"
                       tag-name="textarea"
-                      v-model="jobItem.options.job.otherRequirement"
+                      v-model="jobForm.conditions.otherRequirement"
                       :config="editorConfig"
                     ></ckeditor>
                   </div>
@@ -492,158 +495,33 @@
               </div>
             </div>
             <div class="jobContentSection box--shadow mb-3">
-              <div class="d-flex">
-                <h3 class="section__title--sub me-3">
-                  <span class="titleTag--doubleCircle me-2"></span>申請方法
-                </h3>
-                <p>如未填寫，系統會自動帶入建立職位者的聯絡資訊。</p>
-              </div>
-              <div class="row">
-                <div class="col-md-6 col-12">
-                  <div class="form__inputBox">
-                    <div class="form__labelBox">
-                      <label for="sendFormInfoName" class="form__label--custom form-label"
-                        >聯絡人姓名</label
-                      >
-                    </div>
-                    <Field
-                      id="sendFormInfoName"
-                      ref="sendFormInfoName"
-                      name="聯絡人姓名"
-                      type="text"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors['聯絡人姓名'] }"
-                      placeholder="請輸入聯絡人姓名"
-                      v-model="jobItem.options.company.companyContact"
-                    ></Field>
-                    <ErrorMessage name="聯絡人姓名" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                </div>
-                <div class="col-md-6 col-12">
-                  <div class="form__inputBox">
-                    <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoContactPosition"
-                        class="form__label--custom form-label"
-                        >聯絡人職稱</label
-                      >
-                    </div>
-                    <Field
-                      id="sendFormInfoContactPosition"
-                      ref="sendFormInfoContactPosition"
-                      name="聯絡人職稱"
-                      type="text"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors['聯絡人職稱'] }"
-                      placeholder="請輸入聯絡人職稱"
-                      v-model="jobItem.options.company.contactPosition"
-                    ></Field>
-                    <ErrorMessage name="聯絡人職稱" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                </div>
-                <div class="col-md-6 col-12">
-                  <div class="form__inputBox">
-                    <div class="form__labelBox">
-                      <label for="sendFormInfoTel" class="form__label--custom form-label"
-                        >聯絡人電話</label
-                      >
-                    </div>
-                    <Field
-                      id="sendFormInfoTel"
-                      ref="sendFormInfoTel"
-                      name="聯絡人電話"
-                      type="tel"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors['聯絡人電話'] }"
-                      placeholder="請輸入聯絡人電話"
-                      v-model="jobItem.options.company.companyTel"
-                    ></Field>
-                    <ErrorMessage name="聯絡人電話" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                </div>
-                <div class="col-md-6 col-12">
-                  <div class="form__inputBox">
-                    <div class="form__labelBox">
-                      <label for="sendFormInfoEmail" class="form__label--custom form-label"
-                        >聯絡人Email</label
-                      >
-                    </div>
-                    <Field
-                      id="sendFormInfoEmail"
-                      ref="sendFormInfoEmail"
-                      name="聯絡人Email"
-                      type="text"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors['聯絡人Email'] }"
-                      placeholder="請輸入聯絡人Email"
-                      rules="email"
-                      v-model="jobItem.options.company.companyEmail"
-                    ></Field>
-                    <ErrorMessage name="聯絡人Email" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form__inputBox form__infoEditBox">
-                    <div class="form__labelBox">
-                      <label for="sendFormInfoOtherApplyInfo" class="form__label--custom form-label"
-                        >申請備註</label
-                      >
-                    </div>
-                    <ckeditor
-                      id="sendFormInfoOtherApplyInfo"
-                      ref="sendFormInfoOtherApplyInfo"
-                      name="申請備註"
-                      :editor="editor"
-                      tag-name="textarea"
-                      v-model="jobItem.options.job.otherApplyInfo"
-                      :config="editorConfig"
-                    ></ckeditor>
-                    <Field
-                      name="申請備註"
-                      type="text"
-                      class="form-control d-none"
-                      :class="{ 'is-invalid': errors['申請備註'] }"
-                      placeholder="請輸入"
-                      v-model="jobItem.options.job.otherApplyInfo"
-                      as="textarea"
-                    >
-                    </Field>
-                    <ErrorMessage name="申請備註" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="jobContentSection box--shadow mb-lg-0 mb-3">
               <h3 class="section__title--sub">
                 <span class="titleTag--doubleCircle me-2"></span>其他資訊
               </h3>
               <div class="row">
-                <div class="col-md-6 col-12">
-                  <div class="form__inputBox">
+                <!-- 職務類別 -->
+                <div class="col-lg-6 col-12">
+                  <div class="inputGroup--item mb-3">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoJobCategory" class="form__label--custom form-label"
-                        >職位類別</label
+                      <label for="jobFormPeopleNeed" class="form__label--custom form-label"
+                        >職務類別</label
                       >
                       <p class="formTag--must company">必填</p>
+                      <p class="subTxt ms-2 text-secondary">(最多選3項)</p>
                     </div>
-                    <Field
-                      name="職位類別"
-                      as="select"
-                      id="sendFormInfoJobCategory"
-                      class="form-control form-select"
-                      :class="{ 'is-invalid': errors['職位類別'] }"
-                      rules="required"
-                      v-model="jobItem.category"
-                      ref="sendFormInfoJobCategory"
-                    >
-                      <option value="" disabled selected>選擇職位類別</option>
-                      <option v-for="item in formData.jobCategory" :value="item" :key="item">
-                        {{ item }}
-                      </option>
-                    </Field>
-                    <ErrorMessage name="職位類別" class="invalid-feedback"></ErrorMessage>
+
+                    <div class="fakeInput" @click="openJobDataSettingModal('職務類別')">
+                      <div class="fakeInput__txtList">
+                        <p class="text-secondary" v-if="jobForm.jobCategory.length < 1">請選擇</p>
+                        <template v-for="that in jobForm.jobCategory" :key="that">
+                          <p>{{ that }}<span class="fakeInput__txtList__line"></span></p>
+                        </template>
+                      </div>
+                      <i class="jobIcon bi bi-chevron-right"></i>
+                    </div>
                   </div>
                 </div>
+                <!-- 工作性質 -->
                 <div class="col-md-6 col-12">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
@@ -684,6 +562,7 @@
                     <ErrorMessage name="工作性質" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
+                <!-- 上班時段 -->
                 <div class="col-md-6 col-12">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
@@ -724,43 +603,305 @@
                     <ErrorMessage name="工作時間" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
+                <!-- 需求人數 -->
+                <div class="col-lg-6 col-12">
+                  <div class="form__inputBox">
+                    <div class="form__labelBox">
+                      <label for="jobFormPeopleNeed" class="form__label--custom form-label"
+                        >需求人數</label
+                      >
+                      <p class="formTag--must company">必填</p>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="jobFormPeopleNeed"
+                      placeholder="1"
+                      min="1"
+                      v-model="jobForm.peopleNeed"
+                    />
+                  </div>
+                </div>
+                <!-- 外派需求 -->
+                <div class="col-md-6 col-12">
+                  <div class="form__inputBox">
+                    <div class="form__labelBox">
+                      <label for="jobFormExpat" class="form__label--custom form-label"
+                        >外派需求</label
+                      >
+                    </div>
+                    <div class="d-flex flex-wrap">
+                      <div class="form-check me-2">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          :value="false"
+                          id="expat-false"
+                          name="expat"
+                          checked
+                          v-model="jobForm.conditions.expat"
+                        />
+                        <label class="form-check-label" for="expat-false"> 不需要外派 </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          :value="true"
+                          id="expat-true"
+                          name="expat"
+                          v-model="jobForm.conditions.expat"
+                        />
+                        <label class="form-check-label" for="expat-true"> 需要外派 </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 駕照需求 -->
+                <div class="col-lg-6 col-12">
+                  <div class="inputGroup--item mb-3">
+                    <label class="form-label inputItem__title"
+                      >駕照需求<span class="subTxt ms-2 text-secondary">(最多選3項)</span></label
+                    >
+                    <div class="fakeInput" @click="openJobDataSettingModal('駕照需求')">
+                      <div class="fakeInput__txtList">
+                        <p
+                          class="text-secondary"
+                          v-if="jobForm.conditions.driverLicenses.length < 1"
+                        >
+                          請選擇
+                        </p>
+                        <template v-for="that in jobForm.conditions.driverLicenses" :key="that">
+                          <p>{{ that }}<span class="fakeInput__txtList__line"></span></p>
+                        </template>
+                      </div>
+                      <i class="jobIcon bi bi-chevron-right"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="jobContentSection box--shadow mb-3">
+              <div class="d-flex">
+                <h3 class="section__title--sub me-3">
+                  <span class="titleTag--doubleCircle me-2"></span>申請方法
+                </h3>
+                <p>如未填寫，系統會自動帶入建立職位者的聯絡資訊。</p>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <div class="form__inputBox">
+                    <div class="form__labelBox">
+                      <label for="jobFormContactName" class="form__label--custom form-label"
+                        >聯絡人姓名</label
+                      >
+                    </div>
+                    <Field
+                      id="jobFormContactName"
+                      ref="jobFormContactName"
+                      name="聯絡人姓名"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors['聯絡人姓名'] }"
+                      placeholder="請輸入聯絡人姓名"
+                      v-model="jobForm.applyContact.name"
+                    ></Field>
+                    <ErrorMessage name="聯絡人姓名" class="invalid-feedback"></ErrorMessage>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form__inputBox">
+                    <div class="form__labelBox">
+                      <label for="jobFormContactTitle" class="form__label--custom form-label"
+                        >聯絡人職稱</label
+                      >
+                    </div>
+                    <Field
+                      id="jobFormContactTitle"
+                      ref="jobFormContactTitle"
+                      name="聯絡人職稱"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors['聯絡人職稱'] }"
+                      placeholder="請輸入聯絡人職稱"
+                      v-model="jobForm.applyContact.jobTitle"
+                    ></Field>
+                    <ErrorMessage name="聯絡人職稱" class="invalid-feedback"></ErrorMessage>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form__inputBox">
+                    <div class="form__labelBox">
+                      <label for="jobFormContactPhone" class="form__label--custom form-label"
+                        >聯絡人電話</label
+                      >
+                    </div>
+                    <Field
+                      id="jobFormContactPhone"
+                      ref="jobFormContactPhone"
+                      name="聯絡人電話"
+                      type="tel"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors['聯絡人電話'] }"
+                      placeholder="請輸入聯絡人電話"
+                      v-model="jobForm.applyContact.phone"
+                    ></Field>
+                    <ErrorMessage name="聯絡人電話" class="invalid-feedback"></ErrorMessage>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form__inputBox">
+                    <div class="form__labelBox">
+                      <label for="jobFormContactEmail" class="form__label--custom form-label"
+                        >聯絡人Email</label
+                      >
+                    </div>
+                    <Field
+                      id="jobFormContactEmail"
+                      ref="jobFormContactEmail"
+                      name="聯絡人Email"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors['聯絡人Email'] }"
+                      placeholder="請輸入聯絡人Email"
+                      rules="email"
+                      v-model="jobForm.applyContact.email"
+                    ></Field>
+                    <ErrorMessage name="聯絡人Email" class="invalid-feedback"></ErrorMessage>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form__inputBox form__infoEditBox">
+                    <div class="form__labelBox">
+                      <label for="jobFormContactOtherContent" class="form__label--custom form-label"
+                        >申請備註</label
+                      >
+                    </div>
+                    <ckeditor
+                      id="jobFormContactOtherContent"
+                      ref="jobFormContactOtherContent"
+                      name="申請備註"
+                      :editor="editor"
+                      tag-name="textarea"
+                      v-model="jobForm.applyContact.otherContent"
+                      :config="editorConfig"
+                    ></ckeditor>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="jobContentSection box--shadow mb-3">
+              <div class="d-flex">
+                <h3 class="section__title--sub me-3">
+                  <span class="titleTag--doubleCircle me-2"></span>公司提問
+                </h3>
+                <p>(可以透過提問事前更了解應徵者，最多可提問3題)</p>
+              </div>
+              <div class="row">
+                <template v-for="(ques, index) in jobForm.questions" :key="index">
+                  <div class="col-md-9 col-12">
+                    <div class="form__inputBox">
+                      <div class="form__labelBox">
+                        <label for="jobFormContactName" class="form__label--custom form-label">{{
+                          `第${index + 1}題`
+                        }}</label>
+                      </div>
+                      <Field
+                        id="jobFormContactName"
+                        ref="jobFormContactName"
+                        :name="`第${index + 1}題`"
+                        type="text"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors[`第${index + 1}題`] }"
+                        :placeholder="`請輸入第${index + 1}題`"
+                        v-model="ques.content"
+                      ></Field>
+                      <ErrorMessage
+                        :name="`第${index + 1}題`"
+                        class="invalid-feedback"
+                      ></ErrorMessage>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-12 d-flex align-items-end">
+                    <div class="form__inputBox">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          :id="`第${index + 1}題語音`"
+                          v-model="ques.voice"
+                        />
+                        <label class="form-check-label" :for="`第${index + 1}題語音`">
+                          允許語音回答
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline-gray-line text-dark"
+                @click="newQuestion"
+                v-if="this.jobForm.questions.length < 3"
+              >
+                新增問題
+              </button>
             </div>
           </div>
           <div class="col-lg-3 col-12">
             <div class="jobContentSection box--shadow mb-lg-0 mb-3">
               <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>系統資料
+                <span class="titleTag--doubleCircle me-2"></span>付費服務
               </h3>
-              <div class="row">
-                <div class="col-12">
-                  <div class="form__inputBox">
-                    <div class="form__labelBox">
-                      <label for="sendFormInfoCostToken" class="form__label--custom form-label"
-                        >職位刊登狀態</label
-                      >
-                    </div>
-                    <div class="form-check form-switch p-2 border border-gray-line rounded">
-                      <input
-                        id="sendFormInfoCostToken"
-                        type="checkbox"
-                        class="form-check-input ms-0 me-3"
-                        data-action="changeProductState"
-                        data-id="${item.id}"
-                        :checked="jobItem.is_enabled > 0 ? true : false"
-                        @change="changeProductState"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="sendFormInfoCostToken"
-                        :class="{ 'text-primary': jobItem.is_enabled > 0 }"
-                      >
-                        {{ jobItem.is_enabled > 0 ? `招募中` : `停止招募` }}
-                      </label>
-                    </div>
+              <p></p>
+              <div class="inputGroup--item mb-3">
+                <label class="form-label inputItem__title">是否升級為推廣職位</label>
+                <div
+                  class="
+                    btn
+                    border-gray-line border
+                    btn--switch
+                    d-flex
+                    justify-content-between
+                    putPointer
+                  "
+                  @click="jobForm.promotedData.promote = !jobForm.promotedData.promote"
+                >
+                  使用付費推廣
+                  <div class="switch__container" :class="{ active: jobForm.promotedData.promote }">
+                    <div class="switch__controller"></div>
                   </div>
                 </div>
               </div>
+              <div class="inputGroup--item mb-3" v-if="jobForm.promotedData.promote">
+                <label class="form-label inputItem__title">使用額度</label>
+                <div class="fakeInput--counter">
+                  <div
+                    class="fakeBtn"
+                    @click="minusData('jobPromoted')"
+                    :class="{ disactive: jobForm.promotedData.usedToken < 2 }"
+                  >
+                    <i class="jobIcon bi bi-dash-circle"></i>
+                  </div>
+                  <p>{{ jobForm.promotedData.usedToken }}</p>
+                  <div
+                    class="fakeBtn"
+                    @click="plusData('jobPromoted')"
+                    :class="{
+                      disactive:
+                        jobForm.promotedData.usedToken >= company.payService.jobPromoteTokens,
+                    }"
+                  >
+                    <i class="jobIcon bi bi-plus-circle"></i>
+                  </div>
+                </div>
+              </div>
+              <p>收費方式：一個額度推廣 7 天</p>
+              <p class="mb-5">起算日期：於刊登日期後連續 7 天</p>
+              <button type="button" class="btn btn-outline-gray-line text-dark w-100">
+                了解付費推廣的好處
+              </button>
             </div>
           </div>
         </div>
@@ -770,8 +911,7 @@
   <div class="sideBtnBox">
     <UpTopBtn />
   </div>
-  <ImgPopModal />
-  <ImageCropper @emit-send-img-data="getImg" />
+  <JobDataSettingModal @return-job-data-setting="saveModalData" />
 </template>
 
 <script>
@@ -779,17 +919,16 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emitter from '@/methods/emitter';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import webData from '@/methods/webData';
-import ImgPopModal from '@/components/helpers/ImgPopModal.vue';
-import ImageCropper from '@/components/helpers/ImageCropperModal.vue';
+
 import database from '@/methods/firebaseinit';
-import ImgInputBox from '@/components/helpers/ImgInputBox.vue';
+import ImgInputBoxCompany from '@/components/helpers/ImgInputBoxCompany.vue';
+import JobDataSettingModal from '@/components/company/JobDataSettingModal.vue';
 
 export default {
   components: {
     UpTopBtn,
-    ImageCropper,
-    ImgPopModal,
-    ImgInputBox,
+    JobDataSettingModal,
+    ImgInputBoxCompany,
   },
   data() {
     return {
@@ -828,8 +967,9 @@ export default {
         promotedData: {
           promote: false,
           time: null,
+          usedToken: 1,
         },
-        questions: [{ content: '', key: '' }],
+        questions: [{ content: '', key: '', voice: false }],
         jobContent: '',
         conditions: {
           workExp: '',
@@ -837,33 +977,16 @@ export default {
           languages: [],
           skills: [],
           driverLicenses: [],
-          otherContent: '',
+          otherRequirement: '',
           jobCategory: [],
           identity: [],
           militaryService: '',
         },
         applyContact: {
-          mainContact: '',
+          name: '',
           email: '',
           phone: '',
           otherContent: '',
-        },
-      },
-      jobItem: {
-        options: {
-          company: {
-            companyLogoUrl: '',
-            companyImagesUrl: [],
-          },
-          job: {},
-        },
-      },
-      companyItem: {
-        imagesUrl: [],
-        imageUrl: '',
-        options: {
-          company: {},
-          job: {},
         },
       },
       sameAddressWithCompany: false,
@@ -897,23 +1020,69 @@ export default {
           ],
         },
       },
-      // 套件切圖工具
-      cropper: {},
+      cropper: {}, // 套件切圖工具
       pagePreview: false, // 預覽編輯
       tempLanguage: {
+        // 處理語言要求用
         name: '',
         languageLevel: null,
         otherSupport: '',
       },
       tempLanguageList: [],
       tempSkill: {
+        // 處理技能要求用
         name: '',
         otherSupport: '',
       },
       tempSkillList: [],
+      tempImgurl: '',
     };
   },
   methods: {
+    // 表單操作
+    // 處理付費推廣:+1
+    plusData(dataName) {
+      if (dataName === 'jobPromoted') {
+        if (this.jobForm.promotedData.usedToken < this.company.payService.jobPromoteTokens) {
+          this.jobForm.promotedData.usedToken += 1;
+        }
+      }
+    },
+    // 處理付費推廣:-1
+    minusData(dataName) {
+      if (dataName === 'jobPromoted') {
+        if (this.jobForm.promotedData.usedToken > 1) {
+          this.jobForm.promotedData.usedToken -= 1;
+        }
+      }
+    },
+    costCompanyJobPromoteTokens() {
+      if (this.jobForm.promotedData.promote) {
+        this.company.payService.jobPromoteTokens -= this.jobForm.promotedData.usedToken;
+        this.saveCompanyData();
+      }
+    },
+    // 新增公司提問
+    newQuestion() {
+      if (this.jobForm.questions.length < 3) {
+        this.jobForm.questions.push({ content: '', key: '', voice: false });
+      }
+    },
+    // 抓取職務類別＆駕照需求資料
+    saveModalData(obj) {
+      if (obj.action === '職務類別') {
+        this.jobForm.jobCategory = obj.data;
+        console.log(this.jobForm.jobCategory);
+      } else if (obj.action === '駕照需求') {
+        this.jobForm.conditions.driverLicenses = obj.data;
+        console.log(this.jobForm.conditions.driverLicenses);
+      }
+    },
+    // 打開職務類別＆駕照需求設定modal
+    openJobDataSettingModal(modalAction) {
+      emitter.emit('open-job-data-setting-modal', modalAction);
+    },
+    // 新增技能要求
     addSkillData() {
       const obj = {
         name: this.tempSkill.name,
@@ -922,6 +1091,7 @@ export default {
       this.jobForm.conditions.skills.push(obj);
       this.tempSkill.name = '';
     },
+    // 新增語言要求
     addLanguageData() {
       const obj = {
         name: this.tempLanguage.name,
@@ -932,6 +1102,7 @@ export default {
       this.tempLanguage.name = '';
       this.tempLanguage.languageLevel = '';
     },
+    // 同步企業地址
     putCompanyAddress() {
       if (this.sameAddressWithCompany) {
         this.jobForm.jobAddress.addressCity = this.company.companyInfo.addressCity;
@@ -943,6 +1114,20 @@ export default {
         this.jobForm.jobAddress.addressDetail = '';
       }
     },
+    // 挑選地址鄉鎮
+    chooseDist(cityName) {
+      this.chooseCityDist = [];
+      this.chooseCityDist = this.formData.districts[cityName].district;
+      const [temDist] = this.chooseCityDist;
+      this.jobForm.jobAddress.addressDist = temDist;
+    },
+    // 同步企業主要聯絡人資訊
+    putContactInfo() {
+      this.jobForm.applyContact.name = this.company.mainContact.name;
+      this.jobForm.applyContact.jobTitle = this.company.mainContact.jobTitle;
+      this.jobForm.applyContact.mail = this.company.mainContact.mail;
+      this.jobForm.applyContact.phone = this.company.mainContact.phone;
+    },
     // 切換預覽狀態或是編輯狀態
     lookPagePreview() {
       if (this.pagePreview) {
@@ -951,20 +1136,7 @@ export default {
         this.pagePreview = true;
       }
     },
-    // 改變企業狀態
-    changeProductState() {
-      if (this.jobItem.is_enabled > 0) {
-        this.jobItem.is_enabled = 0;
-      } else {
-        this.jobItem.is_enabled = 1;
-      }
-    },
-    // 清除圖片
-    deleteImgInput() {
-      this.jobItem.imageUrl = '';
-      this.jobImage.src = '';
-      this.jobImage.isUpDated = false;
-    },
+    // 圖片處理
     getImg(data) {
       this.tempImgurl = data;
       this.updateImg();
@@ -987,7 +1159,6 @@ export default {
       })
         .then((res) => {
           this.jobForm.jobImgUrl.url = res.data.data.link;
-          this.saveAllData();
           emitter.emit('spinner-close');
         })
         .catch((err) => {
@@ -995,72 +1166,37 @@ export default {
           emitter.emit('spinner-close');
         });
     },
-    updateJobData() {
-      emitter.emit('spinner-open');
-      this.jobItem.options.create = `${Math.floor(Date.now() / 1000)}`;
-      const { id } = this.$route.params;
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
-      const companyData = {
-        data: this.jobItem,
-      };
-      this.$http
-        .put(url, companyData)
-        .then((res) => {
-          emitter.emit('spinner-close');
-          if (res.data.success) {
-            emitter.emit('alertMessage-open', res.data.message);
-            this.$router.push('/admin/dashboard/products-list');
-          }
-        })
-        .catch((err) => {
-          emitter.emit('spinner-close');
-          emitter.emit('alertMessage-open', err);
-        });
+    // 新增職位
+    uploadJob() {
+      if (this.jobForm.applyContact.name === '') {
+        this.putContactInfo();
+      }
+      this.costCompanyJobPromoteTokens();
+      const jobListRef = database.ref('company/jobList');
+      const { key } = jobListRef.push();
+      console.log(key);
+      const obj = this.jobForm;
+      obj.key = key;
+      jobListRef.child(key).set(obj);
     },
-    getProductData() {
-      emitter.emit('spinner-open');
-      const { id } = this.$route.params;
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`;
-      this.$http
-        .get(url)
-        .then((res) => {
-          if (res.data.success) {
-            this.isExist = true;
-            this.jobItem = res.data.product;
-            this.jobImage.src = this.jobItem.imageUrl;
-            this.jobImage.isUpDated = true;
-          } else {
-            this.isExist = false;
-          }
-          emitter.emit('spinner-close');
-        })
-        .catch((err) => {
-          emitter.emit('spinner-close');
-          emitter.emit('alertMessage-open', err);
-        });
-    },
-    openImgModal(imgUrl) {
-      emitter.emit('imgPopModal-open', imgUrl);
+    // 保存企業資料
+    saveCompanyData() {
+      const companyRef = database.ref('company');
+      companyRef.set(this.company);
+      this.getFbData();
     },
     // 取得資料
     getFbData() {
-      const userRef = database.ref('company');
-      userRef.once('value', (snapshot) => {
+      const companyRef = database.ref('company');
+      companyRef.once('value', (snapshot) => {
         const data = snapshot.val();
         if (data) {
           this.company = data;
         }
       });
     },
-    chooseDist(cityName) {
-      this.chooseCityDist = [];
-      this.chooseCityDist = this.formData.districts[cityName].district;
-      const [temDist] = this.chooseCityDist;
-      this.jobForm.jobAddress.addressDist = temDist;
-    },
   },
   created() {
-    this.getProductData();
     this.getFbData();
     this.formData = webData;
     this.chooseCityDist = this.formData.districts['台北市'].district;

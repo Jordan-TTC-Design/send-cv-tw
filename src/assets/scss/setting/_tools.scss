@@ -882,7 +882,7 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 0.5rem;
-  border: 1px solid #ced4da;
+  border: 1px solid $gray-line;
   padding: 3px 6px 3px 0.75rem;
   &__txtList {
     display: flex;
@@ -893,6 +893,35 @@
       border-right: 1px solid $gray-line;
       margin-left: 0.5rem;
       margin-right: 0.5rem;
+    }
+  }
+}
+.fakeInput--counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid $gray-line;
+  &__txtList {
+    display: flex;
+    max-width: 80%;
+    overflow-x: hidden;
+    &__line {
+      height: 0.75rem;
+      border-right: 1px solid $gray-line;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+  .fakeBtn{
+    cursor: pointer;
+    display: flex;
+    padding: 0.4375rem 0.75rem;
+    &:hover .jobIcon{
+      color: $companyColor;
+    }
+    &.disactive .jobIcon{
+      color:$gray-line;
     }
   }
 }

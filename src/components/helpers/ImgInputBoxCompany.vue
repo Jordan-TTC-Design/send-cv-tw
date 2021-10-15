@@ -5,7 +5,7 @@
         >第 {{ imgNumber + 1 }} 張公司照片</label
       >
       <label for="imageUrl" class="form__label--custom form-label" v-if="inputAction === 'single'"
-        >公司圖片</label
+        >職位圖片</label
       >
       <label
         for="imageUrl"

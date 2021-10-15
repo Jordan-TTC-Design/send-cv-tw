@@ -266,9 +266,9 @@
               <button type="button" class="btn btn-primary" @click="saveAllData">保存</button>
             </div>
           </div>
-          <div v-if="modalAction === '變更外派需求'">
+          <div v-if="modalAction === '變更外派意願'">
             <div class="popModal__header popModal__header--center">
-              <h5 class="popModal__title">外派需求</h5>
+              <h5 class="popModal__title">外派意願</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <div class="modal-body">

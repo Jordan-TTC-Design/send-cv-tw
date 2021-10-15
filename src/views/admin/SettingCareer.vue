@@ -151,7 +151,7 @@
                   <div class="infoList__item show--compressed">
                     <div class="d-flex justify-content-between align-items-center">
                       <div>
-                        <p class="infoList__item__title">外派需求</p>
+                        <p class="infoList__item__title">外派意願</p>
                         <ul class="infoList__item__skillList">
                           <li class="infoList__item__skillList__skill">
                             <p>
@@ -163,7 +163,7 @@
                       <button
                         type="button"
                         class="btn--edit btn text-dark btn-gray-light"
-                        @click="openSettingModal('變更外派需求')"
+                        @click="openSettingModal('變更外派意願')"
                       >
                         <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                       </button>
