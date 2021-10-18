@@ -159,6 +159,10 @@
   color: $light;
   display: inline-block;
 }
+.jobTag--company {
+  background-color: $companyColor-light;
+  color: $companyColor;
+}
 // 特殊樣式工具區
 // 手指
 .putPointer {
@@ -318,6 +322,7 @@
 }
 .btn--switch {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   .switch__container {
     position: relative;
@@ -371,6 +376,16 @@
     background-color: $light;
     left: 2px;
     top: 2px;
+  }
+}
+.btn--switch.btn--switch--company {
+  .switch__container {
+    &::before {
+      background-color: $companyColor;
+    }
+    &.active {
+      background-color: $companyColor;
+    }
   }
 }
 .unHandle {
@@ -913,15 +928,15 @@
       margin-right: 0.5rem;
     }
   }
-  .fakeBtn{
+  .fakeBtn {
     cursor: pointer;
     display: flex;
     padding: 0.4375rem 0.75rem;
-    &:hover .jobIcon{
+    &:hover .jobIcon {
       color: $companyColor;
     }
-    &.disactive .jobIcon{
-      color:$gray-line;
+    &.disactive .jobIcon {
+      color: $gray-line;
     }
   }
 }
@@ -970,7 +985,7 @@
     }
   }
 }
-.btnBox--positionAb--topRight{
+.btnBox--positionAb--topRight {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;

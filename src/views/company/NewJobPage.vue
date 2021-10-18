@@ -854,18 +854,10 @@
               <h3 class="section__title--sub">
                 <span class="titleTag--doubleCircle me-2"></span>付費服務
               </h3>
-              <p></p>
               <div class="inputGroup--item mb-3">
                 <label class="form-label inputItem__title">是否升級為推廣職位</label>
                 <div
-                  class="
-                    btn
-                    border-gray-line border
-                    btn--switch
-                    d-flex
-                    justify-content-between
-                    putPointer
-                  "
+                  class="btn border-gray-line border btn--switch putPointer"
                   @click="jobForm.promotedData.promote = !jobForm.promotedData.promote"
                 >
                   使用付費推廣

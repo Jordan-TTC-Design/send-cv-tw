@@ -8,7 +8,7 @@ import { localize, setLocale } from '@vee-validate/i18n';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import { dropdown } from 'bootstrap';
+import { dropdown } from 'bootstrap/js/dist/dropdown';
 import date from '@/methods/filters';
 import App from './App.vue';
 import router from './router';

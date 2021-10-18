@@ -207,6 +207,16 @@ const routes = [
         path: 'application-list',
         component: () => import('../views/company/ApplicationList.vue'),
       },
+      {
+        // 帳號設定
+        path: 'setting',
+        component: () => import('../views/company/SettingAccountCompany.vue'),
+      },
+      {
+        // 帳號設定
+        path: 'setting-user-management',
+        component: () => import('../views/company/SettingUserManagement.vue'),
+      },
     ],
   },
 ];

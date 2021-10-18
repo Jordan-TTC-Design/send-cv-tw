@@ -32,8 +32,8 @@
                   >
                 </li>
                 <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/setting"
-                    >帳戶設定</router-link
+                  <router-link class="list__item__link nav-link" to="/company-admin/setting"
+                    >設定</router-link
                   >
                 </li>
                 <li class="list__item userMenu__list__logOut">

@@ -1075,7 +1075,7 @@
       left: 0.75rem;
     }
   }
-  &__footer{
+  &__footer {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -1364,15 +1364,27 @@
   cursor: pointer;
   border-radius: 0.5rem;
   border: 1px solid $gray-line;
-  img{
-    width:80%;
+  img {
+    width: 80%;
   }
   &:hover {
     background-color: rgba($color: $gray-light, $alpha: 0.5);
   }
-  &__title{
+  &__title {
     font-size: 1.25rem;
     font-weight: $fw--md;
     color: $dark;
+  }
+}
+.adminList--single {
+  .list__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $light;
+    border-radius: 0.5rem;
+    &:hover {
+      background-color: rgba($color: $light, $alpha: 0.8);
+    }
   }
 }

@@ -396,14 +396,10 @@ export default {
   mounted() {
     this.modal = new Modal(this.$refs.settingCareerModal);
     emitter.on('open-setting-career-modal', this.openModal);
-    emitter.on('close-setting-career-modal', this.closeModal);
-    emitter.on('return-setting-career-modal', this.returnUserData);
   },
   unmounted() {
     this.modal.dispose();
     emitter.off('open-setting-career-modal', this.openModal);
-    emitter.off('close-setting-career-modal', this.closeModal);
-    emitter.off('return-setting-career-modal', this.returnUserData);
   },
 };
 </script>
