@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <CompanyAdminNav :nowPage="nowPage" />
     <div class="container">
       <ul class="row" v-if="dataReady">
         <li class="col-4">
@@ -37,7 +37,7 @@
 import emitter from '@/methods/emitter';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import DocModal from '@/components/admin/DocModal.vue';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import SecondAskModal from '@/components/helpers/SecondAskModal.vue';
 import database from '@/methods/firebaseinit';
 
@@ -45,7 +45,7 @@ export default {
   components: {
     UpTopBtn,
     DocModal,
-    AdminNav,
+    CompanyAdminNav,
     SecondAskModal,
   },
   data() {
@@ -99,7 +99,7 @@ export default {
     },
     // 取得資料
     getFbData() {
-      const userRef = database.ref('user');
+      const userRef = database.ref('company/myAccount');
       userRef.once('value', (snapshot) => {
         const data = snapshot.val();
         this.user = data;
@@ -108,7 +108,7 @@ export default {
     },
     // 保存資料
     saveFbData() {
-      const userRef = database.ref('user');
+      const userRef = database.ref('company/myAccount');
       userRef.set(this.user);
       this.getFbData();
     },

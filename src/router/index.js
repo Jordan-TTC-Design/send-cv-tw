@@ -213,9 +213,24 @@ const routes = [
         component: () => import('../views/company/SettingAccountCompany.vue'),
       },
       {
-        // 帳號設定
+        // 帳號設定-用戶管理
         path: 'setting-user-management',
         component: () => import('../views/company/SettingUserManagement.vue'),
+      },
+      {
+        // 設定-文字模板
+        path: 'setting-message-template',
+        component: () => import('../views/company/SettingMessageTemplate.vue'),
+      },
+      {
+        // 設定-綁定信箱
+        path: 'setting-email-bind',
+        component: () => import('../views/company/SettingEmailBind.vue'),
+      },
+      {
+        // 設定-通知設定
+        path: 'setting-notification',
+        component: () => import('../views/company/SettingNotification.vue'),
       },
     ],
   },

@@ -9,7 +9,7 @@
               <div class="userImgBox mb-4 bg-gray-light">
                 <img class="userImgBox__img" :src="user.account.userImgUrl" alt="" />
                 <div class="userImgBox__editBtn">
-                  <button type="button" class="btn btn--circle" @click="OpenEditUserPhotoModal">
+                  <button type="button" class="btn btn--circle" @click="openEditUserPhotoModal">
                     <i class="jobIcon bi bi-pencil-square text-dark"></i>
                   </button>
                 </div>
@@ -1140,7 +1140,7 @@ export default {
           emitter.emit('spinner-close');
         });
     },
-    OpenEditUserPhotoModal() {
+    openEditUserPhotoModal() {
       emitter.emit('open-uploadUserImgModal', '個人照片說明1');
     },
     editTemplateData(txt) {

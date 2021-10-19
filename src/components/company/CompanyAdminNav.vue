@@ -89,10 +89,17 @@
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('setting-account')"
-          :class="{ active: nowPage === '帳號設定' }"
+          @click="goToPageLink('setting-email-bind')"
+          :class="{ active: nowPage === '綁定信箱' }"
         >
-          <p class="admin__subNav__txt me-1">帳號設定</p>
+          <p class="admin__subNav__txt me-1">綁定信箱</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('setting-notification')"
+          :class="{ active: nowPage === '通知設定' }"
+        >
+          <p class="admin__subNav__txt me-1">通知設定</p>
         </li>
       </ul>
     </div>
@@ -135,7 +142,8 @@ export default {
         this.nowPage === '我的帳戶'
         || this.nowPage === '用戶管理'
         || this.nowPage === '文字模板'
-        || this.nowPage === '帳號設定'
+        || this.nowPage === '綁定信箱'
+        || this.nowPage === '通知設定'
       ) {
         this.adminMainSection = '設定';
       }
