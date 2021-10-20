@@ -2,159 +2,996 @@
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container">
-      <div class="row justify-content-center" v-if="!editMode">
-        <div class="col-lg-9 col-12">
-          <div class="p-5 mb-5 rounded bg-light box--shadow">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="subTitle">綁定其他信箱</h2>
-              <button
-                type="btn"
-                class="btn btn-outline-companyColor"
-                @click="openSettingUserModal('綁定信箱')"
+      <div class="row">
+        <div class="col-3">
+          <div class="sideCollapse position--sticky--pageTop">
+            <div class="accordion-item">
+              <p
+                class="sideCollapse__list__title sideCollapse__list__title--company"
+                :class="{ active: sideBoxList === 'sendCV Web通知' }"
+                @click="selectCollapseList('sendCV Web通知')"
               >
-                綁定信箱
-              </button>
+                sendCV Web通知
+                <i v-if="sideBoxList !== 'sendCV Web通知'" class="jobIcon bi bi-chevron-down"></i>
+                <i v-if="sideBoxList === 'sendCV Web通知'" class="jobIcon bi bi-chevron-up"></i>
+              </p>
+              <ul
+                class="sideCollapse__innerList pb-5 bg-gray-light"
+                v-show="sideBoxList === 'sendCV Web通知'"
+              >
+                <li
+                  class="nav__item"
+                  @click="selectListItem('sendCV Web通知 - 應徵通知')"
+                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 應徵通知' }"
+                >
+                  <p class="nav__item__title">應徵通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('sendCV Web通知 - 聊天室通知')"
+                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 聊天室通知' }"
+                >
+                  <p class="nav__item__title">聊天室通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('sendCV Web通知 - 推薦通知')"
+                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 推薦通知' }"
+                >
+                  <p class="nav__item__title">推薦通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('sendCV Web通知 - 面試提醒通知')"
+                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 面試提醒通知' }"
+                >
+                  <p class="nav__item__title">面試提醒通知</p>
+                </li>
+              </ul>
             </div>
-            <p class="mb-3">
-              免去在各個聊天室和求職者聯繫，網站統一管理，讓資訊傳達更加迅速透明！
-              綁定信箱取得更多功能！包括建立企業形象，搜尋更多求職者資訊。
-            </p>
-            <div class="row">
-              <div class="col-6">
-                <div>
-                  <img class="w-100 rounded mb-2" src="https://i.imgur.com/w4Eeknw.jpeg" alt="" />
-                  <p>綁定其他屬於企業招募的信箱，統合整理信箱來信，快速與求職者對談。</p>
-                </div>
-              </div>
-              <div class="col-6">
-                <div>
-                  <img class="w-100 rounded mb-2" src="https://i.imgur.com/Rp7XWr6.jpeg" alt="" />
-                  <p>綁定其他屬於企業招募的信箱，統一管理求職者拍照申請職位。</p>
-                </div>
-              </div>
+            <div class="accordion-item">
+              <p
+                class="sideCollapse__list__title sideCollapse__list__title--company"
+                :class="{ active: sideBoxList === '信箱通知' }"
+                @click="selectCollapseList('信箱通知')"
+              >
+                信箱通知
+                <i v-if="sideBoxList !== '信箱通知'" class="jobIcon bi bi-chevron-down"></i>
+                <i v-if="sideBoxList === '信箱通知'" class="jobIcon bi bi-chevron-up"></i>
+              </p>
+              <ul
+                class="sideCollapse__innerList pb-5 bg-gray-light"
+                v-if="sideBoxList === '信箱通知'"
+              >
+                <li
+                  class="nav__item"
+                  @click="selectListItem('信箱通知 - 應徵通知')"
+                  :class="{ active: sideBoxInnerList === '信箱通知 - 應徵通知' }"
+                >
+                  <p class="nav__item__title">應徵通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('信箱通知 - 聊天室通知')"
+                  :class="{ active: sideBoxInnerList === '信箱通知 - 聊天室通知' }"
+                >
+                  <p class="nav__item__title">聊天室通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('信箱通知 - 推薦通知')"
+                  :class="{ active: sideBoxInnerList === '信箱通知 - 推薦通知' }"
+                >
+                  <p class="nav__item__title">推薦通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('信箱通知 - 職位通知')"
+                  :class="{ active: sideBoxInnerList === '信箱通知 - 職位通知' }"
+                >
+                  <p class="nav__item__title">職位通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('信箱通知 - 面試提醒通知')"
+                  :class="{ active: sideBoxInnerList === '信箱通知 - 面試提醒通知' }"
+                >
+                  <p class="nav__item__title">面試提醒通知</p>
+                </li>
+              </ul>
+            </div>
+            <div class="accordion-item">
+              <p
+                class="sideCollapse__list__title sideCollapse__list__title--company"
+                :class="{ active: sideBoxList === '手機APP通知' }"
+                @click="selectCollapseList('手機APP通知')"
+              >
+                手機APP通知
+                <i v-if="sideBoxList !== '手機APP通知'" class="jobIcon bi bi-chevron-down"></i>
+                <i v-if="sideBoxList === '手機APP通知'" class="jobIcon bi bi-chevron-up"></i>
+              </p>
+              <ul
+                class="sideCollapse__innerList pb-5 bg-gray-light rounded-bottom"
+                v-if="sideBoxList === '手機APP通知'"
+              >
+                <li
+                  class="nav__item"
+                  @click="selectListItem('手機APP通知 - 應徵通知')"
+                  :class="{ active: sideBoxInnerList === '手機APP通知 - 應徵通知' }"
+                >
+                  <p class="nav__item__title">應徵通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('手機APP通知 - 聊天室通知')"
+                  :class="{ active: sideBoxInnerList === '手機APP通知 - 聊天室通知' }"
+                >
+                  <p class="nav__item__title">聊天室通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('手機APP通知 - 推薦通知')"
+                  :class="{ active: sideBoxInnerList === '手機APP通知 - 推薦通知' }"
+                >
+                  <p class="nav__item__title">推薦通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('手機APP通知 - 職位通知')"
+                  :class="{ active: sideBoxInnerList === '手機APP通知 - 職位通知' }"
+                >
+                  <p class="nav__item__title">職位通知</p>
+                </li>
+                <li
+                  class="nav__item"
+                  @click="selectListItem('手機APP通知 - 面試提醒通知')"
+                  :class="{ active: sideBoxInnerList === '手機APP通知 - 面試提醒通知' }"
+                >
+                  <p class="nav__item__title">面試提醒通知</p>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="px-3 mb-3 py-2 bg-light rounded">
-            <p class="text-secondary fw-normal text-nowrap">
-              目前共 {{ otherEmailList.length }} 個信箱
-            </p>
-          </div>
-          <ul class="adminList--single">
-            <template v-for="item in otherEmailList" :key="item.key">
-              <li class="list__item flex-md-row flex-column box--shadow p-3 mb-3">
-                <div class="w-50">
-                  <p class="itemTitle text-dark d-flex align-items-center mb-1">
-                    {{ item.email }}
-                    <span class="jobTag ms-2">{{ item.is_enabled ? '驗證成功' : '尚未驗證' }}</span>
-                  </p>
-                  <p class="subTxt text-secondary">登陸時間：2021-12-20 12:30</p>
-                </div>
-                <div class="d-flex">
-                  <button
-                    type="button"
-                    class="btn btn-gray-light text-dark"
-                    @click="editUserData(item.key)"
+        </div>
+        <div class="col-lg-9 col-12" v-if="dataReady === true">
+          <ul v-if="sideBoxList === 'sendCV Web通知'">
+            <li ref="sendCV Web通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
+              <div class="border-bottom border-gray-line ps-4">
+                <h3 class="section__title--sub pt-5 pb-2">
+                  <span class="titleTag--doubleCircle--company me-2"></span>sendCV Web通知
+                </h3>
+              </div>
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">應徵相關通知</p>
+                  <p class="text-companyColor me-4">建議開啟</p>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">使用網站申請</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.applys.useWeb = !notify.web.applys.useWeb"
                   >
-                    編輯
-                  </button>
-                </div>
-              </li>
-            </template>
+                    {{ notify.web.applys.useWeb ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.applys.useWeb }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="mb-1 text-dark">使用拍照申請</p>
+                    <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.applys.useShotToApply = !notify.web.applys.useShotToApply"
+                  >
+                    {{ notify.web.applys.useShotToApply ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.applys.useShotToApply }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="mb-1 text-dark">寫郵件SendCV</p>
+                    <p class="mb-1 subTxt">
+                      當有求職者透過 寫郵件SendCV 寄送履歷自我推薦，會通知您！
+                    </p>
+                    <p class="subTxt text-companyColor">＊建議開啟通知不會錯過潛在優質人才。</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.applys.useEmailToApply = !notify.web.applys.useEmailToApply"
+                  >
+                    {{ notify.web.applys.useEmailToApply ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.applys.useEmailToApply }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意面試通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.applys.agreeInterView = !notify.web.applys.agreeInterView"
+                  >
+                    {{ notify.web.applys.agreeInterView ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.applys.agreeInterView }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意錄取通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.applys.agreeAdmission = !notify.web.applys.agreeAdmission"
+                  >
+                    {{ notify.web.applys.agreeAdmission ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.applys.agreeAdmission }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意錄取通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.applys.refuse = !notify.web.applys.refuse"
+                  >
+                    {{ notify.web.applys.refuse ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.applys.refuse }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="sendCV Web通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <p class="text-dark">聊天室通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.chatRoom.is_enabled = !notify.web.chatRoom.is_enabled"
+                  >
+                    {{ notify.web.chatRoom.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.chatRoom.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="sendCV Web通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <div>
+                    <p class="mb-1 text-dark">推薦通知</p>
+                    <p class="subTxt">
+                      為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
+                    </p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.recommend.is_enabled = !notify.web.recommend.is_enabled"
+                  >
+                    {{ notify.web.recommend.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.recommend.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="sendCV Web通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <div>
+                    <p class="mb-1 text-dark">面試提醒通知</p>
+                    <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.web.interView.is_enabled = !notify.web.interView.is_enabled"
+                  >
+                    {{ notify.web.interView.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.web.interView.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul v-if="sideBoxList === '信箱通知'">
+            <li ref="信箱通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
+              <div class="border-bottom border-gray-line ps-4">
+                <h3 class="section__title--sub pt-5 pb-2">
+                  <span class="titleTag--doubleCircle--company me-2"></span>信箱通知
+                </h3>
+              </div>
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">應徵相關通知</p>
+                  <p class="text-companyColor me-4">建議開啟</p>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">使用網站申請</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.applys.useWeb = !notify.email.applys.useWeb"
+                  >
+                    {{ notify.email.applys.useWeb ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.applys.useWeb }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="mb-1 text-dark">使用拍照申請</p>
+                    <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="
+                      notify.email.applys.useShotToApply = !notify.email.applys.useShotToApply
+                    "
+                  >
+                    {{ notify.email.applys.useShotToApply ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.applys.useShotToApply }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="mb-1 text-dark">寫郵件SendCV</p>
+                    <p class="mb-1 subTxt">
+                      當有求職者透過 寫郵件SendCV 寄送履歷自我推薦，會通知您！
+                    </p>
+                    <p class="subTxt text-companyColor">＊建議開啟通知不會錯過潛在優質人才。</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="
+                      notify.email.applys.useEmailToApply = !notify.email.applys.useEmailToApply
+                    "
+                  >
+                    {{ notify.email.applys.useEmailToApply ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.applys.useEmailToApply }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意面試通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="
+                      notify.email.applys.agreeInterView = !notify.email.applys.agreeInterView
+                    "
+                  >
+                    {{ notify.email.applys.agreeInterView ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.applys.agreeInterView }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意錄取通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="
+                      notify.email.applys.agreeAdmission = !notify.email.applys.agreeAdmission
+                    "
+                  >
+                    {{ notify.email.applys.agreeAdmission ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.applys.agreeAdmission }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意錄取通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.applys.refuse = !notify.email.applys.refuse"
+                  >
+                    {{ notify.email.applys.refuse ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.applys.refuse }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="信箱通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <p class="text-dark">聊天室通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.chatRoom.is_enabled = !notify.email.chatRoom.is_enabled"
+                  >
+                    {{ notify.email.chatRoom.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.chatRoom.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="信箱通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <div>
+                    <p class="mb-1 text-dark">推薦通知</p>
+                    <p class="subTxt">
+                      為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
+                    </p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.recommend.is_enabled = !notify.email.recommend.is_enabled"
+                  >
+                    {{ notify.email.recommend.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.recommend.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="信箱通知 - 職位通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">職位相關通知</p>
+                  <p class="text-companyColor me-4">建議開啟</p>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">職位成功發布</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.jobs.success = !notify.email.jobs.success"
+                  >
+                    {{ notify.email.jobs.success ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.jobs.success }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="mb-1 text-dark">職位關閉</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.jobs.closed = !notify.email.jobs.closed"
+                  >
+                    {{ notify.email.jobs.closed ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.jobs.closed }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="mb-1 text-dark">職位重啟</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.jobs.restart = !notify.email.jobs.restart"
+                  >
+                    {{ notify.email.jobs.restart ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.jobs.restart }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="text-dark mb-1">同意面試通知</p>
+                    <p class="subTxt">
+                      為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
+                    </p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.jobs.promote = !notify.email.jobs.promote"
+                  >
+                    {{ notify.email.jobs.promote ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.jobs.promote }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="信箱通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <div>
+                    <p class="mb-1 text-dark">面試提醒通知</p>
+                    <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.email.interView.is_enabled = !notify.email.interView.is_enabled"
+                  >
+                    {{ notify.email.interView.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.email.interView.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul v-if="sideBoxList === '手機APP通知'">
+            <li ref="手機APP通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
+              <div class="border-bottom border-gray-line ps-4">
+                <h3 class="section__title--sub pt-5 pb-2">
+                  <span class="titleTag--doubleCircle--company me-2"></span>手機APP通知
+                </h3>
+              </div>
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">應徵相關通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.applys.is_enabled = !notify.app.applys.is_enabled"
+                  >
+                    {{ notify.app.applys.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.applys.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">使用網站申請</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.applys.useWeb = !notify.app.applys.useWeb"
+                  >
+                    {{ notify.app.applys.useWeb ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.applys.useWeb }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="mb-1 text-dark">使用拍照申請</p>
+                    <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.applys.useShotToApply = !notify.app.applys.useShotToApply"
+                  >
+                    {{ notify.app.applys.useShotToApply ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.applys.useShotToApply }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="mb-1 text-dark">寫郵件SendCV</p>
+                    <p class="mb-1 subTxt">
+                      當有求職者透過 寫郵件SendCV 寄送履歷自我推薦，會通知您！
+                    </p>
+                    <p class="subTxt text-companyColor">＊建議開啟通知不會錯過潛在優質人才。</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.applys.useEmailToApply = !notify.app.applys.useEmailToApply"
+                  >
+                    {{ notify.app.applys.useEmailToApply ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.applys.useEmailToApply }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意面試通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.applys.agreeInterView = !notify.app.applys.agreeInterView"
+                  >
+                    {{ notify.app.applys.agreeInterView ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.applys.agreeInterView }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意錄取通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.applys.agreeAdmission = !notify.app.applys.agreeAdmission"
+                  >
+                    {{ notify.app.applys.agreeAdmission ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.applys.agreeAdmission }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">同意錄取通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.applys.refuse = !notify.app.applys.refuse"
+                  >
+                    {{ notify.app.applys.refuse ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.applys.refuse }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="手機APP通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <p class="text-dark">聊天室通知</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.chatRoom.is_enabled = !notify.app.chatRoom.is_enabled"
+                  >
+                    {{ notify.app.chatRoom.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.chatRoom.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="手機APP通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <div>
+                    <p class="mb-1 text-dark">推薦通知</p>
+                    <p class="subTxt">
+                      為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
+                    </p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.recommend.is_enabled = !notify.app.recommend.is_enabled"
+                  >
+                    {{ notify.app.recommend.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.recommend.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="手機APP通知 - 職位通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">職位相關通知</p>
+                  <p class="text-companyColor me-4">建議開啟</p>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="text-dark">職位成功發布</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.jobs.success = !notify.app.jobs.success"
+                  >
+                    {{ notify.app.jobs.success ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.jobs.success }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="mb-1 text-dark">職位關閉</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.jobs.closed = !notify.app.jobs.closed"
+                  >
+                    {{ notify.app.jobs.closed ? `開啟` : `已關閉` }}
+                    <div class="ms-2 switch__container" :class="{ active: notify.app.jobs.closed }">
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <p class="mb-1 text-dark">職位重啟</p>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.jobs.restart = !notify.app.jobs.restart"
+                  >
+                    {{ notify.app.jobs.restart ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.jobs.restart }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="listBox__item px-4 py-3">
+                  <div>
+                    <p class="text-dark mb-1">同意面試通知</p>
+                    <p class="subTxt">
+                      為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
+                    </p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.jobs.promote = !notify.app.jobs.promote"
+                  >
+                    {{ notify.app.jobs.promote ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.jobs.promote }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li ref="手機APP通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
+              <ul class="listBox listBox--hover">
+                <li class="listBox__item px-4 py-3 border-0">
+                  <div>
+                    <p class="mb-1 text-dark">面試提醒通知</p>
+                    <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
+                  </div>
+                  <div
+                    class="btn btn--switch btn--switch--company putPointer"
+                    @click="notify.app.interView.is_enabled = !notify.app.interView.is_enabled"
+                  >
+                    {{ notify.app.interView.is_enabled ? `開啟` : `已關閉` }}
+                    <div
+                      class="ms-2 switch__container"
+                      :class="{ active: notify.app.interView.is_enabled }"
+                    >
+                      <div class="switch__controller"></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
     </div>
   </div>
-  <SettingUserModal @new-email-data="newEmailToList" @return-user-data="getUserDataFormModal" />
-  <SettingAccountModal :userData="tempUser" @return-user-data="getAccountDataFormModal" />
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
-import SettingAccountModal from '@/components/company/SettingAccountModal.vue';
-import SettingUserModal from '@/components/company/SettingUserModal.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
     CompanyAdminNav,
-    SettingUserModal,
-    SettingAccountModal,
   },
   data() {
     return {
+      scrollTop: 0,
+      elementTop: 0,
       nowPage: '通知設定',
-      editMode: false,
-      otherEmailList: [],
+      sideBoxList: 'sendCV Web通知',
+      sideBoxInnerList: 'sendCV Web通知 - 應徵通知',
+      notify: {
+        web: {
+          applys: {
+            is_enabled: true,
+            useWeb: true,
+            useShotToApply: true,
+            useEmailToApply: true,
+            agreeInterView: true,
+            agreeAdmission: true,
+            refuse: true,
+          },
+          chatRoom: { is_enabled: true },
+          recommend: { is_enabled: true },
+          interView: { is_enabled: true },
+        },
+        email: {
+          applys: {
+            is_enabled: true,
+            useWeb: true,
+            useShotToApply: true,
+            useEmailToApply: true,
+            agreeInterView: true,
+            agreeAdmission: true,
+            refuse: true,
+          },
+          chatRoom: { is_enabled: true },
+          recommend: { is_enabled: true },
+          jobs: {
+            is_enabled: true,
+            success: true,
+            closed: true,
+            restart: true,
+            promote: true,
+          },
+          interView: { is_enabled: true },
+        },
+        app: {
+          applys: {
+            is_enabled: true,
+            useWeb: true,
+            useShotToApply: true,
+            useEmailToApply: true,
+            agreeInterView: true,
+            agreeAdmission: true,
+            refuse: true,
+          },
+          chatRoom: { is_enabled: true },
+          recommend: { is_enabled: true },
+          jobs: {
+            is_enabled: true,
+            success: true,
+            closed: true,
+            restart: true,
+            promote: true,
+          },
+          interView: { is_enabled: true },
+        },
+      },
+      meUser: {},
+      tempUser: {},
+      dataReady: false,
     };
   },
+  watch: {
+    notify: {
+      deep: true,
+      handler() {
+        this.saveData();
+      },
+    },
+  },
   methods: {
-    // 取得 modal 資料
-    getAccountDataFormModal(obj) {
-      this.tempUser = obj;
-      this.saveUserData();
+    selectCollapseList(action) {
+      this.sideBoxList = action;
+      if (action === 'sendCV Web通知') {
+        this.sideBoxInnerList = 'sendCV Web通知 - 應徵通知';
+      } else if (action === '信箱通知') {
+        this.sideBoxInnerList = '信箱通知 - 應徵通知';
+      } else if (action === '手機APP通知') {
+        this.sideBoxInnerList = '手機APP通知 - 應徵通知';
+      }
     },
-    backToUserList() {
-      this.tempUser = {};
-      this.editMode = false;
-    },
-    newEmailToList(item) {
-      const companyEmailListRef = database.ref('company/otherEmailList');
-      console.log(item);
-      const { key } = companyEmailListRef.push();
-      const obj = item;
-      obj.key = key;
-      console.log(obj);
-      companyEmailListRef.child(key).set(obj);
-    },
-    getUserDataFormModal(obj) {
-      this.tempUser = obj;
-      console.log(this.tempUser);
-      this.saveUserData();
-    },
-    // 保存用戶資料
-    saveUserData() {
-      console.log(this.tempUser);
-      const obj = {};
-      this.userList.forEach((item) => {
-        // 陣列轉回物件
-        obj[item.key] = item;
-      });
-      this.saveUserListData(obj);
+    selectListItem(action) {
+      this.sideBoxInnerList = action;
+      this.goAnchor(action);
     },
     // 保存全部用戶資料
-    saveUserListData(obj) {
-      const companyUserListRef = database.ref('company/userList');
-      companyUserListRef.set(obj);
-      this.getUserListData();
-    },
-    // 取得全部用戶資料
-    getEmailListData() {
-      this.otherEmailList = [];
-      const companyEmailListRef = database.ref('company/otherEmailList');
-      companyEmailListRef.once('value', (snapshot) => {
+    getUserListData() {
+      const { key } = this.tempUser;
+      const companyUserListRef = database.ref(`company/userList/${key}`);
+      companyUserListRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        Object.keys(data).forEach((item) => {
-          // 物件轉陣列
-          this.otherEmailList.push(data[item]);
-        });
+        this.meUser = data;
+        this.notify = this.meUser.notify;
+        this.dataReady = true;
       });
     },
-    // 打開 modal
-    openSettingUserModal(action) {
-      const obj = {};
-      if (action === '新增用戶') {
-        obj.action = action;
-      } else {
-        obj.action = action;
-        obj.data = this.tempUser;
-      }
-      emitter.emit('open-setting-company-user-modal', obj);
+    // 保存資料
+    saveData() {
+      const { key } = this.tempUser;
+      const companyUserListRef = database.ref(`company/userList/${key}`);
+      companyUserListRef.set(this.meUser);
+    },
+    // 取得資料
+    getMeUserData() {
+      const companyUserRef = database.ref('company/myAccount');
+      companyUserRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.tempUser = data;
+        this.getUserListData();
+      });
+    },
+    goAnchor(action) {
+      this.$refs[action].scrollIntoView();
     },
   },
   created() {
-    this.getEmailListData();
+    this.getMeUserData();
   },
 };
 </script>

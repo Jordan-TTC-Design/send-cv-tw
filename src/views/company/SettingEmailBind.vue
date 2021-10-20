@@ -2,7 +2,7 @@
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container">
-      <div class="row justify-content-center" v-if="!editMode">
+      <div class="row justify-content-center">
         <div class="col-lg-9 col-12">
           <div class="p-5 mb-5 rounded bg-light box--shadow">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -40,7 +40,7 @@
             </p>
           </div>
           <ul class="adminList--single">
-            <template v-for="item in otherEmailList" :key="item.key">
+            <template v-for="(item, index) in otherEmailList" :key="item.key">
               <li class="list__item flex-md-row flex-column box--shadow p-3 mb-3">
                 <div class="w-50">
                   <p class="itemTitle text-dark d-flex align-items-center mb-1">
@@ -53,9 +53,9 @@
                   <button
                     type="button"
                     class="btn btn-gray-light text-dark"
-                    @click="editUserData(item.key)"
+                    @click="deleteEmail(index)"
                   >
-                    編輯
+                    解除綁定
                   </button>
                 </div>
               </li>
@@ -65,14 +65,12 @@
       </div>
     </div>
   </div>
-  <SettingUserModal @new-email-data="newEmailToList" @return-user-data="getUserDataFormModal" />
-  <SettingAccountModal :userData="tempUser" @return-user-data="getAccountDataFormModal" />
+  <SettingUserModal @new-email-data="newEmailToList" />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
-import SettingAccountModal from '@/components/company/SettingAccountModal.vue';
 import SettingUserModal from '@/components/company/SettingUserModal.vue';
 import database from '@/methods/firebaseinit';
 
@@ -80,24 +78,17 @@ export default {
   components: {
     CompanyAdminNav,
     SettingUserModal,
-    SettingAccountModal,
   },
   data() {
     return {
       nowPage: '綁定信箱',
-      editMode: false,
       otherEmailList: [],
     };
   },
   methods: {
-    // 取得 modal 資料
-    getAccountDataFormModal(obj) {
-      this.tempUser = obj;
-      this.saveUserData();
-    },
-    backToUserList() {
-      this.tempUser = {};
-      this.editMode = false;
+    deleteEmail(index) {
+      this.otherEmailList.splice(index, 1);
+      this.saveEmailList();
     },
     newEmailToList(item) {
       const companyEmailListRef = database.ref('company/otherEmailList');
@@ -108,26 +99,15 @@ export default {
       console.log(obj);
       companyEmailListRef.child(key).set(obj);
     },
-    getUserDataFormModal(obj) {
-      this.tempUser = obj;
-      console.log(this.tempUser);
-      this.saveUserData();
-    },
-    // 保存用戶資料
-    saveUserData() {
-      console.log(this.tempUser);
+    saveEmailList() {
+      const companyEmailListRef = database.ref('company/otherEmailList');
       const obj = {};
-      this.userList.forEach((item) => {
+      this.otherEmailList.forEach((item) => {
         // 陣列轉回物件
         obj[item.key] = item;
       });
-      this.saveUserListData(obj);
-    },
-    // 保存全部用戶資料
-    saveUserListData(obj) {
-      const companyUserListRef = database.ref('company/userList');
-      companyUserListRef.set(obj);
-      this.getUserListData();
+      this.saveUserListData();
+      companyEmailListRef.set(obj);
     },
     // 取得全部用戶資料
     getEmailListData() {

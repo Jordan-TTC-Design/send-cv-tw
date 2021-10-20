@@ -955,6 +955,21 @@
     width: 0.75rem;
   }
 }
+.titleTag--doubleCircle--company {
+  background-color: $companyColor-light;
+  width: 1.25rem;
+  height: 0.75rem;
+  border-radius: 0.5rem;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: $companyColor;
+    border-radius: 50%;
+    height: 0.75rem;
+    width: 0.75rem;
+  }
+}
 .mapBox {
   width: 100%;
   &__map {
@@ -989,4 +1004,90 @@
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
+}
+.sideCollapse {
+  border-radius: 0.5rem;
+  @include shadow-normal;
+  .accordion-item:first-child {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  .accordion-item:last-child {
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+  &__list {
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      cursor: pointer;
+    }
+    &__title--company.active {
+      color: $companyColor;
+    }
+  }
+  &__innerList {
+    padding-bottom: 1rem;
+    .nav__item {
+      cursor: pointer;
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.75rem;
+      border-bottom: 1px solid $gray-line;
+      position: relative;
+      background-color: $light;
+      &:first-child {
+        border-top: 1px solid $gray-line;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: $companyColor;
+        border-radius: 0.25rem 0 0 0.25rem;
+        width: 0rem;
+        opacity: 0;
+        transition: all 0.3s;
+      }
+      &.active {
+        background-color: $companyColor-light;
+        transition: all 0.3s;
+        .nav__item__title {
+          color: $companyColor;
+        }
+        &::after {
+          width: 0.25rem;
+          opacity: 1;
+          transition: all 0.3s;
+        }
+      }
+    }
+  }
+}
+.listBox {
+  .listBox__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $gray-line;
+    &:first-child {
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+    &:last-child {
+      border-bottom: 0;
+      border-bottom-left-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
+  }
+  &.listBox--hover {
+    .listBox__item:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.8);
+    }
+  }
 }

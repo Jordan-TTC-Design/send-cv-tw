@@ -69,6 +69,31 @@
     }
   }
 }
+.admin-sideList.admin-sideList--company{
+  .sideList__item{
+    &:hover {
+      background-color: $gray-light;
+      .sideList__item__title {
+        color: $companyColor;
+      }
+      .sideList__item__subTxt {
+        color: $companyColor;
+      }
+    }
+    &::after {
+      background-color: $companyColor;
+    }
+    &.active {
+      background-color: $companyColor-light;
+      .sideList__item__title {
+        color: $companyColor;
+      }
+      .sideList__item__subTxt {
+        color: $companyColor;
+      }
+    }
+  }
+}
 .adminSelectBox {
   min-height: calc(80vh - 132px);
   background-color: #fff;
@@ -102,8 +127,7 @@
 .selectBox__section {
   position: relative;
   border-bottom: 1px solid $gray-line;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding: 1.5rem;
   &:first-child {
     padding-top: 0;
   }

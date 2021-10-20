@@ -81,7 +81,7 @@
       </li>
     </ul>
     <div v-if="boxSubNav === '申請資料'">
-      <ul>
+      <ul class="infoList">
         <li class="infoList__item">
           <div class="d-flex justify-content-between align-items-center">
             <div>
