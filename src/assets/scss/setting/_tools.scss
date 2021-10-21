@@ -935,7 +935,7 @@
     &:hover .jobIcon {
       color: $companyColor;
     }
-    &.disactive .jobIcon {
+    &.disActive .jobIcon {
       color: $gray-line;
     }
   }
@@ -1088,6 +1088,54 @@
   &.listBox--hover {
     .listBox__item:hover {
       background-color: rgba($color: $gray-light, $alpha: 0.8);
+    }
+  }
+}
+.jobDataList {
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    &__title,
+    &__txt,
+    &__listTxt {
+      color: $gray-dark;
+    }
+    &__txt.noContent,
+    &__listTxt.noContent {
+      color: $secondary;
+    }
+  }
+  &__item:hover {
+    .jobDataList__item__txt,
+    .jobDataList__item__title,
+    .jobDataList__item__listTxt {
+      color: $primary-dark;
+    }
+  }
+}
+.form__inputBox--question {
+  position: relative;
+  .iconBox {
+    background-color: $light;
+    border-radius: 50%;
+    padding: 0.25rem;
+    position: absolute;
+    top: 0.25rem;
+    right: -0.75rem;
+    z-index: 50;
+    &__innerBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2rem;
+      height: 2rem;
+      background-color: $gray-light;
+      border-radius: 50%;
+    }
+    .jobIcon {
+      font-size: 16px;
+      color: $dark;
     }
   }
 }

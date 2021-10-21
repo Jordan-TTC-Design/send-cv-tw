@@ -31,7 +31,9 @@
                 {{ item.jobName }}
               </p>
               <p class="sideList__item__subTxt">訂單時間：2021-12-12</p>
-              <p v-if="item.promotedData.promote" class="sideList__item__subTxt">推廣有效期限：20天</p>
+              <p v-if="item.promotedData.promote" class="sideList__item__subTxt">
+                推廣有效期限：20天
+              </p>
             </li>
           </ul>
         </div>
@@ -66,17 +68,11 @@
                         暫停刊登
                       </option>
                     </select>
-                    <p class="btn btn-gray-light me-2">
-                      <i class="bi bi-pencil-square"></i>
-                    </p>
-                    <button
-                      type="button"
-                      class="btn btn-gray-light"
-                      data-action="deleteItem"
-                      :data-id="selectItem.key"
-                      @click="openDeleteModal('刪除企業', selectItem.key, selectItem.jobName)"
-                    >
-                      <i class="bi bi-trash"></i>
+                    <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                      編輯
+                    </button>
+                    <button type="button" class="btn btn-outline-gray-line text-dark">
+                      預覽
                     </button>
                   </div>
                 </div>

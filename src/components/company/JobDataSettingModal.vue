@@ -7,7 +7,7 @@
     aria-labelledby="recommedModalLabel"
     tabindex="-1"
   >
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg" ref="collapse">
       <div class="modal-content">
         <div class="popModal__header popModal__header--center">
           <h5 class="popModal__title">{{ mainAction }}</h5>
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import Collapse from 'bootstrap/js/dist/collapse';
 import Modal from 'bootstrap/js/dist/modal';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
@@ -136,6 +137,7 @@ export default {
   emits: ['return-job-data-setting'],
   data() {
     return {
+      collapse: {},
       modal: {},
       modalAction: '',
       mainAction: '',
@@ -201,12 +203,11 @@ export default {
   mounted() {
     this.modal = new Modal(this.$refs.recommedModal);
     emitter.on('open-job-data-setting-modal', this.openModal);
-    emitter.on('close-job-data-setting-modal', this.closeModal);
   },
   unmounted() {
+    this.collapse = new Collapse(this.$refs.collapse);
     this.modal.dispose();
     emitter.off('open-job-data-setting-modal', this.openModal);
-    emitter.off('close-job-data-setting-modal', this.closeModal);
   },
 };
 </script>

@@ -198,6 +198,11 @@ const routes = [
         component: () => import('../views/company/NewJobPage.vue'),
       },
       {
+        // 編輯職位
+        path: 'job/:key/:preview',
+        component: () => import('../views/company/EditJobPage.vue'),
+      },
+      {
         // 已關閉職位
         path: 'cost-job-list',
         component: () => import('../views/company/CloseJobList.vue'),
