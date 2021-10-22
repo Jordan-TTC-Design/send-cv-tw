@@ -508,6 +508,7 @@ export default {
         introVideo: true,
         coverLettertitle: '',
         coverLetterContent: '',
+        is_enabled: true,
       },
       formStep: 1,
       chooseCityDist: [],
@@ -638,11 +639,9 @@ export default {
     saveApplyData() {
       const otherApplyRef = database.ref('applyList/otherApplyList/mailList');
       const { key } = otherApplyRef.push();
-      console.log(key);
-      otherApplyRef.child(key).set({
-        data: this.form,
-        key,
-      });
+      const obj = this.form;
+      obj.key = key;
+      otherApplyRef.child(key).set(obj);
     },
   },
   created() {

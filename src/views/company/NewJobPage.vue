@@ -690,7 +690,7 @@
                       type="text"
                       class="form-control d-none"
                       :class="{ 'is-invalid': errors['學歷要求'] }"
-                      v-model="jobForm.conditions.jobFormEducationCheck"
+                      v-model="jobForm.conditions.education"
                       rules="required"
                     ></Field>
                     <ErrorMessage name="學歷要求" class="invalid-feedback"></ErrorMessage>
@@ -1337,6 +1337,7 @@ export default {
       jobForm: {
         id: null,
         jobName: '',
+        is_enabled: true,
         jobCategory: [],
         jobImgUrl: { url: '', key: '' },
         peopleNeed: null,
@@ -1490,7 +1491,8 @@ export default {
     costCompanyJobPromoteTokens() {
       if (this.jobForm.promotedData.promote) {
         this.company.payService.jobPromoteTokens -= this.jobForm.promotedData.usedToken;
-        this.saveCompanyData();
+        const companyRef = database.ref('company/payService');
+        companyRef.set(this.company.payService);
       }
     },
     // New a preInterview question to job form.
@@ -1563,52 +1565,23 @@ export default {
     },
     // Get img data form Cropper modal.
     getImg(data) {
-      this.tempImgurl = data;
-      this.updateImg();
-    },
-    // updated img url to imgur api.
-    updateImg() {
-      emitter.emit('spinner-open');
-      const item = this.tempImgurl;
-      const base64String = item.replace('data:image/jpeg;base64,', '');
-      console.log(item);
-      this.$http({
-        method: 'POST',
-        url: 'https://api.imgur.com/3/image',
-        data: {
-          image: base64String,
-          type: 'base64',
-        },
-        headers: {
-          Authorization: 'Client-ID ef6e862acf052df',
-        },
-      })
-        .then((res) => {
-          this.jobForm.jobImgUrl.url = res.data.data.link;
-          emitter.emit('spinner-close');
-        })
-        .catch((err) => {
-          console.log(err);
-          emitter.emit('spinner-close');
-        });
+      console.log(data);
+      this.jobForm.jobImgUrl.url = data.url;
+      this.jobForm.jobImgUrl.key = data.key;
     },
     // New a job to company's job list.
     uploadJob() {
       if (this.jobForm.applyContact.name === '') {
-        this.putContactInfoToJOb();
+        this.putContactInfoToJob();
       }
+      this.jobForm.jobAddress.companyAddress = `${this.jobForm.jobAddress.addressCity}，${this.jobForm.jobAddress.addressDist}，${this.jobForm.jobAddress.addressDetail}`;
       this.costCompanyJobPromoteTokens();
       const jobListRef = database.ref('company/jobList');
       const { key } = jobListRef.push();
-      console.log(key);
       const obj = this.jobForm;
       obj.key = key;
       jobListRef.child(key).set(obj);
-    },
-    // Save all  company data to Firebase.
-    saveCompanyData() {
-      const companyRef = database.ref('company');
-      companyRef.set(this.company);
+      this.$router.push('job-list');
     },
     // put basic company info into job form.
     putCompanyDataToJob() {
@@ -1616,10 +1589,9 @@ export default {
       this.jobForm.companyInfo.companyLogoUrl = this.company.companyInfo.companyLogoUrl;
       this.jobForm.companyInfo.companyKey = '12345678';
       this.jobForm.companyInfo.companyIndustry = this.company.companyInfo.companyIndustry;
-      console.log(this.jobForm.companyInfo);
     },
     // put company main contact info to job form.
-    putContactInfoToJOb() {
+    putContactInfoToJob() {
       this.jobForm.applyContact.name = this.company.mainContact.name;
       this.jobForm.applyContact.jobTitle = this.company.mainContact.jobTitle;
       this.jobForm.applyContact.mail = this.company.mainContact.mail;

@@ -199,18 +199,28 @@ const routes = [
       },
       {
         // 編輯職位
-        path: 'job/:key/:preview',
+        path: 'preview-job/:key',
+        component: () => import('../views/company/PreviewJobPage.vue'),
+      },
+      {
+        // 編輯職位
+        path: 'edit-job/:key',
         component: () => import('../views/company/EditJobPage.vue'),
       },
       {
         // 已關閉職位
-        path: 'cost-job-list',
-        component: () => import('../views/company/CloseJobList.vue'),
+        path: 'shot-job-list',
+        component: () => import('../views/company/ShotJobList.vue'),
       },
       {
         // 應徵管理
         path: 'application-list',
         component: () => import('../views/company/ApplicationList.vue'),
+      },
+      {
+        // 其他申請
+        path: 'other-apply-list',
+        component: () => import('../views/company/OtherApplyList.vue'),
       },
       {
         // 帳號設定

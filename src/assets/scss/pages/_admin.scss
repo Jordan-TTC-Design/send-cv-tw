@@ -3,7 +3,7 @@
   position: sticky;
   top: 86px;
   max-height: calc(80vh - 60px);
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: $light;
   border-radius: 0.5rem;
   @include md {
@@ -16,12 +16,71 @@
   .list-group-item {
     border: 0;
   }
+  .sideList__top {
+    display: flex;
+    border-bottom: 1px solid $gray-line;
+    &__item {
+      padding: 0.75rem 0.75rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: $light;
+      &::after {
+        content: '';
+        width: 1px;
+        height: 1.5rem;
+        background-color: $gray-line;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        position: absolute;
+      }
+      &::before {
+        content: '';
+        width: 4rem;
+        height: 0.25rem;
+        border-radius: 0.25rem 0.25rem 0 0;
+        background-color: $companyColor;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+      }
+      &.active {
+        &::before {
+          display: block;
+        }
+        p {
+          color: $companyColor;
+        }
+      }
+      &:hover {
+        p {
+          color: $companyColor;
+        }
+      }
+    }
+    &__item:last-child {
+      &::after {
+        display: none;
+      }
+    }
+    &--50 {
+      width: 50%;
+    }
+  }
   .sideList__item {
     padding: 0.75rem;
     cursor: pointer;
     position: relative;
     border-bottom: 1px solid $gray-line;
     transition: all 0.3s;
+    &:last-child{
+      border-bottom: 0;
+    }
     &:hover {
       background-color: $gray-light;
       .sideList__item__title {
@@ -69,8 +128,8 @@
     }
   }
 }
-.admin-sideList.admin-sideList--company{
-  .sideList__item{
+.admin-sideList.admin-sideList--company {
+  .sideList__item {
     &:hover {
       background-color: $gray-light;
       .sideList__item__title {

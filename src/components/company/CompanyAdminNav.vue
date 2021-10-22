@@ -38,16 +38,16 @@
         <li
           class="admin__subNav__item"
           @click="goToPageLink('job-list')"
-          :class="{ active: nowPage === '刊登中職位' }"
+          :class="{ active: nowPage === '公司職位' }"
         >
-          <p class="admin__subNav__txt me-1">刊登中職位</p>
+          <p class="admin__subNav__txt me-1">公司職位</p>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('close-job-list')"
-          :class="{ active: nowPage === '已關閉職位' }"
+          @click="goToPageLink('shot-job-list')"
+          :class="{ active: nowPage === '拍照申請職位' }"
         >
-          <p class="admin__subNav__txt me-1">已關閉職位</p>
+          <p class="admin__subNav__txt me-1">拍照申請職位</p>
         </li>
         <li
           class="admin__subNav__item"
@@ -55,6 +55,13 @@
           :class="{ active: nowPage === '應徵管理' }"
         >
           <p class="admin__subNav__txt me-1">應徵管理</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('other-apply-list')"
+          :class="{ active: nowPage === '其他申請' }"
+        >
+          <p class="admin__subNav__txt me-1">其他申請</p>
         </li>
         <li class="d-flex align-items-center position-absolute end-0 h-100">
           <button type="btn" class="btn btn-companyColor text-light"
@@ -133,9 +140,10 @@ export default {
       ) {
         this.adminMainSection = '企業中心';
       } else if (
-        this.nowPage === '刊登中職位'
-        || this.nowPage === '已關閉職位'
+        this.nowPage === '公司職位'
+        || this.nowPage === '拍照申請職位'
         || this.nowPage === '應徵管理'
+        || this.nowPage === '其他申請'
       ) {
         this.adminMainSection = '職位管理';
       } else if (

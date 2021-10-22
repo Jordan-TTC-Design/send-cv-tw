@@ -201,11 +201,11 @@ export default {
     this.formData = webData;
   },
   mounted() {
+    this.collapse = new Collapse(this.$refs.collapse);
     this.modal = new Modal(this.$refs.recommedModal);
     emitter.on('open-job-data-setting-modal', this.openModal);
   },
   unmounted() {
-    this.collapse = new Collapse(this.$refs.collapse);
     this.modal.dispose();
     emitter.off('open-job-data-setting-modal', this.openModal);
   },

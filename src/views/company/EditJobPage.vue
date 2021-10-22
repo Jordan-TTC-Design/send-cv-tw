@@ -1,10 +1,17 @@
 <template>
-  <div class="adminPage--py jobPage">
-    <Form v-slot="{ errors }" @submit="uploadJob">
+  <div class="adminPage--py jobPage" v-if="dataReady">
+    <Form v-slot="{ errors }" @submit="saveJobData">
       <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
         <div class="container admin__subNav justify-content-between align-items-center">
           <div class="d-flex align-items-center">
-            <h2 class="admin__subNav__title me-0">建立職位</h2>
+            <button
+              type="button"
+              class="btn text-dark me-2"
+              @click="goToPageLink(`/company-admin/job-list`)"
+            >
+              <i class="jobIcon bi bi-chevron-left"></i>
+            </button>
+            <h2 class="admin__subNav__title me-0" v-once>{{ jobForm.jobName }}</h2>
             <p class="ms-2">- {{ pagePreview ? '預覽狀態' : '編輯狀態' }}</p>
           </div>
           <div>
@@ -16,14 +23,7 @@
             >
               <i class="jobIcon--sm bi bi-eye me-1"></i>{{ pagePreview ? '繼續編輯' : '預覽職位' }}
             </button>
-            <button
-              type="button"
-              class="btn btn-outline-gray-line text-dark me-2"
-              @click="$router.back(-1)"
-            >
-              返回
-            </button>
-            <button type="submit" class="btn btn-companyColor text-light">發布職位</button>
+            <button type="submit" class="btn btn-companyColor text-light">儲存職位</button>
           </div>
         </div>
       </div>
@@ -41,8 +41,8 @@
                   <div class="jobInfoBox__logoImgBox">
                     <img
                       class="logoImg"
-                      :src="company.companyInfo.companyLogoUrl"
-                      :alt="`${company.companyInfo.companyName}logo`"
+                      :src="jobForm.companyInfo.companyLogoUrl"
+                      :alt="`${jobForm.companyInfo.companyName}logo`"
                     />
                   </div>
                 </div>
@@ -369,30 +369,6 @@
                 </li>
               </ul>
             </div>
-            <!-- 應徵前提問 -->
-            <!-- <div class="jobContentSection box--shadow mb-lg-0 mb-4">
-              <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>應職前提問
-              </h3>
-              <ul v-for="(que, index) in jobForm.questions" :key="index">
-                <li class="inputGroup--item mb-2">
-                  <label
-                    :for="`companyQues-${index}`"
-                    class="form-label inputItem__title"
-                    :class="{ 'text-secondary': que.content === '' }"
-                    >{{ `第 ${index + 1} 題：${que.content || '尚未填寫該題題目'}` }}</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    :id="`companyQues-${index}`"
-                    placeholder="請輸入您的回答"
-                    :aria-describedby="`companyQues-${index}`"
-                    v-model="questions.answer"
-                  />
-                </li>
-              </ul>
-            </div> -->
           </div>
           <div class="col-lg-3 col-12">
             <div class="jobSubBox box--shadow mb-lg-3 p-3 d-lg-block d-none">
@@ -690,7 +666,7 @@
                       type="text"
                       class="form-control d-none"
                       :class="{ 'is-invalid': errors['學歷要求'] }"
-                      v-model="jobForm.conditions.jobFormEducationCheck"
+                      v-model="jobForm.conditions.education"
                       rules="required"
                     ></Field>
                     <ErrorMessage name="學歷要求" class="invalid-feedback"></ErrorMessage>
@@ -1333,10 +1309,13 @@ export default {
   },
   data() {
     return {
+      dataReady: false,
+      jobkey: '',
       company: {},
       jobForm: {
         id: null,
         jobName: '',
+        is_enabled: true,
         jobCategory: [],
         jobImgUrl: { url: '', key: '' },
         peopleNeed: null,
@@ -1470,6 +1449,9 @@ export default {
     },
   },
   methods: {
+    goToPageLink(routerLink) {
+      this.$router.push(routerLink);
+    },
     // promote token +1
     plusData(dataName) {
       if (dataName === 'jobPromoted') {
@@ -1490,7 +1472,8 @@ export default {
     costCompanyJobPromoteTokens() {
       if (this.jobForm.promotedData.promote) {
         this.company.payService.jobPromoteTokens -= this.jobForm.promotedData.usedToken;
-        this.saveCompanyData();
+        const companyRef = database.ref('company/payService');
+        companyRef.set(this.company.payService);
       }
     },
     // New a preInterview question to job form.
@@ -1545,6 +1528,17 @@ export default {
         this.jobForm.jobAddress.addressDetail = '';
       }
     },
+    checkJobDataExist() {
+      if (!this.jobForm.conditions.languages) {
+        this.jobForm.conditions.languages = [];
+      } else if (!this.jobForm.conditions.skills) {
+        this.jobForm.conditions.skills = [];
+      } else if (!this.jobForm.conditions.driverLicenses) {
+        this.jobForm.conditions.driverLicenses = [];
+      } else if (!this.jobForm.conditions.identity) {
+        this.jobForm.conditions.identity = [];
+      }
+    },
     // pick city data
     chooseDist(cityName) {
       this.chooseCityDist = [];
@@ -1563,52 +1557,20 @@ export default {
     },
     // Get img data form Cropper modal.
     getImg(data) {
-      this.tempImgurl = data;
-      this.updateImg();
+      console.log(data);
+      this.jobForm.jobImgUrl.url = data.url;
+      this.jobForm.jobImgUrl.key = data.key;
     },
-    // updated img url to imgur api.
-    updateImg() {
-      emitter.emit('spinner-open');
-      const item = this.tempImgurl;
-      const base64String = item.replace('data:image/jpeg;base64,', '');
-      console.log(item);
-      this.$http({
-        method: 'POST',
-        url: 'https://api.imgur.com/3/image',
-        data: {
-          image: base64String,
-          type: 'base64',
-        },
-        headers: {
-          Authorization: 'Client-ID ef6e862acf052df',
-        },
-      })
-        .then((res) => {
-          this.jobForm.jobImgUrl.url = res.data.data.link;
-          emitter.emit('spinner-close');
-        })
-        .catch((err) => {
-          console.log(err);
-          emitter.emit('spinner-close');
-        });
-    },
-    // New a job to company's job list.
-    uploadJob() {
+    // save job to company's job list.
+    saveJobData() {
       if (this.jobForm.applyContact.name === '') {
-        this.putContactInfoToJOb();
+        this.putContactInfoToJob();
       }
-      this.costCompanyJobPromoteTokens();
-      const jobListRef = database.ref('company/jobList');
-      const { key } = jobListRef.push();
-      console.log(key);
+      this.jobForm.jobAddress.companyAddress = `${this.jobForm.jobAddress.addressCity}，${this.jobForm.jobAddress.addressDist}，${this.jobForm.jobAddress.addressDetail}`;
+      const jobRef = database.ref(`company/jobList/${this.jobkey}`);
       const obj = this.jobForm;
-      obj.key = key;
-      jobListRef.child(key).set(obj);
-    },
-    // Save all  company data to Firebase.
-    saveCompanyData() {
-      const companyRef = database.ref('company');
-      companyRef.set(this.company);
+      jobRef.set(obj);
+      this.$router.push('/company-admin/job-list');
     },
     // put basic company info into job form.
     putCompanyDataToJob() {
@@ -1616,10 +1578,9 @@ export default {
       this.jobForm.companyInfo.companyLogoUrl = this.company.companyInfo.companyLogoUrl;
       this.jobForm.companyInfo.companyKey = '12345678';
       this.jobForm.companyInfo.companyIndustry = this.company.companyInfo.companyIndustry;
-      console.log(this.jobForm.companyInfo);
     },
     // put company main contact info to job form.
-    putContactInfoToJOb() {
+    putContactInfoToJob() {
       this.jobForm.applyContact.name = this.company.mainContact.name;
       this.jobForm.applyContact.jobTitle = this.company.mainContact.jobTitle;
       this.jobForm.applyContact.mail = this.company.mainContact.mail;
@@ -1632,13 +1593,27 @@ export default {
         const data = snapshot.val();
         if (data) {
           this.company = data;
-          this.putCompanyDataToJob();
+          console.log(this.company);
+          this.getJobData();
+        }
+      });
+    },
+    getJobData() {
+      const jobRef = database.ref(`company/jobList/${this.jobkey}`);
+      jobRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          this.jobForm = data;
+          console.log(this.jobForm);
+          this.checkJobDataExist();
+          this.dataReady = true;
         }
       });
     },
   },
   created() {
     this.getCompanyData();
+    this.jobkey = this.$route.params.key;
     this.formData = webData;
     this.chooseCityDist = this.formData.districts['台北市'].district;
     emitter.emit('spinner-open-bg', 500);

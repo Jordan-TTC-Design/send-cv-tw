@@ -163,17 +163,15 @@
       </div>
     </div>
   </div>
-  <UpTopBtn />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
-import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
-  components: { UpTopBtn, CompanyAdminNav },
+  components: { CompanyAdminNav },
   data() {
     return {
       nowPage: '總覽',

@@ -1,34 +1,28 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container position-relative companyPage" v-if="dataReady === true">
+    <div class="container position-relative companyPage">
       <div class="row">
         <div class="col-lg-3 col-12">
           <ul ref="adminSideList" class="admin-sideList list-group admin-sideList--company">
-            <li class="sideList__top">
-              <div
-                class="sideList__top__item sideList__top--50"
-                :class="{ active: sideListNav === '刊登中' }"
-                @click="this.sideListNav = '刊登中'"
-              >
-                <p>刊登中</p>
-              </div>
-              <div
-                class="sideList__top__item sideList__top--50"
-                :class="{ active: sideListNav === '已關閉' }"
-                @click="this.sideListNav = '已關閉'"
-              >
-                <p>已關閉</p>
-              </div>
-            </li>
-            <li class="list-group-item p-3 border-bottom border-gray-line">
-              <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
+            <li
+              class="
+                border-bottom border-gray-line
+                list-group-item
+                d-flex
+                justify-content-between
+                align-items-center
+                bg-white
+                p-3
+              "
+            >
+              <p class="subTxt">目前共 {{ openJobList.length }} 個職位</p>
             </li>
             <li
               :ref="`companyJobList-${item.key}`"
               :class="{ active: item.key === selectItem.key && fullWidth > 992 }"
               class="sideList__item list-group-item list-group-item-action"
-              v-for="item in nowJobList"
+              v-for="item in openJobList"
               :key="item.key"
               @click="selectJobFormJobList(item.key)"
             >
@@ -59,29 +53,23 @@
                 <div class="col-lg-3 col-12">
                   <img
                     class="jobImage w-100"
-                    :src="selectItem.jobImgUrl.url || 'https://i.imgur.com/I2erb3u.png'"
+                    :src="selectItem.jobImgUrl.url"
                     alt="職位圖片"
                   />
                 </div>
-                <div class="col-md-9 col-12 d-flex flex-column">
+                <div class="col-md-9 col-12">
                   <h4 class="pageSubTitle mb-1">{{ selectItem.jobName }}</h4>
-                  <p class="mb-1">更新時間：2021-12-1</p>
-                  <div class="adminSelectBox__btnList w-100 flex-grow-1 align-items-end">
+                  <p>更新時間：2021-12-1</p>
+                  <div class="adminSelectBox__btnList w-100">
                     <select
                       class="form-select w-auto me-2"
-                      @change="changeJobState(allJobList[selectItem.key].key)"
-                      v-model="allJobList[selectItem.key].is_enabled"
+                      @change="changeJobState(selectItem.key)"
+                      v-model="selectItem.is_enabled"
                     >
-                      <option
-                        :selected="allJobList[selectItem.key].is_enabled === true"
-                        :value="true"
-                      >
+                      <option :selected="selectItem.is_enabled === true" :value="true">
                         刊登中
                       </option>
-                      <option
-                        :selected="allJobList[selectItem.key].is_enabled === false"
-                        :value="false"
-                      >
+                      <option :selected="selectItem.is_enabled === false" :value="false">
                         暫停刊登
                       </option>
                     </select>
@@ -142,7 +130,10 @@
                     </div>
                   </div>
                 </li>
-                <li class="infoList__item">
+                <li
+                  class="infoList__item"
+                  :class="{ 'list--last': selectItem.questions.length === 0 }"
+                >
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">職位方案</p>
@@ -153,6 +144,7 @@
                         >
                           <i class="jobIcon-sm bi bi-star-fill me-1 text-dark"></i>付費推廣職位
                         </span>
+
                         期限至
                         <span class="text-companyColor text-decoration-underline mx-1"
                           >2021-12-12 12:30</span
@@ -210,29 +202,22 @@ export default {
   },
   data() {
     return {
-      sideListNav: '刊登中',
       fullWidth: 0,
       fullHeight: 0,
       scrollTop: 0,
-      nowPage: '公司職位',
+      date: new Date(),
+      nowPage: '其他申請',
       editMode: false,
-      formData: {},
       selectItem: {},
       companyJobList: [],
       company: {},
-      dataReady: false,
-      allJobList: {},
     };
   },
   computed: {
-    nowJobList() {
+    openJobList() {
       const temArray = [];
-      let nowState = true;
-      if (this.sideListNav === '已關閉') {
-        nowState = false;
-      }
       this.companyJobList.forEach((job) => {
-        if (job.is_enabled === nowState) {
+        if (job.is_enabled) {
           temArray.push(job);
         }
       });
@@ -240,31 +225,22 @@ export default {
     },
   },
   watch: {
-    nowJobList: {
-      deep: true,
-      handler(newValue) {
-        console.log(newValue);
-        if (newValue.length > 0) {
-          this.selectJobFormJobList(newValue[0].key);
-        } else {
-          this.selectItem = {};
-        }
-      },
+    date(newValue) {
+      const data = Math.ceil(newValue.valueOf() / 1000);
+      this.user.account.birthday = data;
+      console.log(data);
+      console.dir(this.$filters.date(data));
+      console.log(data);
     },
   },
   methods: {
     changeJobState(itemId) {
       // 要先建立詢問彈跳視窗
       this.saveJobData(itemId);
-      this.companyJobList.forEach((item, index) => {
-        if (item.key === this.allJobList[itemId].key) {
-          this.companyJobList[index].is_enabled = this.allJobList[itemId].is_enabled;
-        }
-      });
     },
     saveJobData(itemId) {
       const jobDataRef = database.ref(`company/jobList/${itemId}`);
-      jobDataRef.set(this.allJobList[itemId]);
+      jobDataRef.set(this.selectItem);
     },
     getJobListData() {
       this.companyJobList = [];
@@ -272,12 +248,11 @@ export default {
       jobListDataRef.once('value', (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          this.allJobList = JSON.parse(JSON.stringify(data)); // 深拷貝
           Object.keys(data).forEach((item) => {
             // 物件轉陣列
             this.companyJobList.push(data[item]);
           });
-          this.selectJobFormJobList(this.nowJobList[0].key);
+          this.selectJobFormJobList(this.openJobList[0].key);
         }
       });
     },
@@ -286,10 +261,15 @@ export default {
         if (item.key === itemId) {
           this.selectItem = {};
           this.selectItem = item;
+          console.log(this.selectItem);
+          // setTimeout(() => {
+          //   this.$refs.adminSelectBox.classList.add('checked');
+          //   this.$refs.adminSideList.classList.add('checked');
+          //   this.$refs.adminSubHeader.classList.add('checked');
+          // }, 400);
           document.documentElement.scrollTop = 0;
         }
       });
-      this.dataReady = true;
     },
   },
   created() {
