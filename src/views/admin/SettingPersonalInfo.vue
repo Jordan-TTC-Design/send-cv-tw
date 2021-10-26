@@ -252,6 +252,7 @@
                             type="radio"
                             :id="`gender--${index}`"
                             name="性別"
+                            :value="item"
                             v-model="user.account.gender"
                           />
                           <label class="form-check-label" :for="`gender--${index}`">

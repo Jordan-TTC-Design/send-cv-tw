@@ -572,7 +572,6 @@
                         class="form-control form-select w-auto"
                         :class="{ 'is-invalid': errors['區域鄉鎮'] }"
                         v-model="jobForm.jobAddress.addressDist"
-                        @change="show(jobForm.jobAddress.addressDist)"
                       >
                         <option value="" disabled selected>請選擇區域鄉鎮</option>
                         <option v-for="dist in chooseCityDist" :value="dist" :key="dist">

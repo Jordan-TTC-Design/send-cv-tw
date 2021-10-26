@@ -84,7 +84,7 @@
                     </select>
                     <router-link
                       class="btn btn-outline-gray-line text-dark me-2"
-                      :to="`edit-job/${selectItem.key}`"
+                      :to="`edit-shot-job/${selectItem.key}`"
                     >
                       編輯
                     </router-link>

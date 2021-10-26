@@ -51,7 +51,7 @@
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('application-list')"
+          @click="goToPageLink('work-apply-list')"
           :class="{ active: nowPage === '應徵管理' }"
         >
           <p class="admin__subNav__txt me-1">應徵管理</p>
@@ -59,9 +59,9 @@
         <li
           class="admin__subNav__item"
           @click="goToPageLink('other-apply-list')"
-          :class="{ active: nowPage === '其他申請' }"
+          :class="{ active: nowPage === '自我推薦' }"
         >
-          <p class="admin__subNav__txt me-1">其他申請</p>
+          <p class="admin__subNav__txt me-1">自我推薦</p>
         </li>
         <li class="d-flex align-items-center position-absolute end-0 h-100">
           <button type="btn" class="btn btn-companyColor text-light"
@@ -143,7 +143,7 @@ export default {
         this.nowPage === '公司職位'
         || this.nowPage === '拍照申請職位'
         || this.nowPage === '應徵管理'
-        || this.nowPage === '其他申請'
+        || this.nowPage === '自我推薦'
       ) {
         this.adminMainSection = '職位管理';
       } else if (

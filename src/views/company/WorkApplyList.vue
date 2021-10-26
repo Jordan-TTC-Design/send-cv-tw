@@ -3,6 +3,42 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
+        <div class="col-lg-4 col-12">
+          <ul ref="adminSideList" class="admin-sideList list-group admin-sideList--company">
+            <li class="sideList__top">
+              <div
+                class="sideList__top__item sideList__top--50"
+                :class="{ active: sideListNav === '公司職位' }"
+                @click="this.sideListNav = '公司職位'"
+              >
+                <p>公司職位</p>
+              </div>
+              <div
+                class="sideList__top__item sideList__top--50"
+                :class="{ active: sideListNav === '拍照申請職位' }"
+                @click="this.sideListNav = '拍照申請職位'"
+              >
+                <p>拍照申請職位</p>
+              </div>
+            </li>
+            <li class="list-group-item p-3 border-bottom border-gray-line">
+              <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
+            </li>
+            <li
+              :ref="`companyJobList-${item.key}`"
+              :class="{ active: item.key === selectItem.key && fullWidth > 992 }"
+              class="sideList__item list-group-item list-group-item-action"
+              v-for="item in nowJobList"
+              :key="item.key"
+              @click="selectJobFormJobList(item.key)"
+            >
+              <p class="sideList__item__title mb-1">
+                {{ item.jobName }}
+              </p>
+              <p class="sideList__item__subTxt">訂單時間：2021-12-12</p>
+            </li>
+          </ul>
+        </div>
         <div class="col-lg-8 col-12">
           <button
             type="button"
@@ -74,7 +110,12 @@
                     </div>
                     <div class="personCard__infoBox">
                       <div class="d-flex align-items-center mb-3">
-                        <p class="personCard__name mb-0 me-2">{{ user.account.chineseName }}</p>
+                        <p
+                          class="personCard__name mb-0 me-2 putPointer"
+                          @click="openPersonPopModal('瀏覽人才')"
+                        >
+                          {{ user.account.chineseName }}
+                        </p>
                         <p>{{ user.account.gender }} | {{ `28歲` }}</p>
                       </div>
                       <ul class="personCard__infoBox">
@@ -139,21 +180,25 @@
       </div>
     </div>
   </div>
+  <PersonPopModal />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import PersonPopModal from '@/components/company/PersonPopModal.vue';
 
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
     CompanyAdminNav,
+    PersonPopModal,
   },
   data() {
     return {
-      nowPage: '自我推薦',
+      sideListNav: '公司職位',
+      nowPage: '應徵管理',
       subNav: '新申請',
       dataReady: false,
       fullWidth: 0,
@@ -162,10 +207,69 @@ export default {
       selectItem: {},
       companyJobList: [],
       mailApplyList: [],
+      shotJobList: [],
       user: {},
     };
   },
+  computed: {
+    nowJobList() {
+      const temArray = [];
+      if (this.sideListNav === '公司職位') {
+        this.companyJobList.forEach((job) => {
+          if (job.is_enabled === true) {
+            temArray.push(job);
+          }
+        });
+      } else if (this.sideListNav === '拍照申請職位') {
+        this.shotJobList.forEach((job) => {
+          if (job.is_enabled === true) {
+            temArray.push(job);
+          }
+        });
+      }
+      return temArray;
+    },
+  },
+  watch: {
+    nowJobList: {
+      deep: true,
+      handler(newValue) {
+        console.log(newValue);
+        if (newValue.length > 0) {
+          this.selectJobFormJobList(newValue[0].key);
+        } else {
+          this.selectItem = {};
+        }
+      },
+    },
+  },
   methods: {
+    openPersonPopModal(action) {
+      const obj = {
+        action,
+        user: this.user,
+      };
+      emitter.emit('open-person-pop-modal', obj);
+    },
+    selectJobFormJobList(itemId) {
+      if (this.sideListNav === '公司職位') {
+        this.companyJobList.forEach((item) => {
+          if (item.key === itemId) {
+            this.selectItem = {};
+            this.selectItem = item;
+            document.documentElement.scrollTop = 0;
+          }
+        });
+      } else if (this.sideListNav === '拍照申請職位') {
+        this.shotJobList.forEach((item) => {
+          if (item.key === itemId) {
+            this.selectItem = {};
+            this.selectItem = item;
+            document.documentElement.scrollTop = 0;
+          }
+        });
+      }
+    },
     getJobListData() {
       this.companyJobList = [];
       const jobListDataRef = database.ref('company/jobList');
@@ -176,7 +280,7 @@ export default {
             // 物件轉陣列
             this.companyJobList.push(data[item]);
           });
-          this.selectJobFormJobList(this.openJobList[0].key);
+          this.selectJobFormJobList(this.nowJobList[0].key);
         }
       });
     },
@@ -188,10 +292,24 @@ export default {
         this.getSelfRecommendList();
       });
     },
+    getShotJobList() {
+      this.shotJobList = [];
+      const shotJobListRef = database.ref('applyList/otherApplyList/shotList');
+      shotJobListRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          Object.keys(data).forEach((item) => {
+            // 物件轉陣列
+            this.shotJobList.push(data[item]);
+          });
+          this.dataReady = true;
+        }
+      });
+    },
     getSelfRecommendList() {
       this.mailApplyList = [];
-      const maiListDataRef = database.ref('applyList/otherApplyList/mailList');
-      maiListDataRef.once('value', (snapshot) => {
+      const mailListDataRef = database.ref('applyList/otherApplyList/mailList');
+      mailListDataRef.once('value', (snapshot) => {
         const data = snapshot.val();
         if (data) {
           Object.keys(data).forEach((item) => {
@@ -205,6 +323,7 @@ export default {
   },
   created() {
     this.getJobListData();
+    this.getShotJobList();
     this.getUserData();
     emitter.emit('spinner-open-bg', 800);
   },

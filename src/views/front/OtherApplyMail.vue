@@ -89,7 +89,7 @@
                       :class="{ 'is-invalid': errors['公司名稱'] }"
                       placeholder="請輸入公司名稱"
                       rules="required"
-                      v-model="form.companyName"
+                      v-model="form.companyInfo.companyName"
                       ref="sendFormInfoCompanyName"
                     ></Field>
                     <ErrorMessage name="公司名稱" class="invalid-feedback"></ErrorMessage>
@@ -112,7 +112,7 @@
                       :class="{ 'is-invalid': errors['公司Email'] }"
                       placeholder="請輸入公司Email"
                       rules="required"
-                      v-model="form.companyEmail"
+                      v-model="form.companyInfo.companyEmail"
                       ref="sendFormInfoCompanyEmail"
                     ></Field>
                     <ErrorMessage name="公司Email" class="invalid-feedback"></ErrorMessage>
@@ -204,8 +204,8 @@
                         class="form-control form-select w-auto mb-2"
                         :class="{ 'is-invalid': errors['縣市'] }"
                         rules="required"
-                        v-model="form.addressCity"
-                        @change="choose(form.addressCity)"
+                        v-model="form.jobAddress.addressCity"
+                        @change="chooseDist(form.jobAddress.addressCity)"
                       >
                         <option value="" disabled selected>請選擇縣市</option>
                         <option v-for="city in formData.cities" :value="city" :key="city">
@@ -229,7 +229,7 @@
                         class="form-control form-select w-auto mb-2"
                         :class="{ 'is-invalid': errors['區域鄉鎮'] }"
                         rules="required"
-                        v-model="form.addressDist"
+                        v-model="form.jobAddress.addressDist"
                       >
                         <option value="" disabled selected>請選擇區域鄉鎮</option>
                         <option v-for="dist in chooseCityDist" :value="dist" :key="dist">
@@ -254,7 +254,7 @@
                       :class="{ 'is-invalid': errors['公司詳細地址'] }"
                       placeholder="請輸入公司詳細地址"
                       rules="required"
-                      v-model="form.addressDatail"
+                      v-model="form.jobAddress.addressDetail"
                       ref="sendFormInfoCompanyDatail"
                     ></Field>
                     <ErrorMessage name="公司詳細地址" class="invalid-feedback"></ErrorMessage>
@@ -309,7 +309,7 @@
                                 class="form-check-input mt-0"
                                 type="radio"
                                 :value="item.cvKey"
-                                v-model="form.cvSelect"
+                                v-model="form.document.cvKey"
                               />
                             </div>
                           </div>
@@ -324,7 +324,7 @@
                       type="select"
                       class="form-control d-none"
                       :class="{ 'is-invalid': errors['履歷'] }"
-                      v-model="form.cvSelect"
+                      v-model="form.document.cvKey"
                       rules="required"
                     ></Field>
                     <ErrorMessage name="履歷" class="invalid-feedback"></ErrorMessage>
@@ -341,7 +341,7 @@
                           type="checkbox"
                           value="顯示"
                           id="applyJobIntroVideo"
-                          v-model="form.introVideo"
+                          v-model="form.document.introVideo.is_enabled"
                         />
                         <label class="form-check-label text-nowrap" for="applyJobIntroVideo">
                           顯示
@@ -410,7 +410,7 @@
                         :editor="editor"
                         tag-name="textarea"
                         class="form-control textarea--tag__inputBox"
-                        v-model="form.coverLetterContent"
+                        v-model="form.document.coverLetter.title"
                         :config="editorConfig"
                       ></ckeditor>
                     </div>
@@ -496,23 +496,33 @@ export default {
     return {
       // 表單
       form: {
-        companyName: '',
-        addressDist: '',
-        addressCity: '',
-        addressDatail: '',
         jobKey: '',
         jobName: '',
         jobContent: '',
         time: null,
-        cvSelect: '',
-        introVideo: true,
-        coverLettertitle: '',
-        coverLetterContent: '',
         is_enabled: true,
+        jobAddress: {
+          addressCity: '',
+          addressDist: '',
+          addressDetail: '',
+          companyAddress: '',
+        },
+        companyInfo: {
+          companyName: '',
+          companyKey: '',
+          companyEmail: '',
+        },
+        document: {
+          cvkey: '',
+          introVideo: { is_enabled: true, key: '' },
+          coverLetter: {
+            title: '',
+            content: '',
+          },
+        },
       },
-      formStep: 1,
       chooseCityDist: [],
-      cvList: [],
+      formStep: 1,
       docData: {},
       // 表單資料
       formData: {},
@@ -564,29 +574,11 @@ export default {
       }
       document.documentElement.scrollTop = 0;
     },
-    choose(cityName) {
+    chooseDist(cityName) {
       this.chooseCityDist = [];
       this.chooseCityDist = this.formData.districts[cityName].district;
       const [temDist] = this.chooseCityDist;
-      this.form.addressDist = temDist;
-    },
-    sendApply() {
-      this.form.time = `${Math.floor(Date.now() / 1000)}`;
-      console.log(this.form);
-      if (this.coverLetterSaveOld.replace) {
-        const number = this.coverLetterSaveOld.key;
-        console.log(this.docData.coverLetterList);
-        this.docData.coverLetterList.forEach((item, index) => {
-          if (item.time === number) {
-            this.docData.coverLetterList[index].content = this.form.coverLetterContent;
-          }
-        });
-        console.log(this.docData.coverLetterList);
-      } else if (this.coverLetterSaveNew) {
-        // this.newcoverLetterModalOpen();
-      }
-      this.saveApplyData();
-      this.formStep = 4;
+      this.form.jobAddress.addressDist = temDist;
     },
     changeCoverLetter(action) {
       if (action === 'old') {
@@ -609,34 +601,46 @@ export default {
       this.docData.coverLetterList.forEach((item, number) => {
         if (number === index) {
           this.docData.coverLetterList[number].select = !item.select;
-          this.form.coverLetterContent = '';
-          this.form.coverLetterContent = item.content;
+          this.form.document.coverLetter.content = '';
+          this.form.document.coverLetter.content = item.content;
         } else {
           this.docData.coverLetterList[number].select = false;
         }
       });
     },
-    getCvData() {
+    getDocumentData() {
+      const docDataRef = database.ref('user/docData');
+      docDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.docData = JSON.parse(JSON.stringify(data));
+      });
       const cvRef = database.ref('cvList');
       cvRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        this.cvList = data;
-        this.getFbData();
+        this.docData.cvList = JSON.parse(JSON.stringify(data));
+        this.dataReady = true;
       });
     },
-    // 取得資料
-    getFbData() {
-      const userRef = database.ref('user');
-      userRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        this.docData = JSON.parse(JSON.stringify(data.docData));
-        this.docData.cvList = JSON.parse(JSON.stringify(this.cvList));
-        this.dataReady = true;
-        console.log(this.docData);
-      });
+    sendApply() {
+      this.form.jobAddress.companyAddress = `${this.form.jobAddress.addressCity}，${this.form.jobAddress.addressDist}，${this.form.jobAddress.addressDetail}`;
+      this.form.time = `${Math.floor(Date.now() / 1000)}`;
+      if (this.coverLetterSaveOld.replace) {
+        const number = this.coverLetterSaveOld.key;
+        console.log(this.docData.coverLetterList);
+        this.docData.coverLetterList.forEach((item, index) => {
+          if (item.time === number) {
+            this.docData.coverLetterList[index].content = this.form.coverLetterContent;
+          }
+        });
+        console.log(this.docData.coverLetterList);
+      } else if (this.coverLetterSaveNew) {
+        // this.newcoverLetterModalOpen();
+      }
+      this.saveMailApplyData();
+      this.formStep = 4;
     },
     // put message to apllyList to firebase
-    saveApplyData() {
+    saveMailApplyData() {
       const otherApplyRef = database.ref('applyList/otherApplyList/mailList');
       const { key } = otherApplyRef.push();
       const obj = this.form;
@@ -646,7 +650,7 @@ export default {
   },
   created() {
     this.formData = webData;
-    this.getCvData();
+    this.getDocumentData();
     emitter.emit('spinner-open-bg', 800);
   },
 };

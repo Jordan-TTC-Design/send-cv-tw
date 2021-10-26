@@ -208,14 +208,19 @@ const routes = [
         component: () => import('../views/company/EditJobPage.vue'),
       },
       {
-        // 已關閉職位
+        // 拍照申請
         path: 'shot-job-list',
         component: () => import('../views/company/ShotJobList.vue'),
       },
       {
+        // 編輯職位
+        path: 'edit-shot-job/:key',
+        component: () => import('../views/company/EditShotJobPage.vue'),
+      },
+      {
         // 應徵管理
-        path: 'application-list',
-        component: () => import('../views/company/ApplicationList.vue'),
+        path: 'work-apply-list',
+        component: () => import('../views/company/WorkApplyList.vue'),
       },
       {
         // 其他申請

@@ -87,17 +87,17 @@
                 <span class="titleTag--doubleCircle me-2"></span>職位資訊
               </h3>
               <div class="row mb-0">
-                <div class="col-5">
+                <div class="col-lg-4 col-12">
                   <ImgInputBox
                     :imgNumber="0"
                     :mustUpload="true"
                     :inputAction="'muti'"
                     :dataName="'jobImgUrl'"
                     @send-img-to-page="getImgData"
-                    :tempImgUrl="form.jobImgUrl[0].url"
+                    :tempImgUrl="jobForm.jobImgUrl[0].url"
                   />
                 </div>
-                <div class="col-7">
+                <div class="col-lg-8 col-12">
                   <!-- 職位名稱(必填) -->
                   <div class="form__inputBox">
                     <div class="form__labelBox">
@@ -114,7 +114,7 @@
                       :class="{ 'is-invalid': errors['職位名稱'] }"
                       placeholder="請輸入職位名稱"
                       rules="required"
-                      v-model="form.jobName"
+                      v-model="jobForm.jobName"
                       ref="sendFormInfoJobName"
                     ></Field>
                     <ErrorMessage name="職位名稱" class="invalid-feedback"></ErrorMessage>
@@ -133,7 +133,7 @@
                         id="salaryRangeLow"
                         placeholder="最低"
                         aria-describedby="薪資待遇範圍起始"
-                        v-model="form.jobSalaryRange.salaryLow"
+                        v-model="jobForm.jobSalaryRange.salaryLow"
                       />
                     </div>
                     <div class="inputGroup--item me-2">
@@ -148,7 +148,7 @@
                         id="salaryRangeHeight"
                         placeholder="最高"
                         aria-describedby="薪資待遇範圍結束"
-                        v-model="form.jobSalaryRange.salaryHeight"
+                        v-model="jobForm.jobSalaryRange.salaryHeight"
                       />
                     </div>
                     <div class="form-check">
@@ -156,21 +156,25 @@
                         class="form-check-input"
                         type="checkbox"
                         id="salaryRangeInterview"
-                        v-model="form.jobSalaryRange.salaryInterView"
+                        v-model="jobForm.jobSalaryRange.salaryInterView"
                       />
                       <label class="form-check-label" for="salaryRangeInterview"> 面議 </label>
                     </div>
                   </div>
                   <div class="form__inputBox inputGroup--item">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoJobName" class="form__label--custom form-label"
+                      <label for="jobFormPeopleNeed" class="form__label--custom form-label"
                         >職務類別</label
                       >
                       <p class="formTag--must">必填</p>
+                      <p class="subTxt ms-2 text-secondary">(最多選3項)</p>
                     </div>
-                    <div class="fakeInput">
+                    <div class="fakeInput" @click="openJobDataSettingModal('職務類別')">
                       <div class="fakeInput__txtList">
-                        <p class="text-secondary">請選擇職務類別</p>
+                        <p class="text-secondary" v-if="jobForm.jobCategory.length < 1">請選擇</p>
+                        <template v-for="that in jobForm.jobCategory" :key="that">
+                          <p>{{ that }}<span class="fakeInput__txtList__line"></span></p>
+                        </template>
                       </div>
                       <i class="jobIcon bi bi-chevron-right"></i>
                     </div>
@@ -188,23 +192,29 @@
                       type="text"
                       class="form-control"
                       placeholder="請輸入"
-                      v-model="form.jobImgUrl[0].content"
+                      v-model="jobForm.jobImgUrl[0].content"
                       rows="4"
                     />
                   </div>
                 </div>
-                <template v-for="(item, index) in form.jobImgUrl" :key="`sendFormInfoImgs${index}`">
-                  <div class="col-5" v-if="index > 0">
+                <template
+                  v-for="(item, index) in jobForm.jobImgUrl"
+                  :key="`sendFormInfoImgs${index}`"
+                >
+                  <div class="col-lg-4 col-12" v-if="index > 0">
                     <ImgInputBox
                       :imgNumber="index"
                       :mustUpload="index < 1"
                       :inputAction="'muti'"
                       :dataName="'jobImgUrl'"
-                      :tempImgUrl="form.jobImgUrl[index].url"
+                      :tempImgUrl="jobForm.jobImgUrl[index].url"
                       @send-img-to-page="getImgData"
                     />
                   </div>
-                  <div class="col-7 d-flex flex-column justify-content-between" v-if="index > 0">
+                  <div
+                    class="col-lg-8 col-12 d-flex flex-column justify-content-between"
+                    v-if="index > 0"
+                  >
                     <div class="form__inputBox form__infoEditBox">
                       <div class="form__labelBox">
                         <label
@@ -217,14 +227,14 @@
                         type="text"
                         class="form-control"
                         placeholder="請輸入"
-                        v-model="form.jobImgUrl[index].content"
+                        v-model="jobForm.jobImgUrl[index].content"
                         rows="5"
                       />
                     </div>
                     <button
                       type="button"
                       class="btn btn-outline-gray-line text-dark w-100 mb-4"
-                      @click="form.jobImgUrl.splice(index, 1)"
+                      @click="jobForm.jobImgUrl.splice(index, 1)"
                     >
                       清除圖片資料
                     </button>
@@ -232,7 +242,7 @@
                 </template>
                 <div
                   class="col-12 d-flex flex-column align-items-center"
-                  v-if="form.jobImgUrl.length < 3"
+                  v-if="jobForm.jobImgUrl.length < 3"
                 >
                   <p class="mb-2">一張不夠嗎？可以上傳最多三張職位相關圖片</p>
                   <button
@@ -263,17 +273,17 @@
                 <span class="titleTag--doubleCircle me-2"></span>申請方法
               </h3>
               <div class="row mb-0">
-                <div class="col-5">
+                <div class="col-lg-4 col-12">
                   <ImgInputBox
                     :imgNumber="0"
                     :mustUpload="true"
                     :inputAction="'muti'"
-                    :dataName="'companyImgUrl'"
-                    :tempImgUrl="form.companyImgUrl[0].url"
+                    :dataName="'applyImgUrl'"
+                    :tempImgUrl="jobForm.applyImgUrl[0].url"
                     @send-img-to-page="getImgData"
                   />
                 </div>
-                <div class="col-7">
+                <div class="col-lg-8 col-12">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
                       <label for="sendFormInfoCompanyName" class="form__label--custom form-label"
@@ -289,7 +299,7 @@
                       :class="{ 'is-invalid': errors['公司名稱'] }"
                       placeholder="請輸入公司名稱"
                       rules="required"
-                      v-model="form.companyName"
+                      v-model="jobForm.companyInfo.companyName"
                       ref="sendFormInfoCompanyName"
                     ></Field>
                     <ErrorMessage name="公司名稱" class="invalid-feedback"></ErrorMessage>
@@ -306,7 +316,7 @@
                       id="sendFormInfoCompanyEmail"
                       placeholder="公司Email"
                       aria-describedby="公司Email"
-                      v-model="form.companyEmail"
+                      v-model="jobForm.applyContact.email"
                     />
                   </div>
                   <div class="form__inputBox">
@@ -321,7 +331,7 @@
                       id="sendFormInfoCompanyPhone"
                       placeholder="公司聯絡電話"
                       aria-describedby="公司聯絡電話"
-                      v-model="form.companyPhone"
+                      v-model="jobForm.applyContact.phone"
                     />
                   </div>
                   <div class="form__inputBox form__infoEditBox mb-5">
@@ -337,26 +347,29 @@
                       type="text"
                       class="form-control"
                       placeholder="請輸入"
-                      v-model="form.companyImgUrl[0].content"
+                      v-model="jobForm.applyImgUrl[0].content"
                       rows="4"
                     />
                   </div>
                 </div>
                 <template
-                  v-for="(item, index) in form.companyImgUrl"
+                  v-for="(item, index) in jobForm.applyImgUrl"
                   :key="`sendFormInfoCompanyImgs--${index}`"
                 >
-                  <div class="col-5" v-if="index > 0">
+                  <div class="col-lg-4 col-12" v-if="index > 0">
                     <ImgInputBox
                       :imgNumber="index"
                       :mustUpload="index < 1"
                       :inputAction="'muti'"
-                      :dataName="'companyImgUrl'"
-                      :tempImgUrl="form.companyImgUrl[index].url"
+                      :dataName="'applyImgUrl'"
+                      :tempImgUrl="jobForm.applyImgUrl[index].url"
                       @send-img-to-page="getImgData"
                     />
                   </div>
-                  <div class="col-7 d-flex flex-column justify-content-between" v-if="index > 0">
+                  <div
+                    class="col-lg-8 col-12 d-flex flex-column justify-content-between"
+                    v-if="index > 0"
+                  >
                     <div class="form__inputBox form__infoEditBox">
                       <div class="form__labelBox">
                         <label
@@ -369,14 +382,14 @@
                         type="text"
                         class="form-control"
                         placeholder="請輸入"
-                        v-model="form.companyImgUrl[index].content"
+                        v-model="jobForm.applyImgUrl[index].content"
                         rows="5"
                       />
                     </div>
                     <button
                       type="button"
                       class="btn btn-outline-gray-line text-dark w-100 mb-4"
-                      @click="form.companyImgUrl.splice(index, 1)"
+                      @click="jobForm.applyImgUrl.splice(index, 1)"
                     >
                       清除圖片資料
                     </button>
@@ -384,13 +397,13 @@
                 </template>
                 <div
                   class="col-12 d-flex flex-column align-items-center"
-                  v-if="form.companyImgUrl.length < 3"
+                  v-if="jobForm.applyImgUrl.length < 3"
                 >
                   <p class="mb-2">一張不夠嗎？可以上傳最多三張職位相關圖片</p>
                   <button
                     type="button"
                     class="btn btn-gray-light text-companyColor w-50"
-                    @click="newImgInput('companyImgUrl')"
+                    @click="newImgInput('applyImgUrl')"
                   >
                     新增照片
                   </button>
@@ -446,8 +459,8 @@
                         class="form-control form-select w-auto mb-2"
                         :class="{ 'is-invalid': errors['縣市'] }"
                         rules="required"
-                        v-model="form.addressCity"
-                        @change="choose(form.addressCity)"
+                        v-model="jobForm.jobAddress.addressCity"
+                        @change="chooseDist(jobForm.jobAddress.addressCity)"
                       >
                         <option value="" disabled selected>請選擇縣市</option>
                         <option v-for="city in formData.cities" :value="city" :key="city">
@@ -471,7 +484,7 @@
                         class="form-control form-select w-auto mb-2"
                         :class="{ 'is-invalid': errors['區域鄉鎮'] }"
                         rules="required"
-                        v-model="form.addressDist"
+                        v-model="jobForm.jobAddress.addressDist"
                       >
                         <option value="" disabled selected>請選擇區域鄉鎮</option>
                         <option v-for="dist in chooseCityDist" :value="dist" :key="dist">
@@ -483,9 +496,7 @@
                   </div>
                   <div class="form__inputBox w-100">
                     <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoCompanyImgUrlil"
-                        class="form__label--custom form-label"
+                      <label for="sendFormInfoapplyImgUrlil" class="form__label--custom form-label"
                         >公司詳細地址</label
                       >
                       <p class="formTag--must">必填</p>
@@ -498,7 +509,7 @@
                       :class="{ 'is-invalid': errors['公司詳細地址'] }"
                       placeholder="請輸入公司詳細地址"
                       rules="required"
-                      v-model="form.addressDatail"
+                      v-model="jobForm.jobAddress.addressDetail"
                       ref="sendFormInfoCompanyDatail"
                     ></Field>
                     <ErrorMessage name="公司詳細地址" class="invalid-feedback"></ErrorMessage>
@@ -542,7 +553,7 @@
                     </div>
                     <div class="docSelector__contentBox overFlow--x">
                       <template v-for="(item, index) in docData.cvList" :key="index">
-                        <div class="docCard me-2 mb-0" @click="form.cvSelect = item.cvKey">
+                        <div class="docCard me-2 mb-0" @click="jobForm.document.cvkey = item.cvKey">
                           <div class="d-flex flex-column flex-grow-1 me-2">
                             <div>
                               <p class="docCard__title">{{ item.cvName }}</p>
@@ -553,7 +564,7 @@
                                 class="form-check-input mt-0"
                                 type="radio"
                                 :value="item.cvKey"
-                                v-model="form.cvSelect"
+                                v-model="jobForm.document.cvkey"
                               />
                             </div>
                           </div>
@@ -568,7 +579,7 @@
                       type="select"
                       class="form-control d-none"
                       :class="{ 'is-invalid': errors['履歷'] }"
-                      v-model="form.cvSelect"
+                      v-model="jobForm.document.cvkey"
                       rules="required"
                     ></Field>
                     <ErrorMessage name="履歷" class="invalid-feedback"></ErrorMessage>
@@ -585,7 +596,7 @@
                           type="checkbox"
                           value="顯示"
                           id="applyJobIntroVideo"
-                          v-model="form.introVideo"
+                          v-model="jobForm.document.introVideo.is_enabled"
                         />
                         <label class="form-check-label text-nowrap" for="applyJobIntroVideo">
                           顯示
@@ -594,7 +605,10 @@
                     </div>
                     <div class="docSelector__contentBox">
                       <template v-for="(item, index) in docData.videoList" :key="index">
-                        <div class="docCard docCard--video card w-100 mb-0" v-if="item.introSelect">
+                        <div
+                          class="docCard docCard--video card w-100 mb-0"
+                          v-if="jobForm.document.introVideo.is_enabled"
+                        >
                           <img class="card-img-top" :src="item.imgUrl" alt="影片封面" />
                           <div class="card-body p-2">
                             <p class="docCard__title mb-0">{{ item.title }}</p>
@@ -654,7 +668,7 @@
                         :editor="editor"
                         tag-name="textarea"
                         class="form-control textarea--tag__inputBox"
-                        v-model="form.coverLetterContent"
+                        v-model="jobForm.document.coverLetter.content"
                         :config="editorConfig"
                       ></ckeditor>
                     </div>
@@ -707,7 +721,6 @@
                   </div>
                 </div>
               </div>
-              <!-- 表單操作按鈕 -->
             </Form>
             <div class="d-flex flex-column align-items-center" v-if="formStep === 5">
               <div class="titleBox--tag">
@@ -726,6 +739,7 @@
       </div>
     </div>
   </div>
+  <JobDataSettingModal @return-job-data-setting="saveModalData" />
 </template>
 
 <script>
@@ -734,36 +748,50 @@ import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import ImgInputBox from '@/components/helpers/ImgInputBox.vue';
 import database from '@/methods/firebaseinit';
+import JobDataSettingModal from '@/components/company/JobDataSettingModal.vue';
 
 export default {
-  components: { ImgInputBox },
+  components: { ImgInputBox, JobDataSettingModal },
   data() {
     return {
-      // 表單
-      form: {
-        addressDist: '',
-        addressCity: '',
-        addressDatail: '',
+      // 職位表單
+      jobForm: {
         jobKey: '',
+        is_enabled: true,
+        time: null,
         jobName: '',
         jobCategory: [],
+        jobSalaryRange: { salaryLow: '', salaryHeight: '', salaryInterView: '' },
         jobContent: '',
         jobImgUrl: [{ url: '', key: '', content: '' }],
-        companyName: '',
-        companyEmail: '',
-        companyPhone: '',
-        companyImgUrl: [{ url: '', key: '', content: '' }],
-        jobSalaryRange: { salaryLow: '', salaryHeight: '', salaryInterView: '' },
-        time: null,
-        cvSelect: '',
-        introVideo: true,
-        coverLettertitle: '',
-        coverLetterContent: '',
-        is_enabled: true,
+        applyImgUrl: [{ url: '', key: '', content: '' }],
+        jobAddress: {
+          addressCity: '',
+          addressDist: '',
+          addressDetail: '',
+          companyAddress: '',
+        },
+        companyInfo: {
+          companyName: '',
+          companyLogoUrl: '',
+          companyKey: '',
+          companyIndustry: '',
+        },
+        applyContact: {
+          email: '',
+          phone: '',
+        },
+        document: {
+          cvkey: '',
+          introVideo: { is_enabled: true, key: '' },
+          coverLetter: {
+            title: '',
+            content: '',
+          },
+        },
       },
       formStep: 1,
       chooseCityDist: [],
-      cvList: [],
       docData: {},
       // 表單資料
       formData: {},
@@ -806,30 +834,39 @@ export default {
     };
   },
   methods: {
-    getImgData(data) {
-      console.log(data);
-      if (data.dataName === 'jobImgUrl') {
-        console.log(data.dataName);
-        this.form.jobImgUrl[data.index].url = data.url;
-        this.form.jobImgUrl[data.index].key = data.key;
-      } else if (data.dataName === 'companyImgUrl') {
-        console.log(data.dataName);
-        this.form.companyImgUrl[data.index].url = data.url;
-        this.form.companyImgUrl[data.index].key = data.key;
+    // Get job categroy or driver license from modal.
+    saveModalData(obj) {
+      if (obj.action === '職務類別') {
+        this.jobForm.jobCategory = obj.data;
       }
     },
+    // Toggle job categroy or driver license edit modal.
+    openJobDataSettingModal(modalAction) {
+      emitter.emit('open-job-data-setting-modal', modalAction);
+    },
+    // Get img url and put into form
+    getImgData(data) {
+      if (data.dataName === 'jobImgUrl') {
+        this.jobForm.jobImgUrl[data.index].url = data.url;
+        this.jobForm.jobImgUrl[data.index].key = data.key;
+      } else if (data.dataName === 'applyImgUrl') {
+        this.jobForm.applyImgUrl[data.index].url = data.url;
+        this.jobForm.applyImgUrl[data.index].key = data.key;
+      }
+    },
+    // New an image input tool.
     newImgInput(dataName) {
       if (dataName === 'jobImgUrl') {
-        if (this.form.jobImgUrl.length < 3) {
-          this.form.jobImgUrl.push({ url: '', key: '', content: '' });
+        if (this.jobForm.jobImgUrl.length < 3) {
+          this.jobForm.jobImgUrl.push({ url: '', key: '', content: '' });
         }
-      } else if (dataName === 'companyImgUrl') {
-        if (this.form.companyImgUrl.length < 3) {
-          this.form.companyImgUrl.push({ url: '', key: '', content: '' });
+      } else if (dataName === 'applyImgUrl') {
+        if (this.jobForm.applyImgUrl.length < 3) {
+          this.jobForm.applyImgUrl.push({ url: '', key: '', content: '' });
         }
       }
     },
-    // 跳頁
+    // Change different step of jobForm.
     changeStep(way) {
       if (way === 'back' && this.formStep > 0) {
         this.formStep -= 1;
@@ -839,30 +876,28 @@ export default {
       document.documentElement.scrollTop = 0;
       console.log(this.form);
     },
-    choose(cityName) {
+    // pick dist by city name.
+    chooseDist(cityName) {
       this.chooseCityDist = [];
       this.chooseCityDist = this.formData.districts[cityName].district;
       const [temDist] = this.chooseCityDist;
-      this.form.addressDist = temDist;
+      this.jobForm.jobAddress.addressDist = temDist;
     },
-    sendApply() {
-      this.form.time = `${Math.floor(Date.now() / 1000)}`;
-      console.log(this.form);
-      if (this.coverLetterSaveOld.replace) {
-        const number = this.coverLetterSaveOld.key;
-        console.log(this.docData.coverLetterList);
-        this.docData.coverLetterList.forEach((item, index) => {
-          if (item.time === number) {
-            this.docData.coverLetterList[index].content = this.form.coverLetterContent;
-          }
-        });
-        console.log(this.docData.coverLetterList);
-      } else if (this.coverLetterSaveNew) {
-        // this.newcoverLetterModalOpen();
-      }
-      this.saveApplyData();
-      this.formStep = 5;
+    // Using coverLetter tempalte by click coverLetter card.
+    useThisTempalte(index) {
+      this.coverLetterSaveOld.replace = false;
+      this.coverLetterSaveOld.show = true;
+      this.docData.coverLetterList.forEach((item, number) => {
+        if (number === index) {
+          this.docData.coverLetterList[number].select = !item.select;
+          this.jobForm.document.coverLetter.content = '';
+          this.jobForm.document.coverLetter.content = item.content;
+        } else {
+          this.docData.coverLetterList[number].select = false;
+        }
+      });
     },
+    // Action about coverLetter tempalte.
     changeCoverLetter(action) {
       if (action === 'old') {
         this.coverLetterSaveNew = false;
@@ -875,43 +910,38 @@ export default {
         this.coverLetterSaveOld.replace = false;
         this.coverLetterSaveOld.key = '';
       }
-      console.log(this.coverLetterSaveOld);
-      console.log(this.coverLetterSaveNew);
     },
-    useThisTempalte(index) {
-      this.coverLetterSaveOld.replace = false;
-      this.coverLetterSaveOld.show = true;
-      this.docData.coverLetterList.forEach((item, number) => {
-        if (number === index) {
-          this.docData.coverLetterList[number].select = !item.select;
-          this.form.coverLetterContent = '';
-          this.form.coverLetterContent = item.content;
-        } else {
-          this.docData.coverLetterList[number].select = false;
-        }
+    // 取得資料
+    getDocumentData() {
+      const docDataRef = database.ref('user/docData');
+      docDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.docData = JSON.parse(JSON.stringify(data));
       });
-    },
-    getCvData() {
       const cvRef = database.ref('cvList');
       cvRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        this.cvList = data;
-        this.getFbData();
+        this.docData.cvList = JSON.parse(JSON.stringify(data));
+        this.dataReady = true;
       });
     },
-    // 取得資料
-    getFbData() {
-      const userRef = database.ref('user');
-      userRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        this.docData = JSON.parse(JSON.stringify(data.docData));
-        this.docData.cvList = JSON.parse(JSON.stringify(this.cvList));
-        this.dataReady = true;
-        console.log(this.docData);
-      });
+    sendApply() {
+      this.jobForm.jobAddress.companyAddress = `${this.jobForm.jobAddress.addressCity}，${this.jobForm.jobAddress.addressDist}，${this.jobForm.jobAddress.addressDetail}`;
+      this.jobForm.time = `${Math.floor(Date.now() / 1000)}`;
+      if (this.coverLetterSaveOld.replace) {
+        const number = this.coverLetterSaveOld.key;
+        this.docData.coverLetterList.forEach((item, index) => {
+          if (item.time === number) {
+            this.docData.coverLetterList[index].content = this.jobForm.coverLetterContent;
+          }
+        });
+        console.log(this.docData.coverLetterList);
+      }
+      this.saveShotApplyData();
+      this.formStep = 5;
     },
     // put message to apllyList to firebase
-    saveApplyData() {
+    saveShotApplyData() {
       const otherApplyRef = database.ref('applyList/otherApplyList/shotList');
       const { key } = otherApplyRef.push();
       const obj = this.form;
@@ -921,7 +951,8 @@ export default {
   },
   created() {
     this.formData = webData;
-    this.getCvData();
+    this.getDocumentData();
+    this.chooseCityDist = this.formData.districts['台北市'].district;
     emitter.emit('spinner-open-bg', 800);
   },
 };
