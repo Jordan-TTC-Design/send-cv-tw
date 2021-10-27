@@ -1553,7 +1553,6 @@ export default {
       const [temDist] = this.chooseCityDist;
       this.jobForm.jobAddress.addressDist = temDist;
     },
-
     // Toggle preview or edit mode.
     lookPagePreview() {
       if (this.pagePreview) {
