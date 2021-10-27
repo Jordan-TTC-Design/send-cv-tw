@@ -387,14 +387,10 @@ export default {
   mounted() {
     this.modal = new Modal(this.$refs.settingAccountModal);
     emitter.on('open-setting-account-modal', this.openModal);
-    emitter.on('close-setting-account-modal', this.closeModal);
-    emitter.on('return-setting-account-modal', this.returnUserData);
   },
   unmounted() {
     this.modal.dispose();
     emitter.off('open-setting-account-modal', this.openModal);
-    emitter.off('close-setting-account-modal', this.closeModal);
-    emitter.off('return-setting-account-modal', this.returnUserData);
   },
 };
 </script>

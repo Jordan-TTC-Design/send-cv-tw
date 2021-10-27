@@ -58,10 +58,6 @@ export default {
     };
   },
   methods: {
-    emitOpenModal(obj) {
-      console.log(obj);
-      this.modal.show();
-    },
     openModal() {
       this.modal.show();
     },
@@ -71,13 +67,11 @@ export default {
   },
   mounted() {
     this.modal = new Modal(this.$refs.otherApplyModal);
-    emitter.on('open-other-apply-modal', this.emitOpenModal);
-    emitter.on('close-other-apply-modal', this.closeModal);
+    emitter.on('open-other-apply-modal', this.openModal);
   },
   unmounted() {
     this.modal.dispose();
-    emitter.off('open-other-apply-modal', this.emitOpenModal);
-    emitter.off('close-other-apply-modal', this.closeModal);
+    emitter.off('open-other-apply-modal', this.openModal);
   },
 };
 </script>

@@ -157,7 +157,8 @@
                   <div class="card__btnBox">
                     <button
                       type="button"
-                      class="btn btn-outline-companyColor text-decoration-underline me-2"
+                      class="btn btn-outline-companyColor me-2"
+                      @click="selectAction('選擇動作')"
                     >
                       選擇動作
                     </button>
@@ -181,12 +182,14 @@
     </div>
   </div>
   <PersonPopModal />
+  <PersonActionModal />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import PersonPopModal from '@/components/company/PersonPopModal.vue';
+import PersonActionModal from '@/components/company/PersonActionModal.vue';
 
 import database from '@/methods/firebaseinit';
 
@@ -194,6 +197,7 @@ export default {
   components: {
     CompanyAdminNav,
     PersonPopModal,
+    PersonActionModal,
   },
   data() {
     return {
@@ -244,6 +248,13 @@ export default {
     },
   },
   methods: {
+    selectAction(action) {
+      const obj = {
+        action,
+        user: this.user,
+      };
+      emitter.emit('open-person-action-modal', obj);
+    },
     openPersonPopModal(action) {
       const obj = {
         action,

@@ -482,7 +482,6 @@
       </div>
     </div>
   </div>
-  <ImageSquareCropper @emit-send-img-data="getImg" />
 </template>
 
 <script>
@@ -592,8 +591,6 @@ export default {
         this.coverLetterSaveOld.replace = false;
         this.coverLetterSaveOld.key = '';
       }
-      console.log(this.coverLetterSaveOld);
-      console.log(this.coverLetterSaveNew);
     },
     useThisTempalte(index) {
       this.coverLetterSaveOld.replace = false;
@@ -632,7 +629,6 @@ export default {
             this.docData.coverLetterList[index].content = this.form.coverLetterContent;
           }
         });
-        console.log(this.docData.coverLetterList);
       } else if (this.coverLetterSaveNew) {
         // this.newcoverLetterModalOpen();
       }

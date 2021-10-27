@@ -174,8 +174,6 @@ export default {
   },
   mounted() {
     this.imgData.url = this.tempImgUrl;
-    console.log(this.imgData.url);
-    console.log(this.inputAction);
   },
 };
 </script>

@@ -458,33 +458,102 @@
     width: 50%;
   }
 }
-.personPopContentBox{
-  display: flex;
-  &__leftBox{
-    width: 25%;
-    border-right: 1px solid $gray-line;
+.personPop {
+  .modal-content.heightFixed {
+    height: 88vh;
   }
-  &__rightBox{
-    width: 75%;
-    padding: 0 1.5rem;
+  .popModal__header {
+    padding: 1.5rem 0 0 0;
   }
-  &__personalImg {
-    border: 1px solid $gray-line;
-    border-radius: 50%;
-    height: 8rem;
-    width: 8rem;
+  .popModal__body {
+    overflow-y: scroll;
   }
-  &__doc{
-    padding: 0.5rem;
+  .btnBox {
     display: flex;
-    border-color: $light;
-    border-radius: 0.5rem;
-    &__img{
-      width: 120px;
-      border-radius: 0.25rem;
+    align-items: flex-end;
+  }
+  &__personInfoBox {
+    display: flex;
+    justify-content: space-between;
+    &__innerBox {
+      display: flex;
+      align-items: center;
     }
-    &:hover{
-      background-color: $gray-light;
+    .personInfoBox__personalImg {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+    }
+    .personInfoBox__name {
+      font-size: 20px;
+      font-weight: $fw--md;
+    }
+  }
+  &__nav {
+    display: flex;
+    padding-left: 1.5rem;
+    background-color: $gray-light;
+    border-top: 1px solid $gray-line;
+    border-bottom: 1px solid $gray-line;
+    &__item {
+      padding: 0.75rem 0.75rem;
+      cursor: pointer;
+      position: relative;
+      &::after {
+        content: '';
+        width: 1px;
+        height: 1.5rem;
+        background-color: $gray-line;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        position: absolute;
+      }
+      &::before {
+        content: '';
+        width: 4rem;
+        height: 0.25rem;
+        border-radius: 0.25rem 0.25rem 0 0;
+        background-color: $companyColor;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+      }
+      &.active {
+        &::before {
+          display: block;
+        }
+        p,
+        span {
+          color: $companyColor;
+        }
+      }
+      &:hover {
+        p,
+        span {
+          color: $companyColor;
+        }
+      }
+    }
+  }
+  .personPopContentBox {
+    padding: 1.5rem;
+    border-bottom: 1px solid $gray-line;
+    height: 100%;
+    &__doc {
+      padding: 0.5rem;
+      display: flex;
+      border-color: $light;
+      border-radius: 0.5rem;
+      &__img {
+        width: 120px;
+        border-radius: 0.25rem;
+      }
+      &:hover {
+        background-color: $gray-light;
+      }
     }
   }
 }
