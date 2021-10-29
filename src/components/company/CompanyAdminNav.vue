@@ -68,6 +68,47 @@
           @click="goToPageLink('new-job')">新增職位</button>
         </li>
       </ul>
+      <ul v-if="adminMainSection === '加值服務'"
+      class="admin__subNav admin__subNav--company position-relative w-100">
+        <li class="d-flex align-items-center d-md-flex d-none">
+          <h2 class="admin__subNav__title">加值服務</h2>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-ad')"
+          :class="{ active: nowPage === '廣告管理' }"
+        >
+          <p class="admin__subNav__txt me-1">廣告管理</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-order')"
+          :class="{ active: nowPage === '我的訂單' }"
+        >
+          <p class="admin__subNav__txt me-1">我的訂單</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-membership')"
+          :class="{ active: nowPage === '會員方案' }"
+        >
+          <p class="admin__subNav__txt me-1">會員方案</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-record')"
+          :class="{ active: nowPage === '使用紀錄' }"
+        >
+          <p class="admin__subNav__txt me-1">使用紀錄</p>
+        </li>
+        <li class="d-flex align-items-center position-absolute end-0 h-100">
+          <p class="me-2">目前使用：<span class="text-companyColor">免費方案</span></p>
+          <button type="btn" class="btn btn-gray-light text-dark me-2"
+          >變更會員方案</button>
+           <button type="btn" class="btn btn-companyColor text-light"
+          >購物車</button>
+        </li>
+      </ul>
       <ul v-if="adminMainSection === '設定'"
       class="admin__subNav admin__subNav--company position-relative w-100">
         <li class="d-flex align-items-center d-md-flex d-none">
@@ -146,6 +187,13 @@ export default {
         || this.nowPage === '自我推薦'
       ) {
         this.adminMainSection = '職位管理';
+      } else if (
+        this.nowPage === '廣告管理'
+        || this.nowPage === '我的訂單'
+        || this.nowPage === '會員方案'
+        || this.nowPage === '使用紀錄'
+      ) {
+        this.adminMainSection = '加值服務';
       } else if (
         this.nowPage === '我的帳戶'
         || this.nowPage === '用戶管理'

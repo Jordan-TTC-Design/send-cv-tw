@@ -110,13 +110,8 @@ const routes = [
       },
       {
         // 文件-履歷
-        path: 'document-cv/cv',
-        component: () => import('../views/admin/CV.vue'),
-      },
-      {
-        // 文件-履歷
         path: 'document-cv/cv/:id',
-        component: () => import('../views/admin/CVEdit.vue'),
+        component: () => import('../views/admin/CvPage.vue'),
       },
       {
         // 文件-履歷
@@ -226,6 +221,31 @@ const routes = [
         // 其他申請
         path: 'other-apply-list',
         component: () => import('../views/company/OtherApplyList.vue'),
+      },
+      {
+        // 人才-履歷
+        path: 'talent-cv/:id',
+        component: () => import('../views/company/TalentCvPage.vue'),
+      },
+      {
+        // 加值服務-廣告管理
+        path: 'service-ad',
+        component: () => import('../views/company/ServiceAd.vue'),
+      },
+      {
+        // 加值服務-我的訂單
+        path: 'service-order',
+        component: () => import('../views/company/ServiceOrder.vue'),
+      },
+      {
+        // 加值服務-會員服務
+        path: 'service-membership',
+        component: () => import('../views/company/ServiceMembership.vue'),
+      },
+      {
+        // 加值服務-使用紀錄
+        path: 'service-record',
+        component: () => import('../views/company/ServiceRecord.vue'),
       },
       {
         // 帳號設定

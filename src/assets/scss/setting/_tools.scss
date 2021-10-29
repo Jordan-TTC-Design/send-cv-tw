@@ -659,6 +659,12 @@
       right: 0;
       top: 0;
     }
+    &.companyActive {
+      background-color: $companyColor-light;
+      p {
+        color: $companyColor;
+      }
+    }
   }
 }
 .editorSelectBoxList {
@@ -1015,6 +1021,44 @@
     border-radius: 0 0 0.5rem 0.5rem;
   }
   &__list {
+    &--item {
+      cursor: pointer;
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $gray-line;
+      position: relative;
+      background-color: $light;
+      &:first-child {
+        border-top: 1px solid $gray-line;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: $companyColor;
+        border-radius: 0.25rem 0 0 0.25rem;
+        width: 0rem;
+        opacity: 0;
+        transition: all 0.3s;
+      }
+      &.active {
+        background-color: $companyColor-light;
+        transition: all 0.3s;
+        .nav__item__title {
+          color: $companyColor;
+        }
+        &::after {
+          width: 0.25rem;
+          opacity: 1;
+          transition: all 0.3s;
+        }
+      }
+    }
     &__title {
       display: flex;
       justify-content: space-between;

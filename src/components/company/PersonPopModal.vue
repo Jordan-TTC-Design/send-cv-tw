@@ -41,7 +41,11 @@
                   選擇動作
                 </button>
                 <button type="button" class="btn btn-outline-gray-line text-dark me-2">聯絡</button>
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">履歷</button>
+                <router-link
+                  :to="`talent-cv/${cvList[0].cvKey}`"
+                  class="btn btn-outline-gray-line text-dark me-2"
+                  >履歷</router-link
+                >
                 <button type="button" class="btn btn-outline-gray-line text-dark me-2">收藏</button>
               </div>
             </div>
@@ -263,6 +267,7 @@
 <script>
 import Modal from 'bootstrap/js/dist/modal';
 import emitter from '@/methods/emitter';
+import database from '@/methods/firebaseinit';
 
 export default {
   data() {
@@ -272,6 +277,7 @@ export default {
       modalAction: '',
       dataReady: false,
       formData: {},
+      cvList: [],
       user: {},
       actionModal: {},
     };
@@ -282,6 +288,15 @@ export default {
       this.user = obj.user;
       this.modalAction = obj.action;
       this.modal.show();
+      this.getShotJobList();
+    },
+    getShotJobList() {
+      const shotJobListRef = database.ref('cvList');
+      shotJobListRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.cvList = data;
+        this.dataReady = true;
+      });
     },
     chooseAction() {
       const obj = {

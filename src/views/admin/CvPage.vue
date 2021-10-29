@@ -2,7 +2,7 @@
   <div class="adminPage--py" v-if="dataReady">
     <div class="container">
       <div class="row">
-        <div class="col-xxl-9 col-xl-8 col-12">
+        <div class="col-xl-8 col-12">
           <div class="admin__subNav bg-gray-mid align-items-center justify-content-between">
             <h2 class="admin__subNav__title ms-4" ref="cvTitle">
               {{ tempCvData.cvName }}
@@ -37,7 +37,7 @@
           <div class="cvContainer mb-5 position-relative">
             <div class="cvContainer__titleBox mb-5">
               <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
+                <div class="titleTag--doubleCircle me-2"></div>
                 個人資訊
               </h3>
             </div>
@@ -83,7 +83,7 @@
             </p>
             <div class="cvContainer__titleBox mb-4">
               <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
+                <div class="titleTag--doubleCircle me-2"></div>
                 自我介紹
               </h3>
             </div>
@@ -99,7 +99,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
+                <div class="titleTag--doubleCircle me-2"></div>
                 工作經驗
               </h3>
               <button
@@ -202,7 +202,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
+                <div class="titleTag--doubleCircle me-2"></div>
                 學歷
               </h3>
               <button
@@ -305,7 +305,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
+                <div class="titleTag--doubleCircle me-2"></div>
                 專業技能
               </h3>
               <button
@@ -508,7 +508,7 @@
             <div class="cvContainer mb-5">
               <div class="cvContainer__titleBox">
                 <h3 class="cvContainer__title" :ref="`expDataTitle--${listIndex}`">
-                  <div class="cvContainer__title__tag me-2"></div>
+                  <div class="titleTag--doubleCircle me-2"></div>
                   {{ listItem.sectionTitle }}
                   <button
                     type="button"
@@ -559,7 +559,7 @@
           <div class="cvContainer mb-5" v-if="tempCvData.userData.docData">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
+                <div class="titleTag--doubleCircle me-2"></div>
                 我的作品
               </h3>
               <button
@@ -629,7 +629,7 @@
           <div class="cvContainer" v-if="tempCvData.userData.docData">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="cvContainer__title__tag me-2"></div>
+                <div class="titleTag--doubleCircle me-2"></div>
                 其他資訊
               </h3>
             </div>
@@ -694,7 +694,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-xxl-3 col-xl-4 col-12">
+        <div class="col-xl-4 col-12">
           <div class="cvSideBox">
             <div class="cvSideBox__title">
               <p>履歷完成度</p>
@@ -846,7 +846,6 @@ export default {
       nowPage: '基本資料',
       personalState: true,
       settingSideList: '個人資料',
-      ＧＦ: true,
       editMode: false,
       editTemplate: '', // 編輯哪一塊
       formData: {},

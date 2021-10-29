@@ -13,7 +13,10 @@
         :class="{
           'modal-sm': modalAction === '選擇動作',
           'modal-lg':
-            modalAction === '邀請面試' || modalAction === '錄取' || modalAction === '婉拒',
+            modalAction === '邀請面試' ||
+            modalAction === '錄取' ||
+            modalAction === '婉拒' ||
+            modalAction === '設定職位',
         }"
       >
         <div class="modal-content" v-if="modalAction === '選擇動作'">
@@ -59,58 +62,79 @@
             <h5 class="popModal__title">{{ modalAction }}</h5>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
-          <Form v-slot="{ errors }" @submit="processNewUser">
+          <Form v-slot="{ errors }" @submit="sendForm">
             <div class="modal-body">
-              <div class="row">
+              <h3 class="ms-2 section__title--sub">
+                <span class="titleTag--doubleCircle--company me-2"></span>職位資訊
+              </h3>
+              <div class="row mb-4">
                 <div class="col-6">
-                  <div class="form__inputBox">
-                    <div class="form__labelBox">
-                      <label for="jobName" class="form__label--custom form-label">職位</label>
-                      <p class="formTag--must company">必填</p>
+                  <div class="inputGroup--item mb-3">
+                    <label class="form-label inputItem__title">職位</label>
+                    <div class="fakeInput" @click="modalAction = '設定職位'">
+                      <div class="fakeInput__txtList">
+                        <p class="text-secondary" v-if="!form.jobInfo.jobName">請選擇</p>
+                        <p>{{ form.jobInfo.jobName }}</p>
+                      </div>
+                      <i class="jobIcon bi bi-chevron-right"></i>
                     </div>
-                    <Field
-                      id="jobName"
-                      name="職位"
-                      type="text"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors['職位'] }"
-                      placeholder="請輸入職位"
-                      rules="required"
-                      v-model="form.jobInfo.jobName"
-                      ref="jobName"
-                    ></Field>
-                    <ErrorMessage name="職位" class="invalid-feedback"></ErrorMessage>
                   </div>
+                  <Field
+                    id="jobName"
+                    ref="jobName"
+                    name="職位"
+                    type="date"
+                    class="form-control d-none"
+                    :class="{ 'is-invalid': errors['職位'] }"
+                    placeholder="請選擇職位"
+                    v-model="form.jobInfo.jobName"
+                  ></Field>
+                  <ErrorMessage name="職位" class="invalid-feedback"></ErrorMessage>
                 </div>
                 <div class="col-6">
-                  <div class="form__inputBox">
+                  <div class="form__inputBox" v-if="modalAction === '邀請面試'">
                     <div class="form__labelBox">
-                      <label for="jobInterViewDay" class="form__label--custom form-label"
+                      <label for="jobinterviewDay" class="form__label--custom form-label"
                         >面試日期</label
                       >
-                      <p class="formTag--must company">必填</p>
                     </div>
                     <Field
-                      id="jobInterViewDay"
-                      ref="jobInterViewDay"
+                      id="jobinterviewDay"
+                      ref="jobinterviewDay"
                       name="面試日期"
                       type="date"
                       class="form-control"
                       :class="{ 'is-invalid': errors['面試日期'] }"
                       placeholder="請選擇面試日期"
-                      rules="required"
                       v-model="form.jobInfo.interviewDate"
                     ></Field>
-                    <ErrorMessage name="生日" class="invalid-feedback"></ErrorMessage>
+                    <ErrorMessage name="面試日期" class="invalid-feedback"></ErrorMessage>
+                  </div>
+                  <div class="form__inputBox" v-if="modalAction === '錄取'">
+                    <div class="form__labelBox">
+                      <label for="jobinterviewDay" class="form__label--custom form-label"
+                        >入職日期</label
+                      >
+                    </div>
+                    <Field
+                      id="jobinterviewDay"
+                      ref="jobinterviewDay"
+                      name="入職日期"
+                      type="date"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors['入職日期'] }"
+                      placeholder="請選擇入職日期"
+                      v-model="form.jobInfo.onBoardDate"
+                    ></Field>
+                    <ErrorMessage name="入職日期" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
-                <div class="col-12">
-                  <!-- 公司地址 -->
+                <div class="col-12" v-if="modalAction === '邀請面試'">
                   <div class="d-flex align-items-end mb-4">
                     <div class="inputGroup--item me-2">
                       <div class="form__labelBox">
                         <label for="jobFormCompanyCity" class="form__label--custom form-label"
-                          >公司地址</label
+                          >面試地址</label
                         >
                       </div>
                       <Field
@@ -120,8 +144,8 @@
                         as="select"
                         class="form-control form-select w-auto"
                         :class="{ 'is-invalid': errors['縣市'] }"
-                        v-model="form.jobInfo.interViewAddress.addressCity"
-                        @change="chooseDist(form.jobInfo.interViewAddress.addressCity)"
+                        v-model="form.jobInfo.interviewAddress.addressCity"
+                        @change="chooseDist(form.jobInfo.interviewAddress.addressCity)"
                       >
                         <option value="" disabled selected>請選擇縣市</option>
                         <option v-for="city in formData.cities" :value="city" :key="city">
@@ -143,7 +167,7 @@
                         as="select"
                         class="form-control form-select w-auto"
                         :class="{ 'is-invalid': errors['區域鄉鎮'] }"
-                        v-model="form.jobInfo.interViewAddress.addressDist"
+                        v-model="form.jobInfo.interviewAddress.addressDist"
                       >
                         <option value="" disabled selected>請選擇區域鄉鎮</option>
                         <option v-for="dist in chooseCityDist" :value="dist" :key="dist">
@@ -152,7 +176,7 @@
                       </Field>
                       <ErrorMessage name="區域鄉鎮" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check" v-if="form.jobInfo.jobKey">
                       <input
                         class="form-check-input"
                         type="checkbox"
@@ -161,29 +185,51 @@
                         @change="putCompanyAddressToJob"
                       />
                       <label class="form-check-label" for="sameAddressWithCompany">
-                        同公司地址
+                        同職位工作地點
                       </label>
                     </div>
                   </div>
                   <div class="form__inputBox">
                     <div class="form__labelBox">
                       <label for="jobFormAddressDetail" class="form__label--custom form-label"
-                        >公司詳細地址</label
+                        >面試詳細地址</label
                       >
                     </div>
                     <Field
                       id="jobFormAddressDetail"
                       ref="jobFormAddressDetail"
-                      name="公司詳細地址"
+                      name="面試詳細地址"
                       type="text"
                       class="form-control"
-                      :class="{ 'is-invalid': errors['公司詳細地址'] }"
-                      placeholder="請輸入公司詳細地址"
-                      v-model="form.jobInfo.interViewAddress.addressDetail"
+                      :class="{ 'is-invalid': errors['面試詳細地址'] }"
+                      placeholder="請輸入面試詳細地址"
+                      v-model="form.jobInfo.interviewAddress.addressDetail"
                     ></Field>
-                    <ErrorMessage name="公司詳細地址" class="invalid-feedback"></ErrorMessage>
+                    <ErrorMessage name="面試詳細地址" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-between mb-3"
+                v-if="modalAction !== '婉拒'"
+              >
+                <h3 class="ms-2 mb-0 section__title--sub">
+                  <span class="titleTag--doubleCircle--company me-2"></span>聯絡資訊
+                </h3>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="sameContactWithAccount"
+                    v-model="sameContactWithAccount"
+                    @change="putAccountContactToJob"
+                  />
+                  <label class="form-check-label" for="sameContactWithAccount">
+                    置入帳號聯絡資料
+                  </label>
+                </div>
+              </div>
+              <div class="row mb-4" v-if="modalAction !== '婉拒'">
                 <div class="col-6">
                   <div class="form__inputBox">
                     <div class="form__labelBox">
@@ -266,6 +312,9 @@
                   </div>
                 </div>
               </div>
+              <h3 class="ms-2 section__title--sub">
+                <span class="titleTag--doubleCircle--company me-2"></span>訊息
+              </h3>
               <div class="row">
                 <div class="col-6" v-if="dataReady === true">
                   <div class="inputGroup--item mb-3">
@@ -277,8 +326,9 @@
                       aria-label="模板"
                       id="formMessageTemplate"
                       v-model="form.message"
+                      @change="messageOld.show = true"
                     >
-                      <option disabled>請選擇文字模板</option>
+                      <option disabled selected value="">請選擇文字模板</option>
                       <option
                         v-for="(item, index) in myAccountData.messageTemplateList"
                         :value="item.content"
@@ -323,7 +373,7 @@
                         v-model="messageOld.replace"
                       />
                       <label class="form-check-label text-nowrap" for="messageOld">
-                        覆蓋文字模板
+                        覆蓋舊文字模板
                       </label>
                     </div>
                     <div class="form-check">
@@ -342,7 +392,6 @@
                 </div>
               </div>
             </div>
-
             <div class="popModal__footer border-top border-gray-line">
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
@@ -351,13 +400,13 @@
             </div>
           </Form>
         </div>
-        <div v-if="modalAction === '新增用戶提醒'">
+        <div class="modal-content" v-if="modalAction === '發送成功'">
           <div class="popModal__header popModal__header--center">
-            <h5 class="popModal__title">新增用戶</h5>
+            <h5 class="popModal__title">{{ thisTimeAction }}</h5>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
           <div class="modal-body">
-            <p>新增完成</p>
+            <p>發送成功</p>
           </div>
           <div class="popModal__footer">
             <button
@@ -369,11 +418,62 @@
             </button>
           </div>
         </div>
+        <div class="modal-content" v-if="modalAction === '設定職位'">
+          <div class="popModal__header popModal__header--center">
+            <h5 class="popModal__title">{{ thisTimeAction }}</h5>
+            <button type="button" class="btn-close" @click="closeModal"></button>
+          </div>
+          <div class="modal-body px-0">
+            <div class="popModal__subHeaderNav">
+              <p
+                class="d-flex align-items-center text-dark putPointer"
+                @click="modalAction = thisTimeAction"
+              >
+                <i class="jobIcon bi bi-chevron-left me-2 text-dark"></i>設定目標職務
+              </p>
+            </div>
+            <div class="dataForm border-top border-gray-line">
+              <div class="dataForm__leftList">
+                <ul>
+                  <li class="list__item list__title">職位</li>
+                  <li class="list__item putPointer" @click="jobListNav = 'companyJob'">
+                    <p :class="{ 'text-companyColor': jobListNav === 'companyJob' }">公司職位</p>
+                  </li>
+                  <li class="list__item putPointer" @click="jobListNav = 'shotJob'">
+                    <p :class="{ 'text-companyColor': jobListNav === 'shotJob' }">拍照申請職位</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="dataForm__contentBox">
+                <ul class="dataForm__contentBox__list">
+                  <li class="list__item list__title">
+                    <p>{{ jobListNav }}中的職位</p>
+                  </li>
+                  <template v-for="item in jobList" :key="item.jobName">
+                    <li class="foldList__item border-bottom border-gray-line bg-light">
+                      <div
+                        class="foldList__item__title putPointer"
+                        :class="{ companyActive: selectJob.key === item.key }"
+                        @click="selectJobForTarget(item)"
+                      >
+                        <p>{{ item.jobName }}</p>
+                      </div>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="popModal__footer border-top border-gray-line">
+            <button type="button" class="btn btn-companyColor text-light" @click="putJobBackToForm">
+              確定
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import Modal from 'bootstrap/js/dist/modal';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -387,24 +487,34 @@ export default {
       modal: {},
       formData: {},
       subNav: '個人資料',
+      jobListNav: '公司職位',
+      thisTimeAction: '',
       modalAction: '',
       dataReady: false,
       user: {},
+      sameAddressWithCompany: false,
+      sameContactWithAccount: false,
       myAccountData: {},
+      selectJob: {},
+      jobKey: '',
       form: {
-        action: '',
+        applyState: '',
         staff: {
           name: '',
           phone: '',
           jobTitle: '',
           email: '',
         },
+        time: '',
         message: '',
+        read: false,
         jobInfo: {
+          jobType: '',
           jobName: '',
           jobKey: '',
-          interViewDate: '',
-          interViewAddress: {
+          onBoardDate: '',
+          interviewDate: '',
+          interviewAddress: {
             addressCity: '',
             addressDist: '',
             addressDetail: '',
@@ -412,6 +522,7 @@ export default {
           },
         },
       },
+      jobList: [],
       messageOld: { key: null, replace: false, show: false },
       messageNew: false,
       // 編輯器套件
@@ -424,17 +535,85 @@ export default {
     };
   },
   methods: {
+    sendForm() {
+      this.form.jobInfo.interviewAddress.totalAddress = `${this.form.jobInfo.interviewAddress.addressCity}${this.form.jobInfo.interviewAddress.addressDist}
+      ${this.form.jobInfo.interviewAddress.addressDetail}`;
+      this.form.applyState = this.thisTimeAction;
+      if (this.form.jobInfo.jobType !== 'mailJob') {
+        this.form.jobInfo.jobType = this.jobListNav;
+      }
+      this.form.time = `${Math.floor(Date.now() / 1000)}`;
+      if (this.messageOld.replace) {
+        const number = this.messageOld.key;
+        this.myAccountData.messageTemplateList.forEach((item, index) => {
+          if (item.time === number) {
+            this.myAccountData.messageTemplateList[index].content = this.form.message;
+          }
+        });
+        console.log(this.myAccountData.messageTemplateList);
+      }
+      this.sendToUserDb();
+      this.sendToCompanyDb();
+      this.modalAction = '發送成功';
+    },
+    // put message to apllyList to firebase
+    sendToUserDb() {
+      let applyState = 'interview';
+      if (this.thisTimeAction === '錄取') {
+        applyState = 'recruit';
+      } else if (this.thisTimeAction === '婉拒') {
+        applyState = 'decline';
+      }
+      const userApplyListRef = database.ref(`user/applyList/${applyState}`);
+      const { key } = userApplyListRef.push();
+      const obj = this.form;
+      obj.key = key;
+      userApplyListRef.child(key).set(obj);
+    },
+    sendToCompanyDb() {
+      let applyState = 'interview';
+      let jobType = 'companyJob';
+      if (this.thisTimeAction === '錄取') {
+        applyState = 'recruit';
+      } else if (this.thisTimeAction === '婉拒') {
+        applyState = 'decline';
+      }
+      if (this.form.jobInfo.jobType === 'shotJob') {
+        jobType = 'shotJob';
+      } else if (this.form.jobInfo.jobType === 'mailJob') {
+        jobType = 'mailJob';
+      }
+      const companyApplyListRef = database.ref(`company/applyList/${jobType}/${applyState}`);
+      const { key } = companyApplyListRef.push();
+      const obj = this.form;
+      obj.key = key;
+      companyApplyListRef.child(key).set(obj);
+    },
+    putJobBackToForm() {
+      this.form.jobInfo.jobName = this.selectJob.jobName;
+      this.form.jobInfo.jobKey = this.selectJob.key;
+      this.modalAction = this.thisTimeAction;
+    },
+    selectJobForTarget(item) {
+      this.selectJob = JSON.parse(JSON.stringify(item));
+      console.log(this.selectJob);
+    },
     startAction(action) {
       this.modalAction = action;
-      this.getTxtData();
+      this.thisTimeAction = action;
+      this.getCompanyAccountData();
+      this.getJobListData();
     },
     openModal(obj) {
       console.log(obj);
       this.user = obj.user;
       this.modalAction = obj.action;
+      if (obj.key) {
+        this.jobKey = obj.key;
+      }
       this.modal.show();
     },
-    getTxtData() {
+    getCompanyAccountData() {
       const AccountRef = database.ref('company/myAccount');
       AccountRef.once('value', (snapshot) => {
         const data = snapshot.val();
@@ -442,7 +621,23 @@ export default {
         this.dataReady = true;
       });
     },
+    getJobListData() {
+      this.jobList = [];
+      const jobListDataRef = database.ref('company/jobList');
+      jobListDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          Object.keys(data).forEach((item) => {
+            // 物件轉陣列
+            this.jobList.push(data[item]);
+          });
+        }
+      });
+    },
     closeModal() {
+      this.thisTimeAction = '';
+      this.modalAction = '';
+      this.selectJobKey = '';
       this.modal.hide();
     },
     // pick city data
@@ -450,7 +645,31 @@ export default {
       this.chooseCityDist = [];
       this.chooseCityDist = this.formData.districts[cityName].district;
       const [temDist] = this.chooseCityDist;
-      this.form.jobInfo.interViewAddress.addressDist = temDist;
+      this.form.jobInfo.interviewAddress.addressDist = temDist;
+    },
+    // Put company address to job form.
+    putCompanyAddressToJob() {
+      if (this.sameAddressWithCompany) {
+        this.form.jobInfo.interviewAddress.addressCity = this.selectJob.jobAddress.addressCity;
+        this.form.jobInfo.interviewAddress.addressDist = this.selectJob.jobAddress.addressDist;
+        this.form.jobInfo.interviewAddress.addressDetail = this.selectJob.jobAddress.addressDetail;
+      } else {
+        this.form.jobInfo.interviewAddress.addressCity = '';
+        this.form.jobInfo.interviewAddress.addressDist = '';
+        this.form.jobInfo.interviewAddress.addressDetail = '';
+      }
+    },
+    putAccountContactToJob() {
+      if (this.sameContactWithAccount) {
+        this.form.staff.name = this.myAccountData.ChineseName;
+        this.form.staff.jobTitle = this.myAccountData.jobTitle;
+        this.form.staff.phone = this.myAccountData.phone;
+        this.form.staff.email = this.myAccountData.email;
+      } else {
+        this.form.staff.addressCity = '';
+        this.form.staff.addressDist = '';
+        this.form.staff.addressDetail = '';
+      }
     },
   },
   created() {

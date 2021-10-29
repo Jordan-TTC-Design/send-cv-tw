@@ -595,7 +595,6 @@
               <h3 class="section__title--sub">
                 <span class="titleTag--doubleCircle me-2"></span>職位內容
               </h3>
-
               <div class="form__inputBox form__infoEditBox">
                 <div class="form__labelBox">
                   <label for="jobFormJobContent" class="form__label--custom form-label"

@@ -557,3 +557,51 @@
     }
   }
 }
+.sideChatBox {
+  background-color: $light;
+  @include shadow-normal;
+  border-radius: 0.5rem;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__title {
+    background-color: $companyColor;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    p {
+      color: $dark;
+    }
+  }
+  &__chatTxtContainer {
+    width: 100%;
+    flex-grow: 1;
+    background-color: $gray-light;
+    overflow-y: scroll;
+    &.active {
+      height: calc(100% - 382px);
+    }
+  }
+  &__inputContainer {
+    background-color: $gray-line;
+    padding: 0.75rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    .sideChatBox__txtInput {
+      border: 0;
+      resize: none;
+    }
+    .btn--openTextArea {
+      position: relative;
+      width: 3rem;
+      .jobIcon {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.75rem;
+      }
+    }
+  }
+}

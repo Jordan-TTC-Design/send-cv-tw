@@ -190,7 +190,6 @@ import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import PersonPopModal from '@/components/company/PersonPopModal.vue';
 import PersonActionModal from '@/components/company/PersonActionModal.vue';
-
 import database from '@/methods/firebaseinit';
 
 export default {
@@ -213,6 +212,7 @@ export default {
       mailApplyList: [],
       shotJobList: [],
       user: {},
+      selectJobKey: '',
     };
   },
   computed: {
@@ -252,6 +252,7 @@ export default {
       const obj = {
         action,
         user: this.user,
+        key: this.selectJobKey,
       };
       emitter.emit('open-person-action-modal', obj);
     },
@@ -259,6 +260,7 @@ export default {
       const obj = {
         action,
         user: this.user,
+        key: this.selectJobKey,
       };
       emitter.emit('open-person-pop-modal', obj);
     },
@@ -269,6 +271,7 @@ export default {
             this.selectItem = {};
             this.selectItem = item;
             document.documentElement.scrollTop = 0;
+            this.selectJobKey = item.key;
           }
         });
       } else if (this.sideListNav === '拍照申請職位') {
@@ -277,6 +280,7 @@ export default {
             this.selectItem = {};
             this.selectItem = item;
             document.documentElement.scrollTop = 0;
+            this.selectJobKey = item.key;
           }
         });
       }
@@ -288,10 +292,8 @@ export default {
         const data = snapshot.val();
         if (data) {
           Object.keys(data).forEach((item) => {
-            // 物件轉陣列
             this.companyJobList.push(data[item]);
           });
-          this.selectJobFormJobList(this.nowJobList[0].key);
         }
       });
     },
