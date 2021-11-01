@@ -135,12 +135,8 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">創建時間</p>
-                      <p class="infoList__item__content">2020.01.13 19:38</p>
-                    </div>
-                  </div>
+                  <p class="infoList__item__title">創建時間</p>
+                  <p class="infoList__item__content">2020.01.13 19:38</p>
                 </li>
                 <li class="infoList__item">
                   <div class="d-flex justify-content-between align-items-center">

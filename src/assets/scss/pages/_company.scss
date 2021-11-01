@@ -402,13 +402,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: $light;
-    flex-grow: 1;
     &:first-child {
       border-radius: 0.5rem 0 0 0;
     }
     &:last-child {
-      border-radius: 0 0.5rem 0 0;
+      border-radius: 0;
     }
     &::after {
       content: '';
@@ -456,6 +454,14 @@
   }
   &--50 {
     width: 50%;
+  }
+  &.adminContentNav--fill{
+    .adminContentNav__item{
+      flex-grow: 1;
+    }
+    .adminContentNav__item:last-child {
+      border-radius: 0 0.5rem 0 0;
+    }
   }
 }
 .personPop {

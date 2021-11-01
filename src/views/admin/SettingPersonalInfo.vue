@@ -277,7 +277,7 @@
                   <div class="col-lg-6 col-12">
                     <div class="form__inputBox">
                       <div class="form__labelBox">
-                        <label for="accountDataEmail" class="form__label--custom form-label"
+                        <label for="accountDataBirthday" class="form__label--custom form-label"
                           >生日</label
                         >
                         <p class="formTag--must">必填</p>

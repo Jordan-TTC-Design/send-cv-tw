@@ -233,6 +233,11 @@ const routes = [
         component: () => import('../views/company/ServiceAd.vue'),
       },
       {
+        // 編輯職位
+        path: 'service-ad/new-ad/:type',
+        component: () => import('../views/company/NewAd.vue'),
+      },
+      {
         // 加值服務-我的訂單
         path: 'service-order',
         component: () => import('../views/company/ServiceOrder.vue'),

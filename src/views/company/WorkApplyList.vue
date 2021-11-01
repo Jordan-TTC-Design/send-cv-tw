@@ -49,7 +49,7 @@
           </button>
           <div class="admin__mainContent p-0 pb-3">
             <div class="adminContentList">
-              <ul class="adminContentNav w-100">
+              <ul class="adminContentNav adminContentNav--fill w-100">
                 <li
                   class="adminContentNav__item"
                   :class="{ active: subNav === '新申請' }"
