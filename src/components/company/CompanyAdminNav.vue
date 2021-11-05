@@ -1,8 +1,7 @@
 <template>
   <div ref="adminSubHeader" class="admin__subHeader mb-6 box--shadow">
     <div class="container">
-      <ul v-if="adminMainSection === '企業中心'"
-      class="admin__subNav admin__subNav--company">
+      <ul v-if="adminMainSection === '企業中心'" class="admin__subNav admin__subNav--company">
         <li class="d-flex align-items-center d-md-flex d-none">
           <h2 class="admin__subNav__title">企業中心</h2>
         </li>
@@ -64,12 +63,19 @@
           <p class="admin__subNav__txt me-1">自我推薦</p>
         </li>
         <li class="d-flex align-items-center position-absolute end-0 h-100">
-          <button type="btn" class="btn btn-companyColor text-light"
-          @click="goToPageLink('new-job')">新增職位</button>
+          <button
+            type="btn"
+            class="btn btn-companyColor text-light"
+            @click="goToPageLink('new-job')"
+          >
+            新增職位
+          </button>
         </li>
       </ul>
-      <ul v-if="adminMainSection === '加值服務'"
-      class="admin__subNav admin__subNav--company position-relative w-100">
+      <ul
+        v-if="adminMainSection === '加值服務'"
+        class="admin__subNav admin__subNav--company position-relative w-100"
+      >
         <li class="d-flex align-items-center d-md-flex d-none">
           <h2 class="admin__subNav__title">加值服務</h2>
         </li>
@@ -103,14 +109,25 @@
         </li>
         <li class="d-flex align-items-center position-absolute end-0 h-100">
           <p class="me-2">目前使用：<span class="text-companyColor">免費方案</span></p>
-          <button type="btn" class="btn btn-gray-light text-dark me-2"
-          >變更會員方案</button>
-           <button type="btn" class="btn btn-companyColor text-light"
-          >購物車</button>
+          <button type="btn" class="btn btn-gray-light text-dark me-2">變更會員方案</button>
+          <button
+            type="btn"
+            class="btn btn-companyColor text-light btnNumber"
+            @click="goToPageLink('service-cart')"
+          >
+            購物車
+            <span
+              class="btnNumber__number btnNumber__number--companyColor"
+              v-if="cart.productList.length !== 0"
+              >{{ cart.productList.length }}</span
+            >
+          </button>
         </li>
       </ul>
-      <ul v-if="adminMainSection === '設定'"
-      class="admin__subNav admin__subNav--company position-relative w-100">
+      <ul
+        v-if="adminMainSection === '設定'"
+        class="admin__subNav admin__subNav--company position-relative w-100"
+      >
         <li class="d-flex align-items-center d-md-flex d-none">
           <h2 class="admin__subNav__title">設定</h2>
         </li>
@@ -154,11 +171,28 @@
   </div>
 </template>
 <script>
+import database from '@/methods/firebaseinit';
+import emitter from '@/methods/emitter';
+
 export default {
   props: ['nowPage'],
   data() {
     return {
       adminMainSection: '企業中心',
+      cart: {
+        key: '',
+        created__time: null,
+        invoice: {
+          type: '一般電子發票',
+          created__time: null,
+          companyName: '',
+          unitNumber: null,
+        },
+        payType: 'card',
+        totalPrice: '',
+        productList: [],
+      },
+      dataReady: false,
     };
   },
   watch: {
@@ -173,12 +207,39 @@ export default {
     goToPageLink(routerLink) {
       this.$router.push(routerLink);
     },
+    defaultCart() {
+      this.cart = {
+        key: '',
+        created__time: null,
+        invoice: {
+          type: '一般電子發票',
+          created__time: null,
+          companyName: '',
+          unitNumber: null,
+        },
+        payType: 'card',
+        totalPrice: '',
+        productList: [],
+      };
+    },
+    sendBackCart() {
+      console.log('接收到');
+      console.log(this.cart);
+      emitter.emit('send-back-cart-data', this.cart);
+    },
+    getCart() {
+      const cartRef = database.ref('company/cart');
+      cartRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        if (data) {
+          this.cart = data;
+        }
+        console.log(this.cart);
+      });
+    },
     checkMainSection() {
-      if (
-        this.nowPage === '總覽'
-        || this.nowPage === '企業資料'
-        || this.nowPage === '公司頁面'
-      ) {
+      if (this.nowPage === '總覽' || this.nowPage === '企業資料' || this.nowPage === '公司頁面') {
         this.adminMainSection = '企業中心';
       } else if (
         this.nowPage === '公司職位'
@@ -206,7 +267,16 @@ export default {
     },
   },
   created() {
+    this.getCart();
     this.checkMainSection();
+  },
+  mounted() {
+    emitter.on('toogle-get-cart-data', this.getCart);
+    emitter.on('toogle-send-cart-data', this.sendBackCart);
+  },
+  unmounted() {
+    emitter.off('toogle-get-cart-data', this.getCart);
+    emitter.off('toogle-send-cart-data', this.sendBackCart);
   },
 };
 </script>

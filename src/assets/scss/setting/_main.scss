@@ -207,3 +207,19 @@ p {
   position: sticky;
   top: 86px;
 }
+.btnNumber{
+  position: relative;
+  &__number{
+    font-size: 0.75rem;
+    position: absolute;
+    top: -0.5rem;
+    left: calc( 100% - 0.65rem );
+    border-radius: 0.5rem;
+    padding: 1px 0.25rem;
+  }
+  &__number--companyColor{
+    background-color: $companyColor;
+    color:$light;
+    border:2px solid $light;
+  }
+}

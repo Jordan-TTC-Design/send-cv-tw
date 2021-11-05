@@ -76,7 +76,11 @@
                 </p>
               </div>
               <div class="d-flex justify-content-end align-items-end">
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line text-dark me-2"
+                  @click="addCart('ad__webBig')"
+                >
                   購買額度
                 </button>
                 <button
@@ -158,7 +162,11 @@
               </div>
               <div class="selectBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
-                <img class="w-100 rounded" src="https://i.imgur.com/0gQq1A3.png" alt="大型版面預覽畫面">
+                <img
+                  class="w-100 rounded"
+                  src="https://i.imgur.com/0gQq1A3.png"
+                  alt="大型版面預覽畫面"
+                />
               </div>
               <div class="selectBox__section pb-5" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-4">如何建立廣告</h4>
@@ -240,7 +248,11 @@
                 </p>
               </div>
               <div class="d-flex justify-content-end align-items-end">
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line text-dark me-2"
+                  @click="addCart('ad__banner')"
+                >
                   購買額度
                 </button>
                 <router-link
@@ -319,7 +331,11 @@
               </div>
               <div class="selectBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
-                <img class="w-100 rounded" src="https://i.imgur.com/ofiQp4a.png" alt="大型版面預覽畫面">
+                <img
+                  class="w-100 rounded"
+                  src="https://i.imgur.com/ofiQp4a.png"
+                  alt="大型版面預覽畫面"
+                />
               </div>
               <div class="selectBox__section pb-5" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-4">如何建立廣告</h4>
@@ -403,7 +419,11 @@
                 </p>
               </div>
               <div class="d-flex justify-content-end align-items-end">
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line text-dark me-2"
+                  @click="addCart('ad__jobPromoteToken')"
+                >
                   購買額度
                 </button>
                 <router-link class="btn btn-companyColor text-light" :to="`/company-admin/job-list`"
@@ -446,7 +466,11 @@
               </div>
               <div class="selectBox__section">
                 <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
-                <img class="w-100 rounded" src="https://i.imgur.com/edXJc36.png" alt="大型版面預覽畫面">
+                <img
+                  class="w-100 rounded"
+                  src="https://i.imgur.com/edXJc36.png"
+                  alt="大型版面預覽畫面"
+                />
               </div>
               <div class="selectBox__section pb-5">
                 <h4 class="pageSubTitle mb-4">如何設定推廣</h4>
@@ -491,41 +515,129 @@ export default {
       allAdList: [],
       dataReady: false,
       company: {},
+      cart: {},
+      selectItem: {},
+      productData: {
+        ad__banner: {
+          name: '粉絲專頁廣告',
+          imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
+          key: '12345678',
+          costToken: 1,
+          num: 1,
+          price: 400,
+          totalPrice: 400,
+        },
+        ad__webBig: {
+          name: '大型版面廣告',
+          imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
+          key: '12345678',
+          costToken: 1,
+          num: 1,
+          price: 500,
+          totalPrice: 500,
+        },
+        ad__webMd: {
+          name: '一般版面廣告',
+          imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
+          key: '12345678',
+          costToken: 1,
+          num: 1,
+          price: 300,
+          totalPrice: 300,
+        },
+        ad__webSm: {
+          name: '小型版面廣告',
+          imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
+          key: '12345678',
+          costToken: 1,
+          num: 1,
+          price: 300,
+          totalPrice: 300,
+        },
+        ad__jobPromoteToken: {
+          name: '職位推廣額度',
+          imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
+          key: '12345678',
+          costToken: 1,
+          num: 1,
+          price: 300,
+          totalPrice: 300,
+        },
+      },
     };
   },
   computed: {
     nowAdList() {
       const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
       const stateArray = tempArray.filter((item) => item.adState === this.subNav);
-      console.log(stateArray);
       return stateArray;
     },
     newAdList() {
       const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
       const stateArray = tempArray.filter((item) => item.adState === '審核中');
-      console.log(stateArray);
       return stateArray;
     },
     onAdList() {
       const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
       const stateArray = tempArray.filter((item) => item.adState === '刊登中');
-      console.log(stateArray);
       return stateArray;
     },
     offAdList() {
       const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
       const stateArray = tempArray.filter((item) => item.adState === '已過期');
-      console.log(stateArray);
       return stateArray;
     },
     declineAdList() {
       const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
       const stateArray = tempArray.filter((item) => item.adState === '審核失敗');
-      console.log(stateArray);
       return stateArray;
     },
   },
   methods: {
+    toogleGetCart() {
+      console.log('hi');
+      emitter.emit('toogle-send-cart-data');
+    },
+    getCart(data) {
+      this.cart = data;
+      console.log(this.cart);
+    },
+    addCart(adName) {
+      this.selectItem = {};
+      this.selectItem = JSON.parse(JSON.stringify(this.productData[adName]));
+      console.log(this.selectItem);
+      console.log(this.cart);
+      console.log(this.cart.productList.length);
+      let check = false;
+      if (this.cart.productList.length > 0) {
+        console.log('購物車已經有東西');
+        this.cart.productList.forEach((item, index) => {
+          console.log(item.name);
+          console.log(this.selectItem.name);
+          if (item.name === this.selectItem.name) {
+            console.log(this.cart.productList[index]);
+            this.cart.productList[index].num += 1;
+            this.cart.totalPrice += this.selectItem.price;
+            check = true;
+          }
+        });
+        if (check === false) {
+          this.cart.productList.push(this.selectItem);
+          this.cart.totalPrice += this.selectItem.price;
+        }
+      } else {
+        this.cart.productList.push(this.selectItem);
+        this.cart.totalPrice += this.selectItem.price;
+        console.log('+了');
+      }
+      console.log(this.cart);
+      this.saveCartData();
+    },
+    saveCartData() {
+      const cartRef = database.ref('company/cart');
+      cartRef.set(this.cart);
+      emitter.emit('toogle-get-cart-data');
+    },
     goToNewAdPage() {
       let routerLink = '';
       if (this.sideBoxInnerList === '大型版面廣告') {
@@ -583,6 +695,13 @@ export default {
   created() {
     this.getCompanyData();
     this.getAdListData();
+  },
+  mounted() {
+    emitter.on('send-back-cart-data', this.getCart);
+    this.toogleGetCart();
+  },
+  unmounted() {
+    emitter.off('send-back-cart-data', this.getCart);
   },
 };
 </script>

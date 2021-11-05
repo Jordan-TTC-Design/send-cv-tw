@@ -82,8 +82,8 @@
             </form>
           </div>
         </div>
-        <div class="col-lg-9 col-12" v-if="dataReady === true">
-          <div class="adminContentBox--nonPadding payService__orderList">
+        <div class="col-lg-9 col-12">
+          <div class="adminContentBox--full payService__orderList">
             <ul class="adminContentNav w-100">
               <li
                 class="adminContentNav__item"
@@ -250,7 +250,7 @@ export default {
         endDate: null,
       },
       selectOrder: {
-        key: 'MHR928032009320',
+        key: '',
       },
       orderType: [
         { typeName: '大型版面廣告' },
@@ -263,50 +263,11 @@ export default {
       ],
     };
   },
-  watch: {
-    notify: {
-      deep: true,
-      handler() {
-        this.saveData();
-      },
-    },
-  },
   methods: {
     resetSelectorder() {
       this.selectOrder = {
         key: '',
       };
-    },
-    selectCollapseList(action) {
-      this.sideBoxList = action;
-      if (action === '首頁廣告') {
-        this.sideBoxInnerList = '首頁廣告 - 應徵通知';
-      } else if (action === '信箱通知') {
-        this.sideBoxInnerList = '信箱通知 - 應徵通知';
-      } else if (action === '手機APP通知') {
-        this.sideBoxInnerList = '手機APP通知 - 應徵通知';
-      }
-    },
-    selectListItem(action) {
-      this.sideBoxInnerList = action;
-      this.goAnchor(action);
-    },
-    // 保存全部用戶資料
-    getUserListData() {
-      const { key } = this.tempUser;
-      const companyUserListRef = database.ref(`company/userList/${key}`);
-      companyUserListRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        this.meUser = data;
-        this.notify = this.meUser.notify;
-        this.dataReady = true;
-      });
-    },
-    // 保存資料
-    saveData() {
-      const { key } = this.tempUser;
-      const companyUserListRef = database.ref(`company/userList/${key}`);
-      companyUserListRef.set(this.meUser);
     },
     // 取得資料
     getMeUserData() {
@@ -314,11 +275,7 @@ export default {
       companyUserRef.once('value', (snapshot) => {
         const data = snapshot.val();
         this.tempUser = data;
-        this.getUserListData();
       });
-    },
-    goAnchor(action) {
-      this.$refs[action].scrollIntoView();
     },
   },
   created() {

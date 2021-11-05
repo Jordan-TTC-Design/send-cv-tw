@@ -253,6 +253,11 @@ const routes = [
         component: () => import('../views/company/ServiceRecord.vue'),
       },
       {
+        // 加值服務-使用紀錄
+        path: 'service-cart',
+        component: () => import('../views/company/ServiceCart.vue'),
+      },
+      {
         // 帳號設定
         path: 'setting',
         component: () => import('../views/company/SettingAccountCompany.vue'),

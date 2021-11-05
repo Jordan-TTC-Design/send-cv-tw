@@ -1219,7 +1219,7 @@
     &--btnList {
       display: flex;
       align-items: center;
-      justify-content: end;
+      justify-content: flex-end;
     }
     &__tagBtn--company {
       border-radius: 0.25rem;
@@ -1232,21 +1232,26 @@
     }
   }
 }
-.contentBox{
+.contentBox {
   background-color: $light;
   border-radius: 0.5rem;
   padding: 0.75rem;
   @include shadow-normal;
-  &__titleBox{
+  &__titleBox {
     padding: 0.75rem 1rem;
-    border-bottom:1px solid $gray-line;
+    border-bottom: 1px solid $gray-line;
   }
-  &__title{
-    font-weight:$fw--md;
-    color:$dark;
+  &__title {
+    font-weight: $fw--md;
+    color: $dark;
   }
 }
 .adminContentBox--nonPadding {
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include shadow-normal;
+}
+.adminContentBox--full {
   min-height: calc(80vh - 132px);
   background-color: $light;
   border-radius: 0.5rem;
@@ -1257,13 +1262,13 @@
   border-radius: 0.5rem;
   background-color: $light;
   @include shadow-normal;
-  &__titleBox{
+  &__titleBox {
     padding: 0.75rem 1rem;
-    border-bottom:1px solid $gray-line;
+    border-bottom: 1px solid $gray-line;
   }
-  &__title{
-    font-weight:$fw--md;
-    color:$dark;
+  &__title {
+    font-weight: $fw--md;
+    color: $dark;
   }
 }
 .backToPageBtn {
@@ -1278,6 +1283,58 @@
       left: -0.5rem;
       top: 0;
       position: absolute;
+    }
+  }
+}
+.flexTable {
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid $gray-line;
+  }
+  &__footer {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    bottom: 0;
+  }
+  &__cell {
+    padding: 0 0.5rem;
+    &:first-child{
+      padding-left: 0;
+    }
+    &:last-child{
+      padding-right: 0;
+    }
+    &--0 {
+      flex: 0;
+    }
+    &--1 {
+      flex: 1;
+    }
+    &--2 {
+      flex: 2;
+    }
+    &--3 {
+      flex: 3;
+    }
+  }
+  &__item {
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $gray-line;
+    &__title {
+      font-weight: $fw--md;
+      color: $dark;
+    }
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+      .flexTable__body__item__title {
+        color: $companyColor;
+      }
     }
   }
 }
