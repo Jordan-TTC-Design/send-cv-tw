@@ -171,6 +171,18 @@
                 </Field>
                 <ErrorMessage name="廣告內容" class="invalid-feedback"></ErrorMessage>
               </div>
+              <div class="form__inputBox form__infoEditBox">
+                <div class="form__labelBox">
+                  <label for="adRemark" class="form__label--custom form-label">廣告備註</label>
+                </div>
+                <textarea
+                  type="textarea"
+                  class="form-control chatArea__txtInput"
+                  placeholder="如有需要注意的地方，歡迎留下備註"
+                  rows="5"
+                  v-model="adForm.adRemark"
+                />
+              </div>
             </div>
           </div>
           <div class="col-lg-4 col-12">
@@ -182,29 +194,52 @@
                 <p>目前剩餘額度：{{ company.payService.adTokens }}</p>
                 <button type="button" class="btn btn-outline-gray-line text-dark">購買額度</button>
               </div>
-              <div class="inputGroup--item mb-3">
+              <div v-if="adType !== '粉絲專頁廣告'">
+                <div class="inputGroup--item mb-3">
+                  <div class="form__labelBox">
+                    <label for="adToken" class="form__label--custom form-label">使用額度</label>
+                    <p class="formTag--must company">必填</p>
+                  </div>
+                  <div class="fakeInput--counter">
+                    <div
+                      class="fakeBtn"
+                      @click="minusData('大型看板廣告')"
+                      :class="{ disActive: adForm.usedToken < 2 }"
+                    >
+                      <i class="jobIcon bi bi-dash-circle"></i>
+                    </div>
+                    <p>{{ adForm.usedToken }}</p>
+                    <div
+                      class="fakeBtn"
+                      @click="plusData('大型看板廣告')"
+                      :class="{
+                        disActive: adForm.usedToken >= company.payService.adTokens,
+                      }"
+                    >
+                      <i class="jobIcon bi bi-plus-circle"></i>
+                    </div>
+                  </div>
+                  <Field
+                    id="adToken"
+                    ref="adToken"
+                    name="使用額度"
+                    as="number"
+                    class="form-control d-none"
+                    :class="{ 'is-invalid': errors['使用額度'] }"
+                    v-model="adForm.usedToken"
+                  >
+                  </Field>
+                  <ErrorMessage name="使用額度" class="invalid-feedback"></ErrorMessage>
+                </div>
+                <p class="mb-1">收費方式：一個額度推廣 7 天</p>
+                <p class="mb-4">起算日期：於刊登日期後連續 7 天</p>
+              </div>
+              <div class="inputGroup--item mb-3" v-if="adType === '粉絲專頁廣告'">
                 <div class="form__labelBox">
                   <label for="adToken" class="form__label--custom form-label">使用額度</label>
-                  <p class="formTag--must company">必填</p>
                 </div>
-                <div class="fakeInput--counter">
-                  <div
-                    class="fakeBtn"
-                    @click="minusData('大型看板廣告')"
-                    :class="{ disActive: adForm.usedToken < 2 }"
-                  >
-                    <i class="jobIcon bi bi-dash-circle"></i>
-                  </div>
+                <div class="fakeInput--counter p-2 justify-content-center">
                   <p>{{ adForm.usedToken }}</p>
-                  <div
-                    class="fakeBtn"
-                    @click="plusData('大型看板廣告')"
-                    :class="{
-                      disActive: adForm.usedToken >= company.payService.adTokens,
-                    }"
-                  >
-                    <i class="jobIcon bi bi-plus-circle"></i>
-                  </div>
                 </div>
                 <Field
                   id="adToken"
@@ -218,8 +253,6 @@
                 </Field>
                 <ErrorMessage name="使用額度" class="invalid-feedback"></ErrorMessage>
               </div>
-              <p class="mb-1">收費方式：一個額度推廣 7 天</p>
-              <p class="mb-4">起算日期：於刊登日期後連續 7 天</p>
               <div class="form__inputBox">
                 <div class="form__labelBox">
                   <label for="adStartDate" class="form__label--custom form-label"
@@ -240,7 +273,12 @@
                 ></Field>
                 <ErrorMessage name="刊登起始日期" class="invalid-feedback"></ErrorMessage>
               </div>
-              <p>注意事項：最快只能選擇申請日三天後開始刊登，如申請日遇到假日則順延。</p>
+              <p v-if="adType !== '粉絲專頁廣告'">
+                注意事項：最快只能選擇申請日三天後開始刊登，如申請日遇到假日則順延。
+              </p>
+              <p v-if="adType === '粉絲專頁廣告'">
+                注意事項：我們將在收到需求後與您聯繫，並按照您的需求製作廣告。
+              </p>
             </div>
           </div>
         </div>
@@ -269,8 +307,8 @@ export default {
       company: {},
       companyJobList: [],
       adForm: {
-        adType: '大型版面廣告',
-        adState: 'new',
+        adType: '',
+        adState: '審核中',
         usedToken: 1,
         startDate: null,
         adName: '',
@@ -280,6 +318,7 @@ export default {
           link: '',
         },
         adImgUrl: { url: '', key: '' },
+        adRemark: '',
       },
       editor: ClassicEditor,
       editorConfig: {
@@ -319,11 +358,12 @@ export default {
       this.$router.push(routerLink);
     },
     uploadAd() {
+      this.adForm.adType = this.adType;
       if (this.adForm.adLink.type === '企業頁面') {
         this.adForm.adLink.link = '123445677';
       }
       this.costCompanyAdTokens();
-      const newAdListRef = database.ref('company/adList');
+      const newAdListRef = database.ref('company/payService/adList');
       const { key } = newAdListRef.push();
       const obj = this.adForm;
       console.log(this.adForm);
@@ -331,13 +371,21 @@ export default {
       newAdListRef.child(key).set(obj);
     },
     processUploadAd() {
+      const obj = {
+        action: '已成功申請刊登廣告',
+        data: this.adForm,
+      };
       this.uploadAd();
-      emitter.emit('open-ad-modal', '已成功申請刊登廣告');
+      emitter.emit('open-ad-modal', obj);
     },
     // promote token +1
     plusData(dataName) {
       if (dataName === '大型看板廣告') {
         if (this.adForm.usedToken < this.company.payService.adTokens) {
+          this.adForm.usedToken += 1;
+        }
+      } else if (dataName === '粉絲專頁廣告') {
+        if (this.adForm.usedToken < this.company.payService.bannerTokens) {
           this.adForm.usedToken += 1;
         }
       }
@@ -348,6 +396,10 @@ export default {
         if (this.adForm.usedToken > 1) {
           this.adForm.usedToken -= 1;
         }
+      } else if (dataName === '粉絲專頁廣告') {
+        if (this.adForm.usedToken < this.company.payService.bannerTokens) {
+          this.adForm.usedToken += 1;
+        }
       }
     },
     // If user use promote, It will cost token.
@@ -357,7 +409,11 @@ export default {
       companyRef.set(this.company.payService);
     },
     openPreviewModal() {
-      emitter.emit('open-ad-modal', '廣告預覽');
+      const obj = {
+        action: '廣告預覽',
+        data: this.adForm,
+      };
+      emitter.emit('open-ad-modal', obj);
     },
     // Get img data form Cropper modal.
     getImg(data) {
@@ -386,10 +442,23 @@ export default {
         this.companyJobList.push(data[item]);
       });
     },
+    checkAdType() {
+      const { type } = this.$route.params;
+      if (type === 'banner') {
+        this.adType = '粉絲專頁廣告';
+        this.adForm.usedToken = 2;
+      } else if (type === 'web-ad-big') {
+        this.adType = '大型版面廣告';
+      } else if (type === 'web-ad-md') {
+        this.adType = '一般版面廣告';
+      } else if (type === 'web-ad-sm') {
+        this.adType = '小型版面廣告';
+      }
+    },
   },
   created() {
+    this.checkAdType();
     this.getCompanyData();
-    this.chooseCityDist = this.formData.districts['台北市'].district;
     emitter.emit('spinner-open-bg', 500);
   },
 };

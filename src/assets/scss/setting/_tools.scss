@@ -1183,3 +1183,101 @@
     }
   }
 }
+.boxInnerList {
+  padding-bottom: 0.5rem;
+  &__item {
+    padding: 1rem;
+    border-bottom: 1px solid $gray-line;
+    .boxInnerList__item__title {
+      font-size: 1rem;
+      font-weight: $fw--md;
+      color: $dark;
+    }
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+      .boxInnerList__item__title {
+        color: $companyColor;
+      }
+    }
+  }
+}
+.tableList {
+  display: flex;
+  flex-wrap: wrap;
+  &__item {
+    padding: 0.5rem;
+    &__title {
+      font-size: 0.875rem;
+      color: $secondary;
+      margin-bottom: 0.25rem;
+    }
+    &:hover {
+      .tableList__item__title {
+        color: $companyColor;
+      }
+    }
+    &--btnList {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+    }
+    &__tagBtn--company {
+      border-radius: 0.25rem;
+      border: 1px solid $gray-line;
+      padding: 1px 0.5rem;
+      &:hover {
+        border: 1px solid $companyColor;
+        color: $companyColor;
+      }
+    }
+  }
+}
+.contentBox{
+  background-color: $light;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  @include shadow-normal;
+  &__titleBox{
+    padding: 0.75rem 1rem;
+    border-bottom:1px solid $gray-line;
+  }
+  &__title{
+    font-weight:$fw--md;
+    color:$dark;
+  }
+}
+.adminContentBox--nonPadding {
+  min-height: calc(80vh - 132px);
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include shadow-normal;
+}
+.sideListBox {
+  padding: 0;
+  border-radius: 0.5rem;
+  background-color: $light;
+  @include shadow-normal;
+  &__titleBox{
+    padding: 0.75rem 1rem;
+    border-bottom:1px solid $gray-line;
+  }
+  &__title{
+    font-weight:$fw--md;
+    color:$dark;
+  }
+}
+.backToPageBtn {
+  &__title {
+    position: relative;
+    &::before {
+      content: '';
+      width: 1px;
+      height: 20px;
+      background-color: $gray-line;
+      border-radius: 50%;
+      left: -0.5rem;
+      top: 0;
+      position: absolute;
+    }
+  }
+}

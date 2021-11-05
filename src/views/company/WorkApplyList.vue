@@ -162,14 +162,10 @@
                     >
                       選擇動作
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-outline-gray-line text-dark me-2"
-                      data-action="deleteItem"
-                    >
+                    <button type="button" class="btn btn-outline-gray-line text-dark me-2">
                       聯絡
                     </button>
-                    <button type="button" class="btn text-dark" data-action="deleteItem">
+                    <button type="button" class="btn text-dark">
                       <i class="bi bi-three-dots"></i>
                     </button>
                   </div>

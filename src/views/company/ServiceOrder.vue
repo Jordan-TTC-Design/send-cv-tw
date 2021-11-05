@@ -2,226 +2,222 @@
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container">
-      <div class="row">
+      <div class="row" v-if="selectOrder.key === ''">
         <div class="col-3">
-          <div class="sideCollapse position--sticky--pageTop">
-            <div class="accordion-item">
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
-                :class="{ active: sideBoxList === '首頁廣告' }"
-                @click="selectCollapseList('首頁廣告')"
-              >
-                首頁廣告
-                <i v-if="sideBoxList !== '首頁廣告'" class="jobIcon bi bi-chevron-down"></i>
-                <i v-if="sideBoxList === '首頁廣告'" class="jobIcon bi bi-chevron-up"></i>
-              </p>
-              <ul
-                class="sideCollapse__innerList pb-5 bg-gray-light"
-                v-show="sideBoxList === '首頁廣告'"
-              >
-                <li
-                  class="nav__item"
-                  @click="selectListItem('首頁廣告 - 應徵通知')"
-                  :class="{ active: sideBoxInnerList === '首頁廣告 - 應徵通知' }"
-                >
-                  <p class="nav__item__title">應徵通知</p>
-                </li>
-                <li
-                  class="nav__item"
-                  @click="selectListItem('首頁廣告 - 聊天室通知')"
-                  :class="{ active: sideBoxInnerList === '首頁廣告 - 聊天室通知' }"
-                >
-                  <p class="nav__item__title">聊天室通知</p>
-                </li>
-                <li
-                  class="nav__item"
-                  @click="selectListItem('首頁廣告 - 推薦通知')"
-                  :class="{ active: sideBoxInnerList === '首頁廣告 - 推薦通知' }"
-                >
-                  <p class="nav__item__title">推薦通知</p>
-                </li>
-                <li
-                  class="nav__item"
-                  @click="selectListItem('首頁廣告 - 面試提醒通知')"
-                  :class="{ active: sideBoxInnerList === '首頁廣告 - 面試提醒通知' }"
-                >
-                  <p class="nav__item__title">面試提醒通知</p>
-                </li>
-              </ul>
+          <div class="sideListBox">
+            <div class="sideListBox__titleBox">
+              <p class="sideListBox__title">搜尋條件</p>
             </div>
-            <div
-              class="accordion-item sideCollapse__list--item"
-              :class="{ active: sideBoxList === '粉絲專頁廣告' }"
-              @click="selectCollapseList('粉絲專頁廣告')"
-            >
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
-                :class="{ active: sideBoxList === '粉絲專頁廣告' }"
-              >
-                粉絲專頁廣告
-              </p>
-            </div>
-            <div
-              class="accordion-item sideCollapse__list--item"
-              :class="{ active: sideBoxList === '推廣職位' }"
-              @click="selectCollapseList('推廣職位')"
-            >
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
-                :class="{ active: sideBoxList === '推廣職位' }"
-              >
-                推廣職位
-              </p>
-            </div>
+            <form class="p-4" @submit="toSearchJob">
+              <div class="form__inputBox">
+                <div class="form__labelBox">
+                  <label for="filterFormkey" class="form__label--custom form-label">訂單編號</label>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="filterFormkey"
+                  placeholder="訂單編號"
+                  aria-describedby="訂單編號"
+                  v-model="filterForm.key"
+                />
+              </div>
+              <div class="form__inputBox">
+                <div class="form__labelBox">
+                  <label for="filterFormType" class="form__label--custom form-label"
+                    >訂單類別</label
+                  >
+                </div>
+                <select
+                  class="form-select"
+                  aria-label="訂單類別"
+                  id="filterFormType"
+                  v-model="filterForm.type"
+                >
+                  <option disabled>請選擇訂單類別</option>
+                  <option selected value="不限">不限</option>
+                  <option
+                    v-for="(item, index) in orderType"
+                    :value="item.typeName"
+                    :key="`訂單類別${index}`"
+                  >
+                    {{ item.typeName }}
+                  </option>
+                </select>
+              </div>
+              <div class="form__inputBox">
+                <div class="form__labelBox">
+                  <label for="filterFormStartDate" class="form__label--custom form-label"
+                    >訂單日期範圍起始</label
+                  >
+                </div>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="filterFormStartDate"
+                  placeholder="訂單日期範圍起始"
+                  aria-describedby="訂單日期範圍起始"
+                  v-model="filterForm.startDate"
+                />
+              </div>
+              <div class="form__inputBox">
+                <div class="form__labelBox">
+                  <label for="filterFormEndDate" class="form__label--custom form-label"
+                    >訂單日期範圍結束</label
+                  >
+                </div>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="filterFormEndDate"
+                  placeholder="訂單日期範圍結束"
+                  aria-describedby="訂單日期範圍結束"
+                  v-model="filterForm.endDate"
+                />
+              </div>
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-gray-light text-dark">清除</button>
+                <button type="button" class="btn btn-companyColor text-light">篩選</button>
+              </div>
+            </form>
           </div>
         </div>
         <div class="col-lg-9 col-12" v-if="dataReady === true">
-          <div v-if="sideBoxList === '首頁廣告'">
-            <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
-              <div>
-                <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>大型看板廣告
-                </h3>
-                <p class="mb-2">剩餘額度：12次</p>
-                <p class="subTxt text-secondary">剩餘的額度不夠使用嗎？您可以點擊購買額度立即加入購物車！</p>
-              </div>
-              <div class="d-flex justify-content-end align-items-end">
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                  購買額度
-                </button>
-                <button type="button" class="btn btn-companyColor text-light">新增廣告</button>
-              </div>
-            </div>
-            <div class="admin__mainContent p-0 pb-3">
-              <div class="adminContentList">
-                <ul class="adminContentNav w-100">
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '廣告說明' }"
-                    @click="subNav = '廣告說明'"
-                  >
-                    <p>廣告說明</p>
+          <div class="adminContentBox--nonPadding payService__orderList">
+            <ul class="adminContentNav w-100">
+              <li
+                class="adminContentNav__item"
+                :class="{ active: subNav === '訂單完成' }"
+                @click="subNav = '訂單完成'"
+              >
+                <p>訂單完成</p>
+              </li>
+              <li
+                class="adminContentNav__item"
+                :class="{ active: subNav === '訂單未付款' }"
+                @click="subNav = '訂單未付款'"
+              >
+                <p>訂單未付款<span class="ms-1">99</span></p>
+              </li>
+              <li
+                class="adminContentNav__item"
+                :class="{ active: subNav === '訂單取消' }"
+                @click="subNav = '訂單取消'"
+              >
+                <p>訂單取消<span class="ms-1">99</span></p>
+              </li>
+            </ul>
+            <ul class="boxInnerList">
+              <li class="boxInnerList__item d-flex align-items-center">
+                <ul class="tableList flex-grow-1">
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">訂單編號</p>
+                    <p class="tableList__item__txt">MHR928032009320</p>
                   </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '刊登中廣告' }"
-                    @click="subNav = '刊登中廣告'"
-                  >
-                    <p>刊登中廣告<span class="ms-1">5</span></p>
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">訂單內容</p>
+                    <p class="tableList__item__txt">大型版面廣告x1...</p>
                   </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '審核中廣告' }"
-                    @click="subNav = '審核中廣告'"
-                  >
-                    <p>審核中廣告<span class="ms-1">99</span></p>
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">訂單金額</p>
+                    <div class="d-flex align-items-center">
+                      <p class="tableList__item__txt me-2">NT$16,800</p>
+                      <button type="button" class="btn tableList__item__tagBtn--company">
+                        取消
+                      </button>
+                    </div>
                   </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '審核失敗' }"
-                    @click="subNav = '審核失敗'"
-                  >
-                    <p>審核失敗</p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div v-if="sideBoxList === '粉絲專頁廣告'">
-            <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
-              <div>
-                <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>粉絲專頁廣告
-                </h3>
-                <p class="mb-2">剩餘額度：12次</p>
-                <p class="subTxt text-secondary">剩餘的額度不夠使用嗎？您可以點擊購買額度立即加入購物車！</p>
-              </div>
-              <div class="d-flex justify-content-end align-items-end">
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                  購買額度
-                </button>
-                <button type="button" class="btn btn-companyColor text-light">新增廣告</button>
-              </div>
-            </div>
-            <div class="admin__mainContent p-0 pb-3">
-              <div class="adminContentList">
-                <ul class="adminContentNav w-100">
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '廣告說明' }"
-                    @click="subNav = '廣告說明'"
-                  >
-                    <p>廣告說明</p>
-                  </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '刊登中廣告' }"
-                    @click="subNav = '刊登中廣告'"
-                  >
-                    <p>刊登中廣告<span class="ms-1">5</span></p>
-                  </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '審核中廣告' }"
-                    @click="subNav = '審核中廣告'"
-                  >
-                    <p>審核中廣告<span class="ms-1">99</span></p>
-                  </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '審核失敗' }"
-                    @click="subNav = '審核失敗'"
-                  >
-                    <p>審核失敗</p>
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">建立日期</p>
+                    <p class="tableList__item__txt">2021/09/05</p>
                   </li>
                 </ul>
-              </div>
-            </div>
-          </div>
-          <div v-if="sideBoxList === '推廣職位'">
-            <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
-              <div>
-                <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>推廣職位
-                </h3>
-                <p class="mb-2">剩餘額度：12次</p>
-                <p class="subTxt text-secondary">剩餘的額度不夠使用嗎？您可以點擊購買額度立即加入購物車！</p>
-              </div>
-              <div class="d-flex justify-content-end align-items-end">
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                  購買額度
-                </button>
-                <button type="button" class="btn btn-companyColor text-light">新增廣告</button>
-              </div>
-            </div>
-            <div class="admin__mainContent p-0 pb-3">
-              <div class="adminContentList">
-                <ul class="adminContentNav w-100">
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '廣告說明' }"
-                    @click="subNav = '廣告說明'"
-                  >
-                    <p>廣告說明</p>
+                <button type="button" class="btn btn-outline-gray-line text-dark">檢視訂單</button>
+              </li>
+              <li class="boxInnerList__item d-flex align-items-center">
+                <ul class="tableList flex-grow-1">
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">訂單編號</p>
+                    <p class="tableList__item__txt">MHR928032009320</p>
                   </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '推廣中職位' }"
-                    @click="subNav = '推廣中職位'"
-                  >
-                    <p>推廣中職位<span class="ms-1">99</span></p>
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">訂單內容</p>
+                    <p class="tableList__item__txt">大型版面廣告x1...</p>
                   </li>
-                  <li
-                    class="adminContentNav__item"
-                    :class="{ active: subNav === '推廣紀錄' }"
-                    @click="subNav = '推廣紀錄'"
-                  >
-                    <p>推廣紀錄</p>
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">訂單金額</p>
+                    <div class="d-flex align-items-center">
+                      <p class="tableList__item__txt me-2">NT$16,800</p>
+                      <button type="button" class="btn tableList__item__tagBtn--company">
+                        取消
+                      </button>
+                    </div>
+                  </li>
+                  <li class="tableList__item">
+                    <p class="tableList__item__title">建立日期</p>
+                    <p class="tableList__item__txt">2021/09/05</p>
                   </li>
                 </ul>
-              </div>
-            </div>
+                <button type="button" class="btn btn-outline-gray-line text-dark">檢視訂單</button>
+              </li>
+            </ul>
           </div>
+        </div>
+      </div>
+      <div class="row justify-content-center" v-if="selectOrder.key !== ''">
+        <div class="col-lg-9 col-12">
+          <button
+            type="button"
+            class="backToPageBtn btn btn-light text-dark mb-4"
+            @click="resetSelectorder"
+          >
+            <i class="bi bi-chevron-left me-2"></i>返回<span class="backToPageBtn__title ms-4"
+              >訂單編號：{{ selectOrder.key }}</span
+            >
+          </button>
+        </div>
+        <div class="col-lg-9 col-12">
+          <div class="contentBox orderInfoBox p-4 mb-5">
+            <h5 class="subTitle text-dark mb-2 ms-1">訂單資訊</h5>
+            <ul class="tableList">
+              <li class="tableList__item">
+                <p class="tableList__item__title">訂單編號</p>
+                <p class="tableList__item__txt">MHR928032009320</p>
+              </li>
+              <li class="tableList__item">
+                <p class="tableList__item__title">訂單狀態</p>
+                <p class="tableList__item__txt">已付款</p>
+              </li>
+              <li class="tableList__item">
+                <p class="tableList__item__title">訂單金額</p>
+                <p class="tableList__item__txt mb-1">NT$16,800</p>
+              </li>
+              <li class="tableList__item">
+                <p class="tableList__item__title">建立日期</p>
+                <p class="tableList__item__txt">2021/09/05</p>
+              </li>
+              <li class="tableList__item">
+                <p class="tableList__item__title">訂單建立用戶</p>
+                <p class="tableList__item__txt">王小明</p>
+              </li>
+              <li class="tableList__item">
+                <p class="tableList__item__title">付款帳號</p>
+                <p class="tableList__item__txt mb-1">3566-8041-1593-9509</p>
+              </li>
+              <li class="tableList__item">
+                <p class="tableList__item__title">付款日期</p>
+                <p class="tableList__item__txt">2021/09/05</p>
+              </li>
+              <li class="tableList__item">
+                <p class="tableList__item__title">發票狀態</p>
+                <div class="d-flex align-items-center">
+                  <p class="tableList__item__txt me-2">尚未開立發票</p>
+                  <button type="button" class="btn tableList__item__tagBtn--company">變更</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="adminContentBox--nonPadding"></div>
         </div>
       </div>
     </div>
@@ -243,10 +239,28 @@ export default {
       nowPage: '我的訂單',
       sideBoxList: '首頁廣告',
       sideBoxInnerList: '首頁廣告 - 應徵通知',
-      subNav: '',
+      subNav: '訂單完成',
       meUser: {},
       tempUser: {},
       dataReady: false,
+      filterForm: {
+        key: '',
+        type: '不限',
+        startDate: null,
+        endDate: null,
+      },
+      selectOrder: {
+        key: 'MHR928032009320',
+      },
+      orderType: [
+        { typeName: '大型版面廣告' },
+        { typeName: '一般版面廣告' },
+        { typeName: '小型版面廣告' },
+        { typeName: '會員方案' },
+        { typeName: '粉絲專頁廣告' },
+        { typeName: '推廣職位' },
+        { typeName: '其他' },
+      ],
     };
   },
   watch: {
@@ -258,6 +272,11 @@ export default {
     },
   },
   methods: {
+    resetSelectorder() {
+      this.selectOrder = {
+        key: '',
+      };
+    },
     selectCollapseList(action) {
       this.sideBoxList = action;
       if (action === '首頁廣告') {

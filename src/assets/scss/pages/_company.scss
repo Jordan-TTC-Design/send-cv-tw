@@ -147,15 +147,6 @@
     }
   }
 }
-.infoContentBox {
-  padding: 0.75rem;
-  background-color: $gray-light;
-  border-radius: 0.5rem;
-  &__title {
-    font-size: 14px;
-    color: $secondary;
-  }
-}
 .infoList--company {
   .infoList__item {
     &:hover {
@@ -352,7 +343,7 @@
     @include shadow-none;
     border-bottom: 1px solid $gray-line;
     &:hover {
-      background-color: rgba($color: $gray-light, $alpha: 0.3);
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
     }
   }
 }
@@ -455,8 +446,8 @@
   &--50 {
     width: 50%;
   }
-  &.adminContentNav--fill{
-    .adminContentNav__item{
+  &.adminContentNav--fill {
+    .adminContentNav__item {
       flex-grow: 1;
     }
     .adminContentNav__item:last-child {
@@ -609,5 +600,69 @@
         right: 0.75rem;
       }
     }
+  }
+}
+
+.adminInnerList {
+  width: 100%;
+  &__item {
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    display: flex;
+    width: 100%;
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
+    &__img {
+      border-radius: 0.25rem;
+      object-fit: cover;
+      width: 24%;
+      height: 100%;
+    }
+    &__title {
+      color: $dark;
+      font-weight: $fw--md;
+    }
+    &__infoTxt {
+      display: flex;
+      align-items: center;
+      .subTxt {
+        font-size: 14px;
+        color: $secondary;
+        min-width: 4rem;
+        margin-right: 0.75rem;
+      }
+    }
+  }
+}
+.memberShipList {
+  border-radius: 0.5rem;
+  border: 1px solid $gray-line;
+  &__titleItem {
+    width: 25%;
+  }
+  &__item {
+    width: 25%;
+  }
+}
+.adPreviewContainer {
+  background-color: $gray-light;
+  max-height: 480px;
+  overflow-y: auto;
+  &__img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+.payService__orderList {
+  .tableList {
+    &__item {
+      width: 25%;
+    }
+  }
+}
+.orderInfoBox{
+  .tableList__item{
+    width: 25%;
   }
 }

@@ -68,7 +68,7 @@
             <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
               <div>
                 <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>大型看板廣告
+                  <span class="titleTag--doubleCircle--company me-2"></span>{{ sideBoxInnerList }}
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.adTokens }}</p>
                 <p class="subTxt text-secondary">
@@ -79,15 +79,17 @@
                 <button type="button" class="btn btn-outline-gray-line text-dark me-2">
                   購買額度
                 </button>
-                <router-link
+                <button
+                  type="button"
                   class="btn btn-companyColor text-light"
-                  :to="`service-ad/new-ad/web-ad-big`"
-                  >立即新增廣告</router-link
+                  @click="goToNewAdPage"
                 >
+                  立即新增廣告
+                </button>
               </div>
             </div>
-            <div class="adminSelectBox p-0">
-              <ul class="adminContentNav w-100">
+            <div class="adminContentBox--nonPadding">
+              <ul class="adminContentNav">
                 <li
                   class="adminContentNav__item"
                   :class="{ active: subNav === '廣告說明' }"
@@ -97,27 +99,48 @@
                 </li>
                 <li
                   class="adminContentNav__item"
-                  :class="{ active: subNav === '刊登中廣告' }"
-                  @click="subNav = '刊登中廣告'"
+                  :class="{ active: subNav === '刊登中' }"
+                  @click="subNav = '刊登中'"
                 >
-                  <p>刊登中廣告<span class="ms-1">5</span></p>
+                  <p>
+                    刊登中<span class="ms-1" v-if="onAdList.length > 0">{{ onAdList.length }}</span>
+                  </p>
                 </li>
                 <li
                   class="adminContentNav__item"
-                  :class="{ active: subNav === '審核中廣告' }"
-                  @click="subNav = '審核中廣告'"
+                  :class="{ active: subNav === '審核中' }"
+                  @click="subNav = '審核中'"
                 >
-                  <p>審核中廣告<span class="ms-1">99</span></p>
+                  <p>
+                    審核中<span class="ms-1" v-if="newAdList.length > 0">{{
+                      newAdList.length
+                    }}</span>
+                  </p>
+                </li>
+                <li
+                  class="adminContentNav__item"
+                  :class="{ active: subNav === '已過期' }"
+                  @click="subNav = '已過期'"
+                >
+                  <p>
+                    已過期<span class="ms-1" v-if="offAdList.length > 0">{{
+                      offAdList.length
+                    }}</span>
+                  </p>
                 </li>
                 <li
                   class="adminContentNav__item"
                   :class="{ active: subNav === '審核失敗' }"
                   @click="subNav = '審核失敗'"
                 >
-                  <p>審核失敗</p>
+                  <p>
+                    審核失敗<span class="ms-1" v-if="declineAdList.length > 0">{{
+                      declineAdList.length
+                    }}</span>
+                  </p>
                 </li>
               </ul>
-              <div class="selectBox__section">
+              <div class="selectBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle">廣告說明</h4>
                 <ul class="infoList infoList--company">
                   <li class="infoList__item">
@@ -133,10 +156,11 @@
                   </li>
                 </ul>
               </div>
-              <div class="selectBox__section">
-                <h4 class="pageSubTitle">推廣預覽畫面</h4>
+              <div class="selectBox__section" v-if="subNav === '廣告說明'">
+                <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
+                <img class="w-100 rounded" src="https://i.imgur.com/0gQq1A3.png" alt="大型版面預覽畫面">
               </div>
-              <div class="selectBox__section pb-5">
+              <div class="selectBox__section pb-5" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-4">如何建立廣告</h4>
                 <div class="d-flex align-items-start justify-content-between">
                   <p class="me-5">
@@ -149,6 +173,59 @@
                   >
                 </div>
               </div>
+              <ul class="adminInnerList" v-if="nowAdList.length > 0">
+                <template v-for="(item, index) in nowAdList" :key="index">
+                  <li class="adminInnerList__item">
+                    <img
+                      class="adminInnerList__item__img me-3"
+                      :src="item.adImgUrl.url"
+                      alt="廣告圖片"
+                    />
+                    <div class="flex-grow-1 me-3">
+                      <p
+                        class="adminInnerList__item__title mb-2 putPointer"
+                        @click="openAdDataModal(item)"
+                      >
+                        {{ item.adName }}
+                      </p>
+                      <div class="adminInnerList__item__infoTxt mb-1">
+                        <p class="subTxt">刊登日期</p>
+                        <p>{{ item.startDate }}</p>
+                      </div>
+                      <div class="adminInnerList__item__infoTxt">
+                        <p class="subTxt">廣告內容</p>
+                        <div v-html="item.adContent"></div>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-end">
+                      <button
+                        type="button"
+                        class="btn btn-outline-gray-line text-dark"
+                        v-if="subNav === '刊登中'"
+                      >
+                        延長時間
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-gray-line text-dark"
+                        v-if="subNav === '審核失敗'"
+                      >
+                        編輯內容
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-gray-line text-dark"
+                        v-if="subNav === '已過期'"
+                      >
+                        重新發佈
+                      </button>
+                      <button type="button" class="btn text-dark">
+                        <i class="bi bi-three-dots"></i>
+                      </button>
+                    </div>
+                  </li>
+                </template>
+              </ul>
             </div>
           </div>
           <div v-if="sideBoxList === '粉絲專頁廣告'">
@@ -168,12 +245,12 @@
                 </button>
                 <router-link
                   class="btn btn-companyColor text-light text-nowrap"
-                  :to="`/company-admin/job-list`"
-                  >立刻建立廣告</router-link
+                  :to="`service-ad/new-ad/banner`"
+                  >立即新增廣告</router-link
                 >
               </div>
             </div>
-            <div class="adminSelectBox p-0">
+            <div class="adminContentBox--nonPadding">
               <ul class="adminContentNav w-100">
                 <li
                   class="adminContentNav__item"
@@ -184,27 +261,48 @@
                 </li>
                 <li
                   class="adminContentNav__item"
-                  :class="{ active: subNav === '刊登中廣告' }"
-                  @click="subNav = '刊登中廣告'"
+                  :class="{ active: subNav === '刊登中' }"
+                  @click="subNav = '刊登中'"
                 >
-                  <p>刊登中廣告<span class="ms-1">5</span></p>
+                  <p>
+                    刊登中<span class="ms-1" v-if="onAdList.length > 0">{{ onAdList.length }}</span>
+                  </p>
                 </li>
                 <li
                   class="adminContentNav__item"
-                  :class="{ active: subNav === '審核中廣告' }"
-                  @click="subNav = '審核中廣告'"
+                  :class="{ active: subNav === '審核中' }"
+                  @click="subNav = '審核中'"
                 >
-                  <p>審核中廣告<span class="ms-1">99</span></p>
+                  <p>
+                    審核中<span class="ms-1" v-if="newAdList.length > 0">{{
+                      newAdList.length
+                    }}</span>
+                  </p>
+                </li>
+                <li
+                  class="adminContentNav__item"
+                  :class="{ active: subNav === '已過期' }"
+                  @click="subNav = '已過期'"
+                >
+                  <p>
+                    已過期<span class="ms-1" v-if="offAdList.length > 0">{{
+                      offAdList.length
+                    }}</span>
+                  </p>
                 </li>
                 <li
                   class="adminContentNav__item"
                   :class="{ active: subNav === '審核失敗' }"
                   @click="subNav = '審核失敗'"
                 >
-                  <p>審核失敗</p>
+                  <p>
+                    審核失敗<span class="ms-1" v-if="declineAdList.length > 0">{{
+                      declineAdList.length
+                    }}</span>
+                  </p>
                 </li>
               </ul>
-              <div class="selectBox__section">
+              <div class="selectBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle">廣告說明</h4>
                 <ul class="infoList infoList--company">
                   <li class="infoList__item">
@@ -219,20 +317,78 @@
                   </li>
                 </ul>
               </div>
-              <div class="selectBox__section">
-                <h4 class="pageSubTitle">推廣預覽畫面</h4>
+              <div class="selectBox__section" v-if="subNav === '廣告說明'">
+                <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
+                <img class="w-100 rounded" src="https://i.imgur.com/ofiQp4a.png" alt="大型版面預覽畫面">
               </div>
-              <div class="selectBox__section pb-5">
+              <div class="selectBox__section pb-5" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-4">如何建立廣告</h4>
                 <div class="d-flex align-items-start justify-content-between">
                   <p class="me-5">
                     只要提供徵才目標的關鍵資訊並交由我們處理，就可以獲得符合職位情況的廣告文宣，您也獲得自由使用該圖片的權利。
                   </p>
-                  <button type="button" class="btn btn-companyColor text-light text-nowrap">
-                    立刻建立廣告
+                  <button
+                    type="button"
+                    class="btn btn-companyColor text-light"
+                    @click="goToNewAdPage"
+                  >
+                    立即新增廣告
                   </button>
                 </div>
               </div>
+              <ul class="adminInnerList" v-if="nowAdList.length > 0">
+                <template v-for="(item, index) in nowAdList" :key="index">
+                  <li class="adminInnerList__item">
+                    <img
+                      class="adminInnerList__item__img me-3"
+                      :src="item.adImgUrl.url"
+                      alt="廣告圖片"
+                    />
+                    <div class="flex-grow-1 me-3">
+                      <p
+                        class="adminInnerList__item__title mb-2 putPointer"
+                        @click="openAdDataModal(item)"
+                      >
+                        {{ item.adName }}
+                      </p>
+                      <div class="adminInnerList__item__infoTxt mb-1">
+                        <p class="subTxt">刊登日期</p>
+                        <p>{{ item.startDate }}</p>
+                      </div>
+                      <div class="adminInnerList__item__infoTxt">
+                        <p class="subTxt">廣告內容</p>
+                        <div v-html="item.adContent"></div>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-end">
+                      <button
+                        type="button"
+                        class="btn btn-outline-gray-line text-dark"
+                        v-if="subNav === '刊登中'"
+                      >
+                        延長時間
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-gray-line text-dark"
+                        v-if="subNav === '審核失敗'"
+                      >
+                        編輯內容
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-gray-line text-dark"
+                        v-if="subNav === '已過期'"
+                      >
+                        重新發佈
+                      </button>
+                      <button type="button" class="btn text-dark">
+                        <i class="bi bi-three-dots"></i>
+                      </button>
+                    </div>
+                  </li>
+                </template>
+              </ul>
             </div>
           </div>
           <div v-if="sideBoxList === '推廣職位'">
@@ -255,7 +411,7 @@
                 >
               </div>
             </div>
-            <div class="adminSelectBox p-0">
+            <div class="adminContentBox--nonPadding">
               <ul class="adminContentNav w-100">
                 <li
                   class="adminContentNav__item"
@@ -266,10 +422,10 @@
                 </li>
                 <li
                   class="adminContentNav__item"
-                  :class="{ active: subNav === '推廣中職位' }"
-                  @click="subNav = '推廣中職位'"
+                  :class="{ active: subNav === '推廣中' }"
+                  @click="subNav = '推廣中'"
                 >
-                  <p>推廣中職位<span class="ms-1">99</span></p>
+                  <p>推廣中<span class="ms-1">99</span></p>
                 </li>
               </ul>
               <div class="selectBox__section">
@@ -289,7 +445,8 @@
                 </ul>
               </div>
               <div class="selectBox__section">
-                <h4 class="pageSubTitle">推廣預覽畫面</h4>
+                <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
+                <img class="w-100 rounded" src="https://i.imgur.com/edXJc36.png" alt="大型版面預覽畫面">
               </div>
               <div class="selectBox__section pb-5">
                 <h4 class="pageSubTitle mb-4">如何設定推廣</h4>
@@ -310,33 +467,92 @@
       </div>
     </div>
   </div>
+  <AdModal />
 </template>
 
 <script>
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
+import AdModal from '@/components/company/AdModal.vue';
+import emitter from '@/methods/emitter';
 
 export default {
   components: {
     CompanyAdminNav,
+    AdModal,
   },
   data() {
     return {
       nowPage: '廣告管理',
       sideBoxList: '首頁廣告',
       sideBoxInnerList: '大型版面廣告',
-      jobPreviewType: '首頁推廣職位',
+      sideBoxInnerState: '刊登中',
       subNav: '廣告說明',
       allAdList: [],
       dataReady: false,
       company: {},
     };
   },
+  computed: {
+    nowAdList() {
+      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const stateArray = tempArray.filter((item) => item.adState === this.subNav);
+      console.log(stateArray);
+      return stateArray;
+    },
+    newAdList() {
+      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const stateArray = tempArray.filter((item) => item.adState === '審核中');
+      console.log(stateArray);
+      return stateArray;
+    },
+    onAdList() {
+      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const stateArray = tempArray.filter((item) => item.adState === '刊登中');
+      console.log(stateArray);
+      return stateArray;
+    },
+    offAdList() {
+      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const stateArray = tempArray.filter((item) => item.adState === '已過期');
+      console.log(stateArray);
+      return stateArray;
+    },
+    declineAdList() {
+      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const stateArray = tempArray.filter((item) => item.adState === '審核失敗');
+      console.log(stateArray);
+      return stateArray;
+    },
+  },
   methods: {
+    goToNewAdPage() {
+      let routerLink = '';
+      if (this.sideBoxInnerList === '大型版面廣告') {
+        routerLink = 'service-ad/new-ad/web-ad-big';
+      } else if (this.sideBoxInnerList === '一般版面廣告') {
+        routerLink = 'service-ad/new-ad/web-ad-md';
+      } else if (this.sideBoxInnerList === '小型版面廣告') {
+        routerLink = 'service-ad/new-ad/web-ad-sm';
+      }
+      this.$router.push(routerLink);
+    },
+    openAdDataModal(item) {
+      const obj = {
+        action: '檢視廣告',
+        data: item,
+      };
+      emitter.emit('open-ad-modal', obj);
+    },
     goToPageLink(routerLink) {
       this.$router.push(routerLink);
     },
     selectAdSection(adSectionType) {
+      if (adSectionType === '粉絲專頁廣告') {
+        this.sideBoxInnerList = '粉絲專頁廣告';
+      } else if (adSectionType === '職位推廣') {
+        this.sideBoxInnerList = '職位推廣';
+      }
       this.sideBoxList = adSectionType;
       this.subNav = '廣告說明';
     },
@@ -353,7 +569,7 @@ export default {
     },
     getAdListData() {
       this.allAdList = [];
-      const companyAdListRef = database.ref('company/adList');
+      const companyAdListRef = database.ref('company/payService/adList');
       companyAdListRef.once('value', (snapshot) => {
         const data = snapshot.val();
         Object.keys(data).forEach((item) => {
