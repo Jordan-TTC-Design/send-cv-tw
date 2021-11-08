@@ -329,6 +329,7 @@ export default {
       formData: {},
       company: {
         companyInfo: {
+          companyKey: '50796003',
           companyName: '',
           addressCity: '',
           addressDist: '',

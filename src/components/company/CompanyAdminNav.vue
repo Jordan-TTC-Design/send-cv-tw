@@ -118,8 +118,8 @@
             購物車
             <span
               class="btnNumber__number btnNumber__number--companyColor"
-              v-if="cart.productList.length !== 0"
-              >{{ cart.productList.length }}</span
+              v-if="cart.totalNum > 0"
+              >{{ cart.totalNum }}</span
             >
           </button>
         </li>
@@ -179,19 +179,7 @@ export default {
   data() {
     return {
       adminMainSection: '企業中心',
-      cart: {
-        key: '',
-        created__time: null,
-        invoice: {
-          type: '一般電子發票',
-          created__time: null,
-          companyName: '',
-          unitNumber: null,
-        },
-        payType: 'card',
-        totalPrice: '',
-        productList: [],
-      },
+      cart: {},
       dataReady: false,
     };
   },
@@ -211,15 +199,27 @@ export default {
       this.cart = {
         key: '',
         created__time: null,
+        payType: 'card',
+        totalPrice: 0,
+        totalNum: 0,
+        productList: [],
+        memo: '',
+        payInfo: {
+          payState: '',
+          payDate: '',
+          payAccount: '',
+        },
         invoice: {
           type: '一般電子發票',
           created__time: null,
           companyName: '',
           unitNumber: null,
         },
-        payType: 'card',
-        totalPrice: '',
-        productList: [],
+        contactInfo: {
+          name: '',
+          phone: '',
+          email: '',
+        },
       };
     },
     sendBackCart() {
@@ -231,11 +231,9 @@ export default {
       const cartRef = database.ref('company/cart');
       cartRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
         if (data) {
           this.cart = data;
         }
-        console.log(this.cart);
       });
     },
     checkMainSection() {
@@ -267,6 +265,7 @@ export default {
     },
   },
   created() {
+    this.defaultCart();
     this.getCart();
     this.checkMainSection();
   },

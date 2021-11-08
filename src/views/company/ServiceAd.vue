@@ -602,33 +602,49 @@ export default {
       this.cart = data;
       console.log(this.cart);
     },
+    defaultGetCart() {
+      const cartRef = database.ref('company/cart');
+      cartRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          this.cart = data;
+        }
+        console.log(this.cart);
+      });
+    },
     addCart(adName) {
+      console.log(this.cart);
+      console.log(this.cart.totalNum);
+      console.log(this.cart.totalNum > 0);
       this.selectItem = {};
       this.selectItem = JSON.parse(JSON.stringify(this.productData[adName]));
-      console.log(this.selectItem);
-      console.log(this.cart);
-      console.log(this.cart.productList.length);
       let check = false;
-      if (this.cart.productList.length > 0) {
+      if (this.cart.totalNum > 0) {
+        // 購物車已經有東西
         console.log('購物車已經有東西');
         this.cart.productList.forEach((item, index) => {
-          console.log(item.name);
-          console.log(this.selectItem.name);
+          // 購物車已經有東西，並檢查是否重複
           if (item.name === this.selectItem.name) {
-            console.log(this.cart.productList[index]);
+            console.log('是重複的');
             this.cart.productList[index].num += 1;
             this.cart.totalPrice += this.selectItem.price;
             check = true;
+            this.cart.totalNum += 1;
           }
         });
         if (check === false) {
+          console.log('不是重複的');
           this.cart.productList.push(this.selectItem);
           this.cart.totalPrice += this.selectItem.price;
+          this.cart.totalNum += 1;
         }
       } else {
+        // 購物車沒有東西
+        console.log('購物車沒有東西');
+        this.cart.productList = [];
         this.cart.productList.push(this.selectItem);
         this.cart.totalPrice += this.selectItem.price;
-        console.log('+了');
+        this.cart.totalNum += 1;
       }
       console.log(this.cart);
       this.saveCartData();
@@ -695,6 +711,7 @@ export default {
   created() {
     this.getCompanyData();
     this.getAdListData();
+    this.defaultGetCart();
   },
   mounted() {
     emitter.on('send-back-cart-data', this.getCart);

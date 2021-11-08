@@ -32,7 +32,7 @@
               <li class="list__item flex-md-row flex-column box--shadow p-3 mb-3">
                 <div class="w-50">
                   <p class="itemTitle text-dark d-flex align-items-center mb-1">
-                    {{ meUser.ChineseName }}<span class="jobTag ms-2">{{ meUser.userRole }}</span
+                    {{ meUser.chineseName }}<span class="jobTag ms-2">{{ meUser.userRole }}</span
                     ><span class="jobTag jobTag--company ms-2">本人</span>
                   </p>
                   <p>{{ meUser.email }}</p>
@@ -64,7 +64,7 @@
                 >
                   <div class="w-50">
                     <p class="itemTitle text-dark d-flex align-items-center mb-1">
-                      {{ item.ChineseName }}
+                      {{ item.chineseName }}
                       <span class="jobTag ms-2" v-if="item.is_admin">管理員</span>
                     </p>
                     <p>{{ item.email }}</p>
@@ -113,7 +113,7 @@
                   </button>
                 </div>
               </div>
-              <p class="mb-3">{{ tempUser.ChineseName }}</p>
+              <p class="mb-3">{{ tempUser.chineseName }}</p>
               <div class="inputGroup--item w-100">
                 <div
                   class="btn border-gray-line border btn--switch putPointer"
@@ -135,10 +135,10 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">中文姓名</p>
-                    <p v-if="tempUser.ChineseName !== ''" class="infoList__item__content">
-                      {{ tempUser.ChineseName }}
+                    <p v-if="tempUser.chineseName !== ''" class="infoList__item__content">
+                      {{ tempUser.chineseName }}
                     </p>
-                    <p v-if="tempUser.ChineseName === ''" class="infoList__item__content">
+                    <p v-if="tempUser.chineseName === ''" class="infoList__item__content">
                       尚未填寫
                     </p>
                   </div>
@@ -155,10 +155,10 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">英文姓名</p>
-                    <p v-if="tempUser.EnglishName !== ''" class="infoList__item__content">
-                      {{ tempUser.EnglishName }}
+                    <p v-if="tempUser.englishName !== ''" class="infoList__item__content">
+                      {{ tempUser.englishName }}
                     </p>
-                    <p v-if="tempUser.EnglishName === ''" class="infoList__item__content">
+                    <p v-if="tempUser.englishName === ''" class="infoList__item__content">
                       尚未填寫
                     </p>
                   </div>
@@ -303,8 +303,8 @@ export default {
       settingSideList: '個人資料',
       skillShowStyle: true,
       meUser: {
-        ChineseName: '',
-        EnglishName: '',
+        chineseName: '',
+        englishName: '',
         jobTitle: '',
         email: '',
         phone: '',

@@ -25,44 +25,46 @@
               <p class="flexTable__cell invisible">操作</p>
             </div>
             <div class="flexTable__body">
-              <div class="flexTable__item align-items-center">
-                <div class="flexTable__cell flexTable__cell--3 d-flex align-items-center">
-                  <img
-                    class="w-50 rounded me-2"
-                    src="https://i.imgur.com/w4Eeknw.jpeg"
-                    alt="訂單圖片"
-                  />
-                  <div>
-                    <p class="flexTable__body__item__title mb-1">首頁廣告</p>
-                    <p class="subTxt">大型版面廣告使用額度</p>
-                  </div>
-                </div>
-                <p class="flexTable__cell flexTable__cell--1 text-center">NT$400</p>
-                <div class="flexTable__cell flexTable__cell--2 inputGroup--item">
-                  <div class="fakeInput--counter w-100">
-                    <div
-                      class="fakeBtn"
-                      @click="minusData('大型看板廣告')"
-                      :class="{ disActive: product.num < 1 }"
-                    >
-                      <i class="jobIcon bi bi-dash-circle"></i>
-                    </div>
-                    <p>{{ product.num }}</p>
-                    <div class="fakeBtn" @click="plusData('大型看板廣告')">
-                      <i class="jobIcon bi bi-plus-circle"></i>
+              <template v-for="(item, index) in cart.productList" :key="item.name">
+                <div class="flexTable__item align-items-center">
+                  <div class="flexTable__cell flexTable__cell--3 d-flex align-items-center">
+                    <img class="w-50 rounded me-2" :src="item.imgUrl" alt="訂單圖片" />
+                    <div>
+                      <p class="flexTable__body__item__title mb-1">{{ item.name }}</p>
+                      <p class="subTxt">{{ item.name }}使用額度</p>
                     </div>
                   </div>
+                  <p class="flexTable__cell flexTable__cell--1 text-center">NT$400</p>
+                  <div class="flexTable__cell flexTable__cell--2 inputGroup--item">
+                    <div class="fakeInput--counter w-100">
+                      <div
+                        class="fakeBtn"
+                        @click="minusData(index)"
+                        :class="{ disActive: item.num === 1 }"
+                      >
+                        <i class="jobIcon bi bi-dash-circle"></i>
+                      </div>
+                      <p>{{ item.num }}</p>
+                      <div class="fakeBtn" @click="plusData(index)">
+                        <i class="jobIcon bi bi-plus-circle"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="flexTable__cell flexTable__cell--1 text-center">
+                    NT${{ countedTotal(item.price, item.num) }}
+                  </p>
+                  <div class="flexTable__cell">
+                    <button type="button" class="btn" @click="deleteProduct(index)">
+                      <i class="jobIcon-sm bi bi-x-lg"></i>
+                    </button>
+                  </div>
                 </div>
-                <p class="flexTable__cell flexTable__cell--1 text-center">
-                  NT${{ product.num * 400 }}
-                </p>
-                <div class="flexTable__cell">
-                  <button type="button" class="btn"><i class="jobIcon-sm bi bi-x-lg"></i></button>
-                </div>
-              </div>
+              </template>
             </div>
             <div class="flexTable__footer">
-              <p class="flexTable__cell flexTable__cell--1 text-end">訂單金額：NTD 1200</p>
+              <p class="flexTable__cell flexTable__cell--1 text-end">
+                訂單金額：NTD {{ cartTotal }}
+              </p>
             </div>
           </div>
         </div>
@@ -177,8 +179,12 @@
                 *如果尚未決定付款方式，您可以先建立訂單待日後再付款。
               </p>
               <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-gray-light text-dark">建立訂單</button>
-                <button type="button" class="btn btn-companyColor text-light">前往付款</button>
+                <button type="button" class="btn btn-gray-light text-dark" @click="sendOrder">
+                  建立訂單
+                </button>
+                <button type="button" class="btn btn-companyColor text-light" @click="sendOrder">
+                  前往付款
+                </button>
               </div>
             </form>
           </div>
@@ -190,56 +196,83 @@
 
 <script>
 import database from '@/methods/firebaseinit';
+import emitter from '@/methods/emitter';
 
 export default {
-  components: {},
   data() {
     return {
-      scrollTop: 0,
-      elementTop: 0,
-      nowPage: '我的訂單',
-      sideBoxList: '首頁廣告',
-      sideBoxInnerList: '首頁廣告 - 應徵通知',
-      subNav: '訂單完成',
-      meUser: {},
-      tempUser: {},
       dataReady: false,
-      filterForm: {
-        key: '',
-        type: '不限',
-        startDate: null,
-        endDate: null,
-      },
-      selectOrder: {
-        key: 'MHR928032009320',
-      },
-      cart: {
-        key: '',
-        created__time: null,
-        invoice: {
-          type: '一般電子發票',
-          companyName: '',
-          unitNumber: null,
-          created__time: null,
-        },
-        payType: 'card',
-        totalPrice: '',
-        productList: [],
-      },
-      product: {
-        name: '',
-        key: '',
-        num: 1,
-        price: null,
-        totalPrice: null,
-      },
+      nowPage: '購物車',
+      meUser: {},
+      companyInfo: {},
+      cart: {},
     };
   },
+  computed: {
+    cartTotal() {
+      let totalPrice = 0;
+      if (this.cart.productList) {
+        this.cart.productList.forEach((item) => {
+          totalPrice += item.price * item.num;
+        });
+      }
+
+      return totalPrice;
+    },
+  },
   methods: {
-    resetSelectorder() {
-      this.selectOrder = {
+    deleteProduct(index) {
+      // 要加上詢問
+      this.cart.totalNum -= this.cart.productList[index].num;
+      this.cart.productList.splice(index, 1);
+      this.saveCartData();
+    },
+    saveCartData() {
+      const cartRef = database.ref('company/cart');
+      cartRef.set(this.cart);
+      emitter.emit('toogle-get-cart-data');
+    },
+    minusData(index) {
+      if (this.cart.productList[index].num > 1) {
+        this.cart.productList[index].num -= 1;
+      }
+    },
+    plusData(index) {
+      this.cart.productList[index].num += 1;
+    },
+    countedTotal(price, number) {
+      const totalPrice = price * number;
+      return totalPrice;
+    },
+    deleteCart() {
+      this.cart = {
         key: '',
+        created__time: null,
+        payType: 'card',
+        totalPrice: 0,
+        totalNum: 0,
+        productList: [],
+        memo: '',
+        payInfo: {
+          payState: '',
+          payDate: '',
+          payAccount: '',
+        },
+        invoice: {
+          type: '一般電子發票',
+          created__time: null,
+          companyName: '',
+          unitNumber: null,
+        },
+        contactInfo: {
+          name: '',
+          phone: '',
+          email: '',
+        },
       };
+      const cartRef = database.ref('company/cart');
+      cartRef.set(this.cart);
+      emitter.emit('toogle-get-cart-data');
     },
     getCart() {
       const cartRef = database.ref('company/cart');
@@ -247,22 +280,55 @@ export default {
         const data = snapshot.val();
         if (data) {
           this.cart = data;
+          console.log(data);
+          this.dataReady = true;
         }
-        this.getMeUserData();
       });
+    },
+    sendOrder() {
+      // 設定訂單建立人聯絡資訊
+      this.cart.created_time = `${Math.floor(Date.now() / 1000)}`;
+      this.cart.payInfo.payState = '訂單未付款';
+      this.cart.contactInfo = {
+        companyName: this.companyInfo.companyName,
+        companyKey: this.companyInfo.companyKey,
+        chineseName: this.meUser.chineseName,
+        jobTitle: this.meUser.jobTitle,
+        userKey: this.meUser.key,
+        phone: this.meUser.phone,
+        email: this.meUser.email,
+      };
+      const orderListRef = database.ref('company/orderList');
+      const { key } = orderListRef.push();
+      const obj = this.cart;
+      obj.key = key;
+      orderListRef.child(key).set(obj);
+      console.log(this.cart);
+      this.deleteCart();
+      this.$router.push('service-order');
     },
     // 取得資料
     getMeUserData() {
-      const companyUserRef = database.ref('company/myAccount');
-      companyUserRef.once('value', (snapshot) => {
+      const meUserRef = database.ref('company/myAccount');
+      meUserRef.once('value', (snapshot) => {
         const data = snapshot.val();
-        this.tempUser = data;
-        this.dataReady = true;
+        this.meUser = data;
+        console.log(this.meUser);
+      });
+    },
+    getCompanyInfoData() {
+      const companyRef = database.ref('company/companyInfo');
+      companyRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.companyInfo = data;
+        console.log(this.companyInfo);
       });
     },
   },
   created() {
     this.getCart();
+    this.getMeUserData();
+    this.getCompanyInfoData();
   },
 };
 </script>

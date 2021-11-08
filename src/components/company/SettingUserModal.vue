@@ -348,8 +348,8 @@ export default {
       modalAction: '',
       modal: {},
       tempUser: {
-        ChineseName: '',
-        EnglishName: '',
+        chineseName: '',
+        englishName: '',
         jobTitle: '',
         email: '',
         phone: '',

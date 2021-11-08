@@ -114,8 +114,8 @@ export default {
       settingSideList: '個人資料',
       skillShowStyle: true,
       user: {
-        ChineseName: '',
-        EnglishName: '',
+        chineseName: '',
+        englishName: '',
         jobTitle: '',
         email: '',
         phone: '',

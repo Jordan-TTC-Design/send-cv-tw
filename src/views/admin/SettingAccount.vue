@@ -191,7 +191,7 @@ export default {
       user: {
         account: {
           chineseName: '',
-          EnglishName: '',
+          englishName: '',
           jobTitle: '',
           gender: '',
           birthday: '',
