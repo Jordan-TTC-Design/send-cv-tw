@@ -216,7 +216,6 @@ export default {
           totalPrice += item.price * item.num;
         });
       }
-
       return totalPrice;
     },
   },
@@ -259,10 +258,11 @@ export default {
           payAccount: '',
         },
         invoice: {
+          state: '尚未開立發票',
           type: '一般電子發票',
-          created__time: null,
+          created_time: '',
           companyName: '',
-          unitNumber: null,
+          unitNumber: '',
         },
         contactInfo: {
           name: '',
@@ -289,6 +289,7 @@ export default {
       // 設定訂單建立人聯絡資訊
       this.cart.created_time = `${Math.floor(Date.now() / 1000)}`;
       this.cart.payInfo.payState = '訂單未付款';
+      this.cart.orderState = '訂單未付款';
       this.cart.contactInfo = {
         companyName: this.companyInfo.companyName,
         companyKey: this.companyInfo.companyKey,

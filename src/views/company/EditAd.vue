@@ -3,7 +3,7 @@
     <Form v-slot="{ errors }" @submit="processUploadAd">
       <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
         <div class="container admin__subNav justify-content-between align-items-center">
-          <h2 class="admin__subNav__title me-0">新建廣告-{{ adType }}</h2>
+          <h2 class="admin__subNav__title me-0" v-once>編輯廣告 - {{ adForm.adName }}</h2>
           <div>
             <button
               type="button"
@@ -19,7 +19,7 @@
             >
               取消
             </button>
-            <button type="submit" class="btn btn-companyColor text-light">申請刊登</button>
+            <button type="submit" class="btn btn-companyColor text-light">重新申請刊登</button>
           </div>
         </div>
       </div>
@@ -194,7 +194,7 @@
                 <p>目前剩餘額度：{{ company.payService.adTokens }}</p>
                 <button type="button" class="btn btn-outline-gray-line text-dark">購買額度</button>
               </div>
-              <div v-if="adType !== '粉絲專頁廣告'">
+              <div v-if="adForm.adType !== '粉絲專頁廣告'">
                 <div class="inputGroup--item mb-3">
                   <div class="form__labelBox">
                     <label for="adToken" class="form__label--custom form-label">使用額度</label>
@@ -234,7 +234,7 @@
                 <p class="mb-1">收費方式：一個額度推廣 7 天</p>
                 <p class="mb-4">起算日期：於刊登日期後連續 7 天</p>
               </div>
-              <div class="inputGroup--item mb-3" v-if="adType === '粉絲專頁廣告'">
+              <div class="inputGroup--item mb-3" v-if="adForm.adType === '粉絲專頁廣告'">
                 <div class="form__labelBox">
                   <label for="adToken" class="form__label--custom form-label">使用額度</label>
                 </div>
@@ -273,10 +273,10 @@
                 ></Field>
                 <ErrorMessage name="刊登起始日期" class="invalid-feedback"></ErrorMessage>
               </div>
-              <p v-if="adType !== '粉絲專頁廣告'">
+              <p v-if="adForm.adType !== '粉絲專頁廣告'">
                 注意事項：最快只能選擇申請日三天後開始刊登，如申請日遇到假日則順延。
               </p>
-              <p v-if="adType === '粉絲專頁廣告'">
+              <p v-if="adForm.adType === '粉絲專頁廣告'">
                 注意事項：我們將在收到需求後與您聯繫，並按照您的需求製作廣告。
               </p>
             </div>
@@ -302,7 +302,7 @@ export default {
   },
   data() {
     return {
-      adType: '大型版面廣告',
+      adkey: '',
       dataReady: false,
       company: {},
       companyJobList: [],
@@ -354,29 +354,19 @@ export default {
   },
   methods: {
     goToPageLink(routerLink) {
-      console.log(routerLink);
       this.$router.push(routerLink);
     },
-    uploadAd() {
-      this.adForm.adType = this.adType;
-      if (this.adForm.adLink.type === '企業頁面') {
-        this.adForm.adLink.link = '123445677';
-      }
+    saveAd() {
       this.costCompanyAdTokens();
-      const newAdListRef = database.ref('company/payService/adList');
-      const { key } = newAdListRef.push();
-      const obj = this.adForm;
-      console.log(this.adForm);
-      obj.key = key;
-      newAdListRef.child(key).set(obj);
-      this.goToPageLink('/company/ServiceAd.vue');
+      const adListRef = database.ref('company/payService/adList');
+      adListRef.child(this.adkey).set(this.adForm);
     },
     processUploadAd() {
       const obj = {
-        action: '已成功申請刊登廣告',
+        action: '已成功重新申請刊登廣告',
         data: this.adForm,
       };
-      this.uploadAd();
+      this.saveAd();
       emitter.emit('open-ad-modal', obj);
     },
     // promote token +1
@@ -429,6 +419,8 @@ export default {
         const data = snapshot.val();
         if (data) {
           this.company = data;
+          // 先把原本的tokens加回來
+          this.company.payService.adTokens += this.adForm.usedToken;
           this.dataReady = true;
           this.filterJob(this.company.jobList);
         }
@@ -441,23 +433,20 @@ export default {
         this.companyJobList.push(data[item]);
       });
     },
-    checkAdType() {
-      const { type } = this.$route.params;
-      if (type === 'banner') {
-        this.adType = '粉絲專頁廣告';
-        this.adForm.usedToken = 2;
-      } else if (type === 'web-ad-big') {
-        this.adType = '大型版面廣告';
-      } else if (type === 'web-ad-md') {
-        this.adType = '一般版面廣告';
-      } else if (type === 'web-ad-sm') {
-        this.adType = '小型版面廣告';
-      }
+    getAdDate() {
+      const adDataRef = database.ref(`company/payService/adList/${this.adkey}`);
+      adDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          this.adForm = data;
+        }
+        this.getCompanyData();
+      });
     },
   },
   created() {
-    this.checkAdType();
-    this.getCompanyData();
+    this.adkey = this.$route.params.key;
+    this.getAdDate();
     emitter.emit('spinner-open-bg', 500);
   },
 };

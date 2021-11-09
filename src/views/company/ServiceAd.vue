@@ -79,7 +79,24 @@
                 <button
                   type="button"
                   class="btn btn-outline-gray-line text-dark me-2"
-                  @click="addCart('ad__webBig')"
+                  @click="addCart('ad_webBig')"
+                  v-if="sideBoxInnerList === '大型版面廣告'"
+                >
+                  購買額度
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line text-dark me-2"
+                  @click="addCart('ad_webMd')"
+                  v-if="sideBoxInnerList === '一般版面廣告'"
+                >
+                  購買額度
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line text-dark me-2"
+                  @click="addCart('ad_webSm')"
+                  v-if="sideBoxInnerList === '小型版面廣告'"
                 >
                   購買額度
                 </button>
@@ -251,7 +268,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-gray-line text-dark me-2"
-                  @click="addCart('ad__banner')"
+                  @click="addCart('ad_banner')"
                 >
                   購買額度
                 </button>
@@ -422,7 +439,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-gray-line text-dark me-2"
-                  @click="addCart('ad__jobPromoteToken')"
+                  @click="addCart('ad_jobPromoteToken')"
                 >
                   購買額度
                 </button>
@@ -518,7 +535,7 @@ export default {
       cart: {},
       selectItem: {},
       productData: {
-        ad__banner: {
+        ad_banner: {
           name: '粉絲專頁廣告',
           imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
           key: '12345678',
@@ -527,7 +544,7 @@ export default {
           price: 400,
           totalPrice: 400,
         },
-        ad__webBig: {
+        ad_webBig: {
           name: '大型版面廣告',
           imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
           key: '12345678',
@@ -536,7 +553,7 @@ export default {
           price: 500,
           totalPrice: 500,
         },
-        ad__webMd: {
+        ad_webMd: {
           name: '一般版面廣告',
           imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
           key: '12345678',
@@ -545,7 +562,7 @@ export default {
           price: 300,
           totalPrice: 300,
         },
-        ad__webSm: {
+        ad_webSm: {
           name: '小型版面廣告',
           imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
           key: '12345678',
@@ -554,7 +571,7 @@ export default {
           price: 300,
           totalPrice: 300,
         },
-        ad__jobPromoteToken: {
+        ad_jobPromoteToken: {
           name: '職位推廣額度',
           imgUrl: 'https://i.imgur.com/w4Eeknw.jpeg',
           key: '12345678',
@@ -600,7 +617,6 @@ export default {
     },
     getCart(data) {
       this.cart = data;
-      console.log(this.cart);
     },
     defaultGetCart() {
       const cartRef = database.ref('company/cart');
@@ -609,13 +625,9 @@ export default {
         if (data) {
           this.cart = data;
         }
-        console.log(this.cart);
       });
     },
     addCart(adName) {
-      console.log(this.cart);
-      console.log(this.cart.totalNum);
-      console.log(this.cart.totalNum > 0);
       this.selectItem = {};
       this.selectItem = JSON.parse(JSON.stringify(this.productData[adName]));
       let check = false;

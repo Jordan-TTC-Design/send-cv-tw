@@ -17,22 +17,22 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-6">
-                <router-link class="otherApplyModalBox" to="/other-apply/mail">
+                <div @click="goToPageLink('/other-apply/mail')" class="otherApplyModalBox">
                   <img class="mb-4" src="https://i.imgur.com/1tFHUpr.png" alt="寫郵件 Send CV" />
                   <div>
                     <p class="otherApplyModalBox__title mb-2">寫郵件 Send CV</p>
                     <p>最強快速申請方式，只要填寫公司信箱，填寫好下面資料，我們幫您投遞履歷！</p>
                   </div>
-                </router-link>
+                </div>
               </div>
               <div class="col-6">
-                <router-link class="otherApplyModalBox" to="/other-apply/shot">
+                <div @click="goToPageLink('/other-apply/shot')" class="otherApplyModalBox">
                   <img class="mb-4" src="https://i.imgur.com/R90HeUH.png" alt="拍照求職" />
                   <div>
                     <p class="otherApplyModalBox__title mb-2">拍照求職</p>
                     <p>隨手拍下身邊職位資訊，立即傳送履歷！</p>
                   </div>
-                </router-link>
+                </div>
               </div>
             </div>
           </div>
@@ -58,6 +58,9 @@ export default {
     };
   },
   methods: {
+    goToPageLink(routerLink) {
+      this.$router.push(routerLink);
+    },
     openModal() {
       this.modal.show();
     },
