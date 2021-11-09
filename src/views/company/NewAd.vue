@@ -369,7 +369,6 @@ export default {
       console.log(this.adForm);
       obj.key = key;
       newAdListRef.child(key).set(obj);
-      this.goToPageLink('/company/ServiceAd.vue');
     },
     processUploadAd() {
       const obj = {

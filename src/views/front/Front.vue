@@ -41,7 +41,11 @@
             >
           </li>
           <li class="nav__item nav-item">
-            <button type="button" class="btn btn-companyColor text-light">企業專區</button>
+            <router-link
+              class="btn btn-companyColor text-light nav-link"
+              to="/company-admin/company-home"
+              >企業專區</router-link
+            >
           </li>
           <li class="nav__item nav-item d-lg-none d-block">
             <router-link class="nav__item__link nav-link text-white" to="/add-company"

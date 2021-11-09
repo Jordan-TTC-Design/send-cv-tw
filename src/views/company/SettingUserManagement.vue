@@ -369,6 +369,7 @@ export default {
             interView: { is_enabled: true },
           },
         },
+        login: false,
       },
       userList: [],
       tempUser: {},

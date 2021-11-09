@@ -210,10 +210,11 @@ export default {
           payAccount: '',
         },
         invoice: {
+          state: '尚未開立發票',
           type: '一般電子發票',
-          created__time: null,
+          created_time: '',
           companyName: '',
-          unitNumber: null,
+          unitNumber: '',
         },
         contactInfo: {
           name: '',

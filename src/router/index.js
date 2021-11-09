@@ -168,6 +168,16 @@ const routes = [
     component: () => import('../views/company/CompanyAdmin.vue'),
     children: [
       {
+        // 企業方案介紹
+        path: 'company-home',
+        component: () => import('../views/company/CompanyHome.vue'),
+      },
+      {
+        // 企業註冊
+        path: 'add-company',
+        component: () => import('../views/company/AddCompany.vue'),
+      },
+      {
         // 企業中心
         path: 'company-over-view',
         component: () => import('../views/company/CompanyCenter.vue'),
@@ -233,9 +243,14 @@ const routes = [
         component: () => import('../views/company/ServiceAd.vue'),
       },
       {
-        // 編輯職位
+        // 新增廣告
         path: 'service-ad/new-ad/:type',
         component: () => import('../views/company/NewAd.vue'),
+      },
+      {
+        // 編輯廣告
+        path: 'service-ad/edit-ad/:key',
+        component: () => import('../views/company/EditAd.vue'),
       },
       {
         // 加值服務-我的訂單
@@ -253,7 +268,7 @@ const routes = [
         component: () => import('../views/company/ServiceRecord.vue'),
       },
       {
-        // 加值服務-使用紀錄
+        // 加值服務-購物車
         path: 'service-cart',
         component: () => import('../views/company/ServiceCart.vue'),
       },

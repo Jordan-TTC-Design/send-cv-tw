@@ -1246,6 +1246,12 @@
     color: $dark;
   }
 }
+.adminContentBox {
+  padding: 1.5rem;
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include shadow-normal;
+}
 .adminContentBox--nonPadding {
   background-color: $light;
   border-radius: 0.5rem;

@@ -27,9 +27,7 @@
                   >
                 </li>
                 <li class="list__item">
-                  <router-link
-                    class="list__item__link nav-link"
-                    to="/company-admin/service-ad"
+                  <router-link class="list__item__link nav-link" to="/company-admin/service-ad"
                     >加值服務</router-link
                   >
                 </li>
@@ -48,66 +46,80 @@
       </div>
     </div>
     <div class="container d-flex justify-content-between align-items-center">
-      <h1>
-        <router-link ia-current="page" to="/"
-          ><img
-            class="header__logo"
-            src="@/assets/images/logo/sendCV-logo-white.svg"
-            alt="SendCVTW logo"
-        /></router-link>
-      </h1>
-      <div class="header__navBox" ref="headerNavBox">
-        <ul class="header__nav" ref="headerNav">
-          <li class="nav__item nav-item d-lg-block d-none">
-            <button
-              class="nav__item__link btn btn--circle btn--circle--lg me-2"
-              type="button"
-              @click="openSearchModal"
-            >
-              <i class="jobIcon bi bi-search text-light"></i>
-            </button>
-          </li>
-          <li class="nav__item nav-item d-lg-block d-none">
-            <button class="nav__item__link btn btn--circle btn--circle--lg me-2" type="button">
-              <i class="jobIcon bi bi-chat-left-dots text-light"></i>
-            </button>
-          </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '收藏' }">
-            <div class="userBox">
-              <div class="userBox__person me-2">
-                <div class="userBox__person__box">
-                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
+      <div class="d-flex align-items-center">
+        <h1>
+          <router-link ia-current="page" to="/"
+            ><img
+              class="header__logo"
+              src="@/assets/images/logo/sendCV-logo-white.svg"
+              alt="SendCVTW logo"
+          /></router-link>
+        </h1>
+        <p class="subTxt text-light">企業專區</p>
+      </div>
+      <div v-if="loginState && dataReady">
+        <div class="header__navBox" ref="headerNavBox">
+          <ul class="header__nav" ref="headerNav">
+            <li class="nav__item nav-item d-lg-block d-none">
+              <button
+                class="nav__item__link btn btn--circle btn--circle--lg me-2"
+                type="button"
+                @click="openSearchModal"
+              >
+                <i class="jobIcon bi bi-search text-light"></i>
+              </button>
+            </li>
+            <li class="nav__item nav-item d-lg-block d-none">
+              <button class="nav__item__link btn btn--circle btn--circle--lg me-2" type="button">
+                <i class="jobIcon bi bi-chat-left-dots text-light"></i>
+              </button>
+            </li>
+            <li class="nav__item nav-item">
+              <div class="userBox">
+                <div class="userBox__person me-2">
+                  <div class="userBox__person__box">
+                    <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
+                  </div>
+                </div>
+                <div
+                  ref="userBoxPersonMenuBtn"
+                  class="userBox__person__menu btn--circle"
+                  @click="openHeaderMenuModal"
+                >
+                  <i class="text-dark jobIcon bi bi-chevron-up"></i>
+                  <i class="text-dark jobIcon bi bi-chevron-down"></i>
                 </div>
               </div>
-              <div
-                ref="userBoxPersonMenuBtn"
-                class="userBox__person__menu btn--circle"
-                @click="openHeaderMenuModal"
-              >
-                <i class="text-dark jobIcon bi bi-chevron-up"></i>
-                <i class="text-dark jobIcon bi bi-chevron-down"></i>
-              </div>
-            </div>
-          </li>
-          <li class="nav__item nav-item d-lg-none d-block">
-            <router-link class="nav__item__link nav-link text-white" to="/add-company"
-              >企業會員加入</router-link
-            >
-          </li>
-          <li class="nav__item nav-item d-lg-none d-block">
-            <router-link class="nav__item__link nav-link text-white" to="/add-job"
-              >新建職位</router-link
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="bgCover menuCover" ref="menuCover" @click="openRwdMenu"></div>
-      <div class="d-flex d-lg-none">
-        <div class="hamburgerMenu d-flex me-2" @click="openSearchModal" ref="headerSearchIcon">
-          <i class="jobIcon bi bi-search"></i>
+            </li>
+          </ul>
         </div>
-        <div class="hamburgerMenu d-flex" @click="openRwdMenu">
-          <i class="jobIcon bi bi-list"></i>
+        <div class="bgCover menuCover" ref="menuCover" @click="openRwdMenu"></div>
+        <div class="d-flex d-lg-none">
+          <div class="hamburgerMenu d-flex me-2" @click="openSearchModal" ref="headerSearchIcon">
+            <i class="jobIcon bi bi-search"></i>
+          </div>
+          <div class="hamburgerMenu d-flex" @click="openRwdMenu">
+            <i class="jobIcon bi bi-list"></i>
+          </div>
+        </div>
+      </div>
+      <div v-if="!loginState && dataReady">
+        <div class="header__navBox" ref="headerNavBox">
+          <ul class="header__nav" ref="headerNav">
+            <li class="nav__item nav-item">
+              <router-link class="nav-link text-white" to="/add-company">企業登入</router-link>
+            </li>
+            <li class="nav__item nav-item">
+              <router-link class="nav-link text-white" to="/company-admin/add-company"
+                >企業註冊</router-link
+              >
+            </li>
+            <li class="nav__item nav-item">
+              <router-link class="btn btn-primary nav-link text-dark" to="/"
+                >求職者專區</router-link
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -224,6 +236,7 @@
 </template>
 <script>
 import SearchModal from '@/components/front/SearchModal.vue';
+import database from '@/methods/firebaseinit';
 
 export default {
   components: {
@@ -231,11 +244,35 @@ export default {
   },
   data() {
     return {
+      dataReady: false,
+      loginState: false,
       navState: '',
       language: 'Chinese',
+      companyUser: {},
     };
   },
   methods: {
+    getCompanyUserData() {
+      const companyUserRef = database.ref('company/myAccount');
+      companyUserRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          this.companyUser = data;
+          console.log(this.companyUser);
+          this.checkLogin();
+        }
+      });
+    },
+    checkLogin() {
+      this.loginState = this.companyUser.login;
+      if (this.loginState === false) {
+        const router = this.$router.currentRoute.value.path;
+        if (router !== '/company-admin/add-company') {
+          this.$router.push('/company-admin/company-home');
+        }
+      }
+      this.dataReady = true;
+    },
     changeLanguage() {
       if (this.language === 'Chinese') {
         this.language = 'English';
@@ -284,17 +321,11 @@ export default {
       this.$refs.userBoxPersonMenuBtn.classList.remove('active');
     },
   },
-  mounted() {
-    this.checkNavState();
-    this.closeSearchModal();
-    this.closeRwdMenu();
-    this.closeHeaderMenuModal();
+  created() {
+    this.getCompanyUserData();
   },
-  updated() {
-    this.checkNavState();
-    this.closeSearchModal();
-    this.closeHeaderMenuModal();
-    this.closeRwdMenu();
+  mounted() {
+    // this.checkNavState();
   },
 };
 </script>
