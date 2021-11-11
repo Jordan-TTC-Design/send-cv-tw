@@ -73,7 +73,7 @@
             <div class="sideListBox__titleBox">
               <p class="sideListBox__title">付款設定</p>
             </div>
-            <form class="p-4" @submit="toSearchJob">
+            <form class="p-4" @submit="BuyProduct">
               <div class="form__inputBox">
                 <div class="form__labelBox">
                   <label for="payType" class="form__label--custom form-label">付款方式</label>

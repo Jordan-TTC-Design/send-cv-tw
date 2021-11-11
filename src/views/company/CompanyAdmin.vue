@@ -3,7 +3,12 @@
     <div ref="Search" class="header__searchModal">
       <SearchModal />
     </div>
-    <div ref="headerUserMenuModal" class="header__userMenuModal" @click="closeHeaderMenuModal">
+    <div
+      ref="headerUserMenuModal"
+      class="header__userMenuModal"
+      :class="{ active: userMenuOpen }"
+      @click="userMenuOpen = !userMenuOpen"
+    >
       <div class="container">
         <div class="row justify-content-end">
           <div class="col-3">
@@ -36,8 +41,10 @@
                     >設定</router-link
                   >
                 </li>
-                <li class="list__item userMenu__list__logOut">
-                  <p>登出</p>
+                <li class="list__item pt-3">
+                  <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
+                    登出
+                  </button>
                 </li>
               </ul>
             </div>
@@ -83,8 +90,9 @@
                 </div>
                 <div
                   ref="userBoxPersonMenuBtn"
+                  :class="{ active: userMenuOpen }"
                   class="userBox__person__menu btn--circle"
-                  @click="openHeaderMenuModal"
+                  @click="userMenuOpen = !userMenuOpen"
                 >
                   <i class="text-dark jobIcon bi bi-chevron-up"></i>
                   <i class="text-dark jobIcon bi bi-chevron-down"></i>
@@ -107,10 +115,10 @@
         <div class="header__navBox" ref="headerNavBox">
           <ul class="header__nav" ref="headerNav">
             <li class="nav__item nav-item">
-              <router-link class="nav-link text-white" to="/add-company">企業登入</router-link>
+              <button class="btn text-light" type="button" @click="login">企業登入</button>
             </li>
             <li class="nav__item nav-item">
-              <router-link class="nav-link text-white" to="/company-admin/add-company"
+              <router-link class="nav-link text-light" to="/company-admin/company-home"
                 >企業註冊</router-link
               >
             </li>
@@ -128,7 +136,7 @@
     <router-view></router-view>
   </div>
   <footer class="bg-gray-mid">
-    <div class="footer--front bg-dark">
+    <div class="footer--front">
       <div class="container">
         <div class="row py-7 justify-content-lg-between justify-content-start">
           <div class="col-lg-5 col-12">
@@ -166,7 +174,9 @@
                   ></router-link>
                 </li>
                 <li class="footer__nav__item nav-item">
-                  <router-link class="footer__nav__item__link nav-link" to="/add-company"
+                  <router-link
+                    class="footer__nav__item__link nav-link"
+                    to="/company-admin/company-home"
                     ><span class="nav__title">聯絡我們</span>
                     <i class="text-light bi bi-arrow-right-circle"></i
                   ></router-link>
@@ -233,18 +243,25 @@
       </div>
     </div>
   </footer>
+  <LoginModal @changeLogin="getCompanyUserData" />
 </template>
 <script>
 import SearchModal from '@/components/front/SearchModal.vue';
+import LoginModal from '@/components/helpers/LoginModal.vue';
+
 import database from '@/methods/firebaseinit';
+import emitter from '@/methods/emitter';
 
 export default {
+  inject: ['reload'],
   components: {
     SearchModal,
+    LoginModal,
   },
   data() {
     return {
       dataReady: false,
+      userMenuOpen: false,
       loginState: false,
       navState: '',
       language: 'Chinese',
@@ -252,6 +269,16 @@ export default {
     };
   },
   methods: {
+    login() {
+      emitter.emit('open-login-modal', '企業登入');
+    },
+    logout() {
+      console.log('成功登出');
+      this.companyUser.login = false;
+      const companyUserRef = database.ref('company/myAccount');
+      companyUserRef.set(this.companyUser);
+      this.reload();
+    },
     getCompanyUserData() {
       const companyUserRef = database.ref('company/myAccount');
       companyUserRef.once('value', (snapshot) => {
@@ -267,7 +294,7 @@ export default {
       this.loginState = this.companyUser.login;
       if (this.loginState === false) {
         const router = this.$router.currentRoute.value.path;
-        if (router !== '/company-admin/add-company') {
+        if (!router.includes('/company-admin/add-company')) {
           this.$router.push('/company-admin/company-home');
         }
       }
@@ -312,20 +339,9 @@ export default {
     closeSearchModal() {
       this.$refs.Search.classList.remove('active');
     },
-    openHeaderMenuModal() {
-      this.$refs.headerUserMenuModal.classList.toggle('active');
-      this.$refs.userBoxPersonMenuBtn.classList.toggle('active');
-    },
-    closeHeaderMenuModal() {
-      this.$refs.headerUserMenuModal.classList.remove('active');
-      this.$refs.userBoxPersonMenuBtn.classList.remove('active');
-    },
   },
   created() {
     this.getCompanyUserData();
-  },
-  mounted() {
-    // this.checkNavState();
   },
 };
 </script>

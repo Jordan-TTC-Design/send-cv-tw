@@ -174,7 +174,7 @@ const routes = [
       },
       {
         // 企業註冊
-        path: 'add-company',
+        path: 'add-company/:type',
         component: () => import('../views/company/AddCompany.vue'),
       },
       {

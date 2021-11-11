@@ -56,7 +56,9 @@
             </div>
           </li>
           <li class="nav__item nav-item d-lg-none d-block">
-            <router-link class="nav__item__link nav-link text-white" to="/add-company"
+            <router-link
+              class="nav__item__link nav-link text-white"
+              to="/company-admin/company-home"
               >企業會員加入</router-link
             >
           </li>
@@ -82,7 +84,7 @@
     <router-view></router-view>
   </div>
   <footer class="bg-gray-mid">
-    <div class="footer--front bg-dark">
+    <div class="footer--front">
       <div class="container">
         <div class="row py-7 justify-content-lg-between justify-content-start">
           <div class="col-lg-5 col-12">
@@ -120,7 +122,9 @@
                   ></router-link>
                 </li>
                 <li class="footer__nav__item nav-item">
-                  <router-link class="footer__nav__item__link nav-link" to="/add-company"
+                  <router-link
+                    class="footer__nav__item__link nav-link"
+                    to="/company-admin/company-home"
                     ><span class="nav__title">聯絡我們</span>
                     <i class="text-light bi bi-arrow-right-circle"></i
                   ></router-link>

@@ -18,6 +18,7 @@
     "core-js": "^3.6.5",
     "cropperjs": "^1.5.12",
     "firebase": "^9.0.1",
+    "lottie-web": "^5.8.1",
     "mitt": "^3.0.0",
     "swiper": "^6.8.4",
     "v-calendar": "^3.0.0-alpha.5",
