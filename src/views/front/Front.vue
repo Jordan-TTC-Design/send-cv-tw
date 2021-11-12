@@ -3,6 +3,47 @@
     <div ref="Search" class="header__searchModal">
       <SearchModal />
     </div>
+    <div
+      class="header__userMenuModal"
+      :class="{ active: userMenuOpen }"
+      @click="userMenuOpen = !userMenuOpen"
+    >
+      <div class="container">
+        <div class="row justify-content-end">
+          <div class="col-3">
+            <div class="userMenu userMenu">
+              <ul class="userMenu__list">
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/work-application"
+                    >工作</router-link
+                  >
+                </li>
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/document-cv"
+                    >文件</router-link
+                  >
+                </li>
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/chatroom"
+                    >聊天室</router-link
+                  >
+                </li>
+                <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/admin/setting"
+                    >帳戶設定</router-link
+                  >
+                </li>
+                <li class="list__item pt-3">
+                  <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
+                    登出
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container d-flex justify-content-between align-items-center">
       <h1>
         <router-link aria-current="page" to="/"
@@ -14,12 +55,12 @@
       </h1>
       <div class="header__navBox" ref="headerNavBox">
         <ul class="header__nav" ref="headerNav">
-          <li class="nav__item nav-item" :class="{ active: this.navState === '首頁' }">
+          <li class="nav__item nav-item me-2" :class="{ active: this.navState === '首頁' }">
             <router-link class="nav__item__link nav-link" aria-current="page" to="/"
               >首頁</router-link
             >
           </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '優質企業' }">
+          <li class="nav__item nav-item me-2" :class="{ active: this.navState === '優質企業' }">
             <router-link
               class="nav__item__link nav-link"
               aria-current="page"
@@ -30,33 +71,39 @@
           <li class="nav__item nav-item" :class="{ active: this.navState === '優質工作' }">
             <router-link class="nav__item__link nav-link" to="/products-list">優質工作</router-link>
           </li>
-          <li class="nav__item nav-item d-lg-block d-none">
+          <li class="nav__item nav-item d-lg-block d-none me-2">
             <button class="nav__item__link nav-link btn" type="button" @click="openSearchModal">
-              搜尋
+              <i class="jobIcon text-dark bi bi-search"></i>
             </button>
           </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '收藏' }">
-            <router-link class="nav__item__link nav-link" to="/admin/work-over-view"
-              >登入</router-link
-            >
+          <li class="nav__item nav-item d-lg-block d-none me-2" v-if="!loginState">
+            <button class="nav-link btn btn-light text-dark" type="button" @click="login">
+              登入 / 註冊
+            </button>
           </li>
-          <li class="nav__item nav-item">
+          <li class="nav__item nav-item" v-if="loginState">
+            <div class="userBox">
+              <div class="userBox__person me-2">
+                <div class="userBox__person__box">
+                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
+                </div>
+              </div>
+              <div
+                ref="userBoxPersonMenuBtn"
+                class="userBox__person__menu btn--circle"
+                :class="{ active: userMenuOpen }"
+                @click="userMenuOpen = !userMenuOpen"
+              >
+                <i class="text-dark jobIcon bi bi-chevron-up"></i>
+                <i class="text-dark jobIcon bi bi-chevron-down"></i>
+              </div>
+            </div>
+          </li>
+          <li class="nav__item nav-item" v-if="!loginState">
             <router-link
               class="btn btn-companyColor text-light nav-link"
               to="/company-admin/company-home"
               >企業專區</router-link
-            >
-          </li>
-          <li class="nav__item nav-item d-lg-none d-block">
-            <router-link
-              class="nav__item__link nav-link text-white"
-              to="/company-admin/company-home"
-              >企業會員加入</router-link
-            >
-          </li>
-          <li class="nav__item nav-item d-lg-none d-block">
-            <router-link class="nav__item__link nav-link text-white" to="/add-job"
-              >新建職位</router-link
             >
           </li>
         </ul>
@@ -184,39 +231,70 @@
       </div>
     </div>
   </footer>
+  <LoginModal @changeJobSeekerLogin="getJobSeekerUserData" />
 </template>
 <script>
 import SearchModal from '@/components/front/SearchModal.vue';
+import LoginModal from '@/components/helpers/LoginModal.vue';
+import emitter from '@/methods/emitter';
+import database from '@/methods/firebaseinit';
 
 export default {
+  inject: ['reload'],
   components: {
     SearchModal,
+    LoginModal,
   },
   data() {
     return {
+      userMenuOpen: false,
+      dataReady: false,
+      loginState: false,
       navState: '',
+      userAccountData: {},
       language: 'Chinese',
     };
   },
   methods: {
+    getNavState(pageName) {
+      this.navState = pageName;
+    },
+    login() {
+      emitter.emit('open-login-modal', '求職者會員登入');
+    },
+    logout() {
+      console.log('成功登出');
+      this.userAccountData.login = false;
+      const userAccountDataRef = database.ref('user/account');
+      userAccountDataRef.set(this.userAccountData);
+      this.reload();
+    },
+    getJobSeekerUserData() {
+      const userAccountDataRef = database.ref('user/account');
+      userAccountDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          this.userAccountData = data;
+          console.log(this.userAccountData);
+          this.checkLogin();
+        }
+      });
+    },
+    checkLogin() {
+      this.loginState = this.userAccountData.login;
+      if (this.loginState === false) {
+        const router = this.$router.currentRoute.value.path;
+        if (router.includes('/admin')) {
+          this.$router.push('/');
+        }
+      }
+      this.dataReady = true;
+    },
     changeLanguage() {
       if (this.language === 'Chinese') {
         this.language = 'English';
       } else if (this.language === 'English') {
         this.language = 'Chinese';
-      }
-    },
-    checkNavState() {
-      if (this.$route.path === '/') {
-        this.navState = '首頁';
-      } else if (this.$route.path === '/company-recommend') {
-        this.navState = '優質企業';
-      } else if (this.$route.path === '/products-list') {
-        this.navState = '優質工作';
-      } else if (this.$route.path === '/collection') {
-        this.navState = '收藏';
-      } else {
-        this.navState = '';
       }
     },
     openRwdMenu() {
@@ -239,13 +317,15 @@ export default {
       this.$refs.Search.classList.remove('active');
     },
   },
+  created() {
+    emitter.on('get-nav-state', this.getNavState);
+  },
   mounted() {
-    this.checkNavState();
+    this.getJobSeekerUserData();
     this.closeSearchModal();
     this.closeRwdMenu();
   },
   updated() {
-    this.checkNavState();
     this.closeSearchModal();
     this.closeRwdMenu();
   },

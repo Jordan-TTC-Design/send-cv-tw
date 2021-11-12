@@ -73,6 +73,49 @@
         </li>
       </ul>
       <ul
+        v-if="adminMainSection === '人才資料'"
+        class="admin__subNav admin__subNav--company position-relative w-100"
+      >
+        <li class="d-flex align-items-center d-md-flex d-none">
+          <h2 class="admin__subNav__title">人才資料</h2>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-ad')"
+          :class="{ active: nowPage === '搜尋人才' }"
+        >
+          <p class="admin__subNav__txt me-1">搜尋人才</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-order')"
+          :class="{ active: nowPage === '收藏人才' }"
+        >
+          <p class="admin__subNav__txt me-1">收藏人才</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('talent-recommend')"
+          :class="{ active: nowPage === '推薦人才' }"
+        >
+          <p class="admin__subNav__txt me-1">推薦人才</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-record')"
+          :class="{ active: nowPage === '瀏覽紀錄' }"
+        >
+          <p class="admin__subNav__txt me-1">瀏覽紀錄</p>
+        </li>
+        <li
+          class="admin__subNav__item"
+          @click="goToPageLink('service-record')"
+          :class="{ active: nowPage === '歷史面試' }"
+        >
+          <p class="admin__subNav__txt me-1">歷史面試</p>
+        </li>
+      </ul>
+      <ul
         v-if="adminMainSection === '加值服務'"
         class="admin__subNav admin__subNav--company position-relative w-100"
       >
@@ -247,6 +290,14 @@ export default {
         || this.nowPage === '自我推薦'
       ) {
         this.adminMainSection = '職位管理';
+      } else if (
+        this.nowPage === '人才搜尋'
+        || this.nowPage === '收藏人才'
+        || this.nowPage === '推薦人才'
+        || this.nowPage === '瀏覽紀錄'
+        || this.nowPage === '歷史面試'
+      ) {
+        this.adminMainSection = '人才資料';
       } else if (
         this.nowPage === '廣告管理'
         || this.nowPage === '我的訂單'

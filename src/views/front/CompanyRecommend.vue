@@ -774,6 +774,7 @@ export default {
     this.getOgData();
     this.getFbData();
     emitter.emit('spinner-open-bg', 1500);
+    emitter.emit('get-nav-state', '優質企業');
   },
   mounted() {
     const vm = this;

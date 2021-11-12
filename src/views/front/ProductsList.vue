@@ -381,6 +381,7 @@ export default {
     this.formData = webData;
     this.searchFilterMethods = searchFilter;
     emitter.emit('spinner-open-bg', 1200);
+    emitter.emit('get-nav-state', '優質工作');
   },
   mounted() {
     this.mountState = true;
