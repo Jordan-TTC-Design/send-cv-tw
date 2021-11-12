@@ -18,13 +18,11 @@
           <Form v-if="companyLoginStep === 1" v-slot="{ errors }" @submit="companyLogin">
             <div class="form__inputBox">
               <div class="form__labelBox">
-                <label for="formContactEmail" class="form__label--custom form-label"
-                  >Email帳號</label
-                >
+                <label for="loginEmail" class="form__label--custom form-label">Email帳號</label>
               </div>
               <Field
-                id="formContactEmail"
-                ref="formContactEmail"
+                id="loginEmail"
+                ref="loginEmail"
                 name="Email帳號"
                 type="email"
                 class="form-control"
@@ -37,11 +35,11 @@
             </div>
             <div class="form__inputBox">
               <div class="form__labelBox">
-                <label for="formPassword" class="form__label--custom form-label">密碼</label>
+                <label for="loginPassword" class="form__label--custom form-label">密碼</label>
               </div>
               <Field
-                id="formPassword"
-                ref="formPassword"
+                id="loginPassword"
+                ref="loginPassword"
                 name="密碼"
                 type="password"
                 class="form-control"
@@ -60,6 +58,57 @@
             <p>登入成功</p>
           </div>
         </div>
+        <div class="modal-body mb-5" v-if="modalAction === '求職者會員登入'">
+          <p class="mb-5 text-center">歡迎使用 SendCV ！最懂你需求的人力資源平台！</p>
+          <Form v-if="jobSeekerLoginStep === 1" v-slot="{ errors }" @submit="jobSeekerLogin">
+            <div class="form__inputBox">
+              <div class="form__labelBox">
+                <label for="loginEmail" class="form__label--custom form-label">Email帳號</label>
+              </div>
+              <Field
+                id="loginEmail"
+                ref="loginEmail"
+                name="Email帳號"
+                type="email"
+                class="form-control"
+                :class="{ 'is-invalid': errors['Email'] }"
+                placeholder="請輸入Email帳號"
+                rules="email|required"
+                v-model="loginInfo.email"
+              ></Field>
+              <ErrorMessage name="Email帳號" class="invalid-feedback"></ErrorMessage>
+            </div>
+            <div class="form__inputBox">
+              <div class="form__labelBox">
+                <label for="loginPassword" class="form__label--custom form-label">密碼</label>
+              </div>
+              <Field
+                id="loginPassword"
+                ref="loginPassword"
+                name="密碼"
+                type="password"
+                class="form-control"
+                :class="{ 'is-invalid': errors['密碼'] }"
+                placeholder="請輸入密碼"
+                rules="required"
+                v-model="loginInfo.password"
+              ></Field>
+              <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
+            </div>
+            <p class="text-danger mb-4 text-center">{{ errorTxt }}</p>
+            <button type="submit" class="btn btn-primary text-dark w-100 mb-4">登入</button>
+            <button
+              type="button"
+              class="btn btn-outline-gray-line text-dark w-100"
+              @click="goToPageLink('/add-user')"
+            >
+              註冊
+            </button>
+          </Form>
+          <div v-if="jobSeekerLogin === 2">
+            <p>登入成功</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -71,15 +120,17 @@ import emitter from '@/methods/emitter';
 import database from '@/methods/firebaseinit';
 
 export default {
-  emits: ['change-login'],
+  emits: ['change-company-login', 'change-job-Seeker-login'],
   data() {
     return {
       companyLoginStep: 1,
+      jobSeekerLoginStep: 1,
       modal: {},
       modalAction: '',
       mainAction: '',
       dataReady: false,
       companyList: [],
+      jobSeekerList: [],
       loginInfo: {
         email: '',
         password: '',
@@ -91,6 +142,7 @@ export default {
   methods: {
     goToPageLink(link) {
       this.$router.push(link);
+      this.closeModal();
     },
     openModal(action) {
       this.mainAction = action;
@@ -100,6 +152,58 @@ export default {
     closeModal() {
       this.modal.hide();
     },
+    // 求職者登入相關方法
+    jobSeekerLogin() {
+      this.getJobSeekerListData();
+    },
+    getJobSeekerListData() {
+      this.jobSeekerList = [];
+      const jobSeekerListRef = database.ref('backStage/jobSeekerManagement/jobSeekerList');
+      jobSeekerListRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          Object.keys(data).forEach((item) => {
+            // 物件轉陣列
+            this.jobSeekerList.push(data[item]);
+            console.log(this.jobSeekerList);
+            this.jobSeekerCheckLogin();
+          });
+        }
+      });
+    },
+    jobSeekerCheckLogin() {
+      this.jobSeekerList.forEach((item) => {
+        if (
+          item.account.email === this.loginInfo.email
+          && item.account.password === this.loginInfo.password
+        ) {
+          this.jobSeekerLoginOk();
+          this.jobSeekerLoginStep = 2;
+          console.log('登入成功');
+          this.errorTxt = '';
+        } else {
+          this.errorTxt = '帳號或密碼錯誤';
+        }
+      });
+    },
+    jobSeekerLoginOk() {
+      const jobSeekerRef = database.ref('user/account');
+      jobSeekerRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.meUser = data;
+        this.jobSeekerSetLogin();
+      });
+    },
+    jobSeekerSetLogin() {
+      this.meUser.login = true;
+      const jobSeekerRef = database.ref('user/account');
+      jobSeekerRef.set(this.meUser);
+      setTimeout(() => {
+        this.$emit('change-job-Seeker-login');
+        // this.goToPageLink('/adi');
+      }, 1000);
+    },
+    // 公司登入相關方法
     companyLogin() {
       this.getCompanyListData();
     },
@@ -113,12 +217,12 @@ export default {
             // 物件轉陣列
             this.companyList.push(data[item]);
             console.log(this.companyList);
-            this.checkLogin();
+            this.companyCheckLogin();
           });
         }
       });
     },
-    checkLogin() {
+    companyCheckLogin() {
       this.companyList.forEach((item) => {
         if (
           item.contactInfo.email === this.loginInfo.email
@@ -138,17 +242,16 @@ export default {
       companyUserRef.once('value', (snapshot) => {
         const data = snapshot.val();
         this.meUser = data;
-        this.setLogin();
+        this.companySetLogin();
       });
     },
-    setLogin() {
+    companySetLogin() {
       this.meUser.login = true;
       const companyUserRef = database.ref('company/myAccount');
       companyUserRef.set(this.meUser);
       setTimeout(() => {
-        this.$emit('change-login');
+        this.$emit('change-company-login');
         this.goToPageLink('/company-admin/company-over-view');
-        this.closeModal();
       }, 1000);
     },
   },

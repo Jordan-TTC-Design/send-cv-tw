@@ -12,6 +12,11 @@ const routes = [
         component: () => import('../views/Home.vue'),
       },
       {
+        // 求職者註冊
+        path: 'add-user',
+        component: () => import('../views/front/AddUser.vue'),
+      },
+      {
         // 優質公司
         path: 'company-recommend',
         component: () => import('../views/front/CompanyRecommend.vue'),
@@ -236,6 +241,11 @@ const routes = [
         // 人才-履歷
         path: 'talent-cv/:id',
         component: () => import('../views/company/TalentCvPage.vue'),
+      },
+      {
+        // 人才資料庫-推薦人才
+        path: 'talent-recommend',
+        component: () => import('../views/company/TalentRecommend.vue'),
       },
       {
         // 加值服務-廣告管理

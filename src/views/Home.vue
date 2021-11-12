@@ -824,6 +824,7 @@ export default {
     this.getOgData();
     this.getFbData();
     emitter.emit('spinner-open-bg', 1500);
+    emitter.emit('get-nav-state', '首頁');
   },
   mounted() {
     const vm = this;

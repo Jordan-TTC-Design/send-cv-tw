@@ -27,7 +27,9 @@
                   >
                 </li>
                 <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/chatroom"
+                  <router-link
+                    class="list__item__link nav-link"
+                    to="/company-admin/talent-recommend"
                     >人才資料</router-link
                   >
                 </li>
@@ -243,7 +245,7 @@
       </div>
     </div>
   </footer>
-  <LoginModal @changeLogin="getCompanyUserData" />
+  <LoginModal @changeCompanyLogin="getCompanyUserData" />
 </template>
 <script>
 import SearchModal from '@/components/front/SearchModal.vue';
@@ -305,19 +307,6 @@ export default {
         this.language = 'English';
       } else if (this.language === 'English') {
         this.language = 'Chinese';
-      }
-    },
-    checkNavState() {
-      if (this.$route.path === '/') {
-        this.navState = '首頁';
-      } else if (this.$route.path === '/company-recommend') {
-        this.navState = '優質企業';
-      } else if (this.$route.path === '/products-list') {
-        this.navState = '優質工作';
-      } else if (this.$route.path === '/collection') {
-        this.navState = '收藏';
-      } else {
-        this.navState = '';
       }
     },
     openRwdMenu() {

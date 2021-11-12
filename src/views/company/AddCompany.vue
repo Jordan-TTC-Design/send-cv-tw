@@ -611,7 +611,6 @@ export default {
   data() {
     return {
       formStep: 1,
-      company: {},
       companyItem: {
         companyState: '申請中',
         companyName: '',
@@ -773,16 +772,7 @@ export default {
       const [temDist] = this.chooseCityDist;
       this.companyItem.companyAddress.addressDist = temDist;
     },
-    // Get company data from Firebase.
-    getCompanyData() {
-      const companyRef = database.ref('company');
-      companyRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          this.company = data;
-        }
-      });
-    },
+
     newCompany() {
       this.companyItem.companyAddress.companyAddress = `${this.companyItem.companyAddress.addressCity}，${this.companyItem.companyAddress.addressDist}，${this.companyItem.companyAddress.addressDetail}`;
       const companyApplyListRef = database.ref('backStage/companyManagement/companyApplyList');
@@ -803,7 +793,6 @@ export default {
     },
   },
   created() {
-    this.getCompanyData();
     const { type } = this.$route.params;
     this.companyItem.membership = JSON.parse(JSON.stringify(this.membershipList[type]));
     console.log(this.companyItem);

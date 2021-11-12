@@ -38,7 +38,7 @@
               搜尋
             </button>
           </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '收藏' }">
+          <li class="nav__item nav-item">
             <div class="userBox">
               <div class="userBox__person me-2">
                 <div class="userBox__person__box">
