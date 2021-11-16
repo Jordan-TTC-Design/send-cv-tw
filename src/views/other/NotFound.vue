@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import lottie from 'lottie-web';
-import * as jsonData from '@/assets/images/404/404.json';
+// import lottie from 'lottie-web';
+// import * as jsonData from '@/assets/images/404/404.json';
 
 export default {
   // components: {
@@ -22,16 +22,16 @@ export default {
       anim: {},
     };
   },
-  mounted() {
-    this.anim = lottie.loadAnimation({
-      container: this.$refs.svgContainer,
-      renderer: 'svg',
-      loop: true,
-      animationData: jsonData.default,
-      // assetsPath: '@/assets/images/404/images',
-    });
-    this.anim.play();
-  },
+  // mounted() {
+  //   this.anim = lottie.loadAnimation({
+  //     container: this.$refs.svgContainer,
+  //     renderer: 'svg',
+  //     loop: true,
+  //     animationData: jsonData.default,
+  //     // assetsPath: '@/assets/images/404/images',
+  //   });
+  //   this.anim.play();
+  // },
 };
 </script>
 

@@ -34,6 +34,11 @@
                   >
                 </li>
                 <li class="list__item">
+                  <router-link class="list__item__link nav-link" to="/company-admin/chatroom"
+                    >聊天室</router-link
+                  >
+                </li>
+                <li class="list__item">
                   <router-link class="list__item__link nav-link" to="/company-admin/service-ad"
                     >加值服務</router-link
                   >

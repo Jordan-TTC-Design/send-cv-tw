@@ -479,6 +479,21 @@
     width: 50%;
   }
 }
+.boxSubNav--company{
+  .boxSubNav__item::before{
+    background-color: $companyColor;
+  }
+  .boxSubNav__item.active{
+    p{
+      color:$companyColor;
+    }
+  }
+  .boxSubNav__item:hover{
+    p{
+      color:$companyColor;
+    }
+  }
+}
 .popModal {
   &__width--sm {
     max-width: 420px;

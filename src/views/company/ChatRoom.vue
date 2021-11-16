@@ -1,5 +1,5 @@
 <template>
-  <div class="chatRoom bg-light">
+  <div class="chatRoom bg-light" v-if="dataReady">
     <div class="chatRoom__leftContainer">
       <div class="chatRoom__filterBox bg-light">
         <div class="searchInput mb-3">
@@ -7,7 +7,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="職位關鍵字"
+            placeholder="關鍵字"
             aria-describedby="關鍵字"
             v-model="filterData.keyword"
           />
@@ -23,18 +23,19 @@
           </select>
         </div>
       </div>
+      <!-- 聊天列表 -->
       <ul class="chatRoom__userList">
-        <template v-for="temItem in nowPageJobs" :key="temItem.id">
+        <template v-for="item in jobApplyData" :key="item.key">
           <li
-            :ref="`chatRoom__card--${temItem.id}`"
+            :ref="`chatRoom__card--${item.key}`"
             class="list__item chatRoom__card"
-            @click="selectChat(temItem.id)"
+            @click="selectChat(item.key)"
           >
             <div class="chatRoom__card__top d-flex mb-2">
-              <img class="card__img me-2" :src="temItem.options.company.companyLogoUrl" />
+              <img class="card__img me-2" :src="user.account.userImgUrl" />
               <div>
-                <p class="card__title mb-1">{{ temItem.options.company.companyName }}</p>
-                <p class="subTxt mb-1">招募職位：{{ temItem.title }}</p>
+                <p class="card__title mb-1">{{ user.account.chineseName }}</p>
+                <p class="subTxt mb-1">招募職位：{{ item.jobInfo.jobName }}</p>
                 <p class="subTxt">您好，我們最近看到你在找工作...</p>
               </div>
             </div>
@@ -42,7 +43,7 @@
               <div class="d-flex justify-content-between">
                 <div class="d-flex">
                   <p class="jobTag me-2">100%</p>
-                  <p class="jobTag">已申請</p>
+                  <p class="jobTag">{{ item.applyState }}</p>
                 </div>
                 <p class="subTxt text-secondary">2021/10/12</p>
               </div>
@@ -52,34 +53,30 @@
       </ul>
     </div>
     <div class="chatRoom__chatArea">
+      <!-- 用戶 -->
       <div class="chatArea__userBox">
         <div class="d-flex align-items-center">
-          <img
-            class="companyLogo me-2"
-            :src="jobItem.options.company.companyLogoUrl"
-            alt="公司logo"
-          />
-          <router-link
-            class="pageLink putPointer text-decoration-underline"
-            :to="`/products-list/company/${jobItem.options.company.companyLink}`"
-            >{{ jobItem.options.company.companyName }}</router-link
-          >
+          <img class="companyLogo me-2" :src="user.account.userImgUrl" alt="公司logo" />
+          <p class="pageLink putPointer text-decoration-underline">
+            {{ user.account.chineseName }}
+          </p>
         </div>
         <button type="button" class="btn btn--circle btn-sm">
           <i class="jobIcon bi bi-three-dots"></i>
         </button>
       </div>
+      <!-- 對話視窗 -->
       <div class="chatArea__chatTxtContainer py-4" :class="{ active: chatInput === 10 }">
         <template v-for="item in chatroom" :key="item.key">
           <div class="chatBox checkBox--left">
-            <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
+            <img class="chatBox__img" :src="user.account.userImgUrl" />
             <div class="chatBox__txtBox">
               <div class="chatBox__txtBox__content" v-html="item.message"></div>
             </div>
           </div>
         </template>
         <div class="chatBox checkBox--left">
-          <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
+          <img class="chatBox__img" :src="user.account.userImgUrl" />
           <div class="chatBox__txtBox">
             <p class="chatBox__txtBox__content">
               你好你好你好你好你好你好你好你好你好你好你好你好你好
@@ -92,7 +89,7 @@
           </div>
         </div>
         <div class="chatBox checkBox--right">
-          <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
+          <img class="chatBox__img" :src="user.account.userImgUrl" />
           <div class="chatBox__txtBox">
             <p class="chatBox__txtBox__content">
               你好你好你好你好你好你好你好你好你好你好你好你好你好～
@@ -100,7 +97,7 @@
           </div>
         </div>
         <div class="chatBox checkBox--left">
-          <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
+          <img class="chatBox__img" :src="user.account.userImgUrl" />
           <div class="chatBox__txtBox">
             <p class="chatBox__txtBox__content">
               你好你好你好你好你好你好你好你好你好你好你好你好你好～
@@ -108,20 +105,7 @@
           </div>
         </div>
         <div class="chatBox checkBox--right">
-          <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
-          <div class="chatBox__txtBox">
-            <p class="chatBox__txtBox__content">
-              你好你好你好你好你好你好你好你好你好你好你好你好你好
-              你好你好你好你好你好你好你好你好你好你好你好你好你好
-              你好你好你好你好你好你好你好你好你好你好你好你好你好
-              你好你好你好你好你好你好你好你好你好你好你好你好你好～
-              你好你好你好你好你好你好你好你好你好你好你好你好你好
-              你好你好你好你好你好你好你好你好你好你好你好你好你好
-            </p>
-          </div>
-        </div>
-        <div class="chatBox checkBox--right">
-          <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
+          <img class="chatBox__img" :src="user.account.userImgUrl" />
           <div class="chatBox__txtBox">
             <p class="chatBox__txtBox__content">
               你好你好你好你好你好你好你好你好你好你好你好你好你好
@@ -134,6 +118,7 @@
           </div>
         </div>
       </div>
+      <!-- 輸入框 -->
       <div class="chatArea__inputContainer">
         <div class="input-group mb-3 position-relative">
           <textarea
@@ -160,73 +145,144 @@
             <button type="button" class="btn btn--circle">
               <i class="jobIcon bi bi-folder-fill"></i>
             </button>
-            <button type="button" class="btn btn--circle" @click="rightContainer = '文字模板'">
+            <button
+              type="button"
+              class="btn btn--circle"
+              @click="rightContainer = 'messageTemplate'"
+            >
               <i
                 class="jobIcon bi bi-chat-left-quote-fill"
-                :class="{ 'text-primary-dark': rightContainer === '文字模板' }"
+                :class="{ 'text-primary-dark': rightContainer === 'messageTemplate' }"
               ></i>
             </button>
           </div>
-          <button type="button" class="btn btn-primary" @click="addMessage">送出</button>
+          <button type="button" class="btn btn-companyColor text-light" @click="addMessage">
+            送出
+          </button>
         </div>
       </div>
     </div>
-    <div v-if="rightContainer === '資訊欄'" class="chatRoom__infoArea">
-      <ul class="boxSubNav">
+    <!-- 用戶資訊 -->
+    <div
+      v-if="rightContainer === 'userInfo'"
+      class="chatRoom__infoArea chatRoom__infoArea--company"
+    >
+      <ul class="boxSubNav boxSubNav--company">
         <li
-          class="boxSubNav__item boxSubNav--50"
-          :class="{ active: boxSubNav === '申請資料' }"
-          @click="changeNav('boxSubNav', '申請資料')"
+          class="boxSubNav__item w--50"
+          :class="{ active: boxSubNav === '個人資料' }"
+          @click="changeNav('boxSubNav', '個人資料')"
         >
-          <p>申請資料</p>
+          <p>個人資料</p>
         </li>
         <li
-          class="boxSubNav__item boxSubNav--50"
-          :class="{ active: boxSubNav === '職位內容' }"
-          @click="changeNav('boxSubNav', '職位內容')"
+          class="boxSubNav__item w--50"
+          :class="{ active: boxSubNav === '應徵資料' }"
+          @click="changeNav('boxSubNav', '應徵資料')"
         >
-          <p>職位內容</p>
+          <p>應徵資料</p>
         </li>
       </ul>
-      <swiper
-        :slides-per-view="swiperNum"
-        :space-between="20"
-        :autoplay="swiperDetail.autoPlay"
-        :pagination="swiperDetail.pagination"
-      >
-        <swiper-slide v-for="(img, index) in jobItem.options.company.companyImagesUrl" :key="index">
-          <div class="companyImageContainer">
-            <div class="imgCover"></div>
-            <img class="companyImageContainer__img" :src="img" alt="企業圖片" />
-            <p class="companyImageContainer__txt subTxt text-light">公司環境</p>
+      <div class="personPop__personInfoBox__innerBox border-bottom border-gray-line p-4">
+        <img
+          style="width: 80px"
+          class="personInfoBox__personalImg me-4 rounded"
+          :src="user.account.userImgUrl"
+          :alt="`${user.account.chineseName}個人求職照片`"
+        />
+        <div>
+          <div class="d-flex align-items-center mb-2">
+            <p class="personInfoBox__name text-dark mb-0 me-2">
+              {{ user.account.chineseName }}
+            </p>
+            <p>{{ user.account.gender }} | {{ `28歲` }}</p>
           </div>
-        </swiper-slide>
-      </swiper>
+          <p class="subTxt text-secondary">最後活動日期：2021/12/12</p>
+        </div>
+      </div>
       <div ref="sideJobBox" class="sideJobBox pt-0">
-        <div class="d-flex align-items-center mb-2">
-          <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
-          <button type="button" class="jobTag btn">100%匹配度</button>
+        <div v-if="boxSubNav === '個人資料'">
+          <ul class="infoList infoList--company">
+            <li class="infoList__item show--compressed">
+              <p class="infoList__item__title">求職意向</p>
+              <ul class="infoList__item__skillList">
+                <li class="infoList__item__skillList__skill">ui設計師</li>
+                <li class="infoList__item__skillList__skill">前端工程師</li>
+              </ul>
+            </li>
+            <li class="infoList__item infoList__item--job">
+              <p class="infoList__item__title">教育程度</p>
+              <template v-for="(item, index) in user.educationExp.educations" :key="index">
+                <div :class="{ 'mb-2': index < user.educationExp.educations.length - 1 }">
+                  <p class="infoList__item__content mb-1">
+                    {{ item.schoolName }} -
+                    {{ item.majorName }}
+                  </p>
+                  <p class="infoList__item__subTitle">
+                    {{
+                      `${item.startYear}.
+                          ${item.startMonth}`
+                    }}
+                    ~
+                    {{
+                      item.isStillAtSchool
+                        ? '仍在學'
+                        : `${item.endYear}.
+                            ${item.endMonth}`
+                    }}
+                    <span class="ms-2 text-secondary">{{ item.educationLevel }}</span>
+                  </p>
+                </div>
+              </template>
+            </li>
+            <li class="infoList__item infoList__item--job">
+              <p class="infoList__item__title">工作經驗</p>
+              <template v-for="(item, index) in user.workExp.works" :key="index">
+                <div :class="{ 'mb-2': index < user.workExp.works.length - 1 }">
+                  <p class="infoList__item__content mb-1">
+                    {{ item.companyName }} -
+                    {{ item.jobName }}
+                  </p>
+                  <p class="infoList__item__subTitle">
+                    {{
+                      `${item.startYear}.
+                          ${item.startMonth}`
+                    }}
+                    ~
+                    {{
+                      item.isStillWork
+                        ? '仍在職'
+                        : `${item.endYear}.
+                            ${item.endMonth}`
+                    }}
+                  </p>
+                </div>
+              </template>
+            </li>
+            <li class="infoList__item show--compressed">
+              <p class="infoList__item__title">具備駕照</p>
+              <ul class="infoList__item__skillList">
+                <template v-for="(item, index) in user.others.driverLicenses" :key="index">
+                  <li v-if="item.select" class="infoList__item__skillList__skill">
+                    {{ item.name }}
+                  </li>
+                </template>
+              </ul>
+            </li>
+            <li class="infoList__item show--compressed" v-if="user.others.identities.length !== 0">
+              <p class="infoList__item__title">特殊身份</p>
+              <ul class="infoList__item__skillList">
+                <template v-for="(item, index) in user.others.identities" :key="index">
+                  <li v-if="item.select" class="infoList__item__skillList__skill">
+                    {{ item.name }}
+                  </li>
+                </template>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <div class="sideJobBox__txtBox pb-4 border-bottom border-gray-line">
-          <div>
-            <router-link
-              class="sideJobBox__title mb-3 d-block"
-              type="button"
-              :to="`/products-list/product/${jobItem.id}`"
-              >{{ jobItem.title }}</router-link
-            >
-          </div>
-          <p class="page__txt subTxt" v-if="!jobItem.options.job.salaryInterView">
-            <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
-            {{ jobItem.price }} / 月薪
-          </p>
-          <p class="page__txt subTxt" v-if="jobItem.options.job.salaryInterView">
-            <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
-            薪資面議
-          </p>
-        </div>
-        <div v-if="boxSubNav === '申請資料'">
-          <ul>
+        <div v-if="boxSubNav === '應徵資料'">
+          <ul class="infoList infoList--company">
             <li class="infoList__item">
               <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -398,74 +454,16 @@
             </li>
           </ul>
         </div>
-        <div v-if="boxSubNav === '職位內容'">
-          <div class="sideJobBox__section">
-            <h3 class="section__title--sub"><span class="title__icon"></span>職位內容</h3>
-            <p class="mb-3">
-              <i class="jobIcon--sm me-1 bi bi-journal"></i>工作性質：{{
-                jobItem.options.job.workType
-              }}
-            </p>
-            <p class="mb-3">
-              <span><i class="jobIcon--sm me-1 bi bi-clock"></i></span>工作時間：{{
-                jobItem.options.job.workTime
-              }}
-            </p>
-            <p class="mb-3">
-              <span><i class="jobIcon--sm me-1 bi bi-building"></i></span>產業類別：{{
-                jobItem.options.company.industryCategory
-              }}
-            </p>
-            <p class="mb-3">
-              <span><i class="jobIcon--sm me-1 bi bi-card-list"></i></span>工作類別：{{
-                jobItem.category
-              }}
-            </p>
-            <p class="mb-3">工作內容：</p>
-            <div class="page__txt" v-html="jobItem.content"></div>
-          </div>
-          <div class="sideJobBox__section">
-            <h3 class="section__title--sub"><span class="title__icon"> </span>應徵條件</h3>
-            <p class="mb-3">
-              <span><i class="jobIcon--sm me-1 bi bi-book"></i></span>學歷要求：{{
-                jobItem.options.job.education
-              }}
-            </p>
-            <p class="mb-3">
-              <span><i class="jobIcon--sm me-1 bi bi-briefcase"></i></span>工作經驗：{{
-                jobItem.options.job.workExp
-              }}
-            </p>
-            <p class="mb-3">其他條件：</p>
-            <div class="page__txt" v-html="jobItem.options.job.otherRequirement"></div>
-          </div>
-          <div class="sideJobBox__section">
-            <h3 class="section__title--sub"><span class="title__icon"></span>申請方法</h3>
-            <p class="mb-3">
-              <span><i class="jobIcon--sm me-1 bi bi-person"></i></span>職位聯絡人：{{
-                jobItem.options.company.companyContact
-              }}
-            </p>
-            <a class="mb-3 d-block" :href="`mailto:${jobItem.options.company.companyEmail}`">
-              <span><i class="jobIcon--sm me-1 bi bi-envelope"></i></span>聯絡信箱：{{
-                jobItem.options.company.companyEmail
-              }}
-            </a>
-            <a class="mb-3 d-block" :href="`tel:${jobItem.options.company.companyTel}`">
-              <span><i class="jobIcon--sm me-1 bi bi-phone"></i></span>聯絡電話：{{
-                jobItem.options.company.companyTel
-              }}
-            </a>
-            <p class="mb-3">申請備註：</p>
-            <div class="page__txt" v-html="jobItem.options.job.otherApplyInfo"></div>
-          </div>
-        </div>
       </div>
     </div>
-    <div v-if="rightContainer === '文字模板'" class="chatRoom__infoArea">
+    <!-- 文字模板 -->
+    <div
+      v-if="rightContainer === 'messageTemplate'"
+      class="chatRoom__infoArea chatRoom__infoArea--company"
+    >
       <div></div>
       <div class="sideContainerTitleBox ps-1">
-        <button type="button" class="btn" @click="rightContainer = '資訊欄'">
+        <button type="button" class="btn" @click="rightContainer = 'userInfo'">
           <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
         </button>
       </div>
@@ -495,7 +493,6 @@
       </div>
     </div>
   </div>
-  <JobCollect></JobCollect>
   <DocModal
     :userData="user"
     @returnUserData="getUserDataFromModal"
@@ -504,29 +501,21 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import SwiperCore, { Autoplay, Pagination } from 'swiper/core';
 import database from '@/methods/firebaseinit';
 import emitter from '@/methods/emitter';
-import webData from '@/methods/webData';
-import JobCollect from '@/components/helpers/JobCollect.vue';
 import DocModal from '@/components/admin/DocModal.vue';
-
-SwiperCore.use([Autoplay, Pagination]);
 
 export default {
   components: {
-    JobCollect,
     DocModal,
-    Swiper,
-    SwiperSlide,
   },
   data() {
     return {
       fullWidth: 0,
       fullHeight: 0,
-      boxSubNav: '申請資料',
-      rightContainer: '資訊欄',
+      dataReady: false,
+      boxSubNav: '個人資料',
+      rightContainer: 'userInfo',
       products: [],
       jobsList: [],
       nowPageJobs: [],
@@ -538,30 +527,15 @@ export default {
           job: {},
         },
       },
+      selectUser: {},
       user: {},
       pageNumber: 1,
       sortWay: 'time',
-      formData: {},
       // 篩選框顯示與否狀態
       filterData: {
         keyword: '',
       },
       jobCollectionList: [],
-      swiperNum: 1,
-      swiperDetail: {
-        autoPlay: {
-          delay: 2500,
-          disableOnInteraction: false,
-        },
-        pagination: {
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        slidesPerView: this.swiperNum,
-      },
       chatInput: 2,
       chatroom: [],
       tempChatRoomData: {
@@ -570,21 +544,8 @@ export default {
       },
       message: '',
       userRef: database.ref('user'),
+      jobApplyData: [],
     };
-  },
-  computed: {
-    // 所有企業
-    sortCompany() {
-      const temCompanyArray = [];
-      if (this.products.length > 1) {
-        this.products.forEach((item) => {
-          if (item.description === '企業') {
-            temCompanyArray.push(item);
-          }
-        });
-      }
-      return temCompanyArray;
-    },
   },
   methods: {
     getMessageDataFromModal(messageData) {
@@ -604,7 +565,8 @@ export default {
     },
     getUserDataFromModal(userData) {
       this.user = JSON.parse(JSON.stringify(userData));
-      this.saveFbData();
+      // this.saveFbData();
+      console.log(this.user);
     },
     goToPageLink(routerLink) {
       this.$router.push(routerLink);
@@ -616,10 +578,6 @@ export default {
       } else if (this.sortWay === 'money') {
         this.jobsList.sort((a, b) => b.price - a.price);
       }
-    },
-    changePage(nowPageNum) {
-      this.pageNumber = nowPageNum;
-      this.getNowPageJobs();
     },
     toogleChatInput() {
       if (this.chatInput === 2) {
@@ -633,131 +591,12 @@ export default {
         this[navName] = txt;
       }
     },
-    getJobCollect(collection) {
-      this.jobCollectionList = JSON.parse(JSON.stringify(collection));
-      this.checkJobCollect();
-    },
-    checkJobCollect() {
-      if (this.nowPageJobs.length > 0 && this.jobCollectionList.length > 0) {
-        this.nowPageJobs.forEach((temItem, index) => {
-          let check = false;
-          this.jobCollectionList.forEach((folder) => {
-            folder.jobs.forEach((item) => {
-              if (item.id === temItem.id) {
-                check = true;
-              }
-            });
-          });
-          this.nowPageJobs[index].jobCollectCheck = check;
-        });
-      }
-    },
-    // 點擊卡片：pc->選擇右側職位，pad->跳轉至該職位頁面
-    selectChat(id) {
-      if (this.fullWidth > 991) {
-        this.nowPageJobs.forEach((item) => {
-          if (item.id === id) {
-            this.jobItem = item;
-            this.$refs[`chatRoom__card--${item.id}`].classList.add('active');
-          } else if (item.id !== id) {
-            this.$refs[`chatRoom__card--${item.id}`].classList.remove('active');
-          }
-        });
-        // this.$refs.jobSelectBox.toTop();
-      } else {
-        // this.$router.push(`/products-list/product/${id}`);
-      }
-    },
-    selectChatFrist(id) {
-      if (this.fullWidth > 991) {
-        this.nowPageJobs.forEach((item) => {
-          if (item.id === id) {
-            this.jobItem = item;
-            this.$refs[`chatRoom__card--${item.id}`].classList.add('active');
-          } else if (item.id !== id) {
-            this.$refs[`chatRoom__card--${item.id}`].classList.remove('active');
-          }
-        });
-        // this.$refs.jobSelectBox.toTop();
-      }
-    },
-    // 本頁職位
-    getNowPageJobs() {
-      const temPageJobs = [];
-      if (this.jobsList.length !== []) {
-        const pageFrist = this.pageNumber * 10 - 10;
-        this.jobsList.forEach((item, index) => {
-          if (pageFrist <= index && index < this.pageNumber * 10) {
-            temPageJobs.push(item);
-          }
-        });
-        document.documentElement.scrollTop = 0;
-        [this.jobItem] = temPageJobs;
-      }
-      this.nowPageJobs = JSON.parse(JSON.stringify(temPageJobs));
-      this.checkJobCollect();
-      setTimeout(() => {
-        if (this.nowPageJobs.length > 0) {
-          this.selectChatFrist(this.nowPageJobs[0].id);
-        }
-      }, 10);
-    },
-    // 篩選出所有職位
-    classifyJob() {
-      this.jobsList = [];
-      this.changePage(1);
-      this.products.forEach((item) => {
-        if (item.description === '職位') {
-          const Obj = JSON.parse(JSON.stringify(item)); // 深拷貝
-          this.sortCompany.forEach((temCompany) => {
-            if (Obj.options.company.companyName === temCompany.title) {
-              Obj.options.company.companyLink = temCompany.id;
-            }
-          });
-          this.jobsList.push(Obj);
-        }
-      });
-      this.changeJobSort();
-      this.getNowPageJobs();
-    },
-    // 抓全部資料
-    getOgData() {
-      emitter.emit('spinner-open');
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
-      this.$http
-        .get(url)
-        .then((res) => {
-          this.products = res.data.products;
-          emitter.emit('spinner-close');
-          this.classifyJob();
-        })
-        .catch((err) => {
-          emitter.emit('spinner-close');
-          emitter.emit('alertMessage-open', err);
-        });
-    },
-    // firebase user data
-    getFbData() {
-      this.userRef.once('value', (snapshot) => {
-        const data = snapshot.val();
-        this.user = JSON.parse(JSON.stringify(data));
-        this.tempChatRoomData.user = this.user.account.chineseName;
-        this.dataReady = true;
-      });
-    },
-    // 保存資料
-    saveFbData() {
-      const userRef = database.ref('user');
-      userRef.set(this.user);
-      this.getFbData();
-    },
     // firebase chatroom data
     getChatListData() {
       const chatroomRef = database.ref('chatroom');
       chatroomRef.once('value', (snapshot) => {
         const data = snapshot.val();
         this.chatroom = data;
-        console.log(data);
       });
     },
     // put message to chatList and render
@@ -777,15 +616,40 @@ export default {
       this.message = '';
       this.getChatListData();
     },
+    getJobApplyDataData() {
+      const jobApplyDataRef = database.ref('company/applyListData');
+      jobApplyDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        if (data) {
+          this.jobApplyData = [];
+          Object.keys(data).forEach((item) => {
+            // 物件轉陣列
+            this.jobApplyData.push(data[item]);
+          });
+          this.getUserData();
+        }
+      });
+    },
+    // 取得暫時用戶資料
+    getUserData() {
+      const userDataRef = database.ref('user');
+      userDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        if (data) {
+          this.user = data;
+          this.dataReady = true;
+        }
+      });
+    },
   },
   created() {
-    this.getOgData();
-    this.getFbData();
-    this.formData = webData;
+    this.getJobApplyDataData();
+    this.getChatListData();
     emitter.emit('spinner-open-bg', 1200);
   },
   mounted() {
-    this.getChatListData();
     const vm = this;
     vm.fullWidth = window.innerWidth;
     vm.fullHeight = window.innerHeight;

@@ -248,6 +248,11 @@ const routes = [
         component: () => import('../views/company/TalentRecommend.vue'),
       },
       {
+        // 文件-履歷
+        path: 'chatroom',
+        component: () => import('../views/company/ChatRoom.vue'),
+      },
+      {
         // 加值服務-廣告管理
         path: 'service-ad',
         component: () => import('../views/company/ServiceAd.vue'),
