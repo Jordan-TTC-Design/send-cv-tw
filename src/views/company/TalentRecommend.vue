@@ -3,26 +3,11 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-3 col-12">
           <ul ref="adminSideList" class="admin-sideList list-group admin-sideList--company">
-            <li class="sideList__top">
-              <div
-                class="sideList__top__item sideList__top--50"
-                :class="{ active: sideListNav === '公司職位' }"
-                @click="this.sideListNav = '公司職位'"
-              >
-                <p>公司職位</p>
-              </div>
-              <div
-                class="sideList__top__item sideList__top--50"
-                :class="{ active: sideListNav === '拍照申請職位' }"
-                @click="this.sideListNav = '拍照申請職位'"
-              >
-                <p>拍照申請職位</p>
-              </div>
-            </li>
-            <li class="list-group-item p-3 border-bottom border-gray-line">
-              <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
+            <li class="sideList__top px-3 py-1 justify-content-between align-items-center">
+              <p class="subTxt">目前共 {{ nowJobList.length }} 個公司職位</p>
+              <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
             </li>
             <li
               :ref="`companyJobList-${item.key}`"
@@ -35,11 +20,11 @@
               <p class="sideList__item__title mb-1">
                 {{ item.jobName }}
               </p>
-              <p class="sideList__item__subTxt">訂單時間：2021-12-12</p>
+              <p class="sideList__item__subTxt">推薦人才：{{mailApplyList.length}} 人</p>
             </li>
           </ul>
         </div>
-        <div class="col-lg-8 col-12">
+        <div class="col-lg-9 col-12">
           <button
             type="button"
             class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
@@ -58,6 +43,8 @@
               "
             >
               <p class="subTxt">{{ selectItem.jobName }}：{{ mailApplyList.length }} 位推薦人才</p>
+              <div class="d-flex align-items-center">
+              <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
               <div class="inputGroup--item">
                 <select class="form-select" aria-label="排列方法" id="filterMethod">
                   <option
@@ -70,7 +57,7 @@
                   </option>
                 </select>
               </div>
-            </div>
+            </div></div>
             <ul ref="candidateList" class="candidateList candidateList--inBox">
               <template v-for="item in mailApplyList" :key="item.key">
                 <li class="personCard">

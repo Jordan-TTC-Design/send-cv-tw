@@ -4,20 +4,6 @@
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-3 col-12">
-          <ul ref="adminSideList" class="admin-sideList list-group admin-sideList--company mb-5">
-            <li class="sideList__top px-3 py-1 justify-content-between align-items-center">
-              <p class="subTxt">目前共 2 個收藏夾</p>
-              <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
-            </li>
-            <li class="sideList__item list-group-item list-group-item-action">
-              <p class="sideList__item__title mb-1">預設收藏夾</p>
-              <p class="sideList__item__subTxt">收藏人才：{{ mailApplyList.length }} 人</p>
-            </li>
-            <li class="sideList__item list-group-item list-group-item-action">
-              <p class="sideList__item__title mb-1">老闆喜歡的</p>
-              <p class="sideList__item__subTxt">收藏人才：{{ mailApplyList.length }} 人</p>
-            </li>
-          </ul>
           <div class="admin-sideList list-group admin-sideList--company">
             <div class="sideList__top justify-content-between align-items-center px-3 py-1">
               <p class="subTxt">篩選</p>
@@ -196,7 +182,7 @@ export default {
       fullWidth: 0,
       fullHeight: 0,
       scrollTop: 0,
-      nowPage: '收藏人才',
+      nowPage: '瀏覽紀錄',
       dataReady: false,
       selectItem: {},
       mailApplyList: [],

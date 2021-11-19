@@ -243,9 +243,34 @@ const routes = [
         component: () => import('../views/company/TalentCvPage.vue'),
       },
       {
+        // 人才資料庫-搜尋人才
+        path: 'talent-search',
+        component: () => import('../views/company/TalentSearch.vue'),
+      },
+      {
+        // 搜尋相關職位
+        path: 'talent-search-result',
+        component: () => import('../views/company/TalentSearchResult.vue'),
+      },
+      {
+        // 人才資料庫-收藏人才
+        path: 'talent-collection',
+        component: () => import('../views/company/TalentCollection.vue'),
+      },
+      {
+        // 人才資料庫-瀏覽紀錄
+        path: 'talent-record',
+        component: () => import('../views/company/TalentRecord.vue'),
+      },
+      {
         // 人才資料庫-推薦人才
         path: 'talent-recommend',
         component: () => import('../views/company/TalentRecommend.vue'),
+      },
+      {
+        // 人才資料庫-歷史面試
+        path: 'talent-history',
+        component: () => import('../views/company/TalentHistory.vue'),
       },
       {
         // 文件-履歷

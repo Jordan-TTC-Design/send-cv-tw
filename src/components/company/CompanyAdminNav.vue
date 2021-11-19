@@ -81,14 +81,14 @@
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('service-ad')"
+          @click="goToPageLink('talent-search')"
           :class="{ active: nowPage === '搜尋人才' }"
         >
           <p class="admin__subNav__txt me-1">搜尋人才</p>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('service-order')"
+          @click="goToPageLink('talent-collection')"
           :class="{ active: nowPage === '收藏人才' }"
         >
           <p class="admin__subNav__txt me-1">收藏人才</p>
@@ -102,14 +102,14 @@
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('service-record')"
+          @click="goToPageLink('talent-record')"
           :class="{ active: nowPage === '瀏覽紀錄' }"
         >
           <p class="admin__subNav__txt me-1">瀏覽紀錄</p>
         </li>
         <li
           class="admin__subNav__item"
-          @click="goToPageLink('service-record')"
+          @click="goToPageLink('talent-history')"
           :class="{ active: nowPage === '歷史面試' }"
         >
           <p class="admin__subNav__txt me-1">歷史面試</p>
@@ -291,7 +291,7 @@ export default {
       ) {
         this.adminMainSection = '職位管理';
       } else if (
-        this.nowPage === '人才搜尋'
+        this.nowPage === '搜尋人才'
         || this.nowPage === '收藏人才'
         || this.nowPage === '推薦人才'
         || this.nowPage === '瀏覽紀錄'
