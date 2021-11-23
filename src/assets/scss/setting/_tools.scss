@@ -479,18 +479,18 @@
     width: 50%;
   }
 }
-.boxSubNav--company{
-  .boxSubNav__item::before{
+.boxSubNav--company {
+  .boxSubNav__item::before {
     background-color: $companyColor;
   }
-  .boxSubNav__item.active{
-    p{
-      color:$companyColor;
+  .boxSubNav__item.active {
+    p {
+      color: $companyColor;
     }
   }
-  .boxSubNav__item:hover{
-    p{
-      color:$companyColor;
+  .boxSubNav__item:hover {
+    p {
+      color: $companyColor;
     }
   }
 }
@@ -1362,7 +1362,7 @@
     }
   }
 }
-// 自己設定的 bootstrap5
+// 自己設定的尺寸
 .w--100 {
   width: 100%;
 }
@@ -1450,5 +1450,62 @@
 .w--sm--0 {
   @include sm {
     width: 0%;
+  }
+}
+
+// 折疊列表
+.collapseList {
+  border-radius: $rounded-top;
+  &__header {
+    background-color: $white;
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    border-radius: $rounded-top;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__body {
+    height: 0;
+    overflow: hidden;
+  }
+  &__body.active {
+    height: auto;
+    padding-bottom: 1rem;
+    background-color: $gray-light;
+  }
+  &__item {
+    padding: 0.75rem;
+    padding-left: 2rem;
+    background-color: $white;
+    border-bottom: 1px solid $gray-line;
+    @include list--bg--hover;
+    .item__title {
+      color: $dark;
+    }
+  }
+}
+.collapseList--company {
+  .collapseList__header.active {
+    p{
+      color: $companyColor;
+    }
+  }
+  .collapseList__item {
+    @include list__chooseMark--company;
+  }
+  .collapseList__item.active {
+    background-color: $companyColor-light;
+    .collapseList__item__title {
+      color: $companyColor;
+    }
+    .subTxt {
+      color: $companyColor;
+    }
+  }
+}
+.collapseList__item.active {
+  &::after {
+    width: 0.25rem;
   }
 }

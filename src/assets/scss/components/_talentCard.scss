@@ -1,0 +1,61 @@
+.talentCard {
+  background-color: $white;
+  display: flex;
+  padding: 1rem;
+  position: relative;
+  &__personalImg {
+    border: 1px solid $gray-line;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    @include md {
+      margin-bottom: 1rem;
+    }
+  }
+  &__introVideo {
+    width: 120px;
+    height: 80px;
+    padding: 0.5rem;
+    background-color: $gray-light;
+    border-radius: 0.25rem;
+    margin-right: -1.5rem;
+  }
+  @include md {
+    flex-direction: column;
+  }
+  .talentInfo {
+    width: 100%;
+    &__item {
+      display: flex;
+      margin-bottom: 0.25rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &__title {
+        font-size: 14px;
+        color: $secondary;
+        min-width: 4rem;
+        margin-right: 0.75rem;
+      }
+    }
+  }
+  &:hover {
+    .talentCard__introVideo {
+      background-color: darken($gray-light, 2%);
+    }
+  }
+}
+.talentCard--inner {
+  border-radius: 0;
+  @include list--bg--hover;
+  @include border-bottom;
+}
+.talentNameInfo {
+  display: flex;
+  align-items: center;
+  &__name {
+    font-size: 1.25rem;
+    font-weight: $fw--md;
+    color: $dark;
+  }
+}

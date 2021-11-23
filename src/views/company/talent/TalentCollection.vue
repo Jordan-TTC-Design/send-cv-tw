@@ -3,13 +3,33 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-3 col-12">
-          <div class="admin-sideList list-group admin-sideList--company">
-            <div class="sideList__top justify-content-between align-items-center px-3 py-1">
-              <p class="subTxt">篩選</p>
-              <button type="button" class="btn btn-outline-gray-line text-dark">清除</button>
+        <div class="col-lg-3">
+          <div class="sideContentBox pb-3 mb-5">
+            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+              <p class="subTxt">目前共 2 個收藏夾</p>
+              <div class="sideContentBox__header__btnBox">
+                <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
+              </div>
             </div>
-            <form @submit="searchTalent" class="p-3">
+            <ul class="innerList innerList--company">
+              <li class="innerList__item putPointer">
+                <p class="item__title mb-1">預設收藏夾</p>
+                <p class="subTxt">收藏人才：{{ mailApplyList.length }} 人</p>
+              </li>
+              <li class="innerList__item putPointer">
+                <p class="item__title mb-1">老闆喜歡的</p>
+                <p class="subTxt">收藏人才：{{ mailApplyList.length }} 人</p>
+              </li>
+            </ul>
+          </div>
+          <div class="sideContentBox mb-5">
+            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+              <p class="subTxt">篩選</p>
+              <div class="sideContentBox__header__btnBox">
+                <button type="button" class="btn text-dark">清除條件</button>
+              </div>
+            </div>
+            <form @submit="searchTalent" class="sideContentBox__body">
               <div class="form__inputBox">
                 <div class="form__labelBox">
                   <label for="searchKeyword" class="form__label--custom form-label"
@@ -41,7 +61,7 @@
             </form>
           </div>
         </div>
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <button
             type="button"
             class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
@@ -77,67 +97,59 @@
                 </div>
               </div>
             </div>
-            <ul ref="candidateList" class="candidateList candidateList--inBox">
+            <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <li class="personCard">
-                  <div class="personCard__listBox align-items-start">
-                    <div class="me-4 d-flex align-items-center">
-                      <div class="personCard__introVideo">
-                        <p class="subTxt text-secondary">尚未設定</p>
-                      </div>
-                      <img
-                        class="personCard__personalImg"
-                        :src="user.account.userImgUrl"
-                        :alt="`${user.account.chineseName}個人求職照片`"
-                      />
+                <li class="talentCard talentCard--inner align-items-start">
+                  <div class="me-4 d-flex align-items-center">
+                    <div class="talentCard__introVideo">
+                      <p class="subTxt text-secondary">尚未設定</p>
                     </div>
-                    <div class="personCard__infoBox">
-                      <div class="d-flex align-items-center mb-3">
-                        <p
-                          class="personCard__name mb-0 me-2 putPointer"
-                          @click="openPersonPopModal('瀏覽人才')"
-                        >
-                          {{ user.account.chineseName }}
-                        </p>
-                        <p>{{ user.account.gender }} | {{ `28歲` }}</p>
-                      </div>
-                      <ul class="personCard__infoBox">
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">投遞職位</p>
-                          <p class="personCard__txt">{{ item.jobName }}</p>
-                        </li>
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">最高學歷</p>
-                          <p class="personCard__txt">
-                            {{
-                              user.educationExp.educations[user.educationExp.educations.length - 1]
-                                .educationLevel || '尚未填寫'
-                            }}
-                          </p>
-                        </li>
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">工作經驗</p>
-                          <p class="personCard__txt">
-                            {{
-                              user.workExp.works[user.workExp.works.length - 1].jobName ||
-                              '無工作經驗'
-                            }}
-                          </p>
-                        </li>
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">最後登入</p>
-                          <p class="personCard__txt">{{ $filters.date(item.time) }}</p>
-                        </li>
-                      </ul>
-                    </div>
+                    <img
+                      class="talentCard__personalImg"
+                      :src="user.account.userImgUrl"
+                      :alt="`${user.account.chineseName}個人求職照片`"
+                    />
                   </div>
-                  <button
-                    class="collectBtn btn btn-outline-gray-line position-absolute"
-                    type="button"
-                  >
-                    <i class="jobIcon bi bi-bookmark-fill"></i>
-                  </button>
-                  <div class="card__btnBox">
+                  <div class="flex-grow-1">
+                    <div class="talentNameInfo mb-3">
+                      <p
+                        class="talentNameInfo__name me-2 putPointer"
+                        @click="openPersonPopModal('瀏覽人才')"
+                      >
+                        {{ user.account.chineseName }}
+                      </p>
+                      <p>{{ user.account.gender }} | {{ `28歲` }}</p>
+                    </div>
+                    <ul class="talentInfo">
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">投遞職位</p>
+                        <p>{{ item.jobName }}</p>
+                      </li>
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">最高學歷</p>
+                        <p>
+                          {{
+                            user.educationExp.educations[user.educationExp.educations.length - 1]
+                              .educationLevel || '尚未填寫'
+                          }}
+                        </p>
+                      </li>
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">工作經驗</p>
+                        <p>
+                          {{
+                            user.workExp.works[user.workExp.works.length - 1].jobName ||
+                            '無工作經驗'
+                          }}
+                        </p>
+                      </li>
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">最後登入</p>
+                        <p>{{ $filters.date(item.time) }}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="d-flex align-items-end align-self-end">
                     <button
                       type="button"
                       class="btn btn-outline-companyColor me-2"
@@ -152,6 +164,12 @@
                       <i class="bi bi-three-dots"></i>
                     </button>
                   </div>
+                  <button
+                    class="collectBtn btn btn-outline-gray-line position-absolute"
+                    type="button"
+                  >
+                    <i class="jobIcon bi bi-bookmark-fill"></i>
+                  </button>
                 </li>
               </template>
             </ul>
@@ -182,7 +200,7 @@ export default {
       fullWidth: 0,
       fullHeight: 0,
       scrollTop: 0,
-      nowPage: '瀏覽紀錄',
+      nowPage: '收藏人才',
       dataReady: false,
       selectItem: {},
       mailApplyList: [],

@@ -3,12 +3,15 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container">
       <div class="row" v-if="selectOrder.key === ''">
-        <div class="col-3">
-          <div class="sideListBox">
-            <div class="sideListBox__titleBox">
-              <p class="sideListBox__title">搜尋條件</p>
+        <div class="col-lg-3">
+          <form class="sideContentBox" @submit="toSearchJob">
+            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+              <p class="subTxt">篩選</p>
+              <div class="sideContentBox__header__btnBox">
+                <button type="button" class="btn text-dark">清除條件</button>
+              </div>
             </div>
-            <form class="p-4" @submit="toSearchJob">
+            <div class="sideContentBox__body">
               <div class="form__inputBox">
                 <div class="form__labelBox">
                   <label for="filterFormkey" class="form__label--custom form-label">訂單編號</label>
@@ -75,18 +78,17 @@
                   v-model="filterForm.endDate"
                 />
               </div>
-              <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-gray-light text-dark">清除</button>
-                <button type="button" class="btn btn-companyColor text-light">篩選</button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class="sideContentBox__footer--border">
+              <button type="submit" class="btn btn-companyColor text-light w--100">篩選</button>
+            </div>
+          </form>
         </div>
         <div class="col-lg-9 col-12">
           <div class="adminContentBox--full payService__orderList">
-            <ul class="adminContentNav w-100">
+            <ul class="innerNav innerNav--company innerNav--bgColor">
               <li
-                class="adminContentNav__item"
+                class="innerNav__item"
                 :class="{ active: subNav === '訂單完成' }"
                 @click="subNav = '訂單完成'"
               >
@@ -95,7 +97,7 @@
                 </p>
               </li>
               <li
-                class="adminContentNav__item"
+                class="innerNav__item"
                 :class="{ active: subNav === '訂單未付款' }"
                 @click="subNav = '訂單未付款'"
               >
@@ -104,7 +106,7 @@
                 </p>
               </li>
               <li
-                class="adminContentNav__item"
+                class="innerNav__item"
                 :class="{ active: subNav === '訂單取消' }"
                 @click="subNav = '訂單取消'"
               >

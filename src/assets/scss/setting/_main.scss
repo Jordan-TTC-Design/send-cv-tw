@@ -8,8 +8,14 @@ $fw--bd: 700;
 $fz--xs: 12px;
 $fz--sm: 14px;
 $fz--rg: 16px;
-$fw--lg: 20px;
-$fw--xl: 48px;
+$fz--lg: 20px;
+$fz--xl: 48px;
+
+$rounded-top:0.5rem 0.5rem 0 0;
+$rounded-bottom:0 0 0.5rem 0.5rem;
+
+$rounded-top-sm:0.25rem 0.25rem 0 0;
+$rounded-bottom-sm:0 0 0.25rem 0.25rem;
 
 //header
 .header {

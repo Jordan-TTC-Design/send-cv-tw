@@ -200,77 +200,77 @@ const routes = [
       {
         // 刊登中職位
         path: 'job-list',
-        component: () => import('../views/company/JobList.vue'),
+        component: () => import('../views/company/work/JobList.vue'),
       },
       {
         // 新增職位
         path: 'new-job',
-        component: () => import('../views/company/NewJobPage.vue'),
+        component: () => import('../views/company/work/NewJobPage.vue'),
       },
       {
         // 編輯職位
         path: 'preview-job/:key',
-        component: () => import('../views/company/PreviewJobPage.vue'),
+        component: () => import('../views/company/work/PreviewJobPage.vue'),
       },
       {
         // 編輯職位
         path: 'edit-job/:key',
-        component: () => import('../views/company/EditJobPage.vue'),
+        component: () => import('../views/company/work/EditJobPage.vue'),
       },
       {
         // 拍照申請
         path: 'shot-job-list',
-        component: () => import('../views/company/ShotJobList.vue'),
+        component: () => import('../views/company/work/ShotJobList.vue'),
       },
       {
         // 編輯職位
         path: 'edit-shot-job/:key',
-        component: () => import('../views/company/EditShotJobPage.vue'),
+        component: () => import('../views/company/work/EditShotJobPage.vue'),
       },
       {
         // 應徵管理
         path: 'work-apply-list',
-        component: () => import('../views/company/WorkApplyList.vue'),
+        component: () => import('../views/company/work/WorkApplyList.vue'),
       },
       {
         // 其他申請
         path: 'other-apply-list',
-        component: () => import('../views/company/OtherApplyList.vue'),
+        component: () => import('../views/company/work/OtherApplyList.vue'),
       },
       {
         // 人才-履歷
         path: 'talent-cv/:id',
-        component: () => import('../views/company/TalentCvPage.vue'),
+        component: () => import('../views/company/talent/TalentCvPage.vue'),
       },
       {
         // 人才資料庫-搜尋人才
         path: 'talent-search',
-        component: () => import('../views/company/TalentSearch.vue'),
+        component: () => import('../views/company/talent/TalentSearch.vue'),
       },
       {
         // 搜尋相關職位
         path: 'talent-search-result',
-        component: () => import('../views/company/TalentSearchResult.vue'),
+        component: () => import('../views/company/talent/TalentSearchResult.vue'),
       },
       {
         // 人才資料庫-收藏人才
         path: 'talent-collection',
-        component: () => import('../views/company/TalentCollection.vue'),
+        component: () => import('../views/company/talent/TalentCollection.vue'),
       },
       {
         // 人才資料庫-瀏覽紀錄
         path: 'talent-record',
-        component: () => import('../views/company/TalentRecord.vue'),
+        component: () => import('../views/company/talent/TalentRecord.vue'),
       },
       {
         // 人才資料庫-推薦人才
         path: 'talent-recommend',
-        component: () => import('../views/company/TalentRecommend.vue'),
+        component: () => import('../views/company/talent/TalentRecommend.vue'),
       },
       {
         // 人才資料庫-歷史面試
         path: 'talent-history',
-        component: () => import('../views/company/TalentHistory.vue'),
+        component: () => import('../views/company/talent/TalentHistory.vue'),
       },
       {
         // 文件-履歷
@@ -280,62 +280,62 @@ const routes = [
       {
         // 加值服務-廣告管理
         path: 'service-ad',
-        component: () => import('../views/company/ServiceAd.vue'),
+        component: () => import('../views/company/service/ServiceAd.vue'),
       },
       {
         // 新增廣告
         path: 'service-ad/new-ad/:type',
-        component: () => import('../views/company/NewAd.vue'),
+        component: () => import('../views/company/service/NewAd.vue'),
       },
       {
         // 編輯廣告
         path: 'service-ad/edit-ad/:key',
-        component: () => import('../views/company/EditAd.vue'),
+        component: () => import('../views/company/service/EditAd.vue'),
       },
       {
         // 加值服務-我的訂單
         path: 'service-order',
-        component: () => import('../views/company/ServiceOrder.vue'),
+        component: () => import('../views/company/service/ServiceOrder.vue'),
       },
       {
         // 加值服務-會員服務
         path: 'service-membership',
-        component: () => import('../views/company/ServiceMembership.vue'),
+        component: () => import('../views/company/service/ServiceMembership.vue'),
       },
       {
         // 加值服務-使用紀錄
         path: 'service-record',
-        component: () => import('../views/company/ServiceRecord.vue'),
+        component: () => import('../views/company/service/ServiceRecord.vue'),
       },
       {
         // 加值服務-購物車
         path: 'service-cart',
-        component: () => import('../views/company/ServiceCart.vue'),
+        component: () => import('../views/company/service/ServiceCart.vue'),
       },
       {
         // 帳號設定
         path: 'setting',
-        component: () => import('../views/company/SettingAccountCompany.vue'),
+        component: () => import('../views/company/setting/SettingAccountCompany.vue'),
       },
       {
         // 帳號設定-用戶管理
         path: 'setting-user-management',
-        component: () => import('../views/company/SettingUserManagement.vue'),
+        component: () => import('../views/company/setting/SettingUserManagement.vue'),
       },
       {
         // 設定-文字模板
         path: 'setting-message-template',
-        component: () => import('../views/company/SettingMessageTemplate.vue'),
+        component: () => import('../views/company/setting/SettingMessageTemplate.vue'),
       },
       {
         // 設定-綁定信箱
         path: 'setting-email-bind',
-        component: () => import('../views/company/SettingEmailBind.vue'),
+        component: () => import('../views/company/setting/SettingEmailBind.vue'),
       },
       {
         // 設定-通知設定
         path: 'setting-notification',
-        component: () => import('../views/company/SettingNotification.vue'),
+        component: () => import('../views/company/setting/SettingNotification.vue'),
       },
     ],
   },

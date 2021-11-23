@@ -4,150 +4,147 @@
     <div class="container">
       <div class="row">
         <div class="col-3">
-          <div class="sideCollapse position--sticky--pageTop">
-            <div class="accordion-item">
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
-                :class="{ active: sideBoxList === 'sendCV Web通知' }"
+          <div class="sideContentBox pb-3">
+            <div class="collapseList collapseList--company">
+              <div
+                class="collapseList__header putPointer"
                 @click="selectCollapseList('sendCV Web通知')"
+                :class="{ active: sideBoxList === 'sendCV Web通知' }"
               >
-                sendCV Web通知
-                <i v-if="sideBoxList !== 'sendCV Web通知'" class="jobIcon bi bi-chevron-down"></i>
-                <i v-if="sideBoxList === 'sendCV Web通知'" class="jobIcon bi bi-chevron-up"></i>
-              </p>
-              <ul
-                class="sideCollapse__innerList pb-5 bg-gray-light"
-                v-show="sideBoxList === 'sendCV Web通知'"
-              >
+                <p class="item__title d-flex justify-content-between">sendCV Web通知</p>
+                <p class="">
+                  <i v-if="sideBoxList !== 'sendCV Web通知'" class="jobIcon bi bi-chevron-down"></i>
+                  <i v-if="sideBoxList === 'sendCV Web通知'" class="jobIcon bi bi-chevron-up"></i>
+                </p>
+              </div>
+              <ul class="collapseList__body" :class="{ active: sideBoxList === 'sendCV Web通知' }">
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 應徵通知')"
                   :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 應徵通知' }"
                 >
-                  <p class="nav__item__title">應徵通知</p>
+                  <p class="collapseList__item__title">應徵通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 聊天室通知')"
                   :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 聊天室通知' }"
                 >
-                  <p class="nav__item__title">聊天室通知</p>
+                  <p class="collapseList__item__title">聊天室通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 推薦通知')"
                   :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 推薦通知' }"
                 >
-                  <p class="nav__item__title">推薦通知</p>
+                  <p class="collapseList__item__title">推薦通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 面試提醒通知')"
                   :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 面試提醒通知' }"
                 >
-                  <p class="nav__item__title">面試提醒通知</p>
+                  <p class="collapseList__item__title">面試提醒通知</p>
                 </li>
               </ul>
             </div>
-            <div class="accordion-item">
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
-                :class="{ active: sideBoxList === '信箱通知' }"
+            <div class="collapseList collapseList--company">
+              <div
+                class="collapseList__header putPointer"
                 @click="selectCollapseList('信箱通知')"
+                :class="{ active: sideBoxList === '信箱通知' }"
               >
-                信箱通知
-                <i v-if="sideBoxList !== '信箱通知'" class="jobIcon bi bi-chevron-down"></i>
-                <i v-if="sideBoxList === '信箱通知'" class="jobIcon bi bi-chevron-up"></i>
-              </p>
-              <ul
-                class="sideCollapse__innerList pb-5 bg-gray-light"
-                v-if="sideBoxList === '信箱通知'"
-              >
+                <p class="item__title d-flex justify-content-between">信箱通知</p>
+                <p class="">
+                  <i v-if="sideBoxList !== '信箱通知'" class="jobIcon bi bi-chevron-down"></i>
+                  <i v-if="sideBoxList === '信箱通知'" class="jobIcon bi bi-chevron-up"></i>
+                </p>
+              </div>
+              <ul class="collapseList__body" :class="{ active: sideBoxList === '信箱通知' }">
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 應徵通知')"
                   :class="{ active: sideBoxInnerList === '信箱通知 - 應徵通知' }"
                 >
-                  <p class="nav__item__title">應徵通知</p>
+                  <p class="collapseList__item__title">應徵通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 聊天室通知')"
                   :class="{ active: sideBoxInnerList === '信箱通知 - 聊天室通知' }"
                 >
-                  <p class="nav__item__title">聊天室通知</p>
+                  <p class="collapseList__item__title">聊天室通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 推薦通知')"
                   :class="{ active: sideBoxInnerList === '信箱通知 - 推薦通知' }"
                 >
-                  <p class="nav__item__title">推薦通知</p>
+                  <p class="collapseList__item__title">推薦通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 職位通知')"
                   :class="{ active: sideBoxInnerList === '信箱通知 - 職位通知' }"
                 >
-                  <p class="nav__item__title">職位通知</p>
+                  <p class="collapseList__item__title">職位通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 面試提醒通知')"
                   :class="{ active: sideBoxInnerList === '信箱通知 - 面試提醒通知' }"
                 >
-                  <p class="nav__item__title">面試提醒通知</p>
+                  <p class="collapseList__item__title">面試提醒通知</p>
                 </li>
               </ul>
             </div>
-            <div class="accordion-item">
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
-                :class="{ active: sideBoxList === '手機APP通知' }"
+            <div class="collapseList collapseList--company">
+              <div
+                class="collapseList__header putPointer"
                 @click="selectCollapseList('手機APP通知')"
+                :class="{ active: sideBoxList === '手機APP通知' }"
               >
-                手機APP通知
-                <i v-if="sideBoxList !== '手機APP通知'" class="jobIcon bi bi-chevron-down"></i>
-                <i v-if="sideBoxList === '手機APP通知'" class="jobIcon bi bi-chevron-up"></i>
-              </p>
-              <ul
-                class="sideCollapse__innerList pb-5 bg-gray-light rounded-bottom"
-                v-if="sideBoxList === '手機APP通知'"
-              >
+                <p class="item__title d-flex justify-content-between">手機APP通知</p>
+                <p class="">
+                  <i v-if="sideBoxList !== '手機APP通知'" class="jobIcon bi bi-chevron-down"></i>
+                  <i v-if="sideBoxList === '手機APP通知'" class="jobIcon bi bi-chevron-up"></i>
+                </p>
+              </div>
+              <ul class="collapseList__body" :class="{ active: sideBoxList === '手機APP通知' }">
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 應徵通知')"
                   :class="{ active: sideBoxInnerList === '手機APP通知 - 應徵通知' }"
                 >
-                  <p class="nav__item__title">應徵通知</p>
+                  <p class="collapseList__item__title">應徵通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 聊天室通知')"
                   :class="{ active: sideBoxInnerList === '手機APP通知 - 聊天室通知' }"
                 >
-                  <p class="nav__item__title">聊天室通知</p>
+                  <p class="collapseList__item__title">聊天室通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 推薦通知')"
                   :class="{ active: sideBoxInnerList === '手機APP通知 - 推薦通知' }"
                 >
-                  <p class="nav__item__title">推薦通知</p>
+                  <p class="collapseList__item__title">推薦通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 職位通知')"
                   :class="{ active: sideBoxInnerList === '手機APP通知 - 職位通知' }"
                 >
-                  <p class="nav__item__title">職位通知</p>
+                  <p class="collapseList__item__title">職位通知</p>
                 </li>
                 <li
-                  class="nav__item"
+                  class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 面試提醒通知')"
                   :class="{ active: sideBoxInnerList === '手機APP通知 - 面試提醒通知' }"
                 >
-                  <p class="nav__item__title">面試提醒通知</p>
+                  <p class="collapseList__item__title">面試提醒通知</p>
                 </li>
               </ul>
             </div>

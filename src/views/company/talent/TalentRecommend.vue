@@ -3,28 +3,31 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-3 col-12">
-          <ul ref="adminSideList" class="admin-sideList list-group admin-sideList--company">
-            <li class="sideList__top px-3 py-1 justify-content-between align-items-center">
+        <div class="col-lg-3">
+          <div class="sideContentBox pb-3">
+            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個公司職位</p>
-              <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
-            </li>
-            <li
-              :ref="`companyJobList-${item.key}`"
-              :class="{ active: item.key === selectItem.key && fullWidth > 992 }"
-              class="sideList__item list-group-item list-group-item-action"
-              v-for="item in nowJobList"
-              :key="item.key"
-              @click="selectJobFormJobList(item.key)"
-            >
-              <p class="sideList__item__title mb-1">
-                {{ item.jobName }}
-              </p>
-              <p class="sideList__item__subTxt">推薦人才：{{mailApplyList.length}} 人</p>
-            </li>
-          </ul>
+              <div class="sideContentBox__header__btnBox">
+                <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
+              </div>
+            </div>
+            <ul class="innerList innerList--company">
+              <li
+                :class="{ active: item.key === selectItem.key && fullWidth > 992 }"
+                class="innerList__item putPointer"
+                v-for="item in nowJobList"
+                :key="item.key"
+                @click="selectJobFormJobList(item.key)"
+              >
+                <p class="item__title mb-1">
+                  {{ item.jobName }}
+                </p>
+                <p class="subTxt">推薦人才：{{ mailApplyList.length }} 人</p>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <button
             type="button"
             class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
@@ -36,7 +39,8 @@
             <div
               class="
                 border-bottom border-gray-line
-                px-3 py-1
+                px-3
+                py-1
                 d-flex
                 justify-content-between
                 align-items-center
@@ -44,81 +48,74 @@
             >
               <p class="subTxt">{{ selectItem.jobName }}：{{ mailApplyList.length }} 位推薦人才</p>
               <div class="d-flex align-items-center">
-              <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
-              <div class="inputGroup--item">
-                <select class="form-select" aria-label="排列方法" id="filterMethod">
-                  <option
-                    v-for="item in filterData"
-                    :value="item.title"
-                    :key="item.title"
-                    :selected="item.select"
-                  >
-                    {{ item.title }}
-                  </option>
-                </select>
+                <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
+                <div class="inputGroup--item">
+                  <select class="form-select" aria-label="排列方法" id="filterMethod">
+                    <option
+                      v-for="item in filterData"
+                      :value="item.title"
+                      :key="item.title"
+                      :selected="item.select"
+                    >
+                      {{ item.title }}
+                    </option>
+                  </select>
+                </div>
               </div>
-            </div></div>
-            <ul ref="candidateList" class="candidateList candidateList--inBox">
+            </div>
+            <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <li class="personCard">
-                  <div class="personCard__listBox align-items-start">
-                    <div class="me-4 d-flex align-items-center">
-                      <div class="personCard__introVideo">
-                        <p class="subTxt text-secondary">尚未設定</p>
-                      </div>
-                      <img
-                        class="personCard__personalImg"
-                        :src="user.account.userImgUrl"
-                        :alt="`${user.account.chineseName}個人求職照片`"
-                      />
+                <li class="talentCard talentCard--inner align-items-start">
+                  <div class="me-4 d-flex align-items-center">
+                    <div class="talentCard__introVideo">
+                      <p class="subTxt text-secondary">尚未設定</p>
                     </div>
-                    <div class="personCard__infoBox">
-                      <div class="d-flex align-items-center mb-3">
-                        <p
-                          class="personCard__name mb-0 me-2 putPointer"
-                          @click="openPersonPopModal('瀏覽人才')"
-                        >
-                          {{ user.account.chineseName }}
-                        </p>
-                        <p>{{ user.account.gender }} | {{ `28歲` }}</p>
-                      </div>
-                      <ul class="personCard__infoBox">
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">投遞職位</p>
-                          <p class="personCard__txt">{{ item.jobName }}</p>
-                        </li>
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">最高學歷</p>
-                          <p class="personCard__txt">
-                            {{
-                              user.educationExp.educations[user.educationExp.educations.length - 1]
-                                .educationLevel || '尚未填寫'
-                            }}
-                          </p>
-                        </li>
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">工作經驗</p>
-                          <p class="personCard__txt">
-                            {{
-                              user.workExp.works[user.workExp.works.length - 1].jobName ||
-                              '無工作經驗'
-                            }}
-                          </p>
-                        </li>
-                        <li class="personCard__infoBox__item">
-                          <p class="personCard__subTxt">最後登入</p>
-                          <p class="personCard__txt">{{ $filters.date(item.time) }}</p>
-                        </li>
-                      </ul>
-                    </div>
+                    <img
+                      class="talentCard__personalImg"
+                      :src="user.account.userImgUrl"
+                      :alt="`${user.account.chineseName}個人求職照片`"
+                    />
                   </div>
-                  <button
-                    class="collectBtn btn btn-outline-gray-line position-absolute"
-                    type="button"
-                  >
-                    <i class="jobIcon bi bi-bookmark-fill"></i>
-                  </button>
-                  <div class="card__btnBox">
+                  <div class="flex-grow-1">
+                    <div class="talentNameInfo mb-3">
+                      <p
+                        class="talentNameInfo__name me-2 putPointer"
+                        @click="openPersonPopModal('瀏覽人才')"
+                      >
+                        {{ user.account.chineseName }}
+                      </p>
+                      <p>{{ user.account.gender }} | {{ `28歲` }}</p>
+                    </div>
+                    <ul class="talentInfo">
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">投遞職位</p>
+                        <p>{{ item.jobName }}</p>
+                      </li>
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">最高學歷</p>
+                        <p>
+                          {{
+                            user.educationExp.educations[user.educationExp.educations.length - 1]
+                              .educationLevel || '尚未填寫'
+                          }}
+                        </p>
+                      </li>
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">工作經驗</p>
+                        <p>
+                          {{
+                            user.workExp.works[user.workExp.works.length - 1].jobName ||
+                            '無工作經驗'
+                          }}
+                        </p>
+                      </li>
+                      <li class="talentInfo__item">
+                        <p class="talentInfo__item__title">最後登入</p>
+                        <p>{{ $filters.date(item.time) }}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="d-flex align-items-end align-self-end">
                     <button
                       type="button"
                       class="btn btn-outline-companyColor me-2"
@@ -133,6 +130,12 @@
                       <i class="bi bi-three-dots"></i>
                     </button>
                   </div>
+                  <button
+                    class="collectBtn btn btn-outline-gray-line position-absolute"
+                    type="button"
+                  >
+                    <i class="jobIcon bi bi-bookmark-fill"></i>
+                  </button>
                 </li>
               </template>
             </ul>

@@ -37,3 +37,34 @@
 @mixin shadow-none {
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.16);
 }
+
+// 線
+@mixin border-bottom {
+  border-bottom: 1px solid $gray-line;
+}
+
+
+
+// -------------- 以下是關於這次專案的 -------------- 
+// 背景 hover
+@mixin list--bg--hover {
+  &:hover {
+    background-color: rgba($color: $gray-light, $alpha: 0.5);
+  }
+}
+// 選中列表
+@mixin list__chooseMark--company {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    right: 0;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    background-color: $companyColor;
+    border-radius: 0.25rem 0 0 0.25rem;
+    width: 0rem;
+    transition: all 0.3s;
+  }
+}

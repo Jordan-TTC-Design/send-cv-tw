@@ -3,67 +3,63 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container">
       <div class="row">
-        <div class="col-3">
-          <div class="sideCollapse position--sticky--pageTop">
-            <div class="accordion-item">
-              <p class="p-3">首頁廣告</p>
-              <ul class="sideCollapse__innerList pb-5 bg-gray-light">
-                <li
-                  class="nav__item ps-6"
-                  @click="selectInnerListItem('大型版面廣告')"
-                  :class="{
-                    active: sideBoxInnerList === '大型版面廣告' && sideBoxList === '首頁廣告',
-                  }"
-                >
-                  <p class="nav__item__title">大型版面廣告</p>
-                </li>
-                <li
-                  class="nav__item ps-6"
-                  @click="selectInnerListItem('一般版面廣告')"
-                  :class="{
-                    active: sideBoxInnerList === '一般版面廣告' && sideBoxList === '首頁廣告',
-                  }"
-                >
-                  <p class="nav__item__title">一般版面廣告</p>
-                </li>
-                <li
-                  class="nav__item ps-6"
-                  @click="selectInnerListItem('小型版面廣告')"
-                  :class="{
-                    active: sideBoxInnerList === '小型版面廣告' && sideBoxList === '首頁廣告',
-                  }"
-                >
-                  <p class="nav__item__title">小型版面廣告</p>
-                </li>
-              </ul>
-            </div>
-            <div
-              class="accordion-item sideCollapse__list--item"
-              :class="{ active: sideBoxList === '粉絲專頁廣告' }"
-              @click="selectAdSection('粉絲專頁廣告')"
-            >
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
+        <div class="col-lg-3">
+          <div class="sideContentBox pb-3">
+            <ul class="innerList innerList--company">
+              <li class="innerList__item p-0">
+                <div class="collapseList collapseList--company">
+                  <div class="collapseList__header">
+                    <p class="item__title">首頁廣告</p>
+                  </div>
+                  <ul class="collapseList__body active">
+                    <li
+                    class="collapseList__item putPointer"
+                    @click="selectInnerListItem('大型版面廣告')"
+                    :class="{
+                      active: sideBoxInnerList === '大型版面廣告' && sideBoxList === '首頁廣告',
+                    }"
+                  >
+                    <p class="collapseList__item__title">大型版面廣告</p>
+                  </li>
+                  <li
+                    class="collapseList__item putPointer"
+                    @click="selectInnerListItem('一般版面廣告')"
+                    :class="{
+                      active: sideBoxInnerList === '一般版面廣告' && sideBoxList === '首頁廣告',
+                    }"
+                  >
+                    <p class="collapseList__item__title">一般版面廣告</p>
+                  </li>
+                  <li
+                    class="collapseList__item putPointer"
+                    @click="selectInnerListItem('小型版面廣告')"
+                    :class="{
+                      active: sideBoxInnerList === '小型版面廣告' && sideBoxList === '首頁廣告',
+                    }"
+                  >
+                    <p class="collapseList__item__title">小型版面廣告</p>
+                  </li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                class="innerList__item putPointer"
                 :class="{ active: sideBoxList === '粉絲專頁廣告' }"
+                @click="selectAdSection('粉絲專頁廣告')"
               >
-                粉絲專頁廣告
-              </p>
-            </div>
-            <div
-              class="accordion-item sideCollapse__list--item"
-              :class="{ active: sideBoxList === '推廣職位' }"
-              @click="selectAdSection('推廣職位')"
-            >
-              <p
-                class="sideCollapse__list__title sideCollapse__list__title--company"
+                <p class="item__title">粉絲專頁廣告</p>
+              </li>
+              <li
+                class="innerList__item putPointer"
                 :class="{ active: sideBoxList === '推廣職位' }"
+                @click="selectAdSection('推廣職位')"
               >
-                推廣職位
-              </p>
-            </div>
+                <p class="item__title">推廣職位</p>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="col-lg-9 col-12" v-if="dataReady === true">
+        <div class="col-lg-9" v-if="dataReady === true">
           <div v-if="sideBoxList === '首頁廣告'">
             <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
               <div>
@@ -110,16 +106,16 @@
               </div>
             </div>
             <div class="adminContentBox--nonPadding">
-              <ul class="adminContentNav">
+              <ul class="innerNav innerNav--company innerNav--bgColor">
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '廣告說明' }"
                   @click="subNav = '廣告說明'"
                 >
                   <p>廣告說明</p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '刊登中' }"
                   @click="subNav = '刊登中'"
                 >
@@ -128,7 +124,7 @@
                   </p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '審核中' }"
                   @click="subNav = '審核中'"
                 >
@@ -139,7 +135,7 @@
                   </p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '已過期' }"
                   @click="subNav = '已過期'"
                 >
@@ -150,7 +146,7 @@
                   </p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '審核失敗' }"
                   @click="subNav = '審核失敗'"
                 >
@@ -280,16 +276,16 @@
               </div>
             </div>
             <div class="adminContentBox--nonPadding">
-              <ul class="adminContentNav w-100">
+              <ul class="innerNav innerNav--company innerNav--bgColor">
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '廣告說明' }"
                   @click="subNav = '廣告說明'"
                 >
                   <p>廣告說明</p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '刊登中' }"
                   @click="subNav = '刊登中'"
                 >
@@ -298,7 +294,7 @@
                   </p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '審核中' }"
                   @click="subNav = '審核中'"
                 >
@@ -309,7 +305,7 @@
                   </p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '已過期' }"
                   @click="subNav = '已過期'"
                 >
@@ -320,7 +316,7 @@
                   </p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '審核失敗' }"
                   @click="subNav = '審核失敗'"
                 >
@@ -449,16 +445,16 @@
               </div>
             </div>
             <div class="adminContentBox--nonPadding">
-              <ul class="adminContentNav w-100">
+              <ul class="innerNav innerNav--company innerNav--bgColor">
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '廣告說明' }"
                   @click="subNav = '廣告說明'"
                 >
                   <p>廣告說明</p>
                 </li>
                 <li
-                  class="adminContentNav__item"
+                  class="innerNav__item"
                   :class="{ active: subNav === '推廣中' }"
                   @click="subNav = '推廣中'"
                 >

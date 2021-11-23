@@ -1,48 +1,50 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container position-relative companyPage" v-if="dataReady === true">
+    <div class="container position-relative companyPage">
       <div class="row">
-        <div class="col-lg-3 col-12">
-          <ul ref="adminSideList" class="admin-sideList list-group admin-sideList--company">
-            <li class="sideList__top">
-              <div
-                class="sideList__top__item sideList__top--50"
+        <div class="col-lg-3">
+          <div class="sideContentBox pb-3">
+            <ul class="innerNav innerNav--fill innerNav--company">
+              <li
+                class="innerNav__item w--50"
                 :class="{ active: sideListNav === '刊登中' }"
                 @click="this.sideListNav = '刊登中'"
               >
                 <p>刊登中</p>
-              </div>
-              <div
-                class="sideList__top__item sideList__top--50"
+              </li>
+              <li
+                class="innerNav__item w--50"
                 :class="{ active: sideListNav === '已關閉' }"
                 @click="this.sideListNav = '已關閉'"
               >
                 <p>已關閉</p>
-              </div>
-            </li>
-            <li class="list-group-item p-3 border-bottom border-gray-line">
+              </li>
+            </ul>
+            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
-            </li>
-            <li
-              :ref="`companyJobList-${item.key}`"
-              :class="{ active: item.key === selectItem.key && fullWidth > 992 }"
-              class="sideList__item list-group-item list-group-item-action"
-              v-for="item in nowJobList"
-              :key="item.key"
-              @click="selectJobFormJobList(item.key)"
-            >
-              <p class="sideList__item__title mb-1">
-                {{ item.jobName }}
-              </p>
-              <p class="sideList__item__subTxt">訂單時間：2021-12-12</p>
-              <p v-if="item.promotedData.promote" class="sideList__item__subTxt">
-                推廣有效期限：20天
-              </p>
-            </li>
-          </ul>
+              <div class="sideContentBox__header__btnBox">
+                <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
+              </div>
+            </div>
+            <ul class="innerList innerList--company">
+              <li
+                :class="{ active: item.key === selectItem.key && fullWidth > 992 }"
+                :ref="`companyJobList-${item.key}`"
+                class="innerList__item putPointer"
+                v-for="item in nowJobList"
+                :key="item.key"
+                @click="selectJobFormJobList(item.key)"
+              >
+                <p class="item__title mb-1">
+                  {{ item.jobName }}
+                </p>
+                <p class="subTxt">更新時間：2021/12/12</p>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <button
             type="button"
             class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
@@ -56,14 +58,14 @@
           <div ref="adminSelectBox" class="adminSelectBox box--shadow px-0" v-if="selectItem.key">
             <div class="selectBox__section">
               <div class="row">
-                <div class="col-lg-3 col-12">
+                <div class="col-lg-3">
                   <img
                     class="jobImage w-100"
-                    :src="selectItem.jobImgUrl.url || 'https://i.imgur.com/I2erb3u.png'"
+                    :src="selectItem.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
                     alt="職位圖片"
                   />
                 </div>
-                <div class="col-md-9 col-12 d-flex flex-column">
+                <div class="col-md-9 d-flex flex-column">
                   <h4 class="pageSubTitle mb-1">{{ selectItem.jobName }}</h4>
                   <p class="mb-1">更新時間：2021-12-1</p>
                   <div class="adminSelectBox__btnList w-100 flex-grow-1 align-items-end">
@@ -87,7 +89,7 @@
                     </select>
                     <router-link
                       class="btn btn-outline-gray-line text-dark me-2"
-                      :to="`edit-job/${selectItem.key}`"
+                      :to="`edit-shot-job/${selectItem.key}`"
                     >
                       編輯
                     </router-link>
@@ -108,7 +110,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">需求人數</p>
-                      <p class="infoList__item__content">{{ selectItem.peopleNeed }} 人</p>
+                      <p class="infoList__item__content">1人</p>
                     </div>
                     <button type="button" class="btn btn-outline-gray-line text-dark">
                       推薦人才 20 人
@@ -119,7 +121,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">已應徵人才</p>
-                      <p class="infoList__item__content">{{ selectItem.peopleNeed }} 人</p>
+                      <p class="infoList__item__content">1 人</p>
                     </div>
                     <div class="d-flex">
                       <button type="button" class="btn btn-outline-gray-line text-dark me-2">
@@ -135,56 +137,12 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <p class="infoList__item__title">創建時間</p>
-                  <p class="infoList__item__content">2020.01.13 19:38</p>
-                </li>
-                <li class="infoList__item">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <p class="infoList__item__title">職位方案</p>
-                      <p class="d-flex align-items-center" v-if="selectItem.promotedData.promote">
-                        <span
-                          class="jobTag bg-primary text-dark me-2"
-                          v-if="selectItem.promotedData.promote"
-                        >
-                          <i class="jobIcon-sm bi bi-star-fill me-1 text-dark"></i>付費推廣職位
-                        </span>
-                        期限至
-                        <span class="text-companyColor text-decoration-underline mx-1"
-                          >2021-12-12 12:30</span
-                        >
-                        止
-                      </p>
-                      <p class="jobTag text-dark" v-if="!selectItem.promotedData.promote">
-                        一般職位
-                      </p>
+                      <p class="infoList__item__title">創建時間</p>
+                      <p class="infoList__item__content">2020.01.13 19:38</p>
                     </div>
-                    <button
-                      type="button"
-                      class="btn btn-companyColor text-light"
-                      v-if="!selectItem.promotedData.promote"
-                    >
-                      立即付費推播，提高曝光度!
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-outline-gray-line text-dark"
-                      v-if="selectItem.promotedData.promote"
-                    >
-                      延長時間
-                    </button>
                   </div>
-                </li>
-                <li class="infoList__item list--last" v-if="selectItem.questions.length > 0">
-                  <p class="infoList__item__title">應徵問題回答</p>
-                  <template v-for="(que, index) in selectItem.questions" :key="index">
-                    <div class="d-flex align-items-center mb-2">
-                      <p>{{ index + 1 }}.{{ que.content }}</p>
-                      <button type="button" class="btn btn-outline-gray-line text-dark ms-4">
-                        2 個回答
-                      </button>
-                    </div>
-                  </template>
                 </li>
               </ul>
             </div>
@@ -207,16 +165,15 @@ export default {
   data() {
     return {
       sideListNav: '刊登中',
+      nowPage: '拍照申請職位',
       fullWidth: 0,
       fullHeight: 0,
       scrollTop: 0,
-      nowPage: '公司職位',
       editMode: false,
       formData: {},
       selectItem: {},
-      companyJobList: [],
+      shotList: [],
       company: {},
-      dataReady: false,
       allJobList: {},
     };
   },
@@ -227,7 +184,7 @@ export default {
       if (this.sideListNav === '已關閉') {
         nowState = false;
       }
-      this.companyJobList.forEach((job) => {
+      this.shotList.forEach((job) => {
         if (job.is_enabled === nowState) {
           temArray.push(job);
         }
@@ -252,44 +209,43 @@ export default {
     changeJobState(itemId) {
       // 要先建立詢問彈跳視窗
       this.saveJobData(itemId);
-      this.companyJobList.forEach((item, index) => {
+      this.shotList.forEach((item, index) => {
         if (item.key === this.allJobList[itemId].key) {
           this.companyJobList[index].is_enabled = this.allJobList[itemId].is_enabled;
         }
       });
     },
     saveJobData(itemId) {
-      const jobDataRef = database.ref(`company/jobList/${itemId}`);
-      jobDataRef.set(this.allJobList[itemId]);
+      const shotListDataRef = database.ref(`applyList/otherApplyList/shotList/${itemId}`);
+      shotListDataRef.set(this.allJobList[itemId]);
     },
-    getJobListData() {
-      this.companyJobList = [];
-      const jobListDataRef = database.ref('company/jobList');
-      jobListDataRef.once('value', (snapshot) => {
+    getShotListData() {
+      this.shotList = [];
+      const shotListDataRef = database.ref('applyList/otherApplyList/shotList');
+      shotListDataRef.once('value', (snapshot) => {
         const data = snapshot.val();
+        this.allJobList = JSON.parse(JSON.stringify(data)); // 深拷貝
         if (data) {
-          this.allJobList = JSON.parse(JSON.stringify(data)); // 深拷貝
           Object.keys(data).forEach((item) => {
             // 物件轉陣列
-            this.companyJobList.push(data[item]);
+            this.shotList.push(data[item]);
           });
           this.selectJobFormJobList(this.nowJobList[0].key);
         }
       });
     },
     selectJobFormJobList(itemId) {
-      this.companyJobList.forEach((item) => {
+      this.nowJobList.forEach((item) => {
         if (item.key === itemId) {
           this.selectItem = {};
           this.selectItem = item;
           document.documentElement.scrollTop = 0;
         }
       });
-      this.dataReady = true;
     },
   },
   created() {
-    this.getJobListData();
+    this.getShotListData();
     emitter.emit('spinner-open-bg', 800);
   },
   mounted() {

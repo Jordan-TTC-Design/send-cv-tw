@@ -3,7 +3,7 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <form @submit="searchTalent" class="adminContentBox--nonPadding">
             <div class="p-5 border-bottom border-gray-line">
               <h3 class="section__title--sub mb-4">
@@ -467,25 +467,25 @@
             </div>
           </form>
         </div>
-        <div class="col-lg-3 col-12">
-          <ul class="admin-sideList list-group admin-sideList--company">
-            <li class="sideList__top justify-content-between align-items-center px-3 py-1">
+        <div class="col-lg-3">
+          <div class="sideContentBox pb-3 mb-5">
+            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
               <p class="subTxt">搜尋紀錄</p>
-              <button type="button" class="btn btn-outline-gray-line text-dark">清除</button>
-            </li>
-            <li class="sideList__item list-group-item">
-              <p class="sideList__item__title mb-1">前端工程師</p>
-              <p class="sideList__item__subTxt">
-                全職、月薪4萬以上、工作經驗 1 年內、更新日期 3天內
-              </p>
-            </li>
-            <li class="sideList__item list-group-item">
-              <p class="sideList__item__title mb-1">前端工程師</p>
-              <p class="sideList__item__subTxt">
-                全職、月薪4萬以上、工作經驗 1 年內、更新日期 3天內
-              </p>
-            </li>
-          </ul>
+              <div class="sideContentBox__header__btnBox">
+              <button type="button" class="btn text-dark">清除條件</button>
+              </div>
+            </div>
+            <ul class="innerList innerList--company">
+              <li class="innerList__item putPointer">
+                <p class="item__title mb-1">前端工程師</p>
+                <p class="subTxt">全職、月薪4萬以上、工作經驗 1 年內、更新日期 3天內</p>
+              </li>
+              <li class="innerList__item putPointer">
+                <p class="item__title mb-1">前端工程師</p>
+                <p class="subTxt">全職、月薪4萬以上、工作經驗 1 年內、更新日期 3天內</p>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

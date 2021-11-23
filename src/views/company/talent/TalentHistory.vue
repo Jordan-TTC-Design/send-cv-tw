@@ -3,13 +3,15 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-3 col-12">
-          <div class="admin-sideList list-group admin-sideList--company">
-            <div class="sideList__top justify-content-between align-items-center px-3 py-1">
+        <div class="col-lg-3">
+          <div class="sideContentBox mb-5">
+            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
               <p class="subTxt">篩選</p>
-              <button type="button" class="btn btn-outline-gray-line text-dark">清除</button>
+              <div class="sideContentBox__header__btnBox">
+                <button type="button" class="btn text-dark">清除條件</button>
+              </div>
             </div>
-            <form @submit="searchTalent" class="p-3">
+             <form @submit="searchTalent" class="sideContentBox__body">
               <div class="form__inputBox">
                 <div class="form__labelBox">
                   <label for="searchKeyword" class="form__label--custom form-label"
@@ -41,7 +43,7 @@
             </form>
           </div>
         </div>
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <button
             type="button"
             class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"

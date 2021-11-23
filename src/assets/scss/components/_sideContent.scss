@@ -1,0 +1,63 @@
+.sideContentBox {
+  border-radius: 0.5rem;
+  background-color: $white;
+  @include shadow-normal;
+  &__header {
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    position: relative;
+    &__btnBox {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+    }
+  }
+  &__title {
+    font-size: 1.25rem;
+    font-weight: $fw--md;
+    color: $dark;
+  }
+  &__body {
+    padding: 0.75rem;
+  }
+  &__footer {
+    padding: 0.75rem;
+    padding-top: 0;
+  }
+  &__footer--border {
+    padding: 0.75rem;
+    border-top: 1px solid $gray-line;
+  }
+  .innerList {
+    &__item {
+      padding: 0.75rem;
+      border-bottom: 1px solid $gray-line;
+      @include list--bg--hover;
+      @include list__chooseMark--company;
+      .item__title {
+        color: $dark;
+      }
+    }
+  }
+  .innerList--company {
+    .innerList__item {
+      @include list__chooseMark--company;
+    }
+    .innerList__item.active {
+      background-color: $companyColor-light;
+      .item__title {
+        color: $companyColor;
+      }
+      .subTxt {
+        color: $companyColor;
+      }
+    }
+  }
+  .innerList__item.active {
+    &::after {
+      width: 0.25rem;
+    }
+  }
+}
