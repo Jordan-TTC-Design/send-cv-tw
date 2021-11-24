@@ -17,7 +17,7 @@
               <h5 class="popModal__title">編輯大頭貼</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body border-bottom border-gray-line">
+            <div class="popModal__body--p border-bottom border-gray-line">
               <div class="d-flex justify-content-center mb-5" v-if="introAction < 3">
                 <ul class="timeLine">
                   <li

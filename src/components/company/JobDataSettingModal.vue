@@ -1,8 +1,8 @@
 <template>
   <div
     ref="recommedModal"
-    class="modal fade popModal"
     id="recommedModal"
+    class="popModal modal fade"
     aria-hidden="true"
     aria-labelledby="recommedModalLabel"
     tabindex="-1"
@@ -14,8 +14,8 @@
           <button type="button" class="btn-close" @click="closeModal"></button>
         </div>
         <div v-if="modalAction === '職務類別'">
-          <div class="modal-body px-0">
-            <div class="popModal__subHeaderNav justify-content-end">
+          <div class="popModal__body">
+            <div class="popModal__body__subNav justify-content-end">
               <p class="subTxt text-secondary">最多選擇3項</p>
             </div>
             <div class="dataForm border-top border-gray-line">
@@ -84,15 +84,15 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-primary" @click="saveThisData('職務類別')">
               確定
             </button>
           </div>
         </div>
         <div v-if="modalAction === '駕照需求'">
-          <div class="modal-body px-0">
-            <div class="popModal__subHeaderNav justify-content-end">
+          <div class="popModal__body">
+            <div class="popModal__body__subNav justify-content-end">
               <p class="subTxt text-secondary">最多選擇3項</p>
             </div>
             <div class="dataForm border-top border-gray-line">
@@ -116,7 +116,7 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-primary" @click="saveThisData('駕照需求')">
               確定
             </button>

@@ -7,9 +7,9 @@
     <div class="row">
       <!-- 證照 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="languageDataName" class="form__label--custom form-label">證照名稱</label>
+            <label for="languageDataName" class="labelBox__label form-label">證照名稱</label>
           </div>
           <Field
             id="languageDataName"

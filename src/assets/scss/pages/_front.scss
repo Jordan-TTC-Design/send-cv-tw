@@ -467,6 +467,34 @@
     @include shadow-md;
   }
 }
+// 設定推薦列表
+.recommendTagList {
+  display: flex;
+  &__btn {
+    margin-right: 0.5rem;
+    color: $dark;
+    &.active {
+      border: 1px solid $primary;
+      color: $primary-dark;
+      background-color: $primary-light;
+    }
+    &--new {
+      color: $companyColor;
+      .jobIcon--sm {
+        color: $companyColor;
+      }
+    }
+    &--new:hover {
+      color: $light;
+      .jobIcon--sm {
+        color: $light;
+      }
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
 // 優質企業頁面
 // 本週推薦企業
 .weeklyCompany {
@@ -1710,38 +1738,7 @@
     }
   }
 }
-// 工具類
-.inputGroup--item {
-  .inputItem__title {
-    font-size: 14px;
-    margin-left: 0.75rem;
-    margin-bottom: 0.25rem;
-  }
-}
-.form__labelBox {
-  display: flex;
-  align-items: center;
-  margin: 0px 12px 4px 12px;
-  .form__label--custom {
-    font-size: 14px;
-    margin-bottom: 0;
-  }
-}
-.formTag--must {
-  padding: 1px 0.5rem;
-  margin-left: 0.25rem;
-  border-radius: 0.25rem;
-  background-color: $primary;
-  color: $dark;
-  font-size: 10px;
-}
-.formTag--must.company {
-  background-color: $companyColor;
-  color: $light;
-}
-.form__inputBox {
-  margin-bottom: 16px;
-}
+
 //元件
 .goodCardList.swipper--custom {
   margin-right: calc(var(--bs-gutter-x) / -2);

@@ -14,9 +14,15 @@
 @import './setting/main';
 @import './setting/tools';
 @import './setting/spinner';
+
+//自訂義元件
+@import './components/btn';
+@import './components/popModal';
 @import './components/sideContent';
 @import './components/innerNav';
 @import './components/talentCard';
+@import './components/infoList';
+@import './components/forms';
 
 //套件自訂
 @import './helpers/swiper';

@@ -4,16 +4,16 @@
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-9">
-          <form @submit="searchTalent" class="adminContentBox--nonPadding">
+          <form @submit="searchTalent" class="adminContentBox">
             <div class="p-5 border-bottom border-gray-line">
               <h3 class="section__title--sub mb-4">
-                <span class="titleTag--doubleCircle--company me-2"></span>搜尋人才
+                <span class="tag--doubleCircle--company me-2"></span>搜尋人才
               </h3>
               <div class="row align-items-end">
                 <div class="col-lg-5 col-12">
-                  <div class="form__inputBox mb-0">
+                  <div class="form__input mb-0">
                     <div class="form__labelBox">
-                      <label for="searchKeyword" class="form__label--custom form-label"
+                      <label for="searchKeyword" class="labelBox__label form-label"
                         >搜尋關鍵字</label
                       >
                     </div>
@@ -27,11 +27,9 @@
                   </div>
                 </div>
                 <div class="col-lg-5 col-12">
-                  <div class="form__inputBox mb-0">
+                  <div class="form__input mb-0">
                     <div class="form__labelBox">
-                      <label for="searchKeyword" class="form__label--custom form-label"
-                        >匹配職位</label
-                      >
+                      <label for="searchKeyword" class="labelBox__label form-label">匹配職位</label>
                     </div>
                     <select class="form-select" aria-label="matchJob" v-model="searchForm.matchJob">
                       <option selected disabled value="">可選擇配對職位</option>
@@ -54,11 +52,9 @@
             <div class="p-5">
               <div class="row mb-5">
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox mb-4">
+                  <div class="form__input mb-4">
                     <div class="form__labelBox">
-                      <label for="searchWorkExp" class="form__label--custom form-label"
-                        >工作經驗</label
-                      >
+                      <label for="searchWorkExp" class="labelBox__label form-label">工作經驗</label>
                     </div>
                     <select
                       id="searchWorkExp"
@@ -73,9 +69,9 @@
                       </template>
                     </select>
                   </div>
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="searchEducation" class="form__label--custom form-label"
+                      <label for="searchEducation" class="labelBox__label form-label"
                         >學歷要求</label
                       >
                     </div>
@@ -94,9 +90,9 @@
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox mb-4">
+                  <div class="form__input mb-4">
                     <div class="form__labelBox">
-                      <label for="searchIntroVideo--ok" class="form__label--custom form-label"
+                      <label for="searchIntroVideo--ok" class="labelBox__label form-label"
                         >自我介紹影片</label
                       >
                     </div>
@@ -128,9 +124,9 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="searchLanguage" class="form__label--custom form-label"
+                      <label for="searchLanguage" class="labelBox__label form-label"
                         >語言能力</label
                       >
                     </div>
@@ -152,9 +148,9 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="searchLanguage" class="form__label--custom form-label"
+                      <label for="searchLanguage" class="labelBox__label form-label"
                         >專業證照</label
                       >
                     </div>
@@ -176,9 +172,9 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="searchLanguage" class="form__label--custom form-label"
+                      <label for="searchLanguage" class="labelBox__label form-label"
                         >專業技能</label
                       >
                     </div>
@@ -200,9 +196,9 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="searchLanguage" class="form__label--custom form-label"
+                      <label for="searchLanguage" class="labelBox__label form-label"
                         >駕照需求</label
                       >
                     </div>
@@ -228,10 +224,12 @@
                 <h4 class="section__title--sub">更多條件</h4>
                 <div class="row">
                   <div class="col-12 d-flex align-items-end mb-3">
-                    <div class="inputGroup--item me-4">
-                      <label for="salaryRangeLow" class="form-label inputItem__title"
-                        >薪資待遇範圍起始</label
-                      >
+                    <div class="form__input me-4">
+                      <div class="form__labelBox">
+                        <label for="salaryRangeLow" class="labelBox__label form-label"
+                          >薪資待遇範圍起始</label
+                        >
+                      </div>
                       <input
                         type="number"
                         class="form-control"
@@ -241,10 +239,12 @@
                         v-model="searchForm.salaryRange.salaryLow"
                       />
                     </div>
-                    <div class="inputGroup--item me-4">
-                      <label for="salaryRangeHeight" class="form-label inputItem__title"
-                        >薪資待遇範圍結束</label
-                      >
+                    <div class="form__input me-4">
+                      <div class="form__labelBox">
+                        <label for="salaryRangeHeight" class="labelBox__label form-label"
+                          >薪資待遇範圍結束</label
+                        >
+                      </div>
                       <input
                         type="number"
                         class="form-control"
@@ -265,9 +265,9 @@
                     </div>
                   </div>
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="searchLoginTime" class="form__label--custom form-label"
+                        <label for="searchLoginTime" class="labelBox__label form-label"
                           >最近登入</label
                         >
                       </div>
@@ -331,11 +331,9 @@
                     </div>
                   </div>
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="searchExpat" class="form__label--custom form-label"
-                          >外派出差</label
-                        >
+                        <label for="searchExpat" class="labelBox__label form-label">外派出差</label>
                       </div>
                       <div class="d-flex flex-wrap">
                         <div class="form-check me-4">
@@ -366,9 +364,9 @@
                     </div>
                   </div>
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="searchMilitaryService" class="form__label--custom form-label"
+                        <label for="searchMilitaryService" class="labelBox__label form-label"
                           >兵役</label
                         >
                       </div>
@@ -416,9 +414,9 @@
                     </div>
                   </div>
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="searchIdentites" class="form__label--custom form-label"
+                        <label for="searchIdentites" class="labelBox__label form-label"
                           >特殊身份</label
                         >
                       </div>
@@ -472,7 +470,7 @@
             <div class="sideContentBox__header d-flex justify-content-between align-items-center">
               <p class="subTxt">搜尋紀錄</p>
               <div class="sideContentBox__header__btnBox">
-              <button type="button" class="btn text-dark">清除條件</button>
+                <button type="button" class="btn text-dark">清除條件</button>
               </div>
             </div>
             <ul class="innerList innerList--company">

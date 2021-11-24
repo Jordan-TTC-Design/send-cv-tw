@@ -2,7 +2,7 @@
   <div class="container">
     <div
       ref="personActionModal"
-      class="modal fade popModal"
+      class="popModal modal fade"
       id="personActionModal"
       aria-hidden="true"
       aria-labelledby="personActionModalLabel"
@@ -28,7 +28,7 @@
             </p>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
-          <div class="modal-body mb-4">
+          <div class="popModal__body--p mb-4">
             <button
               type="button"
               class="btn btn-gray-light text-dark w-100 mb-2"
@@ -63,14 +63,16 @@
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
           <Form v-slot="{ errors }" @submit="sendForm">
-            <div class="modal-body">
+            <div class="popModal__body--p">
               <h3 class="ms-2 section__title--sub">
-                <span class="titleTag--doubleCircle--company me-2"></span>職位資訊
+                <span class="tag--doubleCircle--company me-2"></span>職位資訊
               </h3>
               <div class="row mb-4">
                 <div class="col-6">
-                  <div class="inputGroup--item mb-3">
-                    <label class="form-label inputItem__title">職位</label>
+                  <div class="form__input mb-3">
+                    <div class="form__labelBox">
+                      <label class="labelBox__label form-label">職位</label>
+                    </div>
                     <div class="fakeInput" @click="modalAction = '設定職位'">
                       <div class="fakeInput__txtList">
                         <p class="text-secondary" v-if="!form.jobInfo.jobName">請選擇</p>
@@ -92,9 +94,9 @@
                   <ErrorMessage name="職位" class="invalid-feedback"></ErrorMessage>
                 </div>
                 <div class="col-6">
-                  <div class="form__inputBox" v-if="modalAction === '邀請面試'">
+                  <div class="form__input" v-if="modalAction === '邀請面試'">
                     <div class="form__labelBox">
-                      <label for="jobinterviewDay" class="form__label--custom form-label"
+                      <label for="jobinterviewDay" class="labelBox__label form-label"
                         >面試日期</label
                       >
                     </div>
@@ -110,9 +112,9 @@
                     ></Field>
                     <ErrorMessage name="面試日期" class="invalid-feedback"></ErrorMessage>
                   </div>
-                  <div class="form__inputBox" v-if="modalAction === '錄取'">
+                  <div class="form__input" v-if="modalAction === '錄取'">
                     <div class="form__labelBox">
-                      <label for="jobinterviewDay" class="form__label--custom form-label"
+                      <label for="jobinterviewDay" class="labelBox__label form-label"
                         >入職日期</label
                       >
                     </div>
@@ -131,9 +133,9 @@
                 </div>
                 <div class="col-12" v-if="modalAction === '邀請面試'">
                   <div class="d-flex align-items-end mb-4">
-                    <div class="inputGroup--item me-2">
+                    <div class="form__input me-2">
                       <div class="form__labelBox">
-                        <label for="jobFormCompanyCity" class="form__label--custom form-label"
+                        <label for="jobFormCompanyCity" class="labelBox__label form-label"
                           >面試地址</label
                         >
                       </div>
@@ -154,9 +156,9 @@
                       </Field>
                       <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="inputGroup--item me-4">
+                    <div class="form__input me-4">
                       <div class="form__labelBox">
-                        <label for="jobFormCompanyDist" class="form__label--custom form-label"
+                        <label for="jobFormCompanyDist" class="labelBox__label form-label"
                           >區域鄉鎮</label
                         >
                       </div>
@@ -189,9 +191,9 @@
                       </label>
                     </div>
                   </div>
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="jobFormAddressDetail" class="form__label--custom form-label"
+                      <label for="jobFormAddressDetail" class="labelBox__label form-label"
                         >面試詳細地址</label
                       >
                     </div>
@@ -214,7 +216,7 @@
                 v-if="modalAction !== '婉拒'"
               >
                 <h3 class="ms-2 mb-0 section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>聯絡資訊
+                  <span class="tag--doubleCircle--company me-2"></span>聯絡資訊
                 </h3>
                 <div class="form-check">
                   <input
@@ -231,11 +233,9 @@
               </div>
               <div class="row mb-4" v-if="modalAction !== '婉拒'">
                 <div class="col-6">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="staffName" class="form__label--custom form-label"
-                        >職位聯絡人</label
-                      >
+                      <label for="staffName" class="labelBox__label form-label">職位聯絡人</label>
                       <p class="formTag--must company">必填</p>
                     </div>
                     <Field
@@ -253,9 +253,9 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="staffJobTitle" class="form__label--custom form-label">職稱</label>
+                      <label for="staffJobTitle" class="labelBox__label form-label">職稱</label>
                     </div>
                     <Field
                       id="staffJobTitle"
@@ -271,11 +271,9 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="staffEmail" class="form__label--custom form-label"
-                        >聯絡信箱</label
-                      >
+                      <label for="staffEmail" class="labelBox__label form-label">聯絡信箱</label>
                     </div>
                     <Field
                       id="staffEmail"
@@ -292,11 +290,9 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="staffPhone" class="form__label--custom form-label"
-                        >聯絡電話</label
-                      >
+                      <label for="staffPhone" class="labelBox__label form-label">聯絡電話</label>
                     </div>
                     <Field
                       id="staffPhone"
@@ -313,14 +309,16 @@
                 </div>
               </div>
               <h3 class="ms-2 section__title--sub">
-                <span class="titleTag--doubleCircle--company me-2"></span>訊息
+                <span class="tag--doubleCircle--company me-2"></span>訊息
               </h3>
               <div class="row">
                 <div class="col-6" v-if="dataReady === true">
-                  <div class="inputGroup--item mb-3">
-                    <label for="formMessageTemplate" class="form-label inputItem__title"
-                      >訊息模板</label
-                    >
+                  <div class="form__input mb-3">
+                    <div class="form__labelBox">
+                      <label for="formMessageTemplate" class="labelBox__label form-label"
+                        >訊息模板</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="模板"
@@ -340,11 +338,9 @@
                   </div>
                 </div>
                 <div class="col-12" v-if="dataReady === true">
-                  <div class="form__inputBox form__infoEditBox mb-1">
+                  <div class="form__input form__infoEditBox mb-1">
                     <div class="form__labelBox">
-                      <label for="formMessage" class="form__label--custom form-label"
-                        >訊息內容</label
-                      >
+                      <label for="formMessage" class="labelBox__label form-label">訊息內容</label>
                     </div>
                     <div class="textarea--tag">
                       <ul class="textarea--tag__tagList">
@@ -392,7 +388,7 @@
                 </div>
               </div>
             </div>
-            <div class="popModal__footer border-top border-gray-line">
+            <div class="popModal__footer--border">
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
@@ -405,7 +401,7 @@
             <h5 class="popModal__title">{{ thisTimeAction }}</h5>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
-          <div class="modal-body">
+          <div class="popModal__body--p">
             <p>發送成功</p>
           </div>
           <div class="popModal__footer">
@@ -423,8 +419,8 @@
             <h5 class="popModal__title">{{ thisTimeAction }}</h5>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
-          <div class="modal-body px-0">
-            <div class="popModal__subHeaderNav">
+          <div class="popModal__body--p">
+            <div class="popModal__body__subNav">
               <p
                 class="d-flex align-items-center text-dark putPointer"
                 @click="modalAction = thisTimeAction"
@@ -464,7 +460,7 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-companyColor text-light" @click="putJobBackToForm">
               確定
             </button>

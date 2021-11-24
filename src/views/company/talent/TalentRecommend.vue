@@ -49,7 +49,6 @@
               <p class="subTxt">{{ selectItem.jobName }}：{{ mailApplyList.length }} 位推薦人才</p>
               <div class="d-flex align-items-center">
                 <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
-                <div class="inputGroup--item">
                   <select class="form-select" aria-label="排列方法" id="filterMethod">
                     <option
                       v-for="item in filterData"
@@ -60,7 +59,6 @@
                       {{ item.title }}
                     </option>
                   </select>
-                </div>
               </div>
             </div>
             <ul ref="candidateList">

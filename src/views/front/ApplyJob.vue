@@ -162,7 +162,7 @@
             <div class="applyContainer__applyInfoBox">
               <Form ref="sendFormInfoForm1" @submit="sendApply" v-slot="{ errors }">
                 <h3 class="section__title--sub mb-4">
-                <span class="titleTag--doubleCircle me-2"></span>求職者申請資訊
+                <span class="tag--doubleCircle me-2"></span>求職者申請資訊
               </h3>
                 <div class="row">
                   <div class="col-md-8 col-12 mb-4">
@@ -271,9 +271,9 @@
                         </template>
                       </div>
                     </div>
-                    <div class="form__inputBox form__infoEditBox mb-1">
+                    <div class="form__input form__infoEditBox mb-1">
                       <div class="form__labelBox">
-                        <label for="coverLetterContent" class="form__label--custom form-label"
+                        <label for="coverLetterContent" class="labelBox__label"
                           >求職信內容</label
                         >
                       </div>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="modal fade"
+    class="popModal modal fade"
     tabindex="-1"
     aria-labelledby="imageSquareCropperModal"
     aria-hidden="true"
@@ -12,7 +12,7 @@
           <h5 class="modal-title">編輯照片{{ nowId }}</h5>
           <button type="button" @click="closeModal" class="btn-close" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="popModal__body--p">
           <div class="container">
             <div class="row">
               <div class="col-8">

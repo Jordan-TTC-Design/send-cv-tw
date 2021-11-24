@@ -1,7 +1,7 @@
 <template>
   <div
     ref="companyCollectModal"
-    class="companyCollectModal modal fade"
+    class="companyCollectModal modal fade popModal"
     id="companyCollectModal"
     aria-hidden="true"
     aria-labelledby="companyCollectModalLabel"
@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
-        <div class="modal-body">
+        <div class="popModal__body--p">
           <div class="d-flex justify-content-between mb-4">
             <div>
               <h3 class="section__title--sub mb-2"><span class="title__icon"></span>取消收藏</h3>

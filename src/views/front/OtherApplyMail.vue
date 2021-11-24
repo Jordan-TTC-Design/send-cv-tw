@@ -9,7 +9,7 @@
               v-if="formStep < 4"
             >
               <div class="titleBox--tag">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 <h2 class="titleBox__title">寫郵件 SendCV</h2>
               </div>
               <div class="addProcess mb-6 w-100" v-if="formStep >= 1 && formStep <= 3">
@@ -69,14 +69,14 @@
               v-slot="{ errors }"
             >
               <h3 class="section__title--sub mb-4">
-                <span class="titleTag--doubleCircle me-2"></span>職位資訊
+                <span class="tag--doubleCircle me-2"></span>職位資訊
               </h3>
               <div class="row mb-0">
                 <div class="col-md-6 col-12">
                   <!-- 公司名稱(必填) -->
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyName" class="form__label--custom form-label"
+                      <label for="sendFormInfoCompanyName" class="labelBox__label"
                         >公司名稱</label
                       >
                       <p class="formTag--must">必填</p>
@@ -97,9 +97,9 @@
                 </div>
                 <div class="col-md-6">
                   <!-- 公司email(必填) -->
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyEmail" class="form__label--custom form-label"
+                      <label for="sendFormInfoCompanyEmail" class="labelBox__label"
                         >公司Email</label
                       >
                       <p class="formTag--must">必填</p>
@@ -120,9 +120,9 @@
                 </div>
                 <div class="col-md-6">
                   <!-- 職位名稱(必填) -->
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoJobName" class="form__label--custom form-label"
+                      <label for="sendFormInfoJobName" class="labelBox__label"
                         >職位名稱</label
                       >
                       <p class="formTag--must">必填</p>
@@ -142,11 +142,11 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form__inputBox form__infoEditBox">
+                  <div class="form__input form__infoEditBox">
                     <div class="form__labelBox">
                       <label
                         for="sendFormInfoJobContent"
-                        class="form__label--custom form-label me-2"
+                        class="labelBox__label me-2"
                         >職位內容</label
                       >
                       <p class="subTxt">(可幫助企業了解您對職位的認知與期待)</p>
@@ -179,7 +179,7 @@
               v-slot="{ errors }"
             >
               <h3 class="section__title--sub mb-4">
-                <span class="titleTag--doubleCircle me-2"></span>公司地址
+                <span class="tag--doubleCircle me-2"></span>公司地址
               </h3>
               <div class="row">
                 <div class="col-md-6 col-12 mb-4">
@@ -189,9 +189,9 @@
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="d-flex">
-                    <div class="form__inputBox me-2">
+                    <div class="form__input me-2">
                       <div class="form__labelBox">
-                        <label for="sendFormInfoCompanyCity" class="form__label--custom form-label"
+                        <label for="sendFormInfoCompanyCity" class="labelBox__label"
                           >公司地址</label
                         >
                         <p class="formTag--must">必填</p>
@@ -214,9 +214,9 @@
                       </Field>
                       <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="sendFormInfoCompanyDist" class="form__label--custom form-label"
+                        <label for="sendFormInfoCompanyDist" class="labelBox__label"
                           >區域鄉鎮</label
                         >
                         <p class="formTag--must">必填</p>
@@ -239,9 +239,9 @@
                       <ErrorMessage name="區域鄉鎮" class="invalid-feedback"></ErrorMessage>
                     </div>
                   </div>
-                  <div class="form__inputBox w-100">
+                  <div class="form__input w-100">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyDatail" class="form__label--custom form-label"
+                      <label for="sendFormInfoCompanyDatail" class="labelBox__label"
                         >公司詳細地址</label
                       >
                       <p class="formTag--must">必填</p>
@@ -286,7 +286,7 @@
               v-slot="{ errors }"
             >
               <h3 class="section__title--sub mb-4">
-                <span class="titleTag--doubleCircle me-2"></span>求職者申請資訊
+                <span class="tag--doubleCircle me-2"></span>求職者申請資訊
               </h3>
               <div class="row">
                 <div class="col-md-8 col-12 mb-4">
@@ -392,9 +392,9 @@
                       </template>
                     </div>
                   </div>
-                  <div class="form__inputBox form__infoEditBox mb-1">
+                  <div class="form__input form__infoEditBox mb-1">
                     <div class="form__labelBox">
-                      <label for="coverLetterContent" class="form__label--custom form-label"
+                      <label for="coverLetterContent" class="labelBox__label"
                         >求職信內容</label
                       >
                     </div>

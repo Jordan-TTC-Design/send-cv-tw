@@ -10,9 +10,9 @@
       <i class="jobIcon bi bi-three-dots"></i>
     </button>
     <ul class="dropDownMenu dropdown-menu" :aria-labelledby="`dropdownMenuButton--${menuName}`">
-      <li class="dropDownMenu__item">編輯</li>
-      <li class="dropDownMenu__item">調整排序</li>
-      <li class="dropDownMenu__item" @click="deleteData">刪除</li>
+      <li class="dropDownMenu__item dropdown-item">編輯</li>
+      <li class="dropDownMenu__item dropdown-item">調整排序</li>
+      <li class="dropDownMenu__item dropdown-item" @click="deleteData">刪除</li>
     </ul>
   </div>
 </template>

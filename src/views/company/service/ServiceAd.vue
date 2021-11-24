@@ -64,7 +64,7 @@
             <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
               <div>
                 <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>{{ sideBoxInnerList }}
+                  <span class="tag--doubleCircle--company me-2"></span>{{ sideBoxInnerList }}
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.adTokens }}</p>
                 <p class="subTxt text-secondary">
@@ -105,7 +105,7 @@
                 </button>
               </div>
             </div>
-            <div class="adminContentBox--nonPadding">
+            <div class="adminContentBox">
               <ul class="innerNav innerNav--company innerNav--bgColor">
                 <li
                   class="innerNav__item"
@@ -253,7 +253,7 @@
             <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
               <div>
                 <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>粉絲專頁廣告
+                  <span class="tag--doubleCircle--company me-2"></span>粉絲專頁廣告
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.bannerTokens }}</p>
                 <p class="subTxt text-secondary">
@@ -275,7 +275,7 @@
                 >
               </div>
             </div>
-            <div class="adminContentBox--nonPadding">
+            <div class="adminContentBox">
               <ul class="innerNav innerNav--company innerNav--bgColor">
                 <li
                   class="innerNav__item"
@@ -424,7 +424,7 @@
             <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
               <div>
                 <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle--company me-2"></span>推廣職位
+                  <span class="tag--doubleCircle--company me-2"></span>推廣職位
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.jobPromoteTokens }}</p>
                 <p class="subTxt text-secondary">
@@ -444,7 +444,7 @@
                 >
               </div>
             </div>
-            <div class="adminContentBox--nonPadding">
+            <div class="adminContentBox">
               <ul class="innerNav innerNav--company innerNav--bgColor">
                 <li
                   class="innerNav__item"

@@ -14,12 +14,12 @@
       <div class="row justify-content-center position-relative">
         <div class="col-xl-6 col-lg-8 col-md-10 col-12">
           <Form v-if="userFormStep === 1" v-slot="{ errors }" @submit="sendForm">
-            <div class="adminContentBox adminContentBox--full position-relative">
+            <div class="adminContentBox adminContentBox--full adminContentBox--p">
               <h2 class="pageTitle mb-5 text-center">求職者會員註冊</h2>
               <p class="mb-5 text-center">填寫以下資料並經過審核後，即可上線招募～</p>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="userName" class="form__label--custom form-label">中文姓名</label>
+                  <label for="userName" class="labelBox__label">中文姓名</label>
                   <p class="formTag--must">必填</p>
                 </div>
                 <Field
@@ -38,9 +38,9 @@
               <!-- 企業統編、電話 -->
               <div class="row">
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="userId" class="form__label--custom form-label">身分證字號</label>
+                      <label for="userId" class="labelBox__label">身分證字號</label>
                     </div>
                     <Field
                       id="userId"
@@ -56,9 +56,9 @@
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="userPhone" class="form__label--custom form-label">手機號碼</label>
+                      <label for="userPhone" class="labelBox__label">手機號碼</label>
                     </div>
                     <Field
                       id="userPhone"
@@ -74,9 +74,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="userEmail" class="form__label--custom form-label"
+                  <label for="userEmail" class="labelBox__label"
                     >Email帳號(登入帳號使用)</label
                   >
                   <p class="formTag--must">必填</p>
@@ -94,9 +94,9 @@
                 ></Field>
                 <ErrorMessage name="Email帳號" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="userPassword" class="form__label--custom form-label">密碼</label>
+                  <label for="userPassword" class="labelBox__label">密碼</label>
                   <p class="formTag--must">必填</p>
                 </div>
                 <Field
@@ -112,9 +112,9 @@
                 ></Field>
                 <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="userPasswordCheck" class="form__label--custom form-label"
+                  <label for="userPasswordCheck" class="labelBox__label"
                     >重複確認密碼</label
                   >
                   <p class="formTag--must">必填</p>
@@ -158,7 +158,7 @@
             v-if="userFormStep === 2"
             class="
               adminContentBox adminContentBox--full
-              position-relative
+              adminContentBox--p
               d-flex
               flex-column
               justify-content-between
@@ -194,7 +194,7 @@
             v-if="userFormStep === 3"
             class="
               adminContentBox adminContentBox--full
-              position-relative
+              adminContentBox--p
               d-flex
               flex-column
               justify-content-between

@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
 }
-// 有圖標的title
+// 有圖標的title，用在求職者前台
 .titleBox--tag {
   display: flex;
   align-items: center;
@@ -24,120 +24,6 @@
     border-radius: 0.5rem 0.5rem 0.5rem 0;
     background-color: $primary;
   }
-}
-// 按鈕
-.collectBtn {
-  height: 44px;
-  width: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  top: 0.75rem;
-  right: 0.75rem;
-  border: 1px solid $gray-line;
-  .jobIcon {
-    color: $secondary;
-  }
-  &:hover {
-    .jobIcon {
-      color: $gray-dark;
-    }
-  }
-  &.collected {
-    border: 1px solid $primary-light;
-    background-color: $primary-light;
-    .jobIcon {
-      color: $primary;
-    }
-  }
-}
-.btn--circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  &.btn-outline-light {
-    .jobIcon {
-      color: $light;
-    }
-    &:hover {
-      .jobIcon {
-        color: $gray-dark;
-      }
-    }
-  }
-}
-.btn--circle--lg {
-  width: 44px;
-  height: 44px;
-}
-.btn--circle.active {
-  background-color: $white;
-  border: 0;
-  &.btn-outline-light {
-    .jobIcon {
-      color: $primary;
-    }
-    &:hover {
-      .jobIcon {
-        color: $primary;
-      }
-    }
-  }
-}
-// 側邊按鈕框
-.sideBtnBox {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 4%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  z-index: 800;
-  &.SideBtnBox--page {
-    bottom: 6rem;
-  }
-  @include sm {
-    .bg-cover--dark {
-      position: fixed;
-      background-color: rgba(0, 0, 0, 0.3);
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: -1;
-    }
-  }
-}
-// 側邊按鈕
-.sideIconBtn {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 0.5rem;
-  @include shadow-md;
-  background-color: rgba(247, 247, 247, 0.9);
-  border: 1px solid $light;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .jobIcon {
-    font-size: 1.5rem;
-  }
-  &:hover {
-    .jobIcon {
-      color: $primary;
-    }
-  }
-  @include sm {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-}
-.btn--applyJob {
-  min-width: 120px;
-  justify-content: center;
-  display: flex;
 }
 // 標籤
 .jobTag {
@@ -201,81 +87,8 @@
     transform: translateX(-50%);
   }
 }
-.inputItem__switch {
-  height: 38px;
-  display: flex;
-  align-items: center;
-  padding-left: 0.75rem;
-}
-.recommendTagList {
-  display: flex;
-  &__btn {
-    margin-right: 0.5rem;
-    color: $dark;
-    &.active {
-      border: 1px solid $primary;
-      color: $primary-dark;
-      background-color: $primary-light;
-    }
-    &--new {
-      color: $companyColor;
-      .jobIcon--sm {
-        color: $companyColor;
-      }
-    }
-    &--new:hover {
-      color: $light;
-      .jobIcon--sm {
-        color: $light;
-      }
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
-.btn--language {
-  display: flex;
-  justify-content: space-between;
-  max-width: 160px;
-  border: 1px solid $light;
-  border-radius: 0.5rem;
-  position: relative;
-  z-index: 1;
-  padding: 0.25rem;
-  &__chinese,
-  &__english {
-    color: $light;
-    padding: 6px 0.75rem;
-    border-radius: 0.25rem;
-    transition: all 0.3s;
-  }
-  &:after {
-    content: '';
-    position: absolute;
-    background-color: $primary;
-    width: 56px;
-    height: 36px;
-    border-radius: 0.25rem;
-    z-index: -1;
-    transition: all 0.3s;
-    right: calc(100% - 0.25rem);
-    transform: translateX(100%);
-  }
-  &__chinese.active,
-  &__english.active {
-    color: $dark;
-  }
-  &.active {
-    &:after {
-      right: calc(0% + 0.25rem);
-      transform: translateX(0%);
-    }
-  }
-}
-.btn--text--dark {
-  color: $dark;
-}
+
+
 .userBox {
   display: flex;
   margin-right: 0.5rem;
@@ -310,6 +123,8 @@
     }
   }
 }
+
+// 提示匡
 .remind {
   padding: 0.75rem;
   background-color: $primary-light;
@@ -320,75 +135,8 @@
     font-size: 14px;
   }
 }
-.btn--switch {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .switch__container {
-    position: relative;
-    height: 30px;
-    width: 50px;
-    background-color: $gray-line;
-    border-radius: 30px;
-    margin-right: 0.25rem;
-    &::before {
-      content: '';
-      position: absolute;
-      background-color: $primary;
-      border: 1px solid $light;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      top: 50%;
-      left: 8px;
-      transform: translateY(-50%);
-      display: none;
-    }
-    &::after {
-      content: '';
-      position: absolute;
-      background-color: $secondary;
-      width: 8px;
-      height: 1px;
-      border-radius: 50%;
-      top: 50%;
-      right: 8px;
-      transform: translateY(-50%);
-    }
-    &.active {
-      background-color: $primary;
-      .switch__controller {
-        left: 22px;
-      }
-      &::before {
-        display: block;
-      }
-      &::after {
-        display: none;
-      }
-    }
-  }
-  .switch__controller {
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background-color: $light;
-    left: 2px;
-    top: 2px;
-  }
-}
-.btn--switch.btn--switch--company {
-  .switch__container {
-    &::before {
-      background-color: $companyColor;
-    }
-    &.active {
-      background-color: $companyColor;
-    }
-  }
-}
-.unHandle {
+// 標示新的資料等
+.tag--new {
   padding-top: 0.75rem;
   position: relative;
   &::before {
@@ -408,20 +156,7 @@
     color: $primary-dark;
   }
 }
-.searchInput {
-  position: relative;
-  .jobIcon {
-    position: absolute;
-    top: 50%;
-    left: 0.75rem;
-    transform: translateY(-50%);
-  }
-  input {
-    height: 100%;
-    padding-left: 2.5rem;
-    border: 1px solid $light;
-  }
-}
+
 .boxSubNav {
   display: flex;
   border-top: 1px solid $gray-line;
@@ -494,63 +229,9 @@
     }
   }
 }
-.popModal {
-  &__width--sm {
-    max-width: 420px;
-  }
-  &__width--lg {
-    max-width: 720px;
-  }
-  .modal-content {
-    border-radius: 1rem;
-    position: relative;
-    .btn-close {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-    }
-  }
-  .modal-body {
-    padding: 0 1.5rem;
-  }
-  &__header {
-    padding: 1.5rem 2.5rem;
-    &__subTxt {
-      font-size: 14px;
-    }
-  }
-  &__subHeaderNav {
-    padding: 0.5rem 0.75rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid $gray-line;
-  }
-  &__title {
-    color: $dark;
-    font-weight: $fw--md;
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-  &__header--center {
-    .popModal__header__subTxt,
-    .popModal__title {
-      text-align: center;
-    }
-  }
-  &__header--left {
-    padding-left: 1.5rem;
-    .popModal__header__subTxt,
-    .popModal__title {
-      text-align: left;
-    }
-  }
-  &__footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1.5rem;
-  }
-}
+
+
+// 聊天室頁面
 .chatBox {
   padding: 0.75rem;
   display: flex;
@@ -578,15 +259,14 @@
     }
   }
 }
+
+
+
+// 搭配 bootstrap 的 dropdown 
 .dropDownMenu {
   background-color: $light;
-  padding: 0.75rem;
+  padding: 0.75rem 0;
   border-radius: 0.5rem;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translateY(100%);
-  display: none;
   border: 1px solid $gray-line;
   z-index: 100;
   &__item {
@@ -594,19 +274,18 @@
     height: 44px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid $gray-line;
     cursor: pointer;
-    &:hover {
-      background-color: rgba($color: $gray-light, $alpha: 0.8);
-    }
+    @include border-bottom;
+    @include list--bg--hover;
     &:last-child {
       border-bottom: 0;
     }
   }
-  &.active {
-    display: block;
-  }
 }
+
+
+
+
 .dataForm {
   width: 100%;
   height: 360px;
@@ -659,6 +338,7 @@
     }
   }
 }
+// 折疊
 .foldList__item {
   &__title {
     display: flex;
@@ -729,23 +409,7 @@
 .cropImgBox--lg {
   min-height: 360px;
 }
-.inputReader {
-  display: flex;
-  flex-direction: column;
-  &__title {
-    padding-left: 0.75rem;
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-  }
-  &__contentBox {
-    background-color: $gray-light;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    &--minHeight {
-      min-height: 120px;
-    }
-  }
-}
+
 .docVideo__contentBox {
   background-color: $gray-light;
   border-radius: 0.5rem;
@@ -755,6 +419,7 @@
   justify-content: center;
   min-height: 360px;
 }
+// 後台通知板塊搭配圖片
 .notificationList {
   &__item {
     height: 120px;
@@ -772,6 +437,7 @@
     }
   }
 }
+// 後台日曆
 .calendar {
   background-color: $light;
   border-radius: 0.5rem;
@@ -912,56 +578,9 @@
     background-color: $companyColor;
   }
 }
-.fakeInput {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 0.5rem;
-  border: 1px solid $gray-line;
-  padding: 3px 6px 3px 0.75rem;
-  &__txtList {
-    display: flex;
-    max-width: 80%;
-    overflow-x: hidden;
-    &__line {
-      height: 0.75rem;
-      border-right: 1px solid $gray-line;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-    }
-  }
-}
-.fakeInput--counter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 0.5rem;
-  border: 1px solid $gray-line;
-  &__txtList {
-    display: flex;
-    max-width: 80%;
-    overflow-x: hidden;
-    &__line {
-      height: 0.75rem;
-      border-right: 1px solid $gray-line;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-    }
-  }
-  .fakeBtn {
-    cursor: pointer;
-    display: flex;
-    padding: 0.4375rem 0.75rem;
-    &:hover .jobIcon {
-      color: $companyColor;
-    }
-    &.disActive .jobIcon {
-      color: $gray-line;
-    }
-  }
-}
-.titleTag--doubleCircle {
+
+// icon 雙圈
+.tag--doubleCircle {
   background-color: $primary-light;
   width: 1.25rem;
   height: 0.75rem;
@@ -976,7 +595,7 @@
     width: 0.75rem;
   }
 }
-.titleTag--doubleCircle--company {
+.tag--doubleCircle--company {
   background-color: $companyColor-light;
   width: 1.25rem;
   height: 0.75rem;
@@ -991,6 +610,10 @@
     width: 0.75rem;
   }
 }
+
+
+
+
 .mapBox {
   width: 100%;
   &__map {
@@ -998,6 +621,7 @@
     border-radius: 0.5rem;
   }
 }
+// 聊天室右側
 .sideContainerTitleBox {
   display: flex;
   align-items: center;
@@ -1026,130 +650,7 @@
   top: 1.5rem;
   right: 1.5rem;
 }
-.sideCollapse {
-  border-radius: 0.5rem;
-  @include shadow-normal;
-  .accordion-item:first-child {
-    border-radius: 0.5rem 0.5rem 0 0;
-  }
-  .accordion-item:last-child {
-    border-radius: 0 0 0.5rem 0.5rem;
-  }
-  &__list {
-    &--item {
-      cursor: pointer;
-      height: 44px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid $gray-line;
-      position: relative;
-      background-color: $light;
-      &:first-child {
-        border-top: 1px solid $gray-line;
-      }
-      &::after {
-        content: '';
-        position: absolute;
-        display: block;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: $companyColor;
-        border-radius: 0.25rem 0 0 0.25rem;
-        width: 0rem;
-        opacity: 0;
-        transition: all 0.3s;
-      }
-      &.active {
-        background-color: $companyColor-light;
-        transition: all 0.3s;
-        .nav__item__title {
-          color: $companyColor;
-        }
-        &::after {
-          width: 0.25rem;
-          opacity: 1;
-          transition: all 0.3s;
-        }
-      }
-    }
-    &__title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem;
-      cursor: pointer;
-    }
-    &__title--company.active {
-      color: $companyColor;
-    }
-  }
-  &__innerList {
-    padding-bottom: 1rem;
-    .nav__item {
-      cursor: pointer;
-      height: 44px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 0.75rem;
-      border-bottom: 1px solid $gray-line;
-      position: relative;
-      background-color: $light;
-      &:first-child {
-        border-top: 1px solid $gray-line;
-      }
-      &::after {
-        content: '';
-        position: absolute;
-        display: block;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: $companyColor;
-        border-radius: 0.25rem 0 0 0.25rem;
-        width: 0rem;
-        opacity: 0;
-        transition: all 0.3s;
-      }
-      &.active {
-        background-color: $companyColor-light;
-        transition: all 0.3s;
-        .nav__item__title {
-          color: $companyColor;
-        }
-        &::after {
-          width: 0.25rem;
-          opacity: 1;
-          transition: all 0.3s;
-        }
-      }
-    }
-  }
-}
-.listBox {
-  .listBox__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid $gray-line;
-    &:first-child {
-      border-top-left-radius: 0.5rem;
-      border-top-right-radius: 0.5rem;
-    }
-    &:last-child {
-      border-bottom: 0;
-      border-bottom-left-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
-    }
-  }
-  &.listBox--hover {
-    .listBox__item:hover {
-      background-color: rgba($color: $gray-light, $alpha: 0.8);
-    }
-  }
-}
+
 .jobDataList {
   &__item {
     display: flex;
@@ -1173,7 +674,7 @@
     }
   }
 }
-.form__inputBox--question {
+.form__input--question {
   position: relative;
   .iconBox {
     background-color: $light;
@@ -1216,82 +717,30 @@
     }
   }
 }
-.tableList {
-  display: flex;
-  flex-wrap: wrap;
-  &__item {
-    padding: 0.5rem;
-    &__title {
-      font-size: 0.875rem;
-      color: $secondary;
-      margin-bottom: 0.25rem;
-    }
-    &:hover {
-      .tableList__item__title {
-        color: $companyColor;
-      }
-    }
-    &--btnList {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-    &__tagBtn--company {
-      border-radius: 0.25rem;
-      border: 1px solid $gray-line;
-      padding: 1px 0.5rem;
-      &:hover {
-        border: 1px solid $companyColor;
-        color: $companyColor;
-      }
-    }
-  }
-}
-.contentBox {
+
+// 後台主要區塊的底：分為有無padding、固定高
+.adminContentBox{
+  position: relative;
   background-color: $light;
   border-radius: 0.5rem;
-  padding: 0.75rem;
   @include shadow-normal;
-  &__titleBox {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid $gray-line;
-  }
-  &__title {
-    font-weight: $fw--md;
-    color: $dark;
+  &__btnBox {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
   }
 }
-.adminContentBox {
+.adminContentBox--p{
   padding: 1.5rem;
-  background-color: $light;
-  border-radius: 0.5rem;
-  @include shadow-normal;
 }
-.adminContentBox--nonPadding {
-  background-color: $light;
-  border-radius: 0.5rem;
-  @include shadow-normal;
+.adminContentBox--p--sm{
+  padding: 1rem;
 }
-.adminContentBox--full {
+.adminContentBox--full{
   min-height: calc(80vh - 132px);
-  background-color: $light;
-  border-radius: 0.5rem;
-  @include shadow-normal;
 }
-.sideListBox {
-  padding: 0;
-  border-radius: 0.5rem;
-  background-color: $light;
-  @include shadow-normal;
-  &__titleBox {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid $gray-line;
-  }
-  &__title {
-    font-weight: $fw--md;
-    color: $dark;
-  }
-}
+
 .backToPageBtn {
   &__title {
     position: relative;
@@ -1307,6 +756,7 @@
     }
   }
 }
+// 自定義table
 .flexTable {
   &__header {
     display: flex;
@@ -1357,6 +807,37 @@
     &:hover {
       background-color: rgba($color: $gray-light, $alpha: 0.5);
       .flexTable__body__item__title {
+        color: $companyColor;
+      }
+    }
+  }
+}
+.tableList {
+  display: flex;
+  flex-wrap: wrap;
+  &__item {
+    padding: 0.5rem;
+    &__title {
+      font-size: 0.875rem;
+      color: $secondary;
+      margin-bottom: 0.25rem;
+    }
+    &:hover {
+      .tableList__item__title {
+        color: $companyColor;
+      }
+    }
+    &--btnList {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    &__tagBtn--company {
+      border-radius: 0.25rem;
+      border: 1px solid $gray-line;
+      padding: 1px 0.5rem;
+      &:hover {
+        border: 1px solid $companyColor;
         color: $companyColor;
       }
     }
@@ -1487,7 +968,7 @@
 }
 .collapseList--company {
   .collapseList__header.active {
-    p{
+    p {
       color: $companyColor;
     }
   }
@@ -1509,3 +990,4 @@
     width: 0.25rem;
   }
 }
+

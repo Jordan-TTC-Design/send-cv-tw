@@ -277,9 +277,9 @@
               <h3 class="section__title--sub">
                 <span class="titleTag--doubleCircle me-2"></span>職位內容
               </h3>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="sendFormInfoJobName" class="form__label--custom form-label"
+                  <label for="sendFormInfoJobName" class="labelBox__label form-label"
                     >職位名稱</label
                   >
                   <p class="formTag--must company">必填</p>
@@ -298,9 +298,9 @@
                 <ErrorMessage name="職位名稱" class="invalid-feedback"></ErrorMessage>
               </div>
               <div class="d-flex align-items-end mb-4">
-                <div class="inputGroup--item me-2">
+                <div class="form__input me-2">
                   <div class="form__labelBox">
-                    <label for="salaryRangeLow" class="form__label--custom form-label"
+                    <label for="salaryRangeLow" class="labelBox__label form-label"
                       >薪資範圍起始</label
                     >
                     <p class="formTag--must company">必填</p>
@@ -314,9 +314,9 @@
                     v-model="jobForm.jobSalaryRange.salaryLow"
                   />
                 </div>
-                <div class="inputGroup--item me-2">
+                <div class="form__input me-2">
                   <div class="form__labelBox">
-                    <label for="salaryRangeHeight" class="form__label--custom form-label"
+                    <label for="salaryRangeHeight" class="labelBox__label form-label"
                       >薪資範圍結束</label
                     >
                   </div>
@@ -339,9 +339,9 @@
                   <label class="form-check-label" for="salaryRangeInterview"> 面議 </label>
                 </div>
               </div>
-              <div class="form__inputBox inputGroup--item">
+              <div class="form__input form__input">
                 <div class="form__labelBox">
-                  <label for="jobFormPeopleNeed" class="form__label--custom form-label"
+                  <label for="jobFormPeopleNeed" class="labelBox__label form-label"
                     >職務類別</label
                   >
                   <p class="formTag--must company">必填</p>
@@ -373,11 +373,11 @@
                   />
                 </div>
                 <div class="col-lg-8 col-12 d-flex flex-column justify-content-between">
-                  <div class="form__inputBox form__infoEditBox">
+                  <div class="form__input form__infoEditBox">
                     <div class="form__labelBox">
                       <label
                         for="sendFormInfoJobContent"
-                        class="form__label--custom form-label me-2"
+                        class="labelBox__label form-label me-2"
                         >{{ `第 ${index + 1} 張圖片備註` }}</label
                       >
                     </div>
@@ -419,9 +419,9 @@
               </h3>
               <div class="row">
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyName" class="form__label--custom form-label"
+                      <label for="sendFormInfoCompanyName" class="labelBox__label form-label"
                         >公司名稱</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -443,9 +443,9 @@
               </div>
               <div class="row">
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyEmail" class="form__label--custom form-label"
+                      <label for="sendFormInfoCompanyEmail" class="labelBox__label form-label"
                         >公司Email</label
                       >
                     </div>
@@ -460,9 +460,9 @@
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyPhone" class="form__label--custom form-label"
+                      <label for="sendFormInfoCompanyPhone" class="labelBox__label form-label"
                         >公司聯絡電話</label
                       >
                     </div>
@@ -493,11 +493,11 @@
                   />
                 </div>
                 <div class="col-lg-8 col-12 d-flex flex-column justify-content-between">
-                  <div class="form__inputBox form__infoEditBox">
+                  <div class="form__input form__infoEditBox">
                     <div class="form__labelBox">
                       <label
                         for="sendFormInfoJobContent"
-                        class="form__label--custom form-label me-2"
+                        class="labelBox__label form-label me-2"
                         >{{ `第 ${index + 1} 張圖片備註` }}</label
                       >
                     </div>
@@ -525,9 +525,9 @@
                 <span class="titleTag--doubleCircle me-2"></span>工作地點
               </h3>
               <div class="d-flex align-items-end mb-4">
-                <div class="inputGroup--item me-2">
+                <div class="form__input me-2">
                   <div class="form__labelBox">
-                    <label for="jobFormCompanyCity" class="form__label--custom form-label"
+                    <label for="jobFormCompanyCity" class="labelBox__label form-label"
                       >縣市</label
                     >
                   </div>
@@ -548,9 +548,9 @@
                   </Field>
                   <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
                 </div>
-                <div class="inputGroup--item me-4">
+                <div class="form__input me-4">
                   <div class="form__labelBox">
-                    <label for="jobFormCompanyDist" class="form__label--custom form-label"
+                    <label for="jobFormCompanyDist" class="labelBox__label form-label"
                       >區域鄉鎮</label
                     >
                   </div>
@@ -581,9 +581,9 @@
                   <label class="form-check-label" for="sameAddressWithCompany"> 同公司地址 </label>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="jobFormAddressDetail" class="form__label--custom form-label"
+                  <label for="jobFormAddressDetail" class="labelBox__label form-label"
                     >工作詳細地址</label
                   >
                 </div>

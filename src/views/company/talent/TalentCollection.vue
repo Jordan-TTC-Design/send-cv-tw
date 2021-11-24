@@ -30,9 +30,9 @@
               </div>
             </div>
             <form @submit="searchTalent" class="sideContentBox__body">
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchKeyword" class="form__label--custom form-label"
+                  <label for="searchKeyword" class="labelBox__label form-label"
                     >搜尋關鍵字</label
                   >
                 </div>
@@ -44,9 +44,9 @@
                   v-model="searchForm.keyword"
                 />
               </div>
-              <div class="form__inputBox mb-0">
+              <div class="form__input mb-0">
                 <div class="form__labelBox">
-                  <label for="searchKeyword" class="form__label--custom form-label">匹配職位</label>
+                  <label for="searchKeyword" class="labelBox__label form-label">匹配職位</label>
                 </div>
                 <select class="form-select" aria-label="matchJob" v-model="searchForm.matchJob">
                   <option selected disabled value="">可選擇配對職位</option>
@@ -83,8 +83,7 @@
               <p class="subTxt">收藏夾：{{ mailApplyList.length }} 位人才</p>
               <div class="d-flex align-items-center">
                 <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
-                <div class="inputGroup--item">
-                  <select class="form-select" aria-label="排列方法" id="filterMethod">
+                <select class="form-select" aria-label="排列方法" id="filterMethod">
                     <option
                       v-for="item in filterData"
                       :value="item.title"
@@ -93,8 +92,7 @@
                     >
                       {{ item.title }}
                     </option>
-                  </select>
-                </div>
+                </select>
               </div>
             </div>
             <ul ref="candidateList">

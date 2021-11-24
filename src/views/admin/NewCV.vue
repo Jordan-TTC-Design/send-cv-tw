@@ -11,7 +11,7 @@
               </button>
             </h2>
             <div class="d-flex d-none" ref="cvTitle--edit">
-              <div class="form__inputBox mb-0 me-2">
+              <div class="form__input mb-0 me-2">
                 <input
                   id="cvTitle--edit"
                   name="履歷名稱"
@@ -40,7 +40,7 @@
           <div class="cvContainer mb-5 position-relative">
             <div class="cvContainer__titleBox mb-5">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 個人資訊
               </h3>
             </div>
@@ -86,7 +86,7 @@
             </p>
             <div class="cvContainer__titleBox mb-4">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 自我介紹
               </h3>
             </div>
@@ -102,7 +102,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 工作經驗
               </h3>
               <button
@@ -169,14 +169,14 @@
                           :aria-labelledby="`dropdownMenuButton--workExp--${index}`"
                         >
                           <li
-                            class="dropDownMenu__item"
+                            class="dropDownMenu__item dropdown-item"
                             @click="editTemplateData(`editWorkExp--${index}`)"
                           >
                             編輯
                           </li>
-                          <li class="dropDownMenu__item">調整排序</li>
+                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
                           <li
-                            class="dropDownMenu__item"
+                            class="dropDownMenu__item dropdown-item"
                             @click="deleteTemplateData('workExp', index)"
                           >
                             刪除
@@ -205,7 +205,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 學歷
               </h3>
               <button
@@ -272,14 +272,14 @@
                           :aria-labelledby="`dropdownMenuButton--education--${index}`"
                         >
                           <li
-                            class="dropDownMenu__item"
+                            class="dropDownMenu__item dropdown-item"
                             @click="editTemplateData(`editEducationExp--${index}`)"
                           >
                             編輯
                           </li>
-                          <li class="dropDownMenu__item">調整排序</li>
+                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
                           <li
-                            class="dropDownMenu__item"
+                            class="dropDownMenu__item dropdown-item"
                             @click="deleteTemplateData('education', index)"
                           >
                             刪除
@@ -308,7 +308,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 專業技能
               </h3>
               <button
@@ -357,10 +357,13 @@
                         class="dropDownMenu dropdown-menu"
                         :aria-labelledby="`dropdownMenuButton--language`"
                       >
-                        <li class="dropDownMenu__item" @click="editTemplateData(`editLanguage`)">
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="editTemplateData(`editLanguage`)"
+                        >
                           編輯
                         </li>
-                        <li class="dropDownMenu__item">調整排序</li>
+                        <li class="dropDownMenu__item dropdown-item">調整排序</li>
                       </ul>
                     </div>
                   </div>
@@ -411,10 +414,13 @@
                         class="dropDownMenu dropdown-menu"
                         :aria-labelledby="`dropdownMenuButton--license`"
                       >
-                        <li class="dropDownMenu__item" @click="editTemplateData(`editLicense`)">
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="editTemplateData(`editLicense`)"
+                        >
                           編輯
                         </li>
-                        <li class="dropDownMenu__item">調整排序</li>
+                        <li class="dropDownMenu__item dropdown-item">調整排序</li>
                       </ul>
                     </div>
                   </div>
@@ -467,14 +473,14 @@
                           :aria-labelledby="`dropdownMenuButton--skill--${index}`"
                         >
                           <li
-                            class="dropDownMenu__item"
+                            class="dropDownMenu__item dropdown-item"
                             @click="editTemplateData(`editSkill--${index}`)"
                           >
                             編輯
                           </li>
-                          <li class="dropDownMenu__item">調整排序</li>
+                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
                           <li
-                            class="dropDownMenu__item"
+                            class="dropDownMenu__item dropdown-item"
                             @click="deleteTemplateData('skill', index)"
                           >
                             刪除
@@ -511,7 +517,7 @@
             <div class="cvContainer mb-5">
               <div class="cvContainer__titleBox">
                 <h3 class="cvContainer__title" :ref="`expDataTitle--${listIndex}`">
-                  <div class="titleTag--doubleCircle me-2"></div>
+                  <div class="tag--doubleCircle me-2"></div>
                   {{ listItem.sectionTitle }}
                   <button
                     type="button"
@@ -522,7 +528,7 @@
                   </button>
                 </h3>
                 <div class="d-flex d-none" :ref="`expDataTitle--${listIndex}--edit`">
-                  <div class="form__inputBox mb-0 me-2">
+                  <div class="form__input mb-0 me-2">
                     <input
                       :id="`expDataTitle--${listIndex}--input`"
                       name="標題"
@@ -562,7 +568,7 @@
           <div class="cvContainer mb-5" v-if="tempCvData.userData.docData">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 我的作品
               </h3>
               <button
@@ -632,7 +638,7 @@
           <div class="cvContainer" v-if="tempCvData.userData.docData">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle me-2"></div>
+                <div class="tag--doubleCircle me-2"></div>
                 其他資訊
               </h3>
             </div>
@@ -785,8 +791,13 @@
                     class="dropDownMenu dropdown-menu"
                     :aria-labelledby="`dropdownMenuButton--cvSectionList--${listIndex}`"
                   >
-                    <li class="dropDownMenu__item">調整排序</li>
-                    <li class="dropDownMenu__item" @click="deleteExpCvSection(listIndex)">刪除</li>
+                    <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                    <li
+                      class="dropDownMenu__item dropdown-item"
+                      @click="deleteExpCvSection(listIndex)"
+                    >
+                      刪除
+                    </li>
                   </ul>
                 </li>
               </template>

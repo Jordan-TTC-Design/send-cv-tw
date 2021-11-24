@@ -10,11 +10,9 @@
               <button type="button" class="btn btn-outline-gray-line text-dark">清除</button>
             </div>
             <form @submit="searchTalent" class="p-3">
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchKeyword" class="form__label--custom form-label"
-                    >搜尋關鍵字</label
-                  >
+                  <label for="searchKeyword" class="labelBox__label form-label">搜尋關鍵字</label>
                 </div>
                 <input
                   class="form-control"
@@ -24,9 +22,9 @@
                   v-model="searchForm.keyword"
                 />
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchKeyword" class="form__label--custom form-label">匹配職位</label>
+                  <label for="searchKeyword" class="labelBox__label form-label">匹配職位</label>
                 </div>
                 <select class="form-select" aria-label="matchJob" v-model="searchForm.matchJob">
                   <option selected disabled value="">可選擇配對職位</option>
@@ -38,9 +36,9 @@
                   </template>
                 </select>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchWorkExp" class="form__label--custom form-label">工作經驗</label>
+                  <label for="searchWorkExp" class="labelBox__label form-label">工作經驗</label>
                 </div>
                 <select
                   id="searchWorkExp"
@@ -55,11 +53,9 @@
                   </template>
                 </select>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchEducation" class="form__label--custom form-label"
-                    >學歷要求</label
-                  >
+                  <label for="searchEducation" class="labelBox__label form-label">學歷要求</label>
                 </div>
                 <select
                   id="searchEducation"
@@ -74,11 +70,9 @@
                   </template>
                 </select>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchIntroVideo" class="form__label--custom form-label"
-                    >語言能力</label
-                  >
+                  <label for="searchIntroVideo" class="labelBox__label form-label">語言能力</label>
                 </div>
                 <div class="fakeInput p-4">
                   <img
@@ -111,11 +105,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchLanguage" class="form__label--custom form-label"
-                    >語言能力</label
-                  >
+                  <label for="searchLanguage" class="labelBox__label form-label">語言能力</label>
                 </div>
                 <div class="fakeInput p-4">
                   <input
@@ -133,11 +125,9 @@
                   <button type="button" class="btn btn-gray-light text-dark">設定</button>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchLanguage" class="form__label--custom form-label"
-                    >專業證照</label
-                  >
+                  <label for="searchLanguage" class="labelBox__label form-label">專業證照</label>
                 </div>
                 <div class="fakeInput p-4">
                   <input
@@ -155,11 +145,9 @@
                   <button type="button" class="btn btn-gray-light text-dark">設定</button>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchLanguage" class="form__label--custom form-label"
-                    >專業技能</label
-                  >
+                  <label for="searchLanguage" class="labelBox__label form-label">專業技能</label>
                 </div>
                 <div class="fakeInput p-4">
                   <input
@@ -177,11 +165,9 @@
                   <button type="button" class="btn btn-gray-light text-dark">設定</button>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchLanguage" class="form__label--custom form-label"
-                    >駕照需求</label
-                  >
+                  <label for="searchLanguage" class="labelBox__label form-label">駕照需求</label>
                 </div>
                 <div class="fakeInput p-4">
                   <input
@@ -199,11 +185,13 @@
                   <button type="button" class="btn btn-gray-light text-dark">設定</button>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="salaryRangeLow" class="form__label--custom form-label"
-                    >薪資待遇範圍起始</label
-                  >
+                  <div class="form__labelBox">
+                    <label for="salaryRangeLow" class="labelBox__label form-label"
+                      >薪資待遇範圍起始</label
+                    >
+                  </div>
                 </div>
                 <input
                   type="number"
@@ -215,10 +203,12 @@
                 />
               </div>
               <div class="d-flex align-items-end mb-4">
-                <div class="inputGroup--item me-4">
-                  <label for="salaryRangeHeight" class="form-label inputItem__title"
-                    >薪資待遇範圍結束</label
-                  >
+                <div class="form__input me-4">
+                  <div class="form__labelBox">
+                    <label for="salaryRangeHeight" class="labelBox__label form-label"
+                      >薪資待遇範圍結束</label
+                    >
+                  </div>
                   <input
                     type="number"
                     class="form-control"
@@ -238,11 +228,9 @@
                   <label class="form-check-label" for="salaryRangeInterview"> 接受面議 </label>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchLoginTime" class="form__label--custom form-label"
-                    >最近登入</label
-                  >
+                  <label for="searchLoginTime" class="labelBox__label form-label">最近登入</label>
                 </div>
                 <div class="d-flex flex-wrap">
                   <div class="form-check me-4">
@@ -302,9 +290,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchExpat" class="form__label--custom form-label">外派出差</label>
+                  <label for="searchExpat" class="labelBox__label form-label">外派出差</label>
                 </div>
                 <div class="d-flex flex-wrap">
                   <div class="form-check me-4">
@@ -331,11 +319,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchMilitaryService" class="form__label--custom form-label"
-                    >兵役</label
-                  >
+                  <label for="searchMilitaryService" class="labelBox__label form-label">兵役</label>
                 </div>
                 <div class="d-flex flex-wrap">
                   <div class="form-check me-4">
@@ -379,11 +365,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="searchIdentites" class="form__label--custom form-label"
-                    >特殊身份</label
-                  >
+                  <label for="searchIdentites" class="labelBox__label form-label">特殊身份</label>
                 </div>
                 <div class="d-flex">
                   <div class="form-check me-4">
@@ -451,7 +435,7 @@
               <p class="subTxt">收藏夾：{{ mailApplyList.length }} 位人才</p>
               <div class="d-flex align-items-center">
                 <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
-                <div class="inputGroup--item">
+                <div class="form__input">
                   <select class="form-select" aria-label="排列方法" id="filterMethod">
                     <option
                       v-for="item in filterData"

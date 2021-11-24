@@ -28,11 +28,11 @@
           <div class="col-lg-8 col-12">
             <div class="jobContentSection box--shadow mb-4">
               <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle--company me-2"></span>廣告內容
+                <span class="tag--doubleCircle--company me-2"></span>廣告內容
               </h3>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="adName" class="form__label--custom form-label">廣告標題</label>
+                  <label for="adName" class="labelBox__label form-label">廣告標題</label>
                   <p class="formTag--must company">必填</p>
                 </div>
                 <Field
@@ -56,9 +56,9 @@
                 :tempImgUrl="adForm.adImgUrl.url"
                 @send-img-to-page="getImg"
               />
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="adLinkSetting" class="form__label--custom form-label"
+                  <label for="adLinkSetting" class="labelBox__label form-label"
                     >廣告職位連結類型</label
                   >
                 </div>
@@ -101,9 +101,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox" v-if="adForm.adLink.type === '職位頁面'">
+              <div class="form__input" v-if="adForm.adLink.type === '職位頁面'">
                 <div class="form__labelBox">
-                  <label for="adJobPageLink" class="form__label--custom form-label"
+                  <label for="adJobPageLink" class="labelBox__label form-label"
                     >廣告職位連結</label
                   >
                   <p class="formTag--must company">必填</p>
@@ -124,9 +124,9 @@
                   </option>
                 </Field>
               </div>
-              <div class="form__inputBox" v-if="adForm.adLink.type === '外部連結'">
+              <div class="form__input" v-if="adForm.adLink.type === '外部連結'">
                 <div class="form__labelBox">
-                  <label for="adOutterLink" class="form__label--custom form-label"
+                  <label for="adOutterLink" class="labelBox__label form-label"
                     >廣告外部連結</label
                   >
                   <p class="formTag--must company">必填</p>
@@ -144,9 +144,9 @@
                 ></Field>
                 <ErrorMessage name="廣告外部連結" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox form__infoEditBox">
+              <div class="form__input form__infoEditBox">
                 <div class="form__labelBox">
-                  <label for="adContent" class="form__label--custom form-label">廣告內容</label>
+                  <label for="adContent" class="labelBox__label form-label">廣告內容</label>
                   <p class="formTag--must company">必填</p>
                 </div>
                 <ckeditor
@@ -171,9 +171,9 @@
                 </Field>
                 <ErrorMessage name="廣告內容" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox form__infoEditBox">
+              <div class="form__input form__infoEditBox">
                 <div class="form__labelBox">
-                  <label for="adRemark" class="form__label--custom form-label">廣告備註</label>
+                  <label for="adRemark" class="labelBox__label form-label">廣告備註</label>
                 </div>
                 <textarea
                   type="textarea"
@@ -188,16 +188,16 @@
           <div class="col-lg-4 col-12">
             <div class="jobContentSection box--shadow mb-lg-0 mb-3">
               <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle--company me-2"></span>廣告刊登設定
+                <span class="tag--doubleCircle--company me-2"></span>廣告刊登設定
               </h3>
               <div class="mb-2 d-flex align-items-center justify-content-between">
                 <p>目前剩餘額度：{{ company.payService.adTokens }}</p>
                 <button type="button" class="btn btn-outline-gray-line text-dark">購買額度</button>
               </div>
               <div v-if="adType !== '粉絲專頁廣告'">
-                <div class="inputGroup--item mb-3">
+                <div class="form__input mb-3">
                   <div class="form__labelBox">
-                    <label for="adToken" class="form__label--custom form-label">使用額度</label>
+                    <label for="adToken" class="labelBox__label form-label">使用額度</label>
                     <p class="formTag--must company">必填</p>
                   </div>
                   <div class="fakeInput--counter">
@@ -234,9 +234,9 @@
                 <p class="mb-1">收費方式：一個額度推廣 7 天</p>
                 <p class="mb-4">起算日期：於刊登日期後連續 7 天</p>
               </div>
-              <div class="inputGroup--item mb-3" v-if="adType === '粉絲專頁廣告'">
+              <div class="form__input mb-3" v-if="adType === '粉絲專頁廣告'">
                 <div class="form__labelBox">
-                  <label for="adToken" class="form__label--custom form-label">使用額度</label>
+                  <label for="adToken" class="labelBox__label form-label">使用額度</label>
                 </div>
                 <div class="fakeInput--counter p-2 justify-content-center">
                   <p>{{ adForm.usedToken }}</p>
@@ -253,9 +253,9 @@
                 </Field>
                 <ErrorMessage name="使用額度" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="adStartDate" class="form__label--custom form-label"
+                  <label for="adStartDate" class="labelBox__label form-label"
                     >刊登起始日期</label
                   >
                   <p class="formTag--must company">必填</p>

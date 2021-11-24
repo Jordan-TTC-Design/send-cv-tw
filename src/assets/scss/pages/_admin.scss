@@ -376,7 +376,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .form__inputBox {
+  .form__input {
     margin-bottom: 0;
   }
   .inputBox--logo {
@@ -386,7 +386,7 @@
     width: calc(68% - 10px);
     display: flex;
     flex-direction: column;
-    .form__inputBox {
+    .form__input{
       width: 80%;
     }
   }
@@ -664,9 +664,10 @@
     }
   }
 }
+// 卡片中的 tag new
 .card--application {
   position: relative;
-  .unHandle {
+  .tag--new {
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;

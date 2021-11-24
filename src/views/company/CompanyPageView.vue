@@ -34,7 +34,7 @@
           <div class="companyInfoBox box--shadow mb-3">
             <div class="d-flex mb-3 justify-content-between">
               <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>工作照片
+                <span class="tag--doubleCircle me-2"></span>工作照片
               </h3>
               <button
                 type="button"
@@ -110,7 +110,7 @@
           <div class="companyInfoBox box--shadow mb-3">
             <div class="d-flex mb-3 justify-content-between">
               <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>公司簡介
+                <span class="tag--doubleCircle me-2"></span>公司簡介
               </h3>
               <button
                 type="button"
@@ -131,7 +131,7 @@
               </div>
             </div>
             <div v-if="editDataSection === 'companyIntro'">
-              <div class="form__inputBox form__infoEditBox mb-4">
+              <div class="form__input form__infoEditBox mb-4">
                 <ckeditor
                   id="companyDataCompanyIntro"
                   ref="companyDataCompanyIntro"
@@ -160,7 +160,7 @@
             <div class="pb-5 mb-5 border-bottom border-gray-line">
               <div class="d-flex mb-3 justify-content-between">
                 <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle me-2"></span>福利制度
+                  <span class="tag--doubleCircle me-2"></span>福利制度
                 </h3>
                 <button
                   type="button"
@@ -183,7 +183,7 @@
                 </div>
               </div>
               <div v-if="editDataSection === 'welfareContent'">
-                <div class="form__inputBox form__infoEditBox mb-4">
+                <div class="form__input form__infoEditBox mb-4">
                   <ckeditor
                     id="companyDataWelfareContent"
                     ref="companyDataWelfareContent"
@@ -215,7 +215,7 @@
             <div>
               <div class="d-flex mb-3 justify-content-between">
                 <h3 class="section__title--sub">
-                  <span class="titleTag--doubleCircle me-2"></span>服務項目
+                  <span class="tag--doubleCircle me-2"></span>服務項目
                 </h3>
                 <button
                   type="button"
@@ -239,7 +239,7 @@
                 </div>
               </div>
               <div v-if="editDataSection === 'servicesContent'">
-                <div class="form__inputBox form__infoEditBox mb-4">
+                <div class="form__input form__infoEditBox mb-4">
                   <ckeditor
                     id="companyDataServicesContent"
                     ref="companyDataServicesContent"

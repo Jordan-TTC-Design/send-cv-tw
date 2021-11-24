@@ -5,8 +5,8 @@
     :ref="`list__item${jobItem.id}`"
     class="list__item d-flex box--shadow flex-column align-items-start card--application"
   >
-    <div class="unHandle">
-      <p class="unHandle__txt">NEW</p>
+    <div class="tag--new">
+      <p class="tag--new__txt">NEW</p>
     </div>
     <div class="d-flex w-100 flex-md-row flex-column">
       <div class="list__item__imgBox">

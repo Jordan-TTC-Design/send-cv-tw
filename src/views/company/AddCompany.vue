@@ -14,13 +14,13 @@
       <div class="row justify-content-center position-relative">
         <div class="col-xl-6 col-lg-8 col-md-10 col-12">
           <Form v-if="formStep === 1" v-slot="{ errors }" @submit="formStep = 2">
-            <div class="adminContentBox adminContentBox--full position-relative">
+            <div class="adminContentBox adminContentBox--full adminContentBox--p">
               <h2 class="pageTitle mb-5 text-center">企業註冊</h2>
               <p class="mb-5 text-center">填寫以下資料並經過審核後，即可上線招募～</p>
               <!-- 企業名稱 -->
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="formCompanyName" class="form__label--custom form-label"
+                  <label for="formCompanyName" class="labelBox__label form-label"
                     >企業名稱</label
                   >
                   <p class="formTag--must company">必填</p>
@@ -41,9 +41,9 @@
               <!-- 企業統編、電話 -->
               <div class="row">
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="formUnitNumber" class="form__label--custom form-label"
+                      <label for="formUnitNumber" class="labelBox__label form-label"
                         >統一編號</label
                       >
                     </div>
@@ -61,9 +61,9 @@
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="formCompanyPhone" class="form__label--custom form-label"
+                      <label for="formCompanyPhone" class="labelBox__label form-label"
                         >企業電話</label
                       >
                     </div>
@@ -83,9 +83,9 @@
               </div>
               <!-- 公司地址 -->
               <div class="d-flex">
-                <div class="form__inputBox me-2">
+                <div class="form__input me-2">
                   <div class="form__labelBox">
-                    <label for="formCompanyCity" class="form__label--custom form-label"
+                    <label for="formCompanyCity" class="labelBox__label form-label"
                       >公司地址</label
                     >
                   </div>
@@ -106,9 +106,9 @@
                   </Field>
                   <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
                 </div>
-                <div class="form__inputBox">
+                <div class="form__input">
                   <div class="form__labelBox">
-                    <label for="formCompanyDist" class="form__label--custom form-label"
+                    <label for="formCompanyDist" class="labelBox__label form-label"
                       >區域鄉鎮</label
                     >
                   </div>
@@ -129,9 +129,9 @@
                   <ErrorMessage name="區域鄉鎮" class="invalid-feedback"></ErrorMessage>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="jobFormAddressDetail" class="form__label--custom form-label"
+                  <label for="jobFormAddressDetail" class="labelBox__label form-label"
                     >公司詳細地址</label
                   >
                 </div>
@@ -149,9 +149,9 @@
               </div>
               <div class="row">
                 <div class="col-md-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="formContactName" class="form__label--custom form-label"
+                      <label for="formContactName" class="labelBox__label form-label"
                         >姓名</label
                       >
                     </div>
@@ -169,9 +169,9 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="formContactPhone" class="form__label--custom form-label"
+                      <label for="formContactPhone" class="labelBox__label form-label"
                         >聯絡電話</label
                       >
                     </div>
@@ -189,9 +189,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="formContactEmail" class="form__label--custom form-label"
+                  <label for="formContactEmail" class="labelBox__label form-label"
                     >Email帳號(登入帳號使用)</label
                   >
                   <p class="formTag--must company">必填</p>
@@ -209,9 +209,9 @@
                 ></Field>
                 <ErrorMessage name="Email帳號" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="formPassword" class="form__label--custom form-label">密碼</label>
+                  <label for="formPassword" class="labelBox__label form-label">密碼</label>
                   <p class="formTag--must company">必填</p>
                 </div>
                 <Field
@@ -227,9 +227,9 @@
                 ></Field>
                 <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="formPasswordCheck" class="form__label--custom form-label"
+                  <label for="formPasswordCheck" class="labelBox__label form-label"
                     >重複確認密碼</label
                   >
                   <p class="formTag--must company">必填</p>
@@ -352,7 +352,7 @@
             v-if="formStep === 2"
             class="
               adminContentBox adminContentBox--full
-              position-relative
+              adminContentBox--p
               d-flex
               flex-column
               justify-content-between
@@ -381,7 +381,7 @@
             </div>
           </div>
           <Form v-if="formStep === 3" v-slot="{ errors }" @submit="newCompany">
-            <div class="adminContentBox adminContentBox--full position-relative">
+            <div class="adminContentBox adminContentBox--full adminContentBox--p">
               <h2 class="pageTitle mb-5 text-center">註冊成功</h2>
               <p class="mb-5 text-center">
                 歡迎您的加入！由於您所申請的是付費方案，您可以選擇立即線上付款或稍後將款帳號email至您的信箱。
@@ -465,9 +465,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="payType" class="form__label--custom form-label">付款方式</label>
+                  <label for="payType" class="labelBox__label form-label">付款方式</label>
                 </div>
                 <div class="d-flex flex-wrap">
                   <div class="form-check me-2">
@@ -501,9 +501,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="payType" class="form__label--custom form-label">發票類型</label>
+                  <label for="payType" class="labelBox__label form-label">發票類型</label>
                 </div>
                 <div class="d-flex flex-wrap">
                   <div class="form-check me-2">
@@ -534,9 +534,9 @@
                   </div>
                 </div>
                 <div v-if="companyItem.invoice.type === '電子統編發票'">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="unitNumber" class="form__label--custom form-label"
+                      <label for="unitNumber" class="labelBox__label form-label"
                         >統一編號</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -554,9 +554,9 @@
                     ></Field>
                     <ErrorMessage name="統一編號" class="invalid-feedback"></ErrorMessage>
                   </div>
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="companyName" class="form__label--custom form-label"
+                      <label for="companyName" class="labelBox__label form-label"
                         >發票抬頭</label
                       >
                     </div>

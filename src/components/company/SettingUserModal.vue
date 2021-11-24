@@ -24,12 +24,12 @@
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <Form v-slot="{ errors }" @submit="processNewUser">
-              <div class="modal-body">
+              <div class="popModal__body--p">
                 <div class="row">
                   <div class="col-6">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="newUserChineseName" class="form__label--custom form-label"
+                        <label for="newUserChineseName" class="labelBox__label form-label"
                           >用戶名稱</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -49,9 +49,9 @@
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="newUserJobTitle" class="form__label--custom form-label"
+                        <label for="newUserJobTitle" class="labelBox__label form-label"
                           >職稱</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -71,9 +71,9 @@
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="newUserEmail" class="form__label--custom form-label"
+                        <label for="newUserEmail" class="labelBox__label form-label"
                           >用戶Email<span class="subTxt ms-2">(將用於登入帳號)</span></label
                         >
                         <p class="formTag--must company">必填</p>
@@ -93,9 +93,9 @@
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="newUserPhone" class="form__label--custom form-label"
+                        <label for="newUserPhone" class="labelBox__label form-label"
                           >用戶手機號碼</label
                         >
                       </div>
@@ -113,9 +113,9 @@
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="newUserChineseName" class="form__label--custom form-label"
+                        <label for="newUserChineseName" class="labelBox__label form-label"
                           >管理員權限</label
                         >
                       </div>
@@ -171,7 +171,7 @@
                   </template>
                 </ul>
               </div>
-              <div class="popModal__footer border-top border-gray-line">
+              <div class="popModal__footer--border">
                 <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                   取消
                 </button>
@@ -184,7 +184,7 @@
               <h5 class="popModal__title">新增用戶</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body--p">
               <p>新增完成</p>
             </div>
             <div class="popModal__footer">
@@ -205,12 +205,12 @@
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <Form @submit="saveAuthority">
-              <div class="modal-body">
+              <div class="popModal__body--p">
                 <div class="row">
                   <div class="col-6">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="newUserChineseName" class="form__label--custom form-label"
+                        <label for="newUserChineseName" class="labelBox__label form-label"
                           >管理員權限</label
                         >
                       </div>
@@ -266,7 +266,7 @@
                   </template>
                 </ul>
               </div>
-              <div class="popModal__footer border-top border-gray-line">
+              <div class="popModal__footer--border">
                 <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                   取消
                 </button>
@@ -280,10 +280,10 @@
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <Form v-slot="{ errors }" @submit="processNewEmail">
-              <div class="modal-body">
-                <div class="form__inputBox mb-0">
+              <div class="popModal__body--p">
+                <div class="form__input mb-0">
                   <div class="form__labelBox">
-                    <label for="bindFormEmail" class="form__label--custom form-label">email</label>
+                    <label for="bindFormEmail" class="labelBox__label form-label">email</label>
                     <p class="formTag--must company">必填</p>
                   </div>
                   <Field
@@ -313,7 +313,7 @@
               <h5 class="popModal__title">驗證您的電子信箱</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body--p">
               <p class="text-center mb-2 px-5">
                 我們寄出了一封驗證帳號的信件給您，驗證信有效期限24小時，建議您立即驗證並依照指示完成信箱綁定。
               </p>

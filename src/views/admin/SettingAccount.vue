@@ -105,7 +105,7 @@
                     <div class="d-flex">
                       <button
                         type="button"
-                        class="btn btn--switch me-2"
+                        class="btn btn--switch btn--switch--jobSeeker me-2"
                         @click="toogleData('skillShowStyle')"
                       >
                         <div class="switch__container" :class="{ active: skillShowStyle }">
@@ -131,7 +131,7 @@
                     <div class="d-flex">
                       <button
                         type="button"
-                        class="btn btn--switch me-2"
+                        class="btn btn--switch btn--switch--jobSeeker me-2"
                         @click="toogleData('skillShowStyle')"
                       >
                         <div class="switch__container" :class="{ active: skillShowStyle }">

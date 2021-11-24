@@ -23,24 +23,24 @@
             <button
               class="btn position-relative"
               type="button"
-              :id="`dropdownMenuButton--jobEdit`"
+              id="dropdownMenu--jobEdit"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i class="jobIcon bi bi-three-dots text-dark"></i>
             </button>
             <ul
-              :ref="`dropDownMent`"
+              ref="dropDownMenu"
               class="dropDownMenu dropdown-menu"
-              :aria-labelledby="`dropdownMenuButton--jobEdit`"
+              aria-labelledby="dropdownMenu--jobEdit"
             >
               <li
-                class="dropDownMenu__item"
+                class="dropDownMenu__item dropdown-item"
                 @click="goToPageLink(`/company-admin/edit-job/${jobForm.key}`)"
               >
                 編輯職位
               </li>
-              <li class="dropDownMenu__item" @click="deleteJob">刪除職位</li>
+              <li class="dropDownMenu__item dropdown-item" @click="deleteJob">刪除職位</li>
             </ul>
           </div>
         </div>
@@ -115,7 +115,7 @@
           <!-- 職位內容 -->
           <div class="jobContentSection box--shadow mb-4">
             <h3 class="section__title--sub">
-              <span class="titleTag--doubleCircle me-2"></span>職位內容
+              <span class="tag--doubleCircle me-2"></span>職位內容
             </h3>
             <ul class="jobDataList">
               <li class="jobDataList__item col-12 flex-column align-items-start">
@@ -129,7 +129,7 @@
           <!-- 應徵條件 -->
           <div class="jobContentSection box--shadow mb-4">
             <h3 class="section__title--sub">
-              <span class="titleTag--doubleCircle me-2"></span>應徵條件
+              <span class="tag--doubleCircle me-2"></span>應徵條件
             </h3>
             <ul class="jobDataList">
               <!-- 學歷要求 -->
@@ -208,7 +208,7 @@
           <!-- 其他職位資訊 -->
           <div class="jobContentSection box--shadow mb-4">
             <h3 class="section__title--sub">
-              <span class="titleTag--doubleCircle me-2"></span>其他職位資訊
+              <span class="tag--doubleCircle me-2"></span>其他職位資訊
             </h3>
             <ul class="jobDataList row">
               <!-- 職位類別 -->
@@ -321,7 +321,7 @@
           <!-- 申請方法 -->
           <div class="jobContentSection box--shadow mb-4">
             <h3 class="section__title--sub">
-              <span class="titleTag--doubleCircle me-2"></span>申請方法
+              <span class="tag--doubleCircle me-2"></span>申請方法
             </h3>
             <ul class="jobDataList row">
               <li class="jobDataList__item col-lg-6 col-12">

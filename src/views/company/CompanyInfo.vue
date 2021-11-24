@@ -170,9 +170,9 @@
               <div class="row mb-3">
                 <div class="col-lg-6 col-12">
                   <!-- 公司名稱 -->
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="companyDataName" class="form__label--custom form-label"
+                      <label for="companyDataName" class="labelBox__label form-label"
                         >企業名稱</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -191,9 +191,9 @@
                     <ErrorMessage name="企業名稱" class="invalid-feedback"></ErrorMessage>
                   </div>
                   <!-- 公司統編 -->
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="companyDataUnitNumber" class="form__label--custom form-label"
+                      <label for="companyDataUnitNumber" class="labelBox__label form-label"
                         >公司統編</label
                       >
                     </div>
@@ -210,9 +210,9 @@
                     <ErrorMessage name="目前職稱" class="invalid-feedback"></ErrorMessage>
                   </div>
                   <!-- 公司人數 -->
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="companyDataCompanySize" class="form__label--custom form-label"
+                      <label for="companyDataCompanySize" class="labelBox__label form-label"
                         >公司人數</label
                       >
                       <p class="formTag--must company">必選</p>
@@ -236,9 +236,9 @@
                     <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
                   </div>
                   <!-- 所屬行業 -->
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="companyDataCompanyIndustry" class="form__label--custom form-label"
+                      <label for="companyDataCompanyIndustry" class="labelBox__label form-label"
                         >所屬行業</label
                       >
                       <p class="formTag--must company">必選</p>
@@ -268,9 +268,9 @@
                 </div>
                 <!-- 公司logo -->
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="companyDataCompanyIndustry" class="form__label--custom form-label"
+                      <label for="companyDataCompanyIndustry" class="labelBox__label form-label"
                         >公司Logo</label
                       >
                     </div>
@@ -290,9 +290,9 @@
                 </div>
                 <div class="col-12">
                   <div class="d-flex">
-                    <div class="form__inputBox me-2">
+                    <div class="form__input me-2">
                       <div class="form__labelBox">
-                        <label for="companyDataCompanyCity" class="form__label--custom form-label"
+                        <label for="companyDataCompanyCity" class="labelBox__label form-label"
                           >公司地址</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -315,9 +315,9 @@
                       </Field>
                       <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="companyDataCompanyDist" class="form__label--custom form-label"
+                        <label for="companyDataCompanyDist" class="labelBox__label form-label"
                           >區域鄉鎮</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -341,9 +341,9 @@
                       <ErrorMessage name="區域鄉鎮" class="invalid-feedback"></ErrorMessage>
                     </div>
                   </div>
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="compnayDataaddressDetail" class="form__label--custom form-label"
+                      <label for="compnayDataaddressDetail" class="labelBox__label form-label"
                         >公司詳細地址</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -366,9 +366,9 @@
               <h3 class="admin__mainContent__title" v-if="editMode">主要聯絡人資料</h3>
               <div class="row">
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="mainContactName" class="form__label--custom form-label"
+                      <label for="mainContactName" class="labelBox__label form-label"
                         >聯絡人姓名</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -388,9 +388,9 @@
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="mainContactJobTitle" class="form__label--custom form-label"
+                      <label for="mainContactJobTitle" class="labelBox__label form-label"
                         >聯絡人職稱</label
                       >
                       <p class="formTag--must company">必填</p>
@@ -411,9 +411,9 @@
                 </div>
                 <!-- 電子郵件 -->
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="mainContactEmail" class="form__label--custom form-label"
+                      <label for="mainContactEmail" class="labelBox__label form-label"
                         >電子郵件</label
                       >
                     </div>
@@ -430,9 +430,9 @@
                 </div>
                 <!-- 聯絡電話 -->
                 <div class="col-lg-6 col-12">
-                  <div class="form__inputBox">
+                  <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="mainContactPhone" class="form__label--custom form-label"
+                      <label for="mainContactPhone" class="labelBox__label form-label"
                         >聯絡電話</label
                       >
                     </div>

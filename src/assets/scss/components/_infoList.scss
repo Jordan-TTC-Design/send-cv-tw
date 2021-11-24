@@ -1,0 +1,78 @@
+// 資訊列表
+.infoList {
+  .infoList__item {
+    padding: 0.75rem 0;
+    @include border-bottom;
+    &__title {
+      font-size: 0.875rem;
+      color: $secondary;
+      margin-bottom: 0.25rem;
+    }
+    .subTxt {
+      font-size: 0.875rem;
+      color: $secondary;
+    }
+    &__content {
+      font-size: 1rem;
+    }
+  }
+  .infoList__item:hover {
+    .infoList__item__title,
+    .subTxt {
+      color: $dark;
+    }
+  }
+}
+.infoList.infoList--company {
+  .infoList__item:hover {
+    .infoList__item__title,
+    .subTxt {
+      color: $companyColor;
+    }
+  }
+  .infoList__item__socialMediaBox {
+    &:hover {
+      .socialMediaBox__title {
+        color: $companyColor;
+      }
+    }
+  }
+}
+.infoList.infoList--jobSeeker {
+  .infoList__item:hover {
+    .infoList__item__title,
+    .subTxt {
+      color: $primary-dark;
+    }
+  }
+  .infoList__item__socialMediaBox {
+    &:hover {
+      .socialMediaBox__title {
+        color: $primary-dark;
+      }
+    }
+  }
+}
+.infoList--lg {
+  .infoList__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0.75rem;
+    @include border-bottom;
+    &:first-child {
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+    &:last-child {
+      border-bottom: 0;
+      border-bottom-left-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
+  }
+}
+.infoList--bgHover {
+  .infoList__item {
+    @include list--bg--hover;
+  }
+}

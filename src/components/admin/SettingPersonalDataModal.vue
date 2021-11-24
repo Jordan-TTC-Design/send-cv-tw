@@ -20,7 +20,7 @@
               <h5 class="popModal__title">駕照</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body--p">
               <div class="row">
                 <template v-for="(item, index) in user.others.driverLicenses" :key="item.name">
                   <div class="col-6">
@@ -53,7 +53,7 @@
               <h5 class="popModal__title">特殊身份</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body--p">
               <template v-for="(item, index) in user.others.identities" :key="item.name">
                 <div class="form-check border-bottom border-gray-line">
                   <input
@@ -82,7 +82,7 @@
               <h5 class="popModal__title">兵役</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body--p">
               <template v-for="(item, index) in user.others.militaryServices" :key="item.name">
                 <div class="form-check border-bottom border-gray-line">
                   <input

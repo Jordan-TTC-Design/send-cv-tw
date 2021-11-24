@@ -1,15 +1,15 @@
 <template>
-  <div class="form__inputBox">
+  <div class="form__input">
     <div class="form__labelBox">
-      <label for="imageUrl" class="form__label--custom form-label" v-if="inputAction === 'muti'"
+      <label for="imageUrl" class="labelBox__label form-label" v-if="inputAction === 'muti'"
         >第 {{ imgNumber + 1 }} 張職位圖片</label
       >
-      <label for="imageUrl" class="form__label--custom form-label" v-if="inputAction === 'single'"
+      <label for="imageUrl" class="labelBox__label form-label" v-if="inputAction === 'single'"
         >職位圖片</label
       >
       <label
         for="imageUrl"
-        class="form__label--custom form-label"
+        class="labelBox__label form-label"
         v-if="dataName === 'companyLogoUrl'"
         >公司logo</label
       >

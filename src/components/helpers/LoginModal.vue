@@ -1,7 +1,7 @@
 <template>
   <div
     ref="loginModal"
-    class="modal fade popModal"
+    class="popModal modal fade"
     id="loginModal"
     aria-hidden="true"
     aria-labelledby="loginModalLabel"
@@ -13,12 +13,12 @@
           <h5 class="popModal__title">{{ mainAction }}</h5>
           <button type="button" class="btn-close" @click="closeModal"></button>
         </div>
-        <div class="modal-body mb-5" v-if="modalAction === '企業登入'">
+        <div class="popModal__body--p mb-5" v-if="modalAction === '企業登入'">
           <p class="mb-5 text-center">歡迎使用 SendCV 招募人才!</p>
           <Form v-if="companyLoginStep === 1" v-slot="{ errors }" @submit="companyLogin">
-            <div class="form__inputBox">
+            <div class="form__input">
               <div class="form__labelBox">
-                <label for="loginEmail" class="form__label--custom form-label">Email帳號</label>
+                <label for="loginEmail" class="labelBox__label form-label">Email帳號</label>
               </div>
               <Field
                 id="loginEmail"
@@ -33,9 +33,9 @@
               ></Field>
               <ErrorMessage name="Email帳號" class="invalid-feedback"></ErrorMessage>
             </div>
-            <div class="form__inputBox">
+            <div class="form__input">
               <div class="form__labelBox">
-                <label for="loginPassword" class="form__label--custom form-label">密碼</label>
+                <label for="loginPassword" class="labelBox__label form-label">密碼</label>
               </div>
               <Field
                 id="loginPassword"
@@ -58,12 +58,12 @@
             <p>登入成功</p>
           </div>
         </div>
-        <div class="modal-body mb-5" v-if="modalAction === '求職者會員登入'">
+        <div class="popModal__body--p mb-5" v-if="modalAction === '求職者會員登入'">
           <p class="mb-5 text-center">歡迎使用 SendCV ！最懂你需求的人力資源平台！</p>
           <Form v-if="jobSeekerLoginStep === 1" v-slot="{ errors }" @submit="jobSeekerLogin">
-            <div class="form__inputBox">
+            <div class="form__input">
               <div class="form__labelBox">
-                <label for="loginEmail" class="form__label--custom form-label">Email帳號</label>
+                <label for="loginEmail" class="labelBox__label form-label">Email帳號</label>
               </div>
               <Field
                 id="loginEmail"
@@ -78,9 +78,9 @@
               ></Field>
               <ErrorMessage name="Email帳號" class="invalid-feedback"></ErrorMessage>
             </div>
-            <div class="form__inputBox">
+            <div class="form__input">
               <div class="form__labelBox">
-                <label for="loginPassword" class="form__label--custom form-label">密碼</label>
+                <label for="loginPassword" class="labelBox__label form-label">密碼</label>
               </div>
               <Field
                 id="loginPassword"

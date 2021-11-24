@@ -28,10 +28,10 @@
             ></button>
           </div>
           <Form ref="editCoverLetterForm" v-slot="{ errors }" @submit="saveCoverLetterData">
-            <div class="modal-body">
-              <div class="form__inputBox">
+            <div class="popModal__body">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="coverLetterTitle" class="form__label--custom form-label"
+                  <label for="coverLetterTitle" class="labelBox__label form-label"
                     >求職信名稱</label
                   >
                   <p class="formTag--must">必填</p>
@@ -49,9 +49,9 @@
                 ></Field>
                 <ErrorMessage name="求職信名稱" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox form__infoEditBox mb-0">
+              <div class="form__input form__infoEditBox mb-0">
                 <div class="form__labelBox">
-                  <label for="coverLetterContent" class="form__label--custom form-label"
+                  <label for="coverLetterContent" class="labelBox__label form-label"
                     >求職信內容</label
                   >
                   <p class="formTag--must">必填</p>
@@ -106,7 +106,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="popModal__body">
             <div class="inputReader">
               <label class="inputReader__title">求職信內容</label>
               <div
@@ -151,10 +151,10 @@
             ></button>
           </div>
           <Form ref="editMessageTemplateForm" v-slot="{ errors }" @submit="saveMessageTemplateData">
-            <div class="modal-body">
-              <div class="form__inputBox">
+            <div class="popModal__body">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="messageTemplateTitle" class="form__label--custom form-label"
+                  <label for="messageTemplateTitle" class="labelBox__label form-label"
                     >文字模板名稱</label
                   >
                   <p class="formTag--must">必填</p>
@@ -172,9 +172,9 @@
                 ></Field>
                 <ErrorMessage name="文字模板名稱" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox form__infoEditBox mb-0">
+              <div class="form__input form__infoEditBox mb-0">
                 <div class="form__labelBox">
-                  <label for="messageTemplateContent" class="form__label--custom form-label"
+                  <label for="messageTemplateContent" class="labelBox__label form-label"
                     >文字模板內容</label
                   >
                   <p class="formTag--must">必填</p>
@@ -229,7 +229,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="popModal__body">
             <div class="inputReader">
               <label class="inputReader__title">文字模板內容</label>
               <div
@@ -271,10 +271,10 @@
             ></button>
           </div>
           <Form ref="sendMessageTemplateForm" v-slot="{ errors }" @submit="sendMessageTemplateData">
-            <div class="modal-body">
-              <div class="form__inputBox form__infoEditBox mb-0">
+            <div class="popModal__body">
+              <div class="form__input form__infoEditBox mb-0">
                 <div class="form__labelBox">
-                  <label for="messageTemplateContent" class="form__label--custom form-label"
+                  <label for="messageTemplateContent" class="labelBox__label form-label"
                     >文字模板內容</label
                   >
                   <p class="formTag--must">必填</p>
@@ -339,9 +339,9 @@
                   </label>
                 </div>
               </div>
-              <div class="form__inputBox mt-2" v-if="messageTemplateSaveNew.replace">
+              <div class="form__input mt-2" v-if="messageTemplateSaveNew.replace">
                 <div class="form__labelBox">
-                  <label for="newMessageTemplateTitle" class="form__label--custom form-label"
+                  <label for="newMessageTemplateTitle" class="labelBox__label form-label"
                     >新文字模板名稱</label
                   >
                   <p class="formTag--must">必填</p>
@@ -384,10 +384,10 @@
             ></button>
           </div>
           <Form ref="editAccountEmail" v-slot="{ errors }" @submit="saveVideoData">
-            <div class="modal-body">
-              <div class="form__inputBox">
+            <div class="popModal__body">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="videoTitle" class="form__label--custom form-label">影片名稱</label>
+                  <label for="videoTitle" class="labelBox__label form-label">影片名稱</label>
                   <p class="formTag--must">必填</p>
                 </div>
                 <Field
@@ -403,9 +403,9 @@
                 ></Field>
                 <ErrorMessage name="影片名稱" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox d-none">
+              <div class="form__input d-none">
                 <div class="form__labelBox">
-                  <label for="videoUrl" class="form__label--custom form-label">影片檔案</label>
+                  <label for="videoUrl" class="labelBox__label form-label">影片檔案</label>
                   <p class="formTag--must">必填</p>
                 </div>
                 <div class="docVideo__contentBox">
@@ -431,9 +431,9 @@
                 ></Field>
                 <ErrorMessage name="影片檔案" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="upLoadSectionImg" class="form__label--custom form-label"
+                  <label for="upLoadSectionImg" class="labelBox__label form-label"
                     >影片封面</label
                   >
                 </div>
@@ -498,9 +498,9 @@
                 ></Field>
                 <ErrorMessage name="影片封面" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox form__infoEditBox">
+              <div class="form__input form__infoEditBox">
                 <div class="form__labelBox">
-                  <label for="videoContent" class="form__label--custom form-label">影片描述</label>
+                  <label for="videoContent" class="labelBox__label form-label">影片描述</label>
                 </div>
                 <ckeditor
                   id="videoContent"
@@ -540,10 +540,10 @@
             ></button>
           </div>
           <Form ref="editProductData" v-slot="{ errors }" @submit="saveProductData">
-            <div class="modal-body">
-              <div class="form__inputBox">
+            <div class="popModal__body">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="productTitle" class="form__label--custom form-label">作品名稱</label>
+                  <label for="productTitle" class="labelBox__label form-label">作品名稱</label>
                   <p class="formTag--must">必填</p>
                 </div>
                 <Field
@@ -559,9 +559,9 @@
                 ></Field>
                 <ErrorMessage name="作品名稱" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="upLoadSectionImg" class="form__label--custom form-label"
+                  <label for="upLoadSectionImg" class="labelBox__label form-label"
                     >作品圖片</label
                   >
                 </div>
@@ -626,9 +626,9 @@
                 ></Field>
                 <ErrorMessage name="作品圖片" class="invalid-feedback"></ErrorMessage>
               </div>
-              <div class="form__inputBox form__infoEditBox">
+              <div class="form__input form__infoEditBox">
                 <div class="form__labelBox">
-                  <label for="productContent" class="form__label--custom form-label"
+                  <label for="productContent" class="labelBox__label form-label"
                     >作品描述</label
                   >
                 </div>

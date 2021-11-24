@@ -2,7 +2,7 @@
   <div class="container">
     <div
       ref="otherApplyModal"
-      class="modal fade popModal"
+      class="popModal modal fade"
       id="otherApplyModal"
       aria-hidden="true"
       aria-labelledby="otherApplyModalLabel"
@@ -14,7 +14,7 @@
             <h5 class="popModal__title">尋找生活中更多工作機會</h5>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
-          <div class="modal-body">
+          <div class="popModal__body--p">
             <div class="row">
               <div class="col-6">
                 <div @click="goToPageLink('/other-apply/mail')" class="otherApplyModalBox">

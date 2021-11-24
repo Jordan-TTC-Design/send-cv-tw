@@ -16,7 +16,7 @@
             <h5 class="popModal__title">編輯圖片</h5>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
-          <div class="modal-body border-bottom border-gray-line">
+          <div class="popModal__body--p border-bottom border-gray-line">
             <div class="cropperImageBox mb-5">
               <img class="cropperImage d-none" ref="cropperImage" src="" alt="原圖" />
             </div>

@@ -37,7 +37,9 @@
                       class="dropDownMenu dropdown-menu"
                       :aria-labelledby="`dropdownMenuButton--cvExpData--${index}`"
                     >
-                      <li class="dropDownMenu__item" @click="deleteData(index)">刪除</li>
+                      <li class="dropDownMenu__item dropdown-item" @click="deleteData(index)">
+                        刪除
+                      </li>
                     </ul>
                   </div>
                 </div>

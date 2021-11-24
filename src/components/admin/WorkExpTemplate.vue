@@ -8,9 +8,9 @@
     <div class="row">
       <!-- 企業名稱 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="workExpDataCompanyName" class="form__label--custom form-label"
+            <label for="workExpDataCompanyName" class="labelBox__label form-label"
               >企業名稱</label
             >
             <p class="formTag--must">必填</p>
@@ -31,9 +31,9 @@
       </div>
       <!-- 職位名稱 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="workExpDataJobName" class="form__label--custom form-label">職位名稱</label>
+            <label for="workExpDataJobName" class="labelBox__label form-label">職位名稱</label>
             <p class="formTag--must">必填</p>
           </div>
           <Field
@@ -52,9 +52,9 @@
       </div>
       <!-- 到職年份 -->
       <div class="col-lg-6 col-12 d-flex">
-        <div class="form__inputBox me-2">
+        <div class="form__input me-2">
           <div class="form__labelBox">
-            <label for="workExpDataStartYear" class="form__label--custom form-label"
+            <label for="workExpDataStartYear" class="labelBox__label form-label"
               >就讀年份</label
             >
             <p class="formTag--must">必填</p>
@@ -77,9 +77,9 @@
           </Field>
           <ErrorMessage name="到職年份" class="invalid-feedback"></ErrorMessage>
         </div>
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="workExpDataStartMonth" class="form__label--custom form-label invisible"
+            <label for="workExpDataStartMonth" class="labelBox__label form-label invisible"
               >到職月份</label
             >
           </div>
@@ -103,9 +103,9 @@
       </div>
       <!-- 離職年份 -->
       <div class="col-lg-6 col-12 d-flex">
-        <div class="form__inputBox me-2">
+        <div class="form__input me-2">
           <div class="form__labelBox">
-            <label for="workExpDataEndYear" class="form__label--custom form-label">離職日期</label>
+            <label for="workExpDataEndYear" class="labelBox__label form-label">離職日期</label>
             <p class="formTag--must">必填</p>
           </div>
           <Field
@@ -125,9 +125,9 @@
           </Field>
           <ErrorMessage name="離職年份" class="invalid-feedback"></ErrorMessage>
         </div>
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="workExpDataEndMonth" class="form__label--custom form-label invisible"
+            <label for="workExpDataEndMonth" class="labelBox__label form-label invisible"
               >離職月份</label
             >
           </div>
@@ -151,9 +151,9 @@
       </div>
       <!-- 職務內容＆成就 -->
       <div class="col-12">
-        <div class="form__inputBox form__infoEditBox">
+        <div class="form__input form__infoEditBox">
           <div class="form__labelBox">
-            <label for="workExpDataContent" class="form__label--custom form-label"
+            <label for="workExpDataContent" class="labelBox__label form-label"
               >職務內容＆成就</label
             >
           </div>

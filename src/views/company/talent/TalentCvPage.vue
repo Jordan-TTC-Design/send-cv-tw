@@ -8,7 +8,7 @@
               {{ cvData.userData.account.chineseName }}的履歷
             </h2>
             <div class="d-flex d-none" ref="cvTitle--edit">
-              <div class="form__inputBox mb-0 me-2">
+              <div class="form__input mb-0 me-2">
                 <input
                   id="cvTitle--edit"
                   name="履歷名稱"
@@ -34,7 +34,7 @@
           <div class="cvContainer mb-5 position-relative">
             <div class="cvContainer__titleBox mb-5">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle--company me-2"></div>
+                <div class="tag--doubleCircle--company me-2"></div>
                 個人資訊
               </h3>
             </div>
@@ -67,7 +67,7 @@
             </p>
             <div class="cvContainer__titleBox mb-4">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle--company me-2"></div>
+                <div class="tag--doubleCircle--company me-2"></div>
                 自我介紹
               </h3>
             </div>
@@ -83,7 +83,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle--company me-2"></div>
+                <div class="tag--doubleCircle--company me-2"></div>
                 工作經驗
               </h3>
             </div>
@@ -129,7 +129,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle--company me-2"></div>
+                <div class="tag--doubleCircle--company me-2"></div>
                 學歷
               </h3>
             </div>
@@ -174,7 +174,7 @@
           <div class="cvContainer mb-5">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle--company me-2"></div>
+                <div class="tag--doubleCircle--company me-2"></div>
                 專業技能
               </h3>
             </div>
@@ -243,7 +243,7 @@
             <div class="cvContainer mb-5">
               <div class="cvContainer__titleBox">
                 <h3 class="cvContainer__title" :ref="`expDataTitle--${listIndex}`">
-                  <div class="titleTag--doubleCircle--company me-2"></div>
+                  <div class="tag--doubleCircle--company me-2"></div>
                   {{ listItem.sectionTitle }}
                 </h3>
               </div>
@@ -259,7 +259,7 @@
           <div class="cvContainer mb-5" v-if="cvData.userData.docData">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle--company me-2"></div>
+                <div class="tag--doubleCircle--company me-2"></div>
                 我的作品
               </h3>
             </div>
@@ -311,7 +311,7 @@
           <div class="cvContainer" v-if="cvData.userData.docData">
             <div class="cvContainer__titleBox">
               <h3 class="cvContainer__title">
-                <div class="titleTag--doubleCircle--company me-2"></div>
+                <div class="tag--doubleCircle--company me-2"></div>
                 其他資訊
               </h3>
             </div>

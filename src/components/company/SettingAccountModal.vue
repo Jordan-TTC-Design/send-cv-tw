@@ -19,10 +19,10 @@
                   <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <Form ref="editAccountEmail" v-slot="{ errors }" @submit="saveEmail">
-                  <div class="modal-body">
-                    <div class="form__inputBox">
+                  <div class="popModal__body">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataEmail" class="form__label--custom form-label"
+                        <label for="accountDataEmail" class="labelBox__label form-label"
                           >新帳號</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -40,9 +40,9 @@
                       ></Field>
                       <ErrorMessage name="新帳號" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox mb-0">
+                    <div class="form__input mb-0">
                       <div class="form__labelBox">
-                        <label for="accountDataPassword" class="form__label--custom form-label"
+                        <label for="accountDataPassword" class="labelBox__label form-label"
                           >登入密碼</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -81,10 +81,10 @@
                   <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <Form ref="editAccountPhone" v-slot="{ errors }" @submit="savePhone">
-                  <div class="modal-body">
-                    <div class="form__inputBox">
+                  <div class="popModal__body">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataPhone" class="form__label--custom form-label"
+                        <label for="accountDataPhone" class="labelBox__label form-label"
                           >新電話號碼</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -102,9 +102,9 @@
                       ></Field>
                       <ErrorMessage name="電話號碼" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox d-flex flex-column mb-0">
+                    <div class="form__input d-flex flex-column mb-0">
                       <div class="form__labelBox">
-                        <label for="accountDataPassword" class="form__label--custom form-label"
+                        <label for="accountDataPassword" class="labelBox__label form-label"
                           >登入密碼</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -143,12 +143,12 @@
                   <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <Form ref="editAccountPhone" v-slot="{ errors }" @submit="savePassword">
-                  <div class="modal-body">
-                    <div class="form__inputBox">
+                  <div class="popModal__body">
+                    <div class="form__input">
                       <div class="form__labelBox">
                         <label
                           for="accountDataCurrentPassword"
-                          class="form__label--custom form-label"
+                          class="labelBox__label form-label"
                           >目前密碼</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -169,9 +169,9 @@
                       ></Field>
                       <ErrorMessage name="目前密碼" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataNewPassword" class="form__label--custom form-label"
+                        <label for="accountDataNewPassword" class="labelBox__label form-label"
                           >新密碼</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -192,9 +192,9 @@
                       ></Field>
                       <ErrorMessage name="新密碼" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox mb-0">
+                    <div class="form__input mb-0">
                       <div class="form__labelBox">
-                        <label for="accountDataAgainPassword" class="form__label--custom form-label"
+                        <label for="accountDataAgainPassword" class="labelBox__label form-label"
                           >確認密碼</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -233,10 +233,10 @@
                   <button type="button" class="btn-close" @click="closeModal"></button>
                 </div>
                 <Form ref="deleteAccount" v-slot="{ errors }" @submit="deleteAccount">
-                  <div class="modal-body">
-                    <div class="form__inputBox">
+                  <div class="popModal__body">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataEmail" class="form__label--custom form-label"
+                        <label for="accountDataEmail" class="labelBox__label form-label"
                           >帳號</label
                         >
                         <p class="formTag--must company">必填</p>
@@ -254,9 +254,9 @@
                       ></Field>
                       <ErrorMessage name="帳號" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox mb-0">
+                    <div class="form__input mb-0">
                       <div class="form__labelBox">
-                        <label for="accountDataPassword" class="form__label--custom form-label"
+                        <label for="accountDataPassword" class="labelBox__label form-label"
                           >密碼</label
                         >
                         <p class="formTag--must company">必填</p>

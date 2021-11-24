@@ -17,9 +17,9 @@
           class="dropDownMenu dropdown-menu"
           :aria-labelledby="`dropdownMenuButton--cvExpData--${formIndex}`"
         >
-          <li class="dropDownMenu__item" @click="editFrom">編輯</li>
-          <li class="dropDownMenu__item">調整排序</li>
-          <li class="dropDownMenu__item" @click="deleteData">刪除</li>
+          <li class="dropDownMenu__item dropdown-item" @click="editFrom">編輯</li>
+          <li class="dropDownMenu__item dropdown-item">調整排序</li>
+          <li class="dropDownMenu__item dropdown-item" @click="deleteData">刪除</li>
         </ul>
       </div>
     </div>
@@ -43,9 +43,9 @@
     v-if="expSectionData.editMode"
   >
     <div v-if="expSectionData.editorStyle === '' && expSectionData.editMode">
-      <div class="form__inputBox">
+      <div class="form__input">
         <div class="form__labelBox">
-          <label for="editorStyle" class="form__label--custom form-label">選擇模板樣式</label>
+          <label for="editorStyle" class="labelBox__label form-label">選擇模板樣式</label>
         </div>
         <ul class="editorSelectBoxList">
           <li class="editorSelectBox me-2" @click="tempalteStyle = 'onlyTxt'">
@@ -112,9 +112,9 @@
     <div class="row" v-if="expSectionData.editorStyle !== '' && expSectionData.editMode">
       <!-- 標題 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="expDataTitle" class="form__label--custom form-label">標題</label>
+            <label for="expDataTitle" class="labelBox__label form-label">標題</label>
             <p class="formTag--must">必填</p>
           </div>
           <Field
@@ -146,11 +146,11 @@
         }"
       >
         <div
-          class="form__inputBox form__infoEditBox"
+          class="form__input form__infoEditBox"
           :class="{ 'form__infoEditBox--sm': expSectionData.editorStyle === 'largeImg' }"
         >
           <div class="form__labelBox">
-            <label for="expSectionContent" class="form__label--custom form-label">內容</label>
+            <label for="expSectionContent" class="labelBox__label form-label">內容</label>
           </div>
           <ckeditor
             id="expSectionContent"
@@ -180,9 +180,9 @@
         :class="{ 'col-md-12': expSectionData.editorStyle === 'largeImg' }"
         v-if="expSectionData.editorStyle !== 'onlyTxt'"
       >
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="upLoadSectionImg" class="form__label--custom form-label">圖片</label>
+            <label for="upLoadSectionImg" class="labelBox__label form-label">圖片</label>
           </div>
           <input
             id="upLoadSectionImg"

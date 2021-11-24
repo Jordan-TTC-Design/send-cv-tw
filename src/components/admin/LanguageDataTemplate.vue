@@ -2,9 +2,9 @@
   <Form v-slot="{ errors }" class="dataEditForm" @submit="saveData">
     <div class="row">
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="languageDataName" class="form__label--custom form-label">語言</label>
+            <label for="languageDataName" class="labelBox__label form-label">語言</label>
             <p class="formTag--must">必填</p>
           </div>
           <Field
@@ -25,9 +25,9 @@
         </div>
       </div>
       <div class="col-lg-3 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="languageDataLevel" class="form__label--custom form-label">語言程度</label>
+            <label for="languageDataLevel" class="labelBox__label form-label">語言程度</label>
           </div>
           <Field
             id="languageDataLevel"

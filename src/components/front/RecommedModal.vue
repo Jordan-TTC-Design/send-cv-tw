@@ -1,7 +1,7 @@
 <template>
   <div
     ref="recommedModal"
-    class="modal fade popModal"
+    class="popModal modal fade"
     id="recommedModal"
     aria-hidden="true"
     aria-labelledby="recommedModalLabel"
@@ -14,13 +14,15 @@
           <button type="button" class="btn-close" @click="closeModal"></button>
         </div>
         <div v-if="modalAction === '新增興趣推薦條件' && dataReady">
-          <div class="modal-body px-0">
+          <div class="popModal__body">
             <div class="dataForm border-top border-gray-line dataForm--interestForm">
               <div class="dataForm__innerList p-5">
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >自訂條件名稱</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="searchFilterTop-keyword" class="labelBox__label form-label"
+                      >自訂條件名稱</label
+                    >
+                  </div>
                   <input
                     type="text"
                     class="form-control"
@@ -30,8 +32,10 @@
                     v-model="careerData.title"
                   />
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標行業</label>
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標行業</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標行業'">
                     <div class="fakeInput__txtList">
                       <p
@@ -47,8 +51,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標職務</label>
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標職務</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標職務'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="careerData.jobCategoriesSelect.length === 0">
@@ -61,8 +67,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標地區</label>
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標地區</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標地區'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="careerData.workPlaceSelect.length === 0">
@@ -76,10 +84,12 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-end mb-3">
-                  <div class="inputGroup--item me-2">
-                    <label for="salaryRangeLow" class="form-label inputItem__title"
-                      >薪資待遇範圍起始</label
-                    >
+                  <div class="form__input me-2">
+                    <div class="form__labelBox">
+                      <label for="salaryRangeLow" class="labelBox__label form-label"
+                        >薪資待遇範圍起始</label
+                      >
+                    </div>
                     <input
                       type="number"
                       class="form-control"
@@ -89,10 +99,12 @@
                       v-model="careerData.salaryRange.salaryLow"
                     />
                   </div>
-                  <div class="inputGroup--item me-2">
-                    <label for="salaryRangeHeight" class="form-label inputItem__title"
-                      >薪資待遇範圍結束</label
-                    >
+                  <div class="form__input me-2">
+                    <div class="form__labelBox">
+                      <label for="salaryRangeHeight" class="labelBox__label form-label"
+                        >薪資待遇範圍結束</label
+                      >
+                    </div>
                     <input
                       type="number"
                       class="form-control"
@@ -112,10 +124,12 @@
                     <label class="form-check-label" for="salaryRangeInterview"> 接受面議 </label>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >工作性質</label
-                  >
+                <div class="form__input">
+                  <div class="form__labelBox">
+                    <label for="searchFilterTop-keyword" class="labelBox__label form-label"
+                      >工作性質</label
+                    >
+                  </div>
                   <div class="d-flex">
                     <template v-for="(item, index) in careerData.workType" :key="item.title">
                       <div
@@ -142,10 +156,12 @@
                     </template>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >工作時間</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="searchFilterworkTime" class="labelBox__label form-label"
+                      >工作時間</label
+                    >
+                  </div>
                   <div class="d-flex">
                     <template v-for="(item, index) in careerData.workTime" :key="item.title">
                       <div
@@ -172,10 +188,12 @@
                     </template>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >外派機會</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="searchFilterExpat" class="labelBox__label form-label"
+                      >外派機會</label
+                    >
+                  </div>
                   <div
                     class="form-check formCheck--btn putPointer"
                     @click="careerData.expat = !careerData.expat"
@@ -198,7 +216,7 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-gray-light me-2" @click="closeModal">取消</button>
             <button
               type="button"
@@ -210,13 +228,15 @@
           </div>
         </div>
         <div v-if="modalAction === '編輯興趣推薦條件' && dataReady">
-          <div class="modal-body px-0">
+          <div class="popModal__body">
             <div class="dataForm border-top border-gray-line dataForm--interestForm">
               <div class="dataForm__innerList p-5">
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >自訂條件名稱</label
-                  >
+                <div class="form__input">
+                  <div class="form__labelBox">
+                    <label for="searchFilterTop-keyword" class="labelBox__label form-label"
+                      >自訂條件名稱</label
+                    >
+                  </div>
                   <input
                     type="text"
                     class="form-control"
@@ -226,8 +246,10 @@
                     v-model="careerData.title"
                   />
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標行業</label>
+                <div class="form__input">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標行業</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標行業'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="!careerData.industryCategoriesSelect">
@@ -240,8 +262,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標職務</label>
+                <div class="form__input">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標職務</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標職務'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="!careerData.jobCategoriesSelect">請選擇</p>
@@ -252,8 +276,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標地區</label>
+                <div class="form__input">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標地區</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標地區'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="!careerData.workPlaceSelect">請選擇</p>
@@ -265,10 +291,12 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-end mb-3">
-                  <div class="inputGroup--item me-2">
-                    <label for="salaryRangeLow" class="form-label inputItem__title"
-                      >薪資待遇範圍起始</label
-                    >
+                  <div class="form__input me-2">
+                    <div class="form__labelBox">
+                      <label for="salaryRangeLow" class="labelBox__label form-label"
+                        >薪資待遇範圍起始</label
+                      >
+                    </div>
                     <input
                       type="number"
                       class="form-control"
@@ -278,10 +306,12 @@
                       v-model="careerData.salaryRange.salaryLow"
                     />
                   </div>
-                  <div class="inputGroup--item me-2">
-                    <label for="salaryRangeHeight" class="form-label inputItem__title"
-                      >薪資待遇範圍結束</label
-                    >
+                  <div class="form__input me-2">
+                    <div class="form__labelBox">
+                      <label for="salaryRangeHeight" class="labelBox__label form-label"
+                        >薪資待遇範圍結束</label
+                      >
+                    </div>
                     <input
                       type="number"
                       class="form-control"
@@ -301,10 +331,12 @@
                     <label class="form-check-label" for="salaryRangeInterview"> 接受面議 </label>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >工作性質</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="searchFilterTop-workType" class="labelBox__label form-label"
+                      >工作性質</label
+                    >
+                  </div>
                   <div class="d-flex">
                     <template v-for="(item, index) in careerData.workType" :key="item.title">
                       <div
@@ -331,10 +363,12 @@
                     </template>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >工作時間</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="searchFilterTop-workTime" class="labelBox__label form-label"
+                      >工作時間</label
+                    >
+                  </div>
                   <div class="d-flex">
                     <template v-for="(item, index) in careerData.workTime" :key="item.title">
                       <div
@@ -361,10 +395,12 @@
                     </template>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >外派機會</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="searchFilterTop-expat" class="labelBox__label form-label"
+                      >外派機會</label
+                    >
+                  </div>
                   <div
                     class="form-check formCheck--btn putPointer"
                     @click="careerData.expat = !careerData.expat"
@@ -372,12 +408,12 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      id="expat"
+                      id="searchFilterTop-expat"
                       v-model="careerData.expat"
                     />
                     <label
                       class="form-check-label putPointer"
-                      for="expat"
+                      for="searchFilterTop-expat"
                       @click="careerData.expat = !careerData.expat"
                     >
                       是否接受企業外派
@@ -387,7 +423,7 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line justify-content-between">
+          <div class="popModal__footer--border justify-content-between">
             <button type="button" class="btn btn-gray-light me-2" @click="deleteData">
               刪除設定
             </button>
@@ -406,24 +442,26 @@
           </div>
         </div>
         <div v-if="modalAction === '新增興趣行業推薦條件' && dataReady">
-          <div class="modal-body px-0">
+          <div class="popModal__body">
             <div class="dataForm border-top border-gray-line dataForm--interestForm">
               <div class="dataForm__innerList p-5">
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >自訂條件名稱</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="form-name" class="labelBox__label form-label">自訂條件名稱</label>
+                  </div>
                   <input
                     type="text"
                     class="form-control"
-                    id="searchFilterTop-keyword"
+                    id="form-name"
                     placeholder="自訂條件名稱"
                     aria-describedby="自訂條件名稱"
                     v-model="careerData.title"
                   />
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標行業</label>
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標行業</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標行業'">
                     <div class="fakeInput__txtList">
                       <p
@@ -439,8 +477,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標地區</label>
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標地區</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標地區'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="careerData.workPlaceSelect.length === 0">
@@ -453,10 +493,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >外派機會</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="form-expat" class="labelBox__label form-label">外派機會</label>
+                  </div>
                   <div
                     class="form-check formCheck--btn putPointer"
                     @click="careerData.expat = !careerData.expat"
@@ -464,12 +504,12 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      id="expat"
+                      id="form-expat"
                       v-model="careerData.expat"
                     />
                     <label
                       class="form-check-label putPointer"
-                      for="expat"
+                      for="form-expat"
                       @click="careerData.expat = !careerData.expat"
                     >
                       是否接受企業外派
@@ -479,7 +519,7 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-gray-light me-2" @click="closeModal">取消</button>
             <button
               type="button"
@@ -491,24 +531,26 @@
           </div>
         </div>
         <div v-if="modalAction === '編輯興趣行業推薦條件' && dataReady">
-          <div class="modal-body px-0">
+          <div class="popModal__body">
             <div class="dataForm border-top border-gray-line dataForm--interestForm">
               <div class="dataForm__innerList p-5">
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >自訂條件名稱</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="form-name" class="labelBox__label form-label">自訂條件名稱</label>
+                  </div>
                   <input
                     type="text"
                     class="form-control"
-                    id="searchFilterTop-keyword"
+                    id="form-name"
                     placeholder="自訂條件名稱"
                     aria-describedby="自訂條件名稱"
                     v-model="careerData.title"
                   />
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標行業</label>
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標行業</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標行業'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="!careerData.industryCategoriesSelect">
@@ -521,8 +563,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label class="form-label inputItem__title">目標地區</label>
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label class="labelBox__label form-label">目標地區</label>
+                  </div>
                   <div class="fakeInput" @click="modalAction = '設定目標地區'">
                     <div class="fakeInput__txtList">
                       <p class="text-secondary" v-if="!careerData.workPlaceSelect">請選擇</p>
@@ -533,10 +577,10 @@
                     <i class="jobIcon bi bi-chevron-right"></i>
                   </div>
                 </div>
-                <div class="inputGroup--item mb-3">
-                  <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                    >外派機會</label
-                  >
+                <div class="form__input mb-3">
+                  <div class="form__labelBox">
+                    <label for="form-expat" class="labelBox__label form-label">目標地區</label>
+                  </div>
                   <div
                     class="form-check formCheck--btn putPointer"
                     @click="careerData.expat = !careerData.expat"
@@ -544,12 +588,12 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      id="expat"
+                      id="form-expat"
                       v-model="careerData.expat"
                     />
                     <label
                       class="form-check-label putPointer"
-                      for="expat"
+                      for="form-expat"
                       @click="careerData.expat = !careerData.expat"
                     >
                       是否接受企業外派
@@ -559,7 +603,7 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line justify-content-between">
+          <div class="popModal__footer--border justify-content-between">
             <button type="button" class="btn btn-gray-light me-2" @click="deleteData">
               刪除設定
             </button>
@@ -578,8 +622,8 @@
           </div>
         </div>
         <div v-if="modalAction === '設定目標職務'">
-          <div class="modal-body px-0">
-            <div class="popModal__subHeaderNav">
+          <div class="popModal__body">
+            <div class="popModal__body__subNav">
               <p
                 class="d-flex align-items-center text-dark putPointer"
                 @click="modalAction = mainAction"
@@ -654,15 +698,15 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-primary" @click="saveThisData('設定目標職務')">
               確定
             </button>
           </div>
         </div>
         <div v-if="modalAction === '設定目標行業'">
-          <div class="modal-body px-0">
-            <div class="popModal__subHeaderNav">
+          <div class="popModal__body">
+            <div class="popModal__body__subNav">
               <p
                 class="d-flex align-items-center text-dark putPointer"
                 @click="modalAction = mainAction"
@@ -691,14 +735,14 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-primary" @click="saveThisData('設定目標行業')">
               確定
             </button>
           </div>
         </div>
         <div v-if="modalAction === '設定目標地區'">
-          <div class="popModal__subHeaderNav">
+          <div class="popModal__body__subNav">
             <p
               class="d-flex align-items-center text-dark putPointer"
               @click="modalAction = mainAction"
@@ -707,7 +751,7 @@
             </p>
             <p class="subTxt text-secondary">最多選擇10項</p>
           </div>
-          <div class="modal-body px-0">
+          <div class="popModal__body">
             <div class="dataForm border-top border-gray-line">
               <div class="dataForm__leftList">
                 <ul>
@@ -759,7 +803,7 @@
               </div>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-primary" @click="saveThisData('設定目標地區')">
               確定
             </button>

@@ -14,9 +14,9 @@
     <div class="row">
       <!-- 技能類別 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="skillDataCategory" class="form__label--custom form-label">技能類別</label>
+            <label for="skillDataCategory" class="labelBox__label form-label">技能類別</label>
             <p class="formTag--must">必填</p>
           </div>
           <Field
@@ -37,9 +37,9 @@
     <div class="row">
       <!-- 技能名稱 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="skillDataCategorySkillName" class="form__label--custom form-label"
+            <label for="skillDataCategorySkillName" class="labelBox__label form-label"
               >技能名稱</label
             >
           </div>

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="adModal"
-    class="modal fade popModal"
+    class="popModal modal fade"
     id="adModal"
     aria-hidden="true"
     aria-labelledby="adModalLabel"
@@ -17,8 +17,8 @@
           <h5 class="popModal__title">{{ mainAction }}</h5>
           <button type="button" class="btn-close" @click="closeModal"></button>
         </div>
-        <div class="modal-body" v-if="modalAction === '廣告預覽'">
-          <div class="form__inputBox">
+        <div class="popModal__body--p" v-if="modalAction === '廣告預覽'">
+          <div class="form__input">
             <div class="d-flex">
               <div class="form-check me-4">
                 <input
@@ -61,7 +61,7 @@
             />
           </div>
         </div>
-        <div class="modal-body mb-5" v-if="modalAction === '檢視廣告'">
+        <div class="popModal__body--p mb-5" v-if="modalAction === '檢視廣告'">
           <div class="row">
             <div class="col-6">
               <ul class="infoList infoList--company">
@@ -124,7 +124,7 @@
             </div>
           </div>
         </div>
-        <div class="modal-body mb-5" v-if="modalAction === '已成功申請刊登廣告'">
+        <div class="popModal__body--p mb-5" v-if="modalAction === '已成功申請刊登廣告'">
           <p class="mb-5">
             您已成功申請刊登「{{
               adItem.adType
@@ -134,7 +134,7 @@
             理解，返回加值服務。
           </button>
         </div>
-        <div class="modal-body mb-5" v-if="modalAction === '已成功重新申請刊登廣告'">
+        <div class="popModal__body--p mb-5" v-if="modalAction === '已成功重新申請刊登廣告'">
           <p class="mb-5">
             您已成功重新申請刊登「{{
               adItem.adType
@@ -144,14 +144,14 @@
             理解，返回加值服務。
           </button>
         </div>
-        <div class="modal-body mb-5" v-if="modalAction === '延長刊登時間' && dataReady">
+        <div class="popModal__body--p mb-5" v-if="modalAction === '延長刊登時間' && dataReady">
           <div class="mb-2 d-flex align-items-center justify-content-between">
             <p>目前剩餘額度：{{ company.payService.adTokens }}</p>
             <button type="button" class="btn btn-outline-gray-line text-dark">購買額度</button>
           </div>
-          <div class="inputGroup--item mb-3">
+          <div class="form__input mb-3">
             <div class="form__labelBox">
-              <label for="adToken" class="form__label--custom form-label">使用額度</label>
+              <label for="adToken" class="labelBox__label form-label">使用額度</label>
             </div>
             <div class="fakeInput--counter">
               <div

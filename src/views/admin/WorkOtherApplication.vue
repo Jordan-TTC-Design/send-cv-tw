@@ -79,8 +79,8 @@
                     card--application
                   "
                 >
-                  <div class="unHandle">
-                    <p class="unHandle__txt">NEW</p>
+                  <div class="tag--new">
+                    <p class="tag--new__txt">NEW</p>
                   </div>
                   <div class="d-flex w-100 flex-md-row flex-column">
                     <div class="list__item__imgBox">
@@ -142,8 +142,8 @@
                     card--application
                   "
                 >
-                  <div class="unHandle">
-                    <p class="unHandle__txt">NEW</p>
+                  <div class="tag--new">
+                    <p class="tag--new__txt">NEW</p>
                   </div>
                   <div class="d-flex w-100 flex-md-row flex-column">
                     <div class="list__item__imgBox">

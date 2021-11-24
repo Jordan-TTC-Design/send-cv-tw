@@ -2,7 +2,7 @@
   <button
     ref="upTopBtn"
     type="button"
-    class="d-none sideIconBtn upTopBtn btn btn-light"
+    class="d-none sideBtn upTopBtn btn btn-light"
     @click="toTop"
   >
     <i class="jobIcon bi bi-arrow-up"></i>

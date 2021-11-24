@@ -14,10 +14,12 @@
               <div class="mainBanner__innerBox bg-white rounded">
                 <h2 class="mainBanner__title text-dark mb-4">搜尋職位</h2>
                 <form class="mainBanner__searchBar" @submit="toSearchJob">
-                  <div class="inputGroup--item mb-3">
-                    <label for="searchFilterTop-keyword" class="form-label inputItem__title"
-                      >關鍵字</label
-                    >
+                  <div class="form__input mb-3">
+                    <div class="form__labelBox">
+                      <label for="searchFilterTop-keyword" class="labelBox__label form-label"
+                        >關鍵字</label
+                      >
+                    </div>
                     <input
                       type="text"
                       class="form-control"
@@ -35,10 +37,12 @@
                       flex-grow-1 flex-md-row flex-column
                     "
                   >
-                    <div class="inputGroup--item flex-grow-1 me-md-4 mb-3">
-                      <label for="searchFilterTop-city" class="form-label inputItem__title"
-                        >地區</label
-                      >
+                    <div class="form__input flex-grow-1 me-md-4 mb-3">
+                      <div class="form__labelBox">
+                        <label for="searchFilterTop-city" class="labelBox__label form-label"
+                          >地區</label
+                        >
+                      </div>
                       <select
                         class="form-select"
                         aria-label="地區"
@@ -56,14 +60,16 @@
                         </option>
                       </select>
                     </div>
-                    <div class="inputGroup--item flex-grow-1 mb-3">
-                      <label for="searchFilterTop-city" class="form-label inputItem__title"
-                        >職位類別</label
-                      >
+                    <div class="form__input flex-grow-1 mb-3">
+                      <div class="form__labelBox">
+                        <label for="searchFilterTop-jobCategory" class="labelBox__label form-label"
+                          >職位類別</label
+                        >
+                      </div>
                       <select
                         class="form-select"
                         aria-label="地區"
-                        id="searchFilterTop-city"
+                        id="searchFilterTop-jobCategory"
                         v-model="filterData.jobCategory"
                       >
                         <option disabled>請選擇職位類別</option>
@@ -515,7 +521,7 @@
   <div class="sideBtnBox">
     <button
       type="button"
-      class="sideIconBtn btn btn-light mb-2"
+      class="sideBtn btn btn-light mb-2"
       @click="callEmitter('open-other-apply-modal')"
     >
       <i class="jobIcon bi bi-camera-fill"></i>

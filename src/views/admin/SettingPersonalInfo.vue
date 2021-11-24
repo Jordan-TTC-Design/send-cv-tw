@@ -15,7 +15,7 @@
                 </div>
               </div>
               <p class="mb-3">曾鼎鈞</p>
-              <div class="inputGroup--item w-100">
+              <div class="form__input w-100">
                 <div
                   class="inputItem__switch form-check form-switch border border-gray-line rounded"
                 >
@@ -190,9 +190,9 @@
                 <div class="row">
                   <!-- 姓名 -->
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataName" class="form__label--custom form-label"
+                        <label for="accountDataName" class="labelBox__label form-label"
                           >姓名</label
                         >
                         <p class="formTag--must">必填</p>
@@ -213,9 +213,9 @@
                   </div>
                   <!-- 職稱 -->
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataJobTitle" class="form__label--custom form-label"
+                        <label for="accountDataJobTitle" class="labelBox__label form-label"
                           >目前職稱</label
                         >
                       </div>
@@ -234,9 +234,9 @@
                   </div>
                   <!-- 性別 -->
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataGender" class="form__label--custom form-label"
+                        <label for="accountDataGender" class="labelBox__label form-label"
                           >性別</label
                         >
                         <p class="formTag--must">必填</p>
@@ -275,9 +275,9 @@
                   </div>
                   <!-- 生日 -->
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataBirthday" class="form__label--custom form-label"
+                        <label for="accountDataBirthday" class="labelBox__label form-label"
                           >生日</label
                         >
                         <p class="formTag--must">必填</p>
@@ -300,9 +300,9 @@
                 <div class="row">
                   <!-- 電子郵件 -->
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataEmail" class="form__label--custom form-label"
+                        <label for="accountDataEmail" class="labelBox__label form-label"
                           >電子郵件</label
                         >
                       </div>
@@ -320,9 +320,9 @@
                   </div>
                   <!-- 聯絡電話 -->
                   <div class="col-lg-6 col-12">
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataPhone" class="form__label--custom form-label"
+                        <label for="accountDataPhone" class="labelBox__label form-label"
                           >聯絡電話</label
                         >
                       </div>
@@ -339,9 +339,9 @@
                     </div>
                   </div>
                   <div class="col-lg-6 col-12 d-flex">
-                    <div class="form__inputBox me-2">
+                    <div class="form__input me-2">
                       <div class="form__labelBox">
-                        <label for="accountDataCity" class="form__label--custom form-label"
+                        <label for="accountDataCity" class="labelBox__label form-label"
                           >居住地址</label
                         >
                         <p class="formTag--must">必填</p>
@@ -364,9 +364,9 @@
                       </Field>
                       <ErrorMessage name="縣市" class="invalid-feedback"></ErrorMessage>
                     </div>
-                    <div class="form__inputBox">
+                    <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataCity" class="form__label--custom form-label"
+                        <label for="accountDataCity" class="labelBox__label form-label"
                           >區域鄉鎮</label
                         >
                         <p class="formTag--must">必填</p>
@@ -494,14 +494,14 @@
                             :aria-labelledby="`dropdownMenuButton--workExp--${index}`"
                           >
                             <li
-                              class="dropDownMenu__item"
+                              class="dropDownMenu__item dropdown-item"
                               @click="editTemplateData(`editWorkExp--${index}`)"
                             >
                               編輯
                             </li>
-                            <li class="dropDownMenu__item">調整排序</li>
+                            <li class="dropDownMenu__item dropdown-item">調整排序</li>
                             <li
-                              class="dropDownMenu__item"
+                              class="dropDownMenu__item dropdown-item"
                               @click="deleteTemplateData('workExp', index)"
                             >
                               刪除
@@ -613,14 +613,14 @@
                             :aria-labelledby="`dropdownMenuButton--education--${index}`"
                           >
                             <li
-                              class="dropDownMenu__item"
+                              class="dropDownMenu__item dropdown-item"
                               @click="editTemplateData(`editEducationExp--${index}`)"
                             >
                               編輯
                             </li>
-                            <li class="dropDownMenu__item">調整排序</li>
+                            <li class="dropDownMenu__item dropdown-item">調整排序</li>
                             <li
-                              class="dropDownMenu__item"
+                              class="dropDownMenu__item dropdown-item"
                               @click="deleteTemplateData('education', index)"
                             >
                               刪除
@@ -656,7 +656,7 @@
             <div class="admin__mainContent__btnBox">
               <button
                 type="button"
-                class="btn btn--switch me-2"
+                class="btn btn--switch btn--switch--jobSeeker me-2"
                 @click="toogleData('skillShowStyle')"
               >
                 <div class="switch__container" :class="{ active: skillShowStyle }">
@@ -708,10 +708,13 @@
                           class="dropDownMenu dropdown-menu"
                           :aria-labelledby="`dropdownMenuButton--language`"
                         >
-                          <li class="dropDownMenu__item" @click="editTemplateData(`editLanguage`)">
+                          <li
+                            class="dropDownMenu__item dropdown-item"
+                            @click="editTemplateData(`editLanguage`)"
+                          >
                             編輯
                           </li>
-                          <li class="dropDownMenu__item">調整排序</li>
+                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
                         </ul>
                       </div>
                     </div>
@@ -759,10 +762,13 @@
                           class="dropDownMenu dropdown-menu"
                           :aria-labelledby="`dropdownMenuButton--license`"
                         >
-                          <li class="dropDownMenu__item" @click="editTemplateData(`editLicense`)">
+                          <li
+                            class="dropDownMenu__item dropdown-item"
+                            @click="editTemplateData(`editLicense`)"
+                          >
                             編輯
                           </li>
-                          <li class="dropDownMenu__item">調整排序</li>
+                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
                         </ul>
                       </div>
                     </div>
@@ -815,14 +821,14 @@
                             :aria-labelledby="`dropdownMenuButton--skill--${index}`"
                           >
                             <li
-                              class="dropDownMenu__item"
+                              class="dropDownMenu__item dropdown-item"
                               @click="editTemplateData(`editSkill--${index}`)"
                             >
                               編輯
                             </li>
-                            <li class="dropDownMenu__item">調整排序</li>
+                            <li class="dropDownMenu__item dropdown-item">調整排序</li>
                             <li
-                              class="dropDownMenu__item"
+                              class="dropDownMenu__item dropdown-item"
                               @click="deleteTemplateData('skill', index)"
                             >
                               刪除

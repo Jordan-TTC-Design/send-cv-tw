@@ -12,9 +12,9 @@
               </div>
             </div>
             <div class="sideContentBox__body">
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="filterFormkey" class="form__label--custom form-label">訂單編號</label>
+                  <label for="filterFormkey" class="labelBox__label form-label">訂單編號</label>
                 </div>
                 <input
                   type="text"
@@ -25,9 +25,9 @@
                   v-model="filterForm.key"
                 />
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="filterFormType" class="form__label--custom form-label"
+                  <label for="filterFormType" class="labelBox__label form-label"
                     >訂單類別</label
                   >
                 </div>
@@ -48,9 +48,9 @@
                   </option>
                 </select>
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="filterFormStartDate" class="form__label--custom form-label"
+                  <label for="filterFormStartDate" class="labelBox__label form-label"
                     >訂單日期範圍起始</label
                   >
                 </div>
@@ -63,9 +63,9 @@
                   v-model="filterForm.startDate"
                 />
               </div>
-              <div class="form__inputBox">
+              <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="filterFormEndDate" class="form__label--custom form-label"
+                  <label for="filterFormEndDate" class="labelBox__label form-label"
                     >訂單日期範圍結束</label
                   >
                 </div>
@@ -85,7 +85,7 @@
           </form>
         </div>
         <div class="col-lg-9 col-12">
-          <div class="adminContentBox--full payService__orderList">
+          <div class="adminContentBox adminContentBox--full payService__orderList">
             <ul class="innerNav innerNav--company innerNav--bgColor">
               <li
                 class="innerNav__item"
@@ -247,7 +247,7 @@
               </li>
             </ul>
           </div>
-          <div class="adminContentBox--nonPadding flexTable serviceCart">
+          <div class="adminContentBox flexTable serviceCart">
             <div class="flexTable__header">
               <p class="flexTable__cell flexTable__cell--3">商品名稱</p>
               <p class="flexTable__cell flexTable__cell--1 text-center">項目金額</p>

@@ -22,7 +22,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body px-0">
+          <div class="popModal__body">
             <div class="workPickerBox">
               <div
                 class="
@@ -106,7 +106,7 @@
               </ul>
             </div>
           </div>
-          <div class="popModal__footer border-top border-gray-line">
+          <div class="popModal__footer--border">
             <button type="button" class="btn btn-gray-light me-2" data-bs-dismiss="modal">
               取消
             </button>

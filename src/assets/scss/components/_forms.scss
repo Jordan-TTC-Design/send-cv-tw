@@ -1,0 +1,118 @@
+// 基本 input 容器
+.form__input {
+  margin-bottom: 1rem;
+}
+.form__input.last{
+  margin-bottom: 0;
+}
+// 表單 input 的 label 容器，可以搭配必填
+.form__labelBox {
+  display: flex;
+  align-items: center;
+  margin: 0px 12px 4px 12px;
+  .labelBox__label{
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+}
+// 必填標籤
+.formTag--must {
+  padding: 1px 0.5rem;
+  margin-left: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: $primary;
+  color: $dark;
+  font-size: 10px;
+}
+// 必填標籤企業色
+.formTag--must.company {
+  background-color: $companyColor;
+  color: $light;
+}
+
+.inputItem__switch {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+}
+.searchInput {
+  position: relative;
+  .jobIcon {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+  }
+  input {
+    height: 100%;
+    padding-left: 2.5rem;
+    border: 1px solid $light;
+  }
+}
+.inputReader {
+  display: flex;
+  flex-direction: column;
+  &__title {
+    padding-left: 0.75rem;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+  &__contentBox {
+    background-color: $gray-light;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    &--minHeight {
+      min-height: 120px;
+    }
+  }
+}
+.fakeInput {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid $gray-line;
+  padding: 3px 6px 3px 0.75rem;
+  &__txtList {
+    display: flex;
+    max-width: 80%;
+    overflow-x: hidden;
+    &__line {
+      height: 0.75rem;
+      border-right: 1px solid $gray-line;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
+.fakeInput--counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid $gray-line;
+  &__txtList {
+    display: flex;
+    max-width: 80%;
+    overflow-x: hidden;
+    &__line {
+      height: 0.75rem;
+      border-right: 1px solid $gray-line;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+  .fakeBtn {
+    cursor: pointer;
+    display: flex;
+    padding: 0.4375rem 0.75rem;
+    &:hover .jobIcon {
+      color: $companyColor;
+    }
+    &.disActive .jobIcon {
+      color: $gray-line;
+    }
+  }
+}

@@ -8,9 +8,9 @@
     <div class="row">
       <!-- 學校名稱 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="educationDataSchoolName" class="form__label--custom form-label"
+            <label for="educationDataSchoolName" class="labelBox__label form-label"
               >學校名稱</label
             >
             <p class="formTag--must">必填</p>
@@ -31,9 +31,9 @@
       </div>
       <!-- 主修科目 -->
       <div class="col-lg-6 col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="educationDataMajorName" class="form__label--custom form-label"
+            <label for="educationDataMajorName" class="labelBox__label form-label"
               >主修科目</label
             >
           </div>
@@ -50,9 +50,9 @@
         </div>
       </div>
       <div class="col-12">
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="educationDataEducationLevel" class="form__label--custom form-label"
+            <label for="educationDataEducationLevel" class="labelBox__label form-label"
               >學歷</label
             >
             <p class="formTag--must">必填</p>
@@ -91,9 +91,9 @@
       </div>
       <!-- 就讀年份 -->
       <div class="col-lg-6 col-12 d-flex">
-        <div class="form__inputBox me-2">
+        <div class="form__input me-2">
           <div class="form__labelBox">
-            <label for="educationDataStartYear" class="form__label--custom form-label"
+            <label for="educationDataStartYear" class="labelBox__label form-label"
               >就讀日期</label
             >
             <p class="formTag--must">必填</p>
@@ -116,9 +116,9 @@
           </Field>
           <ErrorMessage name="就讀年份" class="invalid-feedback"></ErrorMessage>
         </div>
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="educationDataStartMonth" class="form__label--custom form-label invisible"
+            <label for="educationDataStartMonth" class="labelBox__label form-label invisible"
               >就讀月份</label
             >
           </div>
@@ -142,9 +142,9 @@
       </div>
       <!-- 畢業年份 -->
       <div class="col-lg-6 col-12 d-flex">
-        <div class="form__inputBox me-2">
+        <div class="form__input me-2">
           <div class="form__labelBox">
-            <label for="educationDataEndYear" class="form__label--custom form-label"
+            <label for="educationDataEndYear" class="labelBox__label form-label"
               >畢業日期</label
             >
             <p class="formTag--must">必填</p>
@@ -166,9 +166,9 @@
           </Field>
           <ErrorMessage name="畢業年份" class="invalid-feedback"></ErrorMessage>
         </div>
-        <div class="form__inputBox">
+        <div class="form__input">
           <div class="form__labelBox">
-            <label for="educationDataEndMonth" class="form__label--custom form-label invisible"
+            <label for="educationDataEndMonth" class="labelBox__label form-label invisible"
               >畢業月份</label
             >
           </div>
@@ -192,9 +192,9 @@
       </div>
       <!-- 在學表現＆成就 -->
       <div class="col-12">
-        <div class="form__inputBox form__infoEditBox">
+        <div class="form__input form__infoEditBox">
           <div class="form__labelBox">
-            <label for="educationDataContent" class="form__label--custom form-label"
+            <label for="educationDataContent" class="labelBox__label form-label"
               >在學表現＆成就</label
             >
           </div>

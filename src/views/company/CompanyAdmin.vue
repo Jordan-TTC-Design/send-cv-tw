@@ -76,7 +76,7 @@
           <ul class="header__nav" ref="headerNav">
             <li class="nav__item nav-item d-lg-block d-none">
               <button
-                class="nav__item__link btn btn--circle btn--circle--lg me-2"
+                class="nav__item__link btn btn--circle btn--lg me-2"
                 type="button"
                 @click="openSearchModal"
               >
@@ -84,7 +84,7 @@
               </button>
             </li>
             <li class="nav__item nav-item d-lg-block d-none">
-              <button class="nav__item__link btn btn--circle btn--circle--lg me-2" type="button">
+              <button class="nav__item__link btn btn--circle btn--lg me-2" type="button">
                 <i class="jobIcon bi bi-chat-left-dots text-light"></i>
               </button>
             </li>

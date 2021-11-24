@@ -27,7 +27,7 @@
               <h5 class="popModal__title">工作性質</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body">
               <template v-for="(item, index) in user.career.workType" :key="item.title">
                 <div class="form-check border-bottom border-gray-line">
                   <input
@@ -56,7 +56,7 @@
               <h5 class="popModal__title">上班時段</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body">
               <template v-for="(item, index) in user.career.workTime" :key="item.title">
                 <div class="form-check border-bottom border-gray-line">
                   <input
@@ -86,7 +86,7 @@
               <p class="subTxt text-secondary">最多選擇10項</p>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body px-0">
+            <div class="popModal__body px-0">
               <div class="dataForm border-top border-gray-line">
                 <div class="dataForm__leftList">
                   <ul>
@@ -157,7 +157,7 @@
                 </div>
               </div>
             </div>
-            <div class="popModal__footer border-top border-gray-line">
+            <div class="popModal__footer--border">
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
@@ -170,7 +170,7 @@
               <p class="subTxt text-secondary">最多選擇10項</p>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body px-0">
+            <div class="popModal__body px-0">
               <div class="dataForm border-top border-gray-line">
                 <div class="dataForm__contentBox w-100">
                   <ul class="dataForm__contentBox__list">
@@ -194,7 +194,7 @@
                 </div>
               </div>
             </div>
-            <div class="popModal__footer border-top border-gray-line">
+            <div class="popModal__footer--border">
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
@@ -207,7 +207,7 @@
               <p class="subTxt text-secondary">最多選擇10項</p>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body px-0">
+            <div class="popModal__body px-0">
               <div class="dataForm border-top border-gray-line">
                 <div class="dataForm__leftList">
                   <ul>
@@ -259,7 +259,7 @@
                 </div>
               </div>
             </div>
-            <div class="popModal__footer border-top border-gray-line">
+            <div class="popModal__footer--border">
               <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                 取消
               </button>
@@ -271,7 +271,7 @@
               <h5 class="popModal__title">外派意願</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
+            <div class="popModal__body">
               <div class="form-check">
                 <input
                   class="form-check-input"
@@ -294,11 +294,13 @@
               <h5 class="popModal__title">薪資接受範圍</h5>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
-              <div class="inputGroup--item">
-                <label for="salaryRangeLow" class="form-label inputItem__title"
-                  >薪資待遇範圍起始</label
-                >
+            <div class="popModal__body">
+              <div class="form__input">
+                <div class="form__labelBox">
+                  <label for="salaryRangeLow" class="labelBox__label form-label"
+                    >薪資待遇範圍起始</label
+                  >
+                </div>
                 <input
                   type="number"
                   class="form-control"
@@ -308,10 +310,12 @@
                   v-model="user.career.salaryRange.salaryLow"
                 />
               </div>
-              <div class="inputGroup--item mb-2">
-                <label for="salaryRangeHeight" class="form-label inputItem__title"
-                  >薪資待遇範圍結束</label
-                >
+              <div class="form__input mb-2">
+                <div class="form__labelBox">
+                  <label for="salaryRangeHeight" class="labelBox__label form-label"
+                    >薪資待遇範圍結束</label
+                  >
+                </div>
                 <input
                   type="number"
                   class="form-control"

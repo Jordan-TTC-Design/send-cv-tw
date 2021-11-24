@@ -1,6 +1,6 @@
 <template>
   <div
-    class="modal fade popModal"
+    class="popModal modal fade"
     tabindex="-1"
     aria-labelledby="imageCropperModal"
     aria-hidden="true"
@@ -12,7 +12,7 @@
           <h5 class="popModal__title">裁切照片</h5>
           <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
         </div>
-        <div class="modal-body mb-5">
+        <div class="popModal__body--p mb-5">
           <div class="row">
             <div class="col-8">
               <div class="cropperImageBox rounded overflow-hidden">
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="popModal__footer border-top border-gray-line justify-content-end">
+        <div class="popModal__footer--border">
           <button type="button" class="btn btn-primary" @click="processImage">確定</button>
         </div>
       </div>

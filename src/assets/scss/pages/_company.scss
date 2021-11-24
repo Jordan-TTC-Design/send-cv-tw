@@ -147,28 +147,6 @@
     }
   }
 }
-.infoList--company {
-  .infoList__item {
-    &:hover {
-      .infoList__item__title,
-      .infoList__item__jobTitle {
-        color: $companyColor;
-      }
-    }
-    .infoList__item__title {
-      font-size: 14px;
-      color: $secondary;
-      margin-bottom: 0.25rem;
-    }
-    .infoList__item__socialMediaBox {
-      &:hover {
-        .socialMediaBox__title {
-          color: $companyColor;
-        }
-      }
-    }
-  }
-}
 .checkList {
   background-color: $light;
   border-radius: 0.5rem;

@@ -114,7 +114,7 @@
                 </div>
               </div>
               <p class="mb-3">{{ tempUser.chineseName }}</p>
-              <div class="inputGroup--item w-100">
+              <div class="form__input w-100">
                 <div
                   class="btn border-gray-line border btn--switch putPointer"
                   @click="tempUser.is_enabled = !tempUser.is_enabled"

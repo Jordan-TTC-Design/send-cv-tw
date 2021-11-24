@@ -155,15 +155,15 @@
             <li ref="sendCV Web通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
               <div class="border-bottom border-gray-line ps-4">
                 <h3 class="section__title--sub pt-5 pb-2">
-                  <span class="titleTag--doubleCircle--company me-2"></span>sendCV Web通知
+                  <span class="tag--doubleCircle--company me-2"></span>sendCV Web通知
                 </h3>
               </div>
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">應徵相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">使用網站申請</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -178,7 +178,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="mb-1 text-dark">使用拍照申請</p>
                     <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
@@ -196,7 +196,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="mb-1 text-dark">寫郵件SendCV</p>
                     <p class="mb-1 subTxt">
@@ -217,7 +217,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意面試通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -232,7 +232,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意錄取通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -247,7 +247,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意錄取通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -265,8 +265,8 @@
               </ul>
             </li>
             <li ref="sendCV Web通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <p class="text-dark">聊天室通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -284,8 +284,8 @@
               </ul>
             </li>
             <li ref="sendCV Web通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <div>
                     <p class="mb-1 text-dark">推薦通知</p>
                     <p class="subTxt">
@@ -308,8 +308,8 @@
               </ul>
             </li>
             <li ref="sendCV Web通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <div>
                     <p class="mb-1 text-dark">面試提醒通知</p>
                     <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
@@ -334,15 +334,15 @@
             <li ref="信箱通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
               <div class="border-bottom border-gray-line ps-4">
                 <h3 class="section__title--sub pt-5 pb-2">
-                  <span class="titleTag--doubleCircle--company me-2"></span>信箱通知
+                  <span class="tag--doubleCircle--company me-2"></span>信箱通知
                 </h3>
               </div>
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">應徵相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">使用網站申請</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -357,7 +357,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="mb-1 text-dark">使用拍照申請</p>
                     <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
@@ -377,7 +377,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="mb-1 text-dark">寫郵件SendCV</p>
                     <p class="mb-1 subTxt">
@@ -400,7 +400,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意面試通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -417,7 +417,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意錄取通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -434,7 +434,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意錄取通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -452,8 +452,8 @@
               </ul>
             </li>
             <li ref="信箱通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <p class="text-dark">聊天室通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -471,8 +471,8 @@
               </ul>
             </li>
             <li ref="信箱通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <div>
                     <p class="mb-1 text-dark">推薦通知</p>
                     <p class="subTxt">
@@ -495,12 +495,12 @@
               </ul>
             </li>
             <li ref="信箱通知 - 職位通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">職位相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">職位成功發布</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -515,7 +515,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="mb-1 text-dark">職位關閉</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -530,7 +530,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="mb-1 text-dark">職位重啟</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -545,7 +545,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="text-dark mb-1">同意面試通知</p>
                     <p class="subTxt">
@@ -568,8 +568,8 @@
               </ul>
             </li>
             <li ref="信箱通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <div>
                     <p class="mb-1 text-dark">面試提醒通知</p>
                     <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
@@ -594,11 +594,11 @@
             <li ref="手機APP通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
               <div class="border-bottom border-gray-line ps-4">
                 <h3 class="section__title--sub pt-5 pb-2">
-                  <span class="titleTag--doubleCircle--company me-2"></span>手機APP通知
+                  <span class="tag--doubleCircle--company me-2"></span>手機APP通知
                 </h3>
               </div>
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">應徵相關通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -613,7 +613,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">使用網站申請</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -628,7 +628,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="mb-1 text-dark">使用拍照申請</p>
                     <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
@@ -646,7 +646,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="mb-1 text-dark">寫郵件SendCV</p>
                     <p class="mb-1 subTxt">
@@ -667,7 +667,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意面試通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -682,7 +682,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意錄取通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -697,7 +697,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">同意錄取通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -715,8 +715,8 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <p class="text-dark">聊天室通知</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -734,8 +734,8 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <div>
                     <p class="mb-1 text-dark">推薦通知</p>
                     <p class="subTxt">
@@ -758,12 +758,12 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 職位通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">職位相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="text-dark">職位成功發布</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -778,7 +778,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="mb-1 text-dark">職位關閉</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -790,7 +790,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <p class="mb-1 text-dark">職位重啟</p>
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
@@ -805,7 +805,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="listBox__item px-4 py-3">
+                <li class="infoList__item px-4 py-3">
                   <div>
                     <p class="text-dark mb-1">同意面試通知</p>
                     <p class="subTxt">
@@ -828,8 +828,8 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="listBox listBox--hover">
-                <li class="listBox__item px-4 py-3 border-0">
+              <ul class="infoList--lg infoList--bgHover">
+                <li class="infoList__item px-4 py-3 border-0">
                   <div>
                     <p class="mb-1 text-dark">面試提醒通知</p>
                     <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
