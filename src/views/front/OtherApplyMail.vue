@@ -8,7 +8,7 @@
               class="d-flex flex-column align-items-center border-bottom border-gray-line mb-5"
               v-if="formStep < 4"
             >
-              <div class="titleBox--tag">
+              <div class="titleBox">
                 <div class="tag--doubleCircle me-2"></div>
                 <h2 class="titleBox__title">寫郵件 SendCV</h2>
               </div>
@@ -76,9 +76,7 @@
                   <!-- 公司名稱(必填) -->
                   <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyName" class="labelBox__label"
-                        >公司名稱</label
-                      >
+                      <label for="sendFormInfoCompanyName" class="labelBox__label">公司名稱</label>
                       <p class="formTag--must">必填</p>
                     </div>
                     <Field
@@ -122,9 +120,7 @@
                   <!-- 職位名稱(必填) -->
                   <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoJobName" class="labelBox__label"
-                        >職位名稱</label
-                      >
+                      <label for="sendFormInfoJobName" class="labelBox__label">職位名稱</label>
                       <p class="formTag--must">必填</p>
                     </div>
                     <Field
@@ -144,9 +140,7 @@
                 <div class="col-12">
                   <div class="form__input form__infoEditBox">
                     <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoJobContent"
-                        class="labelBox__label me-2"
+                      <label for="sendFormInfoJobContent" class="labelBox__label me-2"
                         >職位內容</label
                       >
                       <p class="subTxt">(可幫助企業了解您對職位的認知與期待)</p>
@@ -289,7 +283,7 @@
                 <span class="tag--doubleCircle me-2"></span>求職者申請資訊
               </h3>
               <div class="row">
-                <div class="col-md-8 col-12 mb-4">
+                <div class="col-md-8 mb-4">
                   <!-- 履歷 -->
                   <div class="docSelector h-100">
                     <div class="docSelector__titleBox mb-2">
@@ -298,13 +292,14 @@
                     </div>
                     <div class="docSelector__contentBox overFlow--x">
                       <template v-for="(item, index) in docData.cvList" :key="index">
-                        <div class="docCard me-2 mb-0" @click="form.cvSelect = item.cvKey">
-                          <div class="d-flex flex-column flex-grow-1 me-2">
-                            <div>
-                              <p class="docCard__title">{{ item.cvName }}</p>
-                              <p class="subTxt">{{ $filters.date(item.cvKey) }}</p>
-                            </div>
-                            <div class="form-check position-absolute bottom-0 start-0 ms-2">
+                        <div
+                          class="scvCard flex-row me-4 flex-shrink-0 putPointer align-items-center"
+                          @click="form.document.cvKey = item.cvKey"
+                        >
+                          <div class="scvCard__body flex-grow-1 h-100">
+                            <p class="scvCard__title mb-2">{{ item.cvName }}</p>
+                            <p class="scvCard__subTxt mb-3">{{ $filters.date(item.cvKey) }}</p>
+                            <div class="form-check my-auto mb-0">
                               <input
                                 class="form-check-input mt-0"
                                 type="radio"
@@ -313,7 +308,7 @@
                               />
                             </div>
                           </div>
-                          <img class="docCard__cover" :src="item.cvImgUrl" alt="CV封面" />
+                          <img class="scvCard__img m-3 ms-0" :src="item.cvImgUrl" alt="CV封面" />
                         </div>
                       </template>
                     </div>
@@ -330,7 +325,7 @@
                     <ErrorMessage name="履歷" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
-                <div class="col-md-4 col-12 mb-4">
+                <div class="col-md-4 mb-4">
                   <!-- 自我介紹 -->
                   <div class="docSelector h-100">
                     <div class="docSelector__titleBox mb-2 position-relative">
@@ -350,30 +345,37 @@
                     </div>
                     <div class="docSelector__contentBox">
                       <template v-for="(item, index) in docData.videoList" :key="index">
-                        <div class="docCard docCard--video card w-100 mb-0" v-if="item.introSelect">
-                          <img class="card-img-top" :src="item.imgUrl" alt="影片封面" />
-                          <div class="card-body p-2">
-                            <p class="docCard__title mb-0">{{ item.title }}</p>
+                        <div class="scvCard w-100 mb-0" v-if="item.introSelect">
+                          <img
+                            style="height: 96px"
+                            class="scvCard__img--top"
+                            :src="item.imgUrl"
+                            alt="影片封面"
+                          />
+                          <div class="scvCard__body p-2">
+                            <p class="scvCard__title mb-0">{{ item.title }}</p>
                           </div>
                         </div>
                       </template>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 mb-5">
+                <div class="col-12">
                   <div class="docSelector mb-4">
                     <div class="docSelector__titleBox mb-2">
                       <p class="me-2">求職信</p>
                       <p class="subTxt">(可使用文字模板快速建立求職信)</p>
                     </div>
-                    <div class="docSelector__contentBox overFlow--x">
-                      <template v-for="(item, index) in docData.coverLetterList" :key="index">
-                        <div
-                          class="docCard docCard--coverLetter mb-0 me-2"
-                          @click="useThisTempalte(index)"
-                        >
-                          <div class="d-flex align-items-center justify-content-between">
-                            <p class="docCard__title">{{ item.title }}</p>
+                    <div class="docSelector__contentBox">
+                      <div
+                        v-for="(item, index) in docData.coverLetterList"
+                        :key="index"
+                        class="scvCard scvCard--coverLetter mb-0 me-3"
+                        @click="useThisTempalte(index)"
+                      >
+                        <div class="scvCard__body">
+                          <div class="d-flex justify-content-between align-items-center mb-2">
+                            <p class="scvCard__title">{{ item.title }}</p>
                             <div class="form-check">
                               <input
                                 class="form-check-input mt-0"
@@ -384,19 +386,14 @@
                               />
                             </div>
                           </div>
-                          <div
-                            class="docCard--coverLetter__content subTxt"
-                            v-html="item.content"
-                          ></div>
+                          <div class="scvCard__txtContent subTxt" v-html="item.content"></div>
                         </div>
-                      </template>
+                      </div>
                     </div>
                   </div>
                   <div class="form__input form__infoEditBox mb-1">
                     <div class="form__labelBox">
-                      <label for="coverLetterContent" class="labelBox__label"
-                        >求職信內容</label
-                      >
+                      <label for="coverLetterContent" class="labelBox__label">求職信內容</label>
                     </div>
                     <div class="textarea--tag">
                       <ul class="textarea--tag__tagList">
@@ -466,7 +463,7 @@
               <!-- 表單操作按鈕 -->
             </Form>
             <div class="d-flex flex-column align-items-center" v-if="formStep === 4">
-              <div class="titleBox--tag">
+              <div class="titleBox">
                 <h5 class="titleBox__title">已成功送出申請</h5>
               </div>
               <p class="mx-5 text-center mb-4">

@@ -1,0 +1,84 @@
+.displayTitle{
+  font-size: 2.25rem;
+  color:$dark;
+  font-weight: $fw--md;
+}
+.pageTitle {
+  font-size: 1.5rem;
+  color: $dark;
+  font-weight: $fw--bd;
+}
+.pageSubTitle{
+  font-size: 1.25rem;
+  color: $dark;
+}
+.bodyTxt{
+  font-size: 1rem;
+  color:$gray-dark;
+  font-weight: $fw--rg;
+}
+.strongTxt{
+  font-size: 1rem;
+  color:$dark;
+  font-weight: $fw--md;
+}
+.subTxt {
+  font-size: 14px;
+  font-weight: $fw--rg;
+}
+.subTxt--foil {
+  font-size: 14px;
+  font-weight: $fw--rg;
+  color:$secondary;
+}
+.captionTxt{
+  font-size: 0.75rem;
+  color:$gray-dark;
+  font-weight: $fw--rg;
+}
+.captionTxt--foil{
+  font-size: 0.75rem;
+  color:$secondary;
+  font-weight: $fw--rg;
+}
+.subTxt--sm {
+  font-size: 10px;
+  color:$gray-dark;
+  font-weight: $fw--rg;
+}
+.txtLink{
+  color: $companyColor;
+  font-weight:$fw--rg;
+  text-decoration: underline;
+}
+.txtCompany{
+  font-weight:$fw--md;
+  color: $companyColor;
+}
+.txtSeeker{
+  font-weight:$fw--md;
+  color: $primary-dark;
+}
+// 有圖標的title，用在求職者前台
+.titleBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  .titleBox__title {
+    color: $dark;
+    font-size: 1.5rem;
+    font-weight: $fw--bd;
+    margin-right: 0.5rem;
+  }
+  .titleBox__tag {
+    color: $dark;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
+  }
+  .titleBox__tag--jobSeeker {
+    background-color: $primary;
+  }
+  .titleBox__tag--company {
+    background-color: $companyColor;
+  }
+}

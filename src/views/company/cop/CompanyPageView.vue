@@ -4,7 +4,7 @@
     <div class="container position-relative companyPage">
       <div class="row justify-content-center">
         <!-- 企業資料 -->
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <div class="companyInfoBox box--shadow mb-3">
             <div class="d-flex flex-md-row flex-column align-items-md-stretch align-items-center">
               <div class="companyInfoBox__logoImgBox mb-md-0 mb-4 me-md-4">
@@ -270,33 +270,42 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-12">
-          <ul class="checkList position--sticky--pageTop p-0">
-            <li class="checkList__title text-dark">
-              <p class="checkList__item__title">公司頁面資料完成度</p>
-            </li>
-            <li class="checkList__item">
-              <p class="checkList__item__title">公司照片</p>
-              <i class="jobIcon bi bi-check-circle-fill"
-              :class="{'text-companyColor':company.companyInfo.companyImgsUrl[0].url !==''}"
-              ></i>
-            </li>
-            <li class="checkList__item">
-              <p class="checkList__item__title">公司簡介</p>
-              <i class="jobIcon bi bi-check-circle-fill"
-              :class="{'text-companyColor':company.companyInfo.companyIntro !==''}"></i>
-            </li>
-            <li class="checkList__item">
-              <p class="checkList__item__title">福利制度</p>
-              <i class="jobIcon bi bi-check-circle-fill"
-              :class="{'text-companyColor':company.companyInfo.welfareContent !==''}"></i>
-            </li>
-            <li class="checkList__item">
-              <p class="checkList__item__title">服務項目</p>
-              <i class="jobIcon bi bi-check-circle-fill"
-              :class="{'text-companyColor':company.companyInfo.servicesContent !==''}"></i>
-            </li>
-          </ul>
+        <div class="col-lg-3">
+          <div class="sideContentBox sticky--pageTop">
+            <ul class="innerList innerList--checkList innerList--company">
+              <li class="p-3 border-bottom border-gray-line">
+                <p class="strongTxt">公司頁面資料完成度</p>
+              </li>
+              <li class="innerList__item">
+                <p class="item__title">公司照片</p>
+                <i
+                  class="checkIcon--company jobIcon bi bi-check-circle-fill"
+                  :class="{ 'active': company.companyInfo.companyImgsUrl[0].url !== '' }"
+                ></i>
+              </li>
+              <li class="innerList__item">
+                <p class="item__title">公司簡介</p>
+                <i
+                  class="checkIcon--company jobIcon bi bi-check-circle-fill"
+                  :class="{ 'active': company.companyInfo.companyIntro !== '' }"
+                ></i>
+              </li>
+              <li class="innerList__item">
+                <p class="item__title">福利制度</p>
+                <i
+                  class="checkIcon--company jobIcon bi bi-check-circle-fill"
+                  :class="{ 'active': company.companyInfo.welfareContent !== '' }"
+                ></i>
+              </li>
+              <li class="innerList__item">
+                <p class="item__title">服務項目</p>
+                <i
+                  class="checkIcon--company jobIcon bi bi-check-circle-fill"
+                  :class="{ 'active': company.companyInfo.servicesContent !== '' }"
+                ></i>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

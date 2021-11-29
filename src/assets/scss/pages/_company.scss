@@ -147,63 +147,6 @@
     }
   }
 }
-.checkList {
-  background-color: $light;
-  border-radius: 0.5rem;
-  padding: 1rem 0;
-  @include shadow-normal;
-  &__item {
-    height: 44px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.75rem;
-    border-bottom: 1px solid $gray-line;
-    position: relative;
-    &:first-child {
-      border-top: 1px solid $gray-line;
-    }
-    &::after {
-      content: '';
-      position: absolute;
-      display: block;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: $primary;
-      border-radius: 0.25rem 0 0 0.25rem;
-      width: 0rem;
-      opacity: 0;
-      transition: all 0.3s;
-    }
-    .jobIcon {
-      color: $gray-line;
-    }
-    &.active {
-      background-color: $primary-light;
-      transition: all 0.3s;
-      .checkList__item__title {
-        color: $primary-dark;
-      }
-      &::after {
-        width: 0.25rem;
-        opacity: 1;
-        transition: all 0.3s;
-      }
-    }
-  }
-  &__title {
-    height: 44px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.75rem;
-    border-bottom: 1px solid $gray-line;
-    position: relative;
-    font-weight: $fw--md;
-  }
-}
-
 .emptyCompanyImgBox {
   position: relative;
   border-radius: 0.5rem;

@@ -68,6 +68,23 @@
     }
   }
 }
+.innerNav.innerNav--jobSeeker {
+  .innerNav__item::before {
+    background-color: $primary;
+  }
+  .innerNav__item.active {
+    p,
+    span {
+      color: $primary-dark;
+    }
+  }
+  .innerNav__item:hover {
+    p,
+    span {
+      color: $primary-dark;
+    }
+  }
+}
 // 列表滿版
 .innerNav.innerNav--fill {
   .innerNav__item {
@@ -91,4 +108,11 @@
       display: block;
     }
   }
+}
+.innerNav--single{
+  width: auto;
+  background-color: $light;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  border-bottom: 0 ;
 }

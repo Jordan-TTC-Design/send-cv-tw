@@ -302,7 +302,7 @@
       </div>
     </div>
     <div class="jobsListContainer container">
-      <h3 class="pageTitle ps-3">搜尋結果</h3>
+      <h3 class="pageTitle ps-3 mb-4">搜尋結果</h3>
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>

@@ -7,34 +7,34 @@
           <div
             class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5"
           >
-            <ul class="page__sideNav">
+            <ul class="pageSubNav">
               <li
-                ref="page__sideNav__item--job"
-                class="page__sideNav__item active putPointer"
+                ref="pageSubNav__item--job"
+                class="pageSubNav__item active putPointer"
                 @click="this.navState = 'job'"
               >
-                <p class="page__sideNav__item__title">已申請</p>
+                <p class="pageSubNav__item__title">已申請</p>
               </li>
               <li
-                ref="page__sideNav__item--company"
-                class="page__sideNav__item putPointer"
+                ref="pageSubNav__item--company"
+                class="pageSubNav__item putPointer"
                 @click="this.navState = 'company'"
               >
-                <p class="page__sideNav__item__title">面試</p>
+                <p class="pageSubNav__item__title">面試</p>
               </li>
               <li
-                ref="page__sideNav__item--company"
-                class="page__sideNav__item putPointer"
+                ref="pageSubNav__item--company"
+                class="pageSubNav__item putPointer"
                 @click="this.navState = 'company'"
               >
-                <p class="page__sideNav__item__title">已錄取</p>
+                <p class="pageSubNav__item__title">已錄取</p>
               </li>
               <li
-                ref="page__sideNav__item--company"
-                class="page__sideNav__item putPointer"
+                ref="pageSubNav__item--company"
+                class="pageSubNav__item putPointer"
                 @click="this.navState = 'company'"
               >
-                <p class="page__sideNav__item__title">已婉拒</p>
+                <p class="pageSubNav__item__title">已婉拒</p>
               </li>
             </ul>
           </div>

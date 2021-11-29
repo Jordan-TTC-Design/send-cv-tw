@@ -2,17 +2,17 @@
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
     <div class="container">
-      <ul class="row">
-        <li class="col-4">
-          <router-link class="docCard--new putPointer" to="document-cv/cv/new">
-            <p><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增履歷</p>
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5">
+        <li class="col">
+          <router-link class="newScvCard putPointer h-100" to="document-cv/cv/new">
+            <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增履歷</p>
           </router-link>
         </li>
         <template v-for="(item, index) in cvList" :key="index">
-          <li class="col-4">
-            <router-link class="docCard" :to="`document-cv/cv/${item.cvKey}`">
-              <div class="d-flex flex-column justify-content-between flex-grow-1 me-2">
-                <p class="docCard__title">{{ item.cvName }}</p>
+          <li class="col">
+            <router-link class="scvCard flex-row h-100" :to="`document-cv/cv/${item.cvKey}`">
+              <div class="scvCard__body flex-grow-1 justify-content-between">
+                <p class="scvCard__title">{{ item.cvName }}</p>
                 <p class="subTxt mb-3">更新時間：{{ $filters.date(item.cvKey) }}</p>
                 <div class="d-flex justify-content-between">
                   <button
@@ -30,7 +30,7 @@
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      <i class="jobIcon bi bi-three-dots"></i>
+                      <i class="jobIcon-sm bi bi-three-dots text-dark"></i>
                     </button>
                     <ul
                       :ref="`dropDownMenu--${index}`"
@@ -44,7 +44,7 @@
                   </div>
                 </div>
               </div>
-              <img class="docCard__cover" :src="item.cvImgUrl" alt="CV封面" />
+              <img class="scvCard__img m-3 ms-0" :src="item.cvImgUrl" alt="CV封面" />
             </router-link>
           </li>
         </template>

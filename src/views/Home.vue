@@ -118,7 +118,7 @@
       <div class="container">
         <!-- 熱門職位 -->
         <div ref="sectionHotJob" class="sectionHotJob section--py border-bottom border-gray-line">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">熱門職位</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -231,7 +231,7 @@
         <!-- 最新職位 -->
         <div class="section--newJob section--py">
           <div class="d-flex align-items-center mb-4">
-            <div class="titleBox--tag mb-0">
+            <div class="titleBox mb-0">
               <h3 class="titleBox__title">最新職位</h3>
             </div>
             <button type="button" class="btn btn-primary">
@@ -266,7 +266,7 @@
       <div class="bg-white">
         <div class="container">
           <div class="section--py border-bottom border-gray-line">
-            <div class="titleBox--tag justify-content-center">
+            <div class="titleBox justify-content-center">
               <h3 class="titleBox__title">如何使用拍照申請功能？</h3>
             </div>
             <div class="row mb-5">
@@ -305,7 +305,7 @@
             </div>
           </div>
           <div class="recommendCardList section--py" v-if="dataReady">
-            <div class="titleBox--tag">
+            <div class="titleBox">
               <h3 class="titleBox__title">興趣職位推薦</h3>
               <div class="recommendTagList">
                 <button
@@ -423,7 +423,7 @@
       </div>
       <div class="container">
         <div class="section--py">
-          <div class="titleBox--tag justify-content-center">
+          <div class="titleBox justify-content-center">
             <h3 class="titleBox__title">如何使用寫郵件sendCV功能？</h3>
           </div>
           <div class="row mb-5">
@@ -475,7 +475,7 @@
         <div class="container">
           <!-- 熱門職位類別 -->
           <div class="hotCategory section--py">
-            <div class="titleBox--tag">
+            <div class="titleBox">
               <h3 class="titleBox__title">熱門職位類別</h3>
             </div>
             <ul class="row hotCategoryList">

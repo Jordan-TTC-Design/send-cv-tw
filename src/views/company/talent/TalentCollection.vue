@@ -69,7 +69,7 @@
           >
             <i class="bi bi-chevron-left me-2"></i>返回
           </button>
-          <div class="admin__mainContent p-0 pb-3">
+          <div class="adminContentBox pb-3">
             <div
               class="
                 border-bottom border-gray-line

@@ -6,7 +6,7 @@
         <div class="col-lg-9 col-12">
           <div class="admin__mainContent">
             <h3 class="admin__mainContent__title">{{ nowPage }}</h3>
-            <ul class="infoList--company">
+            <ul class="infoList infoList--company">
               <li class="infoList__item show--compressed">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>

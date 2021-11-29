@@ -47,7 +47,7 @@
 }
 .talentCard--inner {
   border-radius: 0;
-  @include list--bg--hover;
+  @include bg--hover;
   @include border-bottom;
 }
 .talentNameInfo {

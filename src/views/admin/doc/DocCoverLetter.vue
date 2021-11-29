@@ -2,22 +2,24 @@
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
     <div class="container">
-      <ul class="row" v-if="dataReady">
-        <li class="col-4">
-          <div class="docCard--new putPointer" @click="openDocModal('newCoverLetter')">
-            <p><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增求職信</p>
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="dataReady">
+        <li class="col">
+          <div class="newScvCard putPointer h-100" @click="openDocModal('newCoverLetter')">
+            <p class="newScvCard__txt" ><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增求職信</p>
           </div>
         </li>
         <template v-for="(item, index) in user.docData.coverLetterList" :key="index">
-          <li class="col-4" @click="openDocModal('readCoverLetter', index)">
-            <div class="docCard docCard--coverLetter">
-              <p class="docCard__title">{{ item.title }}</p>
-              <div class="docCard--coverLetter__content subTxt mb-3" v-html="item.content"></div>
-              <div class="d-flex justify-content-between align-items-end">
-                <p class="subTxt">更新時間:{{ $filters.date(item.time) }}</p>
-                <button type="button" class="btn">
-                  <i class="jobIcon-sm bi bi-three-dots"></i>
-                </button>
+          <li class="col" @click="openDocModal('readCoverLetter', index)">
+            <div class="scvCard scvCard--coverLetter scvCard--minHeight h-100 putPointer">
+              <div class="scvCard__body">
+                <p class="scvCard__title">{{ item.title }}</p>
+                <div class="scvCard__txtContent subTxt mb-3" v-html="item.content"></div>
+                <div class="d-flex justify-content-between align-items-end">
+                  <p class="subTxt">更新時間:{{ $filters.date(item.time) }}</p>
+                  <button type="button" class="btn">
+                    <i class="jobIcon-sm bi bi-three-dots"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </li>

@@ -3,10 +3,10 @@
     <AdminNav :nowPage="nowPage" />
     <div class="container position-relative">
       <div class="row">
-        <div class="col-lg-3 col-12">
-          <div class="setting__sideList">
-            <div class="setting__sideList__top">
-              <div class="userImgBox mb-4 bg-gray-light">
+        <div class="col-lg-3">
+          <div class="sideContentBox pb-3">
+            <div class="sideContentBox__header pt-5">
+              <div class="userImgBox mb-4 bg-gray-light mx-auto">
                 <img class="userImgBox__img" :src="user.account.userImgUrl" alt="" />
                 <div class="userImgBox__editBtn">
                   <button type="button" class="btn btn--circle" @click="openEditUserPhotoModal">
@@ -14,7 +14,7 @@
                   </button>
                 </div>
               </div>
-              <p class="mb-3">曾鼎鈞</p>
+              <p class="strongTxt mb-3 text-center">曾鼎鈞</p>
               <div class="form__input w-100">
                 <div
                   class="inputItem__switch form-check form-switch border border-gray-line rounded"
@@ -37,55 +37,62 @@
                 </div>
               </div>
             </div>
-            <ul class="setting__sideList__nav">
+            <ul class="innerList innerList--jobSeeker innerList--checkList">
               <li
-                class="nav__item"
+                class="innerList__item"
                 @click="selectListItem('個人資料')"
                 :class="{ active: settingSideList === '個人資料' }"
               >
-                <p class="nav__item__title">個人資料</p>
-                <i class="jobIcon bi bi-check-circle-fill"></i>
+                <p class="item__title">個人資料</p>
+                <i class="checkIcon--jobSeeker jobIcon bi bi-check-circle-fill"></i>
               </li>
               <li
-                class="nav__item"
+                class="innerList__item"
                 @click="selectListItem('工作經驗')"
                 :class="{ active: settingSideList === '工作經驗' }"
               >
-                <p class="nav__item__title">工作經驗</p>
-                <i class="jobIcon bi bi-check-circle-fill"></i>
+                <p class="item__title">工作經驗</p>
+                <i class="checkIcon--jobSeeker jobIcon bi bi-check-circle-fill"></i>
               </li>
               <li
-                class="nav__item"
+                class="innerList__item"
                 @click="selectListItem('教育程度')"
                 :class="{ active: settingSideList === '教育程度' }"
               >
-                <p class="nav__item__title">教育程度</p>
-                <i class="jobIcon bi bi-check-circle-fill"></i>
+                <p class="item__title">教育程度</p>
+                <i class="checkIcon--jobSeeker jobIcon bi bi-check-circle-fill"></i>
               </li>
               <li
-                class="nav__item"
+                class="innerList__item"
                 @click="selectListItem('專業技能')"
                 :class="{ active: settingSideList === '專業技能' }"
               >
-                <p class="nav__item__title">專業技能</p>
-                <i class="jobIcon bi bi-check-circle-fill"></i>
+                <p class="item__title">專業技能</p>
+                <i class="checkIcon--jobSeeker jobIcon bi bi-check-circle-fill"></i>
               </li>
               <li
-                class="nav__item"
+                class="innerList__item"
                 @click="selectListItem('其他')"
                 :class="{ active: settingSideList === '其他' }"
               >
-                <p class="nav__item__title">其他</p>
-                <i class="jobIcon bi bi-check-circle-fill"></i>
+                <p class="item__title">其他</p>
+                <i class="checkIcon--jobSeeker jobIcon bi bi-check-circle-fill"></i>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <!-- 個人資訊 -->
-          <div class="admin__mainContent" v-if="settingSideList === '個人資料'">
-            <h3 class="admin__mainContent__title">個人資料</h3>
-            <div class="admin__mainContent__btnBox">
+          <div class="adminContentBox adminContentBox--p" v-if="settingSideList === '個人資料'">
+            <h3 class="pageSubTitle mb-4">個人資料</h3>
+            <div class="remind mb-4">
+              <p class="remind__title">小提醒：</p>
+              <p class="remind__content">
+                您於基本資料，並不會被外部搜尋引擎所搜尋，同時 SendCV
+                將依照個人資料保護法保障您的個人隱私，請放心～
+              </p>
+            </div>
+            <div class="adminContentBox__btnBox">
               <button
                 type="button"
                 class="btn btn-outline-gray-line btn--text--dark"
@@ -94,28 +101,21 @@
                 編輯
               </button>
             </div>
-            <div class="remind mb-5">
-              <p class="remind__title">小提醒：</p>
-              <p class="remind__content">
-                您於基本資料，並不會被外部搜尋引擎所搜尋，同時 SendCV
-                將依照個人資料保護法保障您的個人隱私，請放心～
-              </p>
-            </div>
             <div v-if="!editMode">
-              <ul class="row mb-5">
-                <li class="col-6">
+              <ul class="infoList infoList--jobSeeker row row-cols-lg-2 row-cols-1 mb-5">
+                <li class="col">
                   <div class="infoList__item">
                     <p class="infoList__item__title">姓名</p>
                     <p class="infoList__item__content">{{ user.account.chineseName }}</p>
                   </div>
                 </li>
-                <li class="col-6">
+                <li class="col">
                   <div class="infoList__item">
                     <p class="infoList__item__title">目前職稱</p>
                     <p class="infoList__item__content">{{ user.account.jobTitle }}</p>
                   </div>
                 </li>
-                <li class="col-6">
+                <li class="col">
                   <div class="infoList__item">
                     <p class="infoList__item__title">性別</p>
                     <p class="infoList__item__content">
@@ -123,27 +123,27 @@
                     </p>
                   </div>
                 </li>
-                <li class="col-6">
+                <li class="col">
                   <div class="infoList__item">
                     <p class="infoList__item__title">生日</p>
                     <p class="infoList__item__content">{{ user.account.birthday }}</p>
                   </div>
                 </li>
               </ul>
-              <ul class="row mb-5">
-                <li class="col-6">
+              <ul class="infoList infoList--jobSeeker row row-cols-lg-2 row-cols-1 mb-5">
+                <li class="col">
                   <div class="infoList__item">
                     <p class="infoList__item__title">電子信箱</p>
                     <p class="infoList__item__content">{{ user.account.email }}</p>
                   </div>
                 </li>
-                <li class="col-6">
+                <li class="col">
                   <div class="infoList__item">
                     <p class="infoList__item__title">聯絡電話</p>
                     <p class="infoList__item__content">{{ user.account.phone }}</p>
                   </div>
                 </li>
-                <li class="col-12">
+                <li class="col">
                   <div class="infoList__item">
                     <p class="infoList__item__title">居住地址</p>
                     <p class="infoList__item__content">
@@ -152,30 +152,28 @@
                   </div>
                 </li>
               </ul>
-              <ul class="row">
-                <li class="col-12">
-                  <div class="infoList__item list--last">
-                    <p class="infoList__item__title">社群連結</p>
-                    <div class="infoList__item__socialMediaBox putPointer mb-2">
-                      <i class="jobIcon bi bi-facebook me-6"></i>
-                      <div>
-                        <p class="socialMediaBox__title mb-1">Jordan Tseng</p>
-                        <p class="socialMediaBox__link subTxt">FaceBook</p>
-                      </div>
+              <ul class="infoList infoList--jobSeeker">
+                <li class="infoList__item list--last">
+                  <p class="infoList__item__title">社群連結</p>
+                  <div class="infoList__item__socialMediaBox putPointer mb-2">
+                    <i class="jobIcon bi bi-facebook me-6"></i>
+                    <div>
+                      <p class="socialMediaBox__title mb-1">Jordan Tseng</p>
+                      <p class="txtLink">FaceBook</p>
                     </div>
-                    <div class="infoList__item__socialMediaBox putPointer mb-2">
-                      <i class="jobIcon bi bi-google me-6"></i>
-                      <div>
-                        <p class="socialMediaBox__title mb-1">Jordan Tseng</p>
-                        <p class="socialMediaBox__link subTxt">Google</p>
-                      </div>
+                  </div>
+                  <div class="infoList__item__socialMediaBox putPointer mb-2">
+                    <i class="jobIcon bi bi-google me-6"></i>
+                    <div>
+                      <p class="socialMediaBox__title mb-1">Jordan Tseng</p>
+                      <p class="txtLink">Google</p>
                     </div>
-                    <div class="infoList__item__socialMediaBox putPointer">
-                      <i class="jobIcon bi bi-globe2 me-6"></i>
-                      <div>
-                        <p class="socialMediaBox__title mb-1">個人作品網站</p>
-                        <p class="socialMediaBox__link subTxt">https://Jordan.ttc.design.com</p>
-                      </div>
+                  </div>
+                  <div class="infoList__item__socialMediaBox putPointer">
+                    <i class="jobIcon bi bi-globe2 me-6"></i>
+                    <div>
+                      <p class="socialMediaBox__title mb-1">個人作品網站</p>
+                      <p class="txtLink">https://Jordan.ttc.design.com</p>
                     </div>
                   </div>
                 </li>
@@ -192,9 +190,7 @@
                   <div class="col-lg-6 col-12">
                     <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="accountDataName" class="labelBox__label form-label"
-                          >姓名</label
-                        >
+                        <label for="accountDataName" class="labelBox__label form-label">姓名</label>
                         <p class="formTag--must">必填</p>
                       </div>
                       <Field
@@ -399,9 +395,15 @@
             </div>
           </div>
           <!-- 工作經驗 -->
-          <div class="admin__mainContent" v-if="settingSideList === '工作經驗'">
-            <h3 class="admin__mainContent__title">工作經驗</h3>
-            <div class="admin__mainContent__btnBox">
+          <div class="adminContentBox adminContentBox--p" v-if="settingSideList === '工作經驗'">
+            <h3 class="pageSubTitle mb-5">工作經驗</h3>
+            <div class="remind mb-5">
+              <p class="remind__title">小提醒：</p>
+              <p class="remind__content">
+                建議可以依照時間先後建立資訊，並且多描述在該企業上班時所貢獻之事物，讓企業能了解您的特質與能力。
+              </p>
+            </div>
+            <div class="adminContentBox__btnBox">
               <button
                 type="button"
                 class="btn btn-outline-gray-line btn--text--dark"
@@ -414,12 +416,6 @@
                 ></i
                 >新增工作經驗
               </button>
-            </div>
-            <div class="remind mb-5">
-              <p class="remind__title">小提醒：</p>
-              <p class="remind__content">
-                建議可以依照時間先後建立資訊，並且多描述在該企業上班時所貢獻之事物，讓企業能了解您的特質與能力。
-              </p>
             </div>
             <div>
               <div
@@ -529,9 +525,13 @@
             </div>
           </div>
           <!-- 教育程度 -->
-          <div class="admin__mainContent" v-if="settingSideList === '教育程度'">
-            <h3 class="admin__mainContent__title">教育程度</h3>
-            <div class="admin__mainContent__btnBox">
+          <div class="adminContentBox adminContentBox--p" v-if="settingSideList === '教育程度'">
+            <h3 class="pageSubTitle mb-5">教育程度</h3>
+            <div class="remind mb-5">
+              <p class="remind__title">小提醒：</p>
+              <p class="remind__content">建議可以簡述在您於該所學校學習之專業技能、學習經歷。</p>
+            </div>
+            <div class="adminContentBox__btnBox">
               <button
                 type="button"
                 class="btn btn-outline-gray-line btn--text--dark"
@@ -539,10 +539,6 @@
               >
                 <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增教育程度
               </button>
-            </div>
-            <div class="remind mb-5">
-              <p class="remind__title">小提醒：</p>
-              <p class="remind__content">建議可以簡述在您於該所學校學習之專業技能、學習經歷。</p>
             </div>
             <div>
               <div
@@ -651,19 +647,9 @@
             </div>
           </div>
           <!-- 專業技能 -->
-          <div class="admin__mainContent" v-if="settingSideList === '專業技能'">
-            <h3 class="admin__mainContent__title">專業技能</h3>
-            <div class="admin__mainContent__btnBox">
-              <button
-                type="button"
-                class="btn btn--switch btn--switch--jobSeeker me-2"
-                @click="toogleData('skillShowStyle')"
-              >
-                <div class="switch__container" :class="{ active: skillShowStyle }">
-                  <div class="switch__controller"></div>
-                </div>
-                {{ skillShowStyle ? '密集顯示' : '一般顯示' }}
-              </button>
+          <div class="adminContentBox adminContentBox--p" v-if="settingSideList === '專業技能'">
+            <h3 class="pageSubTitle mb-5">專業技能</h3>
+            <div class="adminContentBox__btnBox">
               <button
                 type="button"
                 class="btn btn-outline-gray-line btn--text--dark"
@@ -672,56 +658,53 @@
                 <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增專業技能
               </button>
             </div>
-            <div>
-              <ul class="row" v-if="skillShowStyle === true">
+            <ul class="infoList infoList--jobSeeker" v-if="skillShowStyle === true">
                 <!-- 語言 -->
-                <li class="col-12">
-                  <div
-                    ref="languageData"
-                    class="infoList__item show--compressed"
-                    :class="{ 'd-none': editTemplate === 'editLanguage' }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">語言</p>
-                        <ul class="infoList__item__skillList">
-                          <template v-for="(item, index) in user.languages" :key="index">
-                            <li class="infoList__item__skillList__skill">
-                              <p>{{ item.name }} - {{ item.languageLevel }}</p>
-                            </li>
-                          </template>
-                        </ul>
-                      </div>
-                      <div class="dropdown">
-                        <button
-                          class="btn position-relative"
-                          type="button"
-                          :id="`dropdownMenuButton--language`"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          :disabled="editMode"
-                        >
-                          <i class="jobIcon bi bi-three-dots"></i>
-                        </button>
-                        <ul
-                          :ref="`dropDownMenu--language`"
-                          class="dropDownMenu dropdown-menu"
-                          :aria-labelledby="`dropdownMenuButton--language`"
-                        >
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="editTemplateData(`editLanguage`)"
-                          >
-                            編輯
+                <li
+                  ref="languageData"
+                  class="infoList__item show--compressed"
+                  :class="{ 'd-none': editTemplate === 'editLanguage' }"
+                >
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <p class="infoList__item__title">語言</p>
+                      <ul class="infoList__innerList">
+                        <template v-for="(item, index) in user.languages" :key="index">
+                          <li class="infoList__innerList__item">
+                            <p>{{ item.name }} - {{ item.languageLevel }}</p>
                           </li>
-                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
-                        </ul>
-                      </div>
+                        </template>
+                      </ul>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        class="btn position-relative"
+                        type="button"
+                        :id="`dropdownMenuButton--language`"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        :disabled="editMode"
+                      >
+                        <i class="jobIcon bi bi-three-dots"></i>
+                      </button>
+                      <ul
+                        :ref="`dropDownMenu--language`"
+                        class="dropDownMenu dropdown-menu"
+                        :aria-labelledby="`dropdownMenuButton--language`"
+                      >
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="editTemplateData(`editLanguage`)"
+                        >
+                          編輯
+                        </li>
+                        <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                      </ul>
                     </div>
                   </div>
                 </li>
                 <!-- 語言編輯 -->
-                <li class="col-12">
+                <li>
                   <LanguageDataTemplate
                     v-if="editTemplate === `editLanguage`"
                     :sendLanguages="user.languages"
@@ -730,52 +713,50 @@
                   />
                 </li>
                 <!-- 證照 -->
-                <li class="col-12">
-                  <div
-                    class="infoList__item show--compressed"
-                    :class="{ 'd-none': editTemplate === 'editLicense' }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">證照</p>
-                        <ul class="infoList__item__skillList">
-                          <template v-for="(item, index) in user.licenses" :key="index">
-                            <li class="infoList__item__skillList__skill">
-                              <p>{{ item.name }}</p>
-                            </li>
-                          </template>
-                        </ul>
-                      </div>
-                      <div class="dropdown">
-                        <button
-                          class="btn position-relative"
-                          type="button"
-                          :id="`dropdownMenuButton--license`"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          :disabled="editMode"
-                        >
-                          <i class="jobIcon bi bi-three-dots"></i>
-                        </button>
-                        <ul
-                          :ref="`dropDownMenu--license`"
-                          class="dropDownMenu dropdown-menu"
-                          :aria-labelledby="`dropdownMenuButton--license`"
-                        >
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="editTemplateData(`editLicense`)"
-                          >
-                            編輯
+                <li
+                  class="infoList__item show--compressed"
+                  :class="{ 'd-none': editTemplate === 'editLicense' }"
+                >
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <p class="infoList__item__title">證照</p>
+                      <ul class="infoList__innerList">
+                        <template v-for="(item, index) in user.licenses" :key="index">
+                          <li class="infoList__innerList__item">
+                            <p>{{ item.name }}</p>
                           </li>
-                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
-                        </ul>
-                      </div>
+                        </template>
+                      </ul>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        class="btn position-relative"
+                        type="button"
+                        :id="`dropdownMenuButton--license`"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        :disabled="editMode"
+                      >
+                        <i class="jobIcon bi bi-three-dots"></i>
+                      </button>
+                      <ul
+                        :ref="`dropDownMenu--license`"
+                        class="dropDownMenu dropdown-menu"
+                        :aria-labelledby="`dropdownMenuButton--license`"
+                      >
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="editTemplateData(`editLicense`)"
+                        >
+                          編輯
+                        </li>
+                        <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                      </ul>
                     </div>
                   </div>
                 </li>
                 <!-- 證照編輯 -->
-                <li class="col-12">
+                <li>
                   <LicenseDataTemplate
                     v-if="editTemplate === `editLicense`"
                     :sendLicenses="user.licenses"
@@ -785,61 +766,59 @@
                 </li>
                 <!-- 技能 -->
                 <template v-for="(skill, index) in user.skills" :key="index">
-                  <li class="col-12">
-                    <div
-                      class="infoList__item show--compressed"
-                      :class="{
-                        'd-none': editTemplate === `editSkill--${index}`,
-                        'list--last': index === user.skills.length - 1,
-                      }"
-                    >
-                      <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                          <p class="infoList__item__title">{{ skill.groupName }}</p>
-                          <ul class="infoList__item__skillList">
-                            <template v-for="item in skill.skillList" :key="item.name">
-                              <li class="infoList__item__skillList__skill">
-                                <p>{{ item.name }}</p>
-                              </li>
-                            </template>
-                          </ul>
-                        </div>
-                        <div class="dropdown">
-                          <button
-                            class="btn position-relative"
-                            type="button"
-                            :id="`dropdownMenuButton--skill--${index}`"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            :disabled="editMode"
-                          >
-                            <i class="jobIcon bi bi-three-dots"></i>
-                          </button>
-                          <ul
-                            :ref="`dropDownMenu--${index}`"
-                            class="dropDownMenu dropdown-menu"
-                            :aria-labelledby="`dropdownMenuButton--skill--${index}`"
-                          >
-                            <li
-                              class="dropDownMenu__item dropdown-item"
-                              @click="editTemplateData(`editSkill--${index}`)"
-                            >
-                              編輯
+                  <li
+                    class="infoList__item show--compressed"
+                    :class="{
+                      'd-none': editTemplate === `editSkill--${index}`,
+                      'list--last': index === user.skills.length - 1,
+                    }"
+                  >
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <p class="infoList__item__title">{{ skill.groupName }}</p>
+                        <ul class="infoList__innerList">
+                          <template v-for="item in skill.skillList" :key="item.name">
+                            <li class="infoList__innerList__item">
+                              <p>{{ item.name }}</p>
                             </li>
-                            <li class="dropDownMenu__item dropdown-item">調整排序</li>
-                            <li
-                              class="dropDownMenu__item dropdown-item"
-                              @click="deleteTemplateData('skill', index)"
-                            >
-                              刪除
-                            </li>
-                          </ul>
-                        </div>
+                          </template>
+                        </ul>
+                      </div>
+                      <div class="dropdown">
+                        <button
+                          class="btn position-relative"
+                          type="button"
+                          :id="`dropdownMenuButton--skill--${index}`"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          :disabled="editMode"
+                        >
+                          <i class="jobIcon bi bi-three-dots"></i>
+                        </button>
+                        <ul
+                          :ref="`dropDownMenu--${index}`"
+                          class="dropDownMenu dropdown-menu"
+                          :aria-labelledby="`dropdownMenuButton--skill--${index}`"
+                        >
+                          <li
+                            class="dropDownMenu__item dropdown-item"
+                            @click="editTemplateData(`editSkill--${index}`)"
+                          >
+                            編輯
+                          </li>
+                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                          <li
+                            class="dropDownMenu__item dropdown-item"
+                            @click="deleteTemplateData('skill', index)"
+                          >
+                            刪除
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </li>
                   <!-- 技能編輯 -->
-                  <li class="col-12">
+                  <li>
                     <SkillDataTemplate
                       v-if="editTemplate === `editSkill--${index}`"
                       :sendSkillData="skill"
@@ -850,7 +829,7 @@
                   </li>
                 </template>
                 <!-- 新增技能 -->
-                <li class="col-12">
+                <li>
                   <SkillDataTemplate
                     v-if="editTemplate === `editSkill--new`"
                     :sendSkillData="tempSkillList"
@@ -860,153 +839,72 @@
                   />
                 </li>
               </ul>
-              <ul class="row" v-if="skillShowStyle === false">
-                <li class="col-12">
-                  <div class="infoList__item show--normal">
-                    <div class="infoList__item__titleBox">
-                      <p>語言</p>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                    </div>
-                    <ul class="infoList__item__skillList">
-                      <li class="infoList__item__skillList__skill">
-                        <p>中文 - 專業</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>英文 - 流利 / 雅思 6.5分</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>日文 - 專業 / 日檢 N2</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>Sketch</p>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item show--normal">
-                    <div class="infoList__item__titleBox">
-                      <p>證照</p>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                    </div>
-                    <ul class="infoList__item__skillList">
-                      <li class="infoList__item__skillList__skill">
-                        <p>美國風險管理師ARM</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>美國會計師CPA</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>國際ERP電腦稽核師CEAP</p>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="col-12">
-                  <div class="infoList__item show--normal">
-                    <div class="infoList__item__titleBox">
-                      <p>設計</p>
-                      <button type="button" class="btn">
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                    </div>
-                    <ul class="infoList__item__skillList">
-                      <li class="infoList__item__skillList__skill">
-                        <p>Adobe Illustrator</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>Adobe PhotoShop</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>Adobe XD</p>
-                      </li>
-                      <li class="infoList__item__skillList__skill">
-                        <p>Sketch</p>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
           </div>
           <!-- 其他 -->
-          <div class="admin__mainContent" v-if="settingSideList === '其他'">
-            <h3 class="admin__mainContent__title">其他</h3>
-            <ul class="row">
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">駕照</p>
-                      <ul class="infoList__item__skillList">
-                        <template v-for="(item, index) in user.others.driverLicenses" :key="index">
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
-                    <button
-                      type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
-                      @click="openSettingModal('變更駕照')"
-                    >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
-                    </button>
+          <div class="adminContentBox adminContentBox--p" v-if="settingSideList === '其他'">
+            <h3 class="pageSubTitle mb-5">其他</h3>
+            <ul class="infoList infoList--jobSeeker">
+              <li class="infoList__item">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">駕照</p>
+                    <ul class="infoList__innerList">
+                      <template v-for="(item, index) in user.others.driverLicenses" :key="index">
+                        <li v-if="item.select" class="infoList__innerList__item">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
+                  <button
+                    type="button"
+                    class="btn--edit btn text-dark btn-gray-light"
+                    @click="openSettingModal('變更駕照')"
+                  >
+                    <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                  </button>
                 </div>
               </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">特殊身份</p>
-                      <ul class="infoList__item__skillList">
-                        <template v-for="(item, index) in user.others.identities" :key="index">
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
-                    <button
-                      type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
-                      @click="openSettingModal('變更身份')"
-                    >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
-                    </button>
+              <li class="infoList__item">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">特殊身份</p>
+                    <ul class="infoList__innerList">
+                      <template v-for="(item, index) in user.others.identities" :key="index">
+                        <li v-if="item.select" class="infoList__innerList__item">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
+                  <button
+                    type="button"
+                    class="btn--edit btn text-dark btn-gray-light"
+                    @click="openSettingModal('變更身份')"
+                  >
+                    <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                  </button>
                 </div>
               </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">兵役</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in user.others.militaryServices"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
-                    <button
-                      type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
-                      @click="openSettingModal('變更兵役')"
-                    >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
-                    </button>
+              <li class="infoList__item">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">兵役</p>
+                    <ul class="infoList__innerList">
+                      <template v-for="(item, index) in user.others.militaryServices" :key="index">
+                        <li v-if="item.select" class="infoList__innerList__item">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
+                  <button
+                    type="button"
+                    class="btn--edit btn text-dark btn-gray-light"
+                    @click="openSettingModal('變更兵役')"
+                  >
+                    <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                  </button>
                 </div>
               </li>
             </ul>

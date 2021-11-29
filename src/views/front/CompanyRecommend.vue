@@ -3,7 +3,7 @@
     <div class="container-fuild">
       <div class="container">
         <div class="sction--weeklyCompany section--pb">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">本週推薦企業</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="section--aroundCompany section--pb" v-if="sortCompany.length > 0">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">附近企業推薦</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -138,7 +138,7 @@
           </div>
         </div>
         <div class="section--newCompany section--pb" v-if="sortCompany.length > 0">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">最新企業徵才</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -188,7 +188,7 @@
       <div class="bg-white">
         <div class="container">
           <div class="recommendCardList section--py">
-            <div class="titleBox--tag">
+            <div class="titleBox">
               <h3 class="titleBox__title">興趣行業推薦企業</h3>
               <div class="recommendTagList">
                 <button
@@ -300,7 +300,7 @@
       <!-- 全部職位 -->
       <div class="container">
         <div class="section--py">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">全部企業</h3>
           </div>
           <!-- 篩選條件 -->

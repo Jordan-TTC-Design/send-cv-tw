@@ -7,22 +7,22 @@
           <div
             class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5"
           >
-            <ul class="page__sideNav">
+            <ul class="pageSubNav">
               <li
-                ref="page__sideNav__item--shotList"
-                class="page__sideNav__item putPointer"
+                ref="pageSubNav__item--shotList"
+                class="pageSubNav__item putPointer"
                 :class="{ active: navState === 'shotList' }"
                 @click="changeSubNav('shotList')"
               >
-                <p class="page__sideNav__item__title">拍照求職</p>
+                <p class="pageSubNav__item__title">拍照求職</p>
               </li>
               <li
-                ref="page__sideNav__item--mailList"
-                class="page__sideNav__item putPointer"
+                ref="pageSubNav__item--mailList"
+                class="pageSubNav__item putPointer"
                 :class="{ active: navState === 'mailList' }"
                 @click="changeSubNav('mailList')"
               >
-                <p class="page__sideNav__item__title">寫郵件 SendCV</p>
+                <p class="pageSubNav__item__title">寫郵件 SendCV</p>
               </li>
             </ul>
           </div>

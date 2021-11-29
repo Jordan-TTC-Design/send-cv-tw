@@ -2,21 +2,19 @@
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
     <div class="container">
-      <ul class="row" v-if="dataReady">
-        <li class="col-4">
-          <div class="docCard--new putPointer" @click="openDocModal('newMessageTemplate')">
-            <p><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增文字模板</p>
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="dataReady">
+        <li class="col">
+          <div class="newScvCard putPointer h-100" @click="openDocModal('newMessageTemplate')">
+            <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增文字模板</p>
           </div>
         </li>
         <template v-for="(item, index) in user.messageTemplateList" :key="index">
-          <li class="col-4" @click="openDocModal('readMessageTemplate', index)">
-            <div class="docCard docCard--messageTemplate">
-              <p class="docCard__title">{{ item.title }}</p>
-              <div
-                class="docCard--messageTemplate__content subTxt"
-                v-html="item.content"
-              ></div>
-              <div class="d-flex justify-content-between align-items-end"></div>
+          <li class="col" @click="openDocModal('readMessageTemplate', index)">
+            <div class="scvCard scvCard--messageTemplate putPointer h-100">
+              <div class="scvCard__body">
+                <p class="scvCard__title mb-1">{{ item.title }}</p>
+                <div class="scvCard__txtContent subTxt" v-html="item.content"></div>
+              </div>
             </div>
           </li>
         </template>

@@ -8,7 +8,7 @@
               class="d-flex flex-column align-items-center border-bottom border-gray-line mb-5"
               v-if="formStep < 5"
             >
-              <div class="titleBox--tag">
+              <div class="titleBox">
                 <div class="tag--doubleCircle me-2"></div>
                 <h2 class="titleBox__title">拍照求職</h2>
               </div>
@@ -101,9 +101,7 @@
                   <!-- 職位名稱(必填) -->
                   <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoJobName" class="labelBox__label"
-                        >職位名稱</label
-                      >
+                      <label for="sendFormInfoJobName" class="labelBox__label">職位名稱</label>
                       <p class="formTag--must">必填</p>
                     </div>
                     <Field
@@ -122,9 +120,7 @@
                   <div class="d-flex align-items-end mb-4">
                     <div class="form__input me-2">
                       <div class="form__labelBox">
-                        <label for="salaryRangeLow" class="labelBox__label"
-                          >薪資範圍起始</label
-                        >
+                        <label for="salaryRangeLow" class="labelBox__label">薪資範圍起始</label>
                         <p class="formTag--must">必填</p>
                       </div>
                       <input
@@ -138,9 +134,7 @@
                     </div>
                     <div class="form__input me-2">
                       <div class="form__labelBox">
-                        <label for="salaryRangeHeight" class="labelBox__label"
-                          >範圍結束</label
-                        >
+                        <label for="salaryRangeHeight" class="labelBox__label">範圍結束</label>
                       </div>
                       <input
                         type="number"
@@ -163,9 +157,7 @@
                   </div>
                   <div class="form__input form__input">
                     <div class="form__labelBox">
-                      <label for="jobFormPeopleNeed" class="labelBox__label"
-                        >職務類別</label
-                      >
+                      <label for="jobFormPeopleNeed" class="labelBox__label">職務類別</label>
                       <p class="formTag--must">必填</p>
                       <p class="subTxt ms-2 text-secondary">(最多選3項)</p>
                     </div>
@@ -181,11 +173,7 @@
                   </div>
                   <div class="form__input form__infoEditBox mb-5">
                     <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoJobContent"
-                        class="labelBox__label me-2"
-                        >備註</label
-                      >
+                      <label for="sendFormInfoJobContent" class="labelBox__label me-2">備註</label>
                       <p class="subTxt">(如果圖片有不清楚的地方可以附註)</p>
                     </div>
                     <textarea
@@ -217,11 +205,9 @@
                   >
                     <div class="form__input form__infoEditBox">
                       <div class="form__labelBox">
-                        <label
-                          for="sendFormInfoJobContent"
-                          class="labelBox__label me-2"
-                          >{{ `第 ${index + 1} 張圖片備註` }}</label
-                        >
+                        <label for="sendFormInfoJobContent" class="labelBox__label me-2">{{
+                          `第 ${index + 1} 張圖片備註`
+                        }}</label>
                       </div>
                       <textarea
                         type="text"
@@ -286,9 +272,7 @@
                 <div class="col-lg-8 col-12">
                   <div class="form__input">
                     <div class="form__labelBox">
-                      <label for="sendFormInfoCompanyName" class="labelBox__label"
-                        >公司名稱</label
-                      >
+                      <label for="sendFormInfoCompanyName" class="labelBox__label">公司名稱</label>
                       <p class="formTag--must">必填</p>
                     </div>
                     <Field
@@ -336,11 +320,7 @@
                   </div>
                   <div class="form__input form__infoEditBox mb-5">
                     <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoJobContent"
-                        class="labelBox__label me-2"
-                        >備註</label
-                      >
+                      <label for="sendFormInfoJobContent" class="labelBox__label me-2">備註</label>
                       <p class="subTxt">(如果圖片有不清楚的地方可以附註)</p>
                     </div>
                     <textarea
@@ -372,11 +352,9 @@
                   >
                     <div class="form__input form__infoEditBox">
                       <div class="form__labelBox">
-                        <label
-                          for="sendFormInfoJobContent"
-                          class="labelBox__label me-2"
-                          >{{ `第 ${index + 1} 張圖片備註` }}</label
-                        >
+                        <label for="sendFormInfoJobContent" class="labelBox__label me-2">{{
+                          `第 ${index + 1} 張圖片備註`
+                        }}</label>
                       </div>
                       <textarea
                         type="text"
@@ -553,13 +531,14 @@
                     </div>
                     <div class="docSelector__contentBox overFlow--x">
                       <template v-for="(item, index) in docData.cvList" :key="index">
-                        <div class="docCard me-2 mb-0" @click="jobForm.document.cvkey = item.cvKey">
-                          <div class="d-flex flex-column flex-grow-1 me-2">
-                            <div>
-                              <p class="docCard__title">{{ item.cvName }}</p>
-                              <p class="subTxt">{{ $filters.date(item.cvKey) }}</p>
-                            </div>
-                            <div class="form-check position-absolute bottom-0 start-0 ms-2">
+                        <div
+                          class="scvCard flex-row me-4 flex-shrink-0 putPointer align-items-center"
+                          @click="jobForm.document.cvkey = item.cvKey"
+                        >
+                          <div class="scvCard__body flex-grow-1 h-100">
+                            <p class="scvCard__title">{{ item.cvName }}</p>
+                            <p class="subTxt">{{ $filters.date(item.cvKey) }}</p>
+                            <div class="form-check my-auto mb-02">
                               <input
                                 class="form-check-input mt-0"
                                 type="radio"
@@ -568,7 +547,7 @@
                               />
                             </div>
                           </div>
-                          <img class="docCard__cover" :src="item.cvImgUrl" alt="CV封面" />
+                          <img class="scvCard__img m-3 ms-0" :src="item.cvImgUrl" alt="CV封面" />
                         </div>
                       </template>
                     </div>
@@ -605,13 +584,15 @@
                     </div>
                     <div class="docSelector__contentBox">
                       <template v-for="(item, index) in docData.videoList" :key="index">
-                        <div
-                          class="docCard docCard--video card w-100 mb-0"
-                          v-if="jobForm.document.introVideo.is_enabled"
-                        >
-                          <img class="card-img-top" :src="item.imgUrl" alt="影片封面" />
-                          <div class="card-body p-2">
-                            <p class="docCard__title mb-0">{{ item.title }}</p>
+                        <div class="scvCard w-100 mb-0" v-if="item.introSelect">
+                          <img
+                            style="height: 96px"
+                            class="scvCard__img--top"
+                            :src="item.imgUrl"
+                            alt="影片封面"
+                          />
+                          <div class="scvCard__body p-2">
+                            <p class="scvCard__title mb-0">{{ item.title }}</p>
                           </div>
                         </div>
                       </template>
@@ -627,34 +608,31 @@
                     <div class="docSelector__contentBox overFlow--x">
                       <template v-for="(item, index) in docData.coverLetterList" :key="index">
                         <div
-                          class="docCard docCard--coverLetter mb-0 me-2"
+                          class="scvCard scvCard--coverLetter mb-0 me-3"
                           @click="useThisTempalte(index)"
                         >
-                          <div class="d-flex align-items-center justify-content-between">
-                            <p class="docCard__title">{{ item.title }}</p>
-                            <div class="form-check">
-                              <input
-                                class="form-check-input mt-0"
-                                type="checkbox"
-                                value="顯示"
-                                id="applyJobIntroVideo"
-                                v-model="item.select"
-                              />
+                          <div class="scvCard__body">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <p class="scvCard__title">{{ item.title }}</p>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input mt-0"
+                                  type="checkbox"
+                                  value="顯示"
+                                  id="applyJobIntroVideo"
+                                  v-model="item.select"
+                                />
+                              </div>
                             </div>
+                            <div class="scvCard__txtContent subTxt" v-html="item.content"></div>
                           </div>
-                          <div
-                            class="docCard--coverLetter__content subTxt"
-                            v-html="item.content"
-                          ></div>
                         </div>
                       </template>
                     </div>
                   </div>
                   <div class="form__input form__infoEditBox mb-1">
                     <div class="form__labelBox">
-                      <label for="coverLetterContent" class="labelBox__label"
-                        >求職信內容</label
-                      >
+                      <label for="coverLetterContent" class="labelBox__label">求職信內容</label>
                     </div>
                     <div class="textarea--tag">
                       <ul class="textarea--tag__tagList">
@@ -723,7 +701,7 @@
               </div>
             </Form>
             <div class="d-flex flex-column align-items-center" v-if="formStep === 5">
-              <div class="titleBox--tag">
+              <div class="titleBox">
                 <h5 class="titleBox__title">已成功送出申請</h5>
               </div>
               <p class="mx-5 text-center mb-4">

@@ -3,20 +3,20 @@
     <AdminNav :nowPage="nowPage"/>
     <div class="container">
       <div class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5">
-        <ul class="page__sideNav">
+        <ul class="pageSubNav">
           <li
-            ref="page__sideNav__item--job"
-            class="page__sideNav__item active putPointer"
+            ref="pageSubNav__item--job"
+            class="pageSubNav__item active putPointer"
             @click="this.navState = 'job'"
           >
-            <p class="page__sideNav__item__title">職位收藏</p>
+            <p class="pageSubNav__item__title">職位收藏</p>
           </li>
           <li
-            ref="page__sideNav__item--company"
-            class="page__sideNav__item putPointer"
+            ref="pageSubNav__item--company"
+            class="pageSubNav__item putPointer"
             @click="this.navState = 'company'"
           >
-            <p class="page__sideNav__item__title">企業收藏</p>
+            <p class="pageSubNav__item__title">企業收藏</p>
           </li>
         </ul>
       </div>
@@ -217,8 +217,8 @@ export default {
   watch: {
     navState(newValue, oldValue) {
       emitter.emit('spinner-open-bg', 1000);
-      this.$refs[`page__sideNav__item--${newValue}`].classList.add('active');
-      this.$refs[`page__sideNav__item--${oldValue}`].classList.remove('active');
+      this.$refs[`pageSubNav__item--${newValue}`].classList.add('active');
+      this.$refs[`pageSubNav__item--${oldValue}`].classList.remove('active');
     },
   },
   computed: {

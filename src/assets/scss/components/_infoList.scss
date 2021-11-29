@@ -15,6 +15,10 @@
     &__content {
       font-size: 1rem;
     }
+    &.list--last {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
   }
   .infoList__item:hover {
     .infoList__item__title,
@@ -36,6 +40,11 @@
         color: $companyColor;
       }
     }
+  }
+}
+.infoList.infoList--noneBordar {
+  .infoList__item {
+    border-bottom: 0;
   }
 }
 .infoList.infoList--jobSeeker {
@@ -73,6 +82,52 @@
 }
 .infoList--bgHover {
   .infoList__item {
-    @include list--bg--hover;
+    @include bg--hover;
+  }
+}
+
+// 其他特殊樣式
+.infoList {
+  .infoList__item {
+    &__socialMediaBox {
+      background-color: $gray-light;
+      border-radius: 0.25rem;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      &:hover {
+        .socialMediaBox__title {
+          color: $primary-dark;
+        }
+      }
+      .txtLink {
+        font-size: 14px;
+      }
+    }
+  }
+}
+// 多項值組成的橫向列表
+.infoList__item {
+  .infoList__innerList {
+    display: flex;
+    flex-wrap: wrap;
+    .infoList__innerList__item {
+      position: relative;
+      margin-right: 0.5rem;
+      padding-right: 0.5rem;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        border-right: 1px solid $gray-line;
+      }
+      &:last-child {
+        &::after {
+          display: none;
+        }
+      }
+    }
   }
 }

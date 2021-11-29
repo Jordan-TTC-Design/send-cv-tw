@@ -4,11 +4,10 @@
     <div class="container position-relative">
       <div class="row justify-content-center">
         <div class="col-lg-9 col-12">
-          <div class="admin__mainContent">
-            <h3 class="admin__mainContent__title">帳號設定</h3>
-            <ul class="row">
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
+          <div class="adminContentBox adminContentBox--p">
+            <h3 class="pageSubTitle">帳號設定</h3>
+            <ul class="infoList infoList--jobSeeker">
+                <li class="infoList__item">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">帳號信箱</p>
@@ -27,10 +26,8 @@
                       <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                     </button>
                   </div>
-                </div>
-              </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
+                </li>
+                <li class="infoList__item">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">聯絡電話</p>
@@ -49,10 +46,8 @@
                       <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                     </button>
                   </div>
-                </div>
-              </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
+                </li>
+                <li class="infoList__item">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">密碼</p>
@@ -71,10 +66,8 @@
                       <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
                     </button>
                   </div>
-                </div>
-              </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
+                </li>
+                <li class="infoList__item">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">雙重認證</p>
@@ -84,10 +77,8 @@
                     </div>
                     <button type="button" class="btn btn-primary text-dark">啟動雙重認證</button>
                   </div>
-                </div>
-              </li>
-              <li class="col-12">
-                <div class="infoList__item">
+                </li>
+                <li class="infoList__item">
                   <p class="infoList__item__title">社群連結</p>
                   <p class="infoList__item__content mb-3">
                     連結您的社群帳號，除了可以快速登入外，也能增加企業聯繫方式。
@@ -99,7 +90,7 @@
                       <i class="jobIcon bi bi-facebook me-6"></i>
                       <div>
                         <p class="socialMediaBox__title">Jordan Tseng</p>
-                        <p class="socialMediaBox__link subTxt">Facebook</p>
+                        <p class="txtLink">Facebook</p>
                       </div>
                     </div>
                     <div class="d-flex">
@@ -125,7 +116,7 @@
                       <i class="jobIcon bi bi-google me-6"></i>
                       <div>
                         <p class="socialMediaBox__title">Jordan Tseng</p>
-                        <p class="socialMediaBox__link subTxt">Google</p>
+                        <p class="txtLink">Google</p>
                       </div>
                     </div>
                     <div class="d-flex">
@@ -144,10 +135,8 @@
                       </button>
                     </div>
                   </div>
-                </div>
-              </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed list--last">
+                </li>
+                <li class="infoList__item list--last">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <p class="infoList__item__title">刪除帳號</p>
@@ -163,8 +152,7 @@
                       刪除帳號
                     </button>
                   </div>
-                </div>
-              </li>
+                </li>
             </ul>
           </div>
         </div>

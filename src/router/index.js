@@ -76,87 +76,87 @@ const routes = [
       {
         // 總覽
         path: 'work-over-view',
-        component: () => import('../views/admin/WorkOverView.vue'),
+        component: () => import('../views/admin/work/WorkOverView.vue'),
       },
       {
         // 申請紀錄
         path: 'work-application',
-        component: () => import('../views/admin/WorkApplication.vue'),
+        component: () => import('../views/admin/work/WorkApplication.vue'),
       },
       {
         // 收藏夾
         path: 'work-collection',
-        component: () => import('../views/admin/WorkCollection.vue'),
+        component: () => import('../views/admin/work/WorkCollection.vue'),
       },
       {
         // 收藏夾
         path: 'work-collection/:id',
-        component: () => import('../views/admin/WorkCollectionFolder.vue'),
+        component: () => import('../views/admin/work/WorkCollectionFolder.vue'),
       },
       {
         // 瀏覽紀錄
         path: 'work-company-read',
-        component: () => import('../views/admin/WorkCompanyRecord.vue'),
+        component: () => import('../views/admin/work/WorkCompanyRecord.vue'),
       },
       {
         // 瀏覽紀錄
         path: 'work-read-record',
-        component: () => import('../views/admin/WorkReadRecord.vue'),
+        component: () => import('../views/admin/work/WorkReadRecord.vue'),
       },
       {
         // 審核紀錄
         path: 'work-other-application',
-        component: () => import('../views/admin/WorkOtherApplication.vue'),
+        component: () => import('../views/admin/work/WorkOtherApplication.vue'),
       },
       {
         // 文件-履歷
         path: 'document-cv',
-        component: () => import('../views/admin/DocCV.vue'),
+        component: () => import('../views/admin/doc/DocCV.vue'),
       },
       {
         // 文件-履歷
         path: 'document-cv/cv/:id',
-        component: () => import('../views/admin/CvPage.vue'),
+        component: () => import('../views/admin/doc/CvPage.vue'),
       },
       {
         // 文件-履歷
         path: 'document-cv/cv/new',
-        component: () => import('../views/admin/NewCV.vue'),
+        component: () => import('../views/admin/doc/NewCV.vue'),
       },
       {
         // 文件-求職信
         path: 'document-cover-letter',
-        component: () => import('../views/admin/DocCoverLetter.vue'),
+        component: () => import('../views/admin/doc/DocCoverLetter.vue'),
       },
       {
         // 文件-履歷
         path: 'document-other',
-        component: () => import('../views/admin/DocOther.vue'),
+        component: () => import('../views/admin/doc/DocOther.vue'),
       },
       {
         // 文件-履歷
         path: 'chatroom',
-        component: () => import('../views/admin/ChatRoom.vue'),
+        component: () => import('../views/admin/other/ChatRoom.vue'),
       },
       {
         // 設定-個人資料
         path: 'setting',
-        component: () => import('../views/admin/SettingPersonalInfo.vue'),
+        component: () => import('../views/admin/setting/SettingPersonalInfo.vue'),
       },
       {
         // 設定-求職意向
         path: 'setting-career',
-        component: () => import('../views/admin/SettingCareer.vue'),
+        component: () => import('../views/admin/setting/SettingCareer.vue'),
       },
       {
         // 設定-文字模板
         path: 'setting-message-template',
-        component: () => import('../views/admin/SettingMessageTemplate.vue'),
+        component: () => import('../views/admin/setting/SettingMessageTemplate.vue'),
       },
       {
         // 設定-帳號設定
         path: 'setting-account',
-        component: () => import('../views/admin/SettingAccount.vue'),
+        component: () => import('../views/admin/setting/SettingAccount.vue'),
       },
     ],
   },
@@ -170,32 +170,32 @@ const routes = [
   {
     // 企業後台
     path: '/company-admin',
-    component: () => import('../views/company/CompanyAdmin.vue'),
+    component: () => import('../views/company/cop/CompanyAdmin.vue'),
     children: [
       {
         // 企業方案介紹
         path: 'company-home',
-        component: () => import('../views/company/CompanyHome.vue'),
+        component: () => import('../views/company/cop/CompanyHome.vue'),
       },
       {
         // 企業註冊
         path: 'add-company/:type',
-        component: () => import('../views/company/AddCompany.vue'),
+        component: () => import('../views/company/other/AddCompany.vue'),
       },
       {
         // 企業中心
         path: 'company-over-view',
-        component: () => import('../views/company/CompanyCenter.vue'),
+        component: () => import('../views/company/cop/CompanyCenter.vue'),
       },
       {
         // 企業資料
         path: 'company-info',
-        component: () => import('../views/company/CompanyInfo.vue'),
+        component: () => import('../views/company/cop/CompanyInfo.vue'),
       },
       {
         // 公司頁面
         path: 'company-page-view',
-        component: () => import('../views/company/CompanyPageView.vue'),
+        component: () => import('../views/company/cop/CompanyPageView.vue'),
       },
       {
         // 刊登中職位
@@ -275,7 +275,7 @@ const routes = [
       {
         // 文件-履歷
         path: 'chatroom',
-        component: () => import('../views/company/ChatRoom.vue'),
+        component: () => import('../views/company/other/ChatRoom.vue'),
       },
       {
         // 加值服務-廣告管理

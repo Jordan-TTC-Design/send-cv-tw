@@ -103,12 +103,8 @@ p {
     border-radius: 0.25rem;
   }
 }
-.pageTitle {
-  font-size: 1.5rem;
-  font-weight: $fw--bd;
-  color: $dark;
-  margin-bottom: 1rem;
-}
+
+// .subTitle待刪除
 .subTitle {
   font-size: 1.25rem;
   font-weight: $fw--md;
@@ -171,48 +167,7 @@ p {
 .adminPage--py {
   padding-bottom: 3rem;
 }
-//頁面小分頁
-.page__sideNav {
-  background-color: $light;
-  padding: 0 0.75rem;
-  border-radius: 0.5rem;
-  display: flex;
-  &__item {
-    height: 44px;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transition: all 0.3s;
-    &__title {
-      color: $dark;
-      font-weight: $fw--md;
-    }
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      background-color: $primary;
-      height: 0rem;
-      width: 100%;
-      border-radius: 0.25rem 0.25rem 0 0;
-    }
-    &.active {
-      .page__sideNav__item__title {
-        color: $primary-dark;
-      }
-      &::after {
-        height: 0.25rem;
-      }
-    }
-  }
-}
 
-.position--sticky--pageTop{
-  position: sticky;
-  top: 86px;
-}
 .btnNumber{
   position: relative;
   &__number{

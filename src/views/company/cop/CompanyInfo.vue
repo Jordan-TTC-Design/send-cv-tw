@@ -4,53 +4,55 @@
     <div class="container position-relative">
       <div class="row justify-content-center">
         <!-- 會員方案 -->
-        <div class="col-4">
-          <div class="admin__mainContent">
-            <div class="d-flex align-items-start justify-content-between">
-              <h3 class="admin__mainContent__title">會員方案</h3>
-              <p class="px-4 py-2 bg-companyColor d-block text-light rounded-pill">基本方案</p>
+        <div class="col-lg-4">
+          <div class="sideContentBox">
+            <div class="sideContentBox__body p-5">
+              <div class="d-flex align-items-start justify-content-between">
+                <h3 class="pageSubTitle mb-3">會員方案</h3>
+                <p class="px-4 py-2 bg-companyColor d-block text-light rounded-pill">基本方案</p>
+              </div>
+              <ul class="infoList infoList--company infoList--noneBordar mb-5">
+                <li class="infoList__item pb-2">
+                  <p class="infoList__item__title">方案名稱</p>
+                  <p class="person__txt">基本方案</p>
+                </li>
+                <li class="infoList__item pb-2">
+                  <p class="infoList__item__title">起始日期</p>
+                  <p class="person__txt">2021年5月20日</p>
+                </li>
+                <li class="infoList__item pb-2">
+                  <p class="infoList__item__title">方案費用</p>
+                  <p class="person__txt">1200 NTD</p>
+                </li>
+                <li class="infoList__item pb-2">
+                  <p class="infoList__item__title">付款資訊</p>
+                  <p class="person__txt">每月自動扣款</p>
+                </li>
+                <li class="infoList__item pb-2">
+                  <p class="infoList__item__title">付款方式</p>
+                  <p class="person__txt">信用卡</p>
+                </li>
+                <li class="infoList__item pb-0">
+                  <p class="infoList__item__title">方案內容</p>
+                  <ul class="list--dots list--dots--company rounded p-4 bg-gray-light">
+                    <li class="mb-2">無限制職位刊登數量</li>
+                    <li class="mb-2">搜尋 SendCV 上的所有人才</li>
+                    <li class="mb-2">推廣您新刊登的職位</li>
+                    <li class="mb-2">一般版面廣告</li>
+                    <li class="mb-2">設計在社群平台發布的廣告畫面</li>
+                    <li>職位推廣額度 x3</li>
+                  </ul>
+                </li>
+              </ul>
+              <button type="button" class="btn btn-gray-light w-100">變更方案</button>
             </div>
-            <ul class="person__infoBox mb-5">
-              <li class="person__infoBox__item mb-2">
-                <p class="person__subTxt">方案名稱</p>
-                <p class="person__txt">基本方案</p>
-              </li>
-              <li class="person__infoBox__item mb-2">
-                <p class="person__subTxt">起始日期</p>
-                <p class="person__txt">2021年5月20日</p>
-              </li>
-              <li class="person__infoBox__item mb-2">
-                <p class="person__subTxt">方案費用</p>
-                <p class="person__txt">1200 NTD</p>
-              </li>
-              <li class="person__infoBox__item mb-2">
-                <p class="person__subTxt">付款資訊</p>
-                <p class="person__txt">每月自動扣款</p>
-              </li>
-              <li class="person__infoBox__item mb-2">
-                <p class="person__subTxt">付款方式</p>
-                <p class="person__txt">信用卡</p>
-              </li>
-              <li class="person__infoBox__item mb-2 flex-column">
-                <p class="person__subTxt mb-2">方案內容</p>
-                <ul class="rounded p-3 bg-gray-light">
-                  <li class="mb-1">無限制職位刊登數量</li>
-                  <li class="mb-1">搜尋 SendCV 上的所有人才</li>
-                  <li class="mb-1">推廣您新刊登的職位</li>
-                  <li class="mb-1">一般版面廣告</li>
-                  <li class="mb-1">設計在社群平台發布的廣告畫面</li>
-                  <li>職位推廣額度 x3</li>
-                </ul>
-              </li>
-            </ul>
-            <button type="button" class="btn btn-gray-light w-100">變更方案</button>
           </div>
         </div>
         <!-- 企業資料 -->
-        <div class="col-lg-8 col-12">
-          <div class="admin__mainContent">
-            <h3 class="admin__mainContent__title">企業基本資料</h3>
-            <div class="admin__mainContent__btnBox">
+        <div class="col-lg-8">
+          <div class="adminContentBox adminContentBox--p adminContentBox--full">
+            <h3 class="pageSubTitle text-dark mb-3">企業基本資料</h3>
+            <div class="adminContentBox__btnBox">
               <button
                 type="button"
                 class="btn btn-outline-gray-line btn--text--dark"
@@ -60,7 +62,7 @@
                 編輯
               </button>
             </div>
-            <ul class="row mb-6 infoList--company" v-if="!editMode">
+            <ul class="row mb-6 infoList infoList--company" v-if="!editMode">
               <li class="col-6">
                 <div class="infoList__item">
                   <p class="infoList__item__title">企業名稱</p>
@@ -107,7 +109,7 @@
                   </div>
                 </div>
               </li>
-              <li class="col-12">
+              <li class="col">
                 <div class="infoList__item">
                   <p class="infoList__item__title">公司地址</p>
                   <p
@@ -119,9 +121,9 @@
                 </div>
               </li>
             </ul>
-            <h3 class="admin__mainContent__title" v-if="!editMode">主要聯絡人資料</h3>
-            <ul class="row infoList--company" v-if="!editMode">
-              <li class="col-6">
+            <h3 class="pageSubTitle text-dark mb-3" v-if="!editMode">主要聯絡人資料</h3>
+            <ul class="row infoList infoList--company row-cols-lg-2 row-cols-1" v-if="!editMode">
+              <li class="col">
                 <div class="infoList__item">
                   <p class="infoList__item__title">姓名</p>
                   <p
@@ -132,7 +134,7 @@
                   </p>
                 </div>
               </li>
-              <li class="col-6">
+              <li class="col">
                 <div class="infoList__item">
                   <p class="infoList__item__title">職稱</p>
                   <p
@@ -143,7 +145,7 @@
                   </p>
                 </div>
               </li>
-              <li class="col-6">
+              <li class="col">
                 <div class="infoList__item">
                   <p class="infoList__item__title">電子信箱</p>
                   <p
@@ -154,7 +156,7 @@
                   </p>
                 </div>
               </li>
-              <li class="col-6">
+              <li class="col">
                 <div class="infoList__item">
                   <p class="infoList__item__title">聯絡電話</p>
                   <p
@@ -168,7 +170,7 @@
             </ul>
             <Form ref="editCompanyData" v-slot="{ errors }" @submit="saveFormData" v-if="editMode">
               <div class="row mb-3">
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-6">
                   <!-- 公司名稱 -->
                   <div class="form__input">
                     <div class="form__labelBox">
@@ -267,7 +269,7 @@
                   </div>
                 </div>
                 <!-- 公司logo -->
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="companyDataCompanyIndustry" class="labelBox__label form-label"
@@ -363,9 +365,9 @@
                   </div>
                 </div>
               </div>
-              <h3 class="admin__mainContent__title" v-if="editMode">主要聯絡人資料</h3>
-              <div class="row">
-                <div class="col-lg-6 col-12">
+              <h3 class="pageSubTitle text-dark mb-3" v-if="editMode">主要聯絡人資料</h3>
+              <div class="row row-cols-lg-2 row-cols-1">
+                <div class="col">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="mainContactName" class="labelBox__label form-label"
@@ -387,7 +389,7 @@
                     <ErrorMessage name="聯絡人姓名" class="invalid-feedback"></ErrorMessage>
                   </div>
                 </div>
-                <div class="col-lg-6 col-12">
+                <div class="col">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="mainContactJobTitle" class="labelBox__label form-label"
@@ -410,7 +412,7 @@
                   </div>
                 </div>
                 <!-- 電子郵件 -->
-                <div class="col-lg-6 col-12">
+                <div class="col">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="mainContactEmail" class="labelBox__label form-label"
@@ -429,7 +431,7 @@
                   </div>
                 </div>
                 <!-- 聯絡電話 -->
-                <div class="col-lg-6 col-12">
+                <div class="col">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="mainContactPhone" class="labelBox__label form-label"
@@ -447,12 +449,12 @@
                     />
                   </div>
                 </div>
-                <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-gray-light me-2" @click="editMode = false">
-                    取消
-                  </button>
-                  <button type="submit" class="btn btn-companyColor text-light">保存</button>
-                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-gray-light me-2" @click="editMode = false">
+                  取消
+                </button>
+                <button type="submit" class="btn btn-companyColor text-light">保存</button>
               </div>
             </Form>
           </div>

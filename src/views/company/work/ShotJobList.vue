@@ -55,8 +55,12 @@
               >{{ selectItem.jobName }}</span
             >
           </button>
-          <div ref="adminSelectBox" class="adminSelectBox box--shadow px-0" v-if="selectItem.key">
-            <div class="selectBox__section">
+          <div
+            ref="adminSelectBox"
+            class="adminContentBox adminSelectBox py-5"
+            v-if="selectItem.key"
+          >
+            <div class="adminContentBox__section">
               <div class="row">
                 <div class="col-lg-3">
                   <img
@@ -66,8 +70,8 @@
                   />
                 </div>
                 <div class="col-md-9 d-flex flex-column">
-                  <h4 class="pageSubTitle mb-1">{{ selectItem.jobName }}</h4>
-                  <p class="mb-1">更新時間：2021-12-1</p>
+                  <h4 class="pageSubTitle mb-2">{{ selectItem.jobName }}</h4>
+                  <p class="text-secondary mb-1">更新時間：2021-12-1</p>
                   <div class="adminSelectBox__btnList w-100 flex-grow-1 align-items-end">
                     <select
                       class="form-select w-auto me-2"
@@ -103,7 +107,7 @@
                 </div>
               </div>
             </div>
-            <div class="selectBox__section">
+            <div class="adminContentBox__section">
               <h4 class="pageSubTitle">職位系統資訊</h4>
               <ul class="infoList infoList--company">
                 <li class="infoList__item">

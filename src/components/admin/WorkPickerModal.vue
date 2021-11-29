@@ -32,28 +32,28 @@
                   mb-4
                 "
               >
-                <ul class="page__sideNav">
+                <ul class="pageSubNav">
                   <li
-                    class="page__sideNav__item putPointer"
+                    class="pageSubNav__item putPointer"
                     :class="{ active: subMainNav === '影片' }"
                     @click="this.subMainNav = '影片'"
                   >
-                    <p class="page__sideNav__item__title">影片</p>
+                    <p class="pageSubNav__item__title">影片</p>
                   </li>
                   <li
-                    class="page__sideNav__item putPointer"
+                    class="pageSubNav__item putPointer"
                     :class="{ active: subMainNav === '作品' }"
                     @click="this.subMainNav = '作品'"
                   >
-                    <p class="page__sideNav__item__title">作品</p>
+                    <p class="pageSubNav__item__title">作品</p>
                   </li>
                 </ul>
               </div>
-              <ul class="row" v-if="subMainNav === '影片' && dataReady">
+              <ul class="row row-cols-lg-3 row-cols-1" v-if="subMainNav === '影片' && dataReady">
                 <template v-for="(item, index) in user.docData.videoList" :key="index">
-                  <li class="col-4">
-                    <div class="docCard docCard--video card" @click="chooseCV('video', index)">
-                      <div class="form-check docCard__checkBox">
+                  <li class="col">
+                    <div class="scvCard" @click="chooseCV('video', index)">
+                      <div class="form-check scvCard__checkBox">
                         <input
                           :ref="`video--${index}`"
                           class="form-check-input"
@@ -63,23 +63,22 @@
                           @click.stop="chooseCV('video', index)"
                         />
                       </div>
-                      <div class="position-relative">
-                        <img class="card-img-top" :src="item.imgUrl" alt="影片封面" />
-                        <div class="img-cover"></div>
+                      <div class="imgCover--top">
+                        <img class="scvCard__img--top" :src="item.imgUrl" alt="影片封面" />
                       </div>
-                      <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
-                        <p class="docCard__title mb-2">{{ item.title }}</p>
-                        <p class="subTxt text-secondary">更新時間:{{ $filters.date(item.time) }}</p>
+                      <div class="scvCard__body justify-content-between flex-grow-1">
+                        <p class="scvCard__title">{{ item.title }}</p>
+                        <p class="scvCard__subTxt">更新時間:{{ $filters.date(item.time) }}</p>
                       </div>
                     </div>
                   </li>
                 </template>
               </ul>
-              <ul class="row" v-if="subMainNav === '作品' && dataReady">
+              <ul class="row row-cols-lg-2 row-cols-1" v-if="subMainNav === '作品' && dataReady">
                 <template v-for="(item, index) in user.docData.productList" :key="index">
-                  <li class="col-6">
-                    <div class="docCard docCard--product" @click="chooseCV('product', index)">
-                      <div class="form-check docCard__checkBox">
+                  <li class="col">
+                    <div class="scvCard flex-row" @click="chooseCV('product', index)">
+                      <div class="form-check scvCard__checkBox">
                         <input
                           :ref="`product--${index}`"
                           class="form-check-input"
@@ -89,16 +88,15 @@
                           @click.stop="chooseCV('product', index)"
                         />
                       </div>
-                      <div class="position-relative me-3">
-                        <img class="docCard__cover" :src="item.imgUrl" alt="CV封面" />
-                        <div class="img-cover"></div>
+                      <div class="m-3 me-0 imgCover">
+                        <img class="scvCard__img" :src="item.imgUrl" alt="CV封面" />
                       </div>
-                      <div class="d-flex flex-column flex-grow-1">
-                        <p class="docCard__title mb-2">{{ item.title }}</p>
-                        <p class="subTxt text-secondary mb-1">
+                      <div class="scvCard__body">
+                        <p class="scvCard__title mb-2">{{ item.title }}</p>
+                        <p class="scvCard__subTxt mb-1">
                           更新時間:{{ $filters.date(item.time) }}
                         </p>
-                        <p class="subTxt text-secondary">檔案格式：jpg</p>
+                        <p class="scvCard__subTxt">檔案格式：jpg</p>
                       </div>
                     </div>
                   </li>

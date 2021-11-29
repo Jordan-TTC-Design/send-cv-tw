@@ -153,36 +153,7 @@
     }
   }
 }
-.adminSelectBox {
-  min-height: calc(80vh - 132px);
-  background-color: #fff;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  @include md {
-    display: none;
-    &.checked {
-      display: block;
-    }
-  }
-  .adminSelectBox__btnList {
-    display: flex;
-    justify-content: flex-end;
-    @include md {
-      background-color: $light;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      z-index: 999;
-      padding: 0.75rem 1rem;
-      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16);
-    }
-  }
-}
-.pageSubTitle {
-  font-size: 20px;
-  color: $dark;
-}
+
 .selectBox__section {
   position: relative;
   border-bottom: 1px solid $gray-line;
@@ -555,39 +526,6 @@
   }
 }
 .infoList__item {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid $gray-line;
-  &.list--last {
-    border-bottom: 0;
-    padding-bottom: 0;
-  }
-  &:hover {
-    .infoList__item__title,
-    .infoList__item__jobTitle {
-      color: $primary-dark;
-    }
-  }
-  &__title {
-    font-size: 14px;
-    color: $secondary;
-    margin-bottom: 0.25rem;
-  }
-  &__socialMediaBox {
-    background-color: $gray-light;
-    border-radius: 0.25rem;
-    padding: 0.75rem 1.5rem;
-    display: flex;
-    align-items: center;
-    &:hover {
-      .socialMediaBox__title {
-        color: $primary-dark;
-      }
-    }
-    .socialMediaBox__link {
-      text-decoration: underline;
-      color: $secondary;
-    }
-  }
   &__jobTitle {
     color: $dark;
   }
@@ -664,81 +602,7 @@
     }
   }
 }
-// 卡片中的 tag new
-.card--application {
-  position: relative;
-  .tag--new {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-  }
-}
-.docCard {
-  cursor: pointer;
-  padding: 0.75rem;
-  background-color: $light;
-  border-radius: 0.5rem;
-  @include shadow-normal;
-  margin-bottom: 1.25rem;
-  min-height: 128px;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  &__title {
-    font-weight: $fw--md;
-    color: $dark;
-    margin-bottom: 0.25rem;
-  }
-  &__cover {
-    width: 148px;
-    height: 108px;
-    object-fit: cover;
-    border-radius: 0.25rem;
-  }
-  &:hover {
-    background-color: rgba($color: $light, $alpha: 0.5);
-  }
-  &__btnBox {
-    position: absolute;
-    bottom: 0.75rem;
-    right: 0.75rem;
-  }
-}
-.docCard--new {
-  border: 1px dashed $secondary;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(100% - 1.25rem);
-  &:hover {
-    background-color: $gray-line;
-  }
-}
-.docCard.docCard--coverLetter {
-  flex-direction: column;
-  min-height: 142px;
-  .docCard--coverLetter__content {
-    max-height: 2.5rem;
-    overflow: hidden;
-  }
-}
-.docCard.docCard--messageTemplate {
-  justify-content: flex-start;
-  flex-direction: column;
-  min-height: 91px;
-  .docCard--messageTemplate__content {
-    max-height: 4rem;
-    overflow: hidden;
-  }
-}
-.docCard.docCard--video {
-  padding: 0;
-  .card-body {
-    padding: 0.75rem;
-  }
-}
+
 .readRecordList {
   .list__item {
     background-color: $light;
@@ -1281,39 +1145,6 @@
   background-color: $gray-light;
   height: 360px;
   overflow-y: scroll;
-  .docCard {
-    border: 0;
-    position: relative;
-    z-index: 1;
-    .img-cover {
-      border-radius: 0.5rem 0.5rem 0 0;
-    }
-    &__checkBox {
-      width: 44px;
-      height: 44px;
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      left: 0;
-      top: 0;
-      z-index: 2;
-    }
-    &:hover {
-      .docCard__title {
-        color: $primary-dark;
-      }
-    }
-  }
-  .docCard--product {
-    .img-cover {
-      border-radius: 0.25rem;
-    }
-    .docCard__checkBox {
-      top: 0.25rem;
-      left: 0.25rem;
-    }
-  }
 }
 .uploadUserImgIntro {
   display: flex;

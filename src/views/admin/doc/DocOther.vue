@@ -1,30 +1,33 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
-    <div class="container">
-      <div class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5">
-        <ul class="page__sideNav">
+    <AdminNav class="d-lg-block d-none" :nowPage="nowPage" />
+    <div class="container-lg pageSubNavContainer--fixed">
+      <div class="pageSubNav pageSubNav--fixed mb-5">
+        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
-            class="page__sideNav__item putPointer"
+            class="innerNav__item w--50"
             :class="{ active: subMainNav === '影片' }"
             @click="this.subMainNav = '影片'"
           >
-            <p class="page__sideNav__item__title">影片</p>
+            <p>影片</p>
           </li>
           <li
-            class="page__sideNav__item putPointer"
+            class="innerNav__item w--50"
             :class="{ active: subMainNav === '作品' }"
             @click="this.subMainNav = '作品'"
           >
-            <p class="page__sideNav__item__title">作品</p>
+            <p>作品</p>
           </li>
         </ul>
       </div>
+    </div>
+    <div class="container">
       <div class="bg-light rounded p-4 mb-5 d-flex" v-if="subMainNav === '影片' && dataReady">
         <div class="bg-gray-line d-flex flex-column justify-content-center px-8">
           <h4 class="mb-4">
-            立即上傳 <span class="text-companyColor">影像短片</span
-            > ，做個簡單的自我介紹或盡情發揮所長，找工作更快更方便！
+            立即上傳
+            <span class="text-companyColor">影像短片</span>
+            ，做個簡單的自我介紹或盡情發揮所長，找工作更快更方便！
           </h4>
           <p>
             Upload your video clips to introduce yourself or your creative works for betterjob
@@ -33,63 +36,61 @@
         </div>
         <img class="w-50" src="https://i.imgur.com/tOFpDha.png" alt="" />
       </div>
-      <ul class="row" v-if="subMainNav === '影片' && dataReady">
-        <li class="col-4">
-          <div class="docCard--new putPointer" @click="openDocModal('newVideo')">
-            <p><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增影片</p>
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="subMainNav === '影片' && dataReady">
+        <li class="col">
+          <div class="newScvCard putPointer h-100" @click="openDocModal('newVideo')">
+            <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增影片</p>
           </div>
         </li>
-        <template v-for="(item, index) in user.docData.videoList" :key="index">
-          <li class="col-4">
-            <div class="docCard docCard--video card">
-              <img class="card-img-top" :src="item.imgUrl" alt="影片封面" />
-              <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
-                <p class="docCard__title mb-2">{{ item.title }}</p>
-                <p class="subTxt text-secondary mb-3">更新時間:{{ $filters.date(item.time) }}</p>
-                <div class="d-flex justify-content-between">
-                  <button
-                    type="button"
-                    class="btn text-dark"
-                    :class="{
-                      'btn-primary': item.introSelect,
-                      'btn-outline-gray-line': !item.introSelect,
-                    }"
-                    @click="changeIntroVideo(index)"
-                  >
-                    <i
-                      class="jobIcon-sm bi me-1 text-dark"
-                      :class="{ 'bi-eye-slash': !item.introSelect, 'bi-eye': item.introSelect }"
-                    ></i
-                    >{{ `${item.introSelect ? '已設定自我介紹' : '設定成自我介紹'}` }}
-                  </button>
-                  <button type="button" class="btn">
-                    <i class="jobIcon-sm bi bi-three-dots"></i>
-                  </button>
-                </div>
+        <li class="col" v-for="(item, index) in user.docData.videoList" :key="index">
+          <div class="scvCard">
+            <img class="scvCard__img--top" :src="item.imgUrl" alt="影片封面" />
+            <div class="scvCard__body">
+              <p class="scvCard__title mb-1">{{ item.title }}</p>
+              <p class="scvCard__subTxt mb-4">更新時間:{{ $filters.date(item.time) }}</p>
+              <div class="d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn text-dark"
+                  :class="{
+                    'btn-primary': item.introSelect,
+                    'btn-outline-gray-line': !item.introSelect,
+                  }"
+                  @click="changeIntroVideo(index)"
+                >
+                  <i
+                    class="jobIcon-sm bi me-1 text-dark"
+                    :class="{ 'bi-eye-slash': !item.introSelect, 'bi-eye': item.introSelect }"
+                  ></i
+                  >{{ `${item.introSelect ? '已設定自我介紹' : '設定成自我介紹'}` }}
+                </button>
+                <button type="button" class="btn text-dark">
+                  <i class="jobIcon-sm bi bi-three-dots"></i>
+                </button>
               </div>
             </div>
-          </li>
-        </template>
+          </div>
+        </li>
       </ul>
-      <ul class="row" v-if="subMainNav === '作品' && dataReady">
-        <li class="col-4">
-          <div class="docCard--new putPointer" @click="openDocModal('newProduct')">
-            <p><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增作品</p>
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="subMainNav === '作品' && dataReady">
+        <li class="col">
+          <div class="newScvCard putPointer h-100" @click="openDocModal('newProduct')">
+            <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增作品</p>
           </div>
         </li>
         <template v-for="(item, index) in user.docData.productList" :key="index">
-          <li class="col-4">
-            <div class="docCard">
-              <img class="docCard__cover me-3" :src="item.imgUrl" alt="CV封面" />
-              <div class="d-flex flex-column flex-grow-1">
-                <p class="docCard__title mb-2">{{ item.title }}</p>
+          <li class="col">
+            <div class="scvCard flex-row h-100">
+              <img class="scvCard__img m-3 me-0" :src="item.imgUrl" alt="作品封面" />
+              <div class="scvCard__body flex-grow-1">
+                <p class="scvCard__title mb-2">{{ item.title }}</p>
                 <p class="subTxt text-secondary mb-1">更新時間:{{ $filters.date(item.time) }}</p>
                 <p class="subTxt text-secondary">檔案格式：jpg</p>
-                <div class="docCard__btnBox">
-                  <button type="button" class="btn">
-                    <i class="jobIcon-sm bi bi-three-dots"></i>
-                  </button>
-                </div>
+              </div>
+              <div class="scvCard__btnBox">
+                <button type="button" class="btn">
+                  <i class="jobIcon-sm bi bi-three-dots"></i>
+                </button>
               </div>
             </div>
           </li>

@@ -157,7 +157,7 @@
                   </p>
                 </li>
               </ul>
-              <div class="selectBox__section" v-if="subNav === '廣告說明'">
+              <div class="adminContentBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle">廣告說明</h4>
                 <ul class="infoList infoList--company">
                   <li class="infoList__item">
@@ -173,7 +173,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="selectBox__section" v-if="subNav === '廣告說明'">
+              <div class="adminContentBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
                 <img
                   class="w-100 rounded"
@@ -181,7 +181,7 @@
                   alt="大型版面預覽畫面"
                 />
               </div>
-              <div class="selectBox__section pb-5" v-if="subNav === '廣告說明'">
+              <div class="adminContentBox__section pb-5" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-4">如何建立廣告</h4>
                 <div class="d-flex align-items-start justify-content-between">
                   <p class="me-5">
@@ -327,7 +327,7 @@
                   </p>
                 </li>
               </ul>
-              <div class="selectBox__section" v-if="subNav === '廣告說明'">
+              <div class="adminContentBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle">廣告說明</h4>
                 <ul class="infoList infoList--company">
                   <li class="infoList__item">
@@ -342,7 +342,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="selectBox__section" v-if="subNav === '廣告說明'">
+              <div class="adminContentBox__section" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
                 <img
                   class="w-100 rounded"
@@ -350,7 +350,7 @@
                   alt="大型版面預覽畫面"
                 />
               </div>
-              <div class="selectBox__section pb-5" v-if="subNav === '廣告說明'">
+              <div class="adminContentBox__section pb-5" v-if="subNav === '廣告說明'">
                 <h4 class="pageSubTitle mb-4">如何建立廣告</h4>
                 <div class="d-flex align-items-start justify-content-between">
                   <p class="me-5">
@@ -461,7 +461,7 @@
                   <p>推廣中<span class="ms-1">99</span></p>
                 </li>
               </ul>
-              <div class="selectBox__section">
+              <div class="adminContentBox__section">
                 <h4 class="pageSubTitle">廣告說明</h4>
                 <ul class="infoList infoList--company">
                   <li class="infoList__item">
@@ -477,7 +477,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="selectBox__section">
+              <div class="adminContentBox__section">
                 <h4 class="pageSubTitle mb-3">推廣預覽畫面</h4>
                 <img
                   class="w-100 rounded"
@@ -485,7 +485,7 @@
                   alt="大型版面預覽畫面"
                 />
               </div>
-              <div class="selectBox__section pb-5">
+              <div class="adminContentBox__section pb-5">
                 <h4 class="pageSubTitle mb-4">如何設定推廣</h4>
                 <div class="d-flex align-items-start justify-content-between">
                   <p class="me-5">

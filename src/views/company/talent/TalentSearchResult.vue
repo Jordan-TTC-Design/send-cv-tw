@@ -421,7 +421,7 @@
             <i class="bi bi-chevron-left me-2"></i>返回
           </button>
           <p class="ps-4 mb-4">搜尋條件：</p>
-          <div class="admin__mainContent p-0 pb-3">
+          <div class="adminContentBox pb-3">
             <div
               class="
                 border-bottom border-gray-line
