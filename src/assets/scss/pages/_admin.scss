@@ -357,7 +357,7 @@
     width: calc(68% - 10px);
     display: flex;
     flex-direction: column;
-    .form__input{
+    .form__input {
       width: 80%;
     }
   }
@@ -408,38 +408,7 @@
     }
   }
 }
-.userMenu {
-  width: 100%;
-  background-color: $light;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  @include shadow-normal;
-  &__list {
-    .list__item {
-      cursor: pointer;
-      border-bottom: 1px solid $gray-line;
-      &:last-child {
-        border: 0;
-      }
-      &__link {
-        color: $dark;
-        padding: 0.75rem 0;
-      }
-      &:hover {
-        .list__item__link {
-          color: $primary-dark;
-        }
-      }
-    }
-    &__logOut {
-      background-color: $gray-light;
-      display: flex;
-      justify-content: center;
-      border-radius: 0.5rem;
-      margin-top: 1rem;
-    }
-  }
-}
+
 .setting__sideList {
   position: sticky;
   top: 86px;
@@ -915,7 +884,7 @@
     padding: 0.75rem 1rem;
   }
 }
-.chatRoom__infoArea--company{
+.chatRoom__infoArea--company {
   .boxSubNav__item.active {
     background-color: $companyColor-light;
   }

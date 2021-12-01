@@ -1,8 +1,11 @@
 //前台header
 .header--front {
-  padding: 0.125rem 0px;
+  padding: 0.125rem 1rem;
   background-color: $primary;
   border-bottom: 1px solid $light;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   .header__logo {
     max-height: 60px;
   }
@@ -17,47 +20,80 @@
       display: block;
     }
   }
-  .header__navBox {
+  .header__nav {
     position: relative;
   }
-  .header__nav {
+  .header__nav__innerList {
     display: flex;
     flex-direction: row;
     align-items: center;
-    .nav__item {
-      position: relative;
+  }
+  .innerList__item {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: $dark;
+      height: 0rem;
+      width: calc(100% - 0.25rem);
+      border-radius: 0.25rem 0.25rem 0 0;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.active::after {
+      height: 0.25rem;
+    }
+  }
+  .innerList__item__link {
+    color: $dark;
+    font-weight: $fw--md;
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+  }
+  @include md {
+    justify-content: end;
+    .header__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .header__nav {
+      background-color: $light;
+      position: fixed;
+      top: calc(3rem + 1px);
+      bottom: 0;
+      left: -100%;
+      width: calc(80% + 1px);
+      transition: all 0.3s;
+      z-index: 1200;
+    }
+    .header__nav.active {
+      left: 0%;
+    }
+    .header__nav__innerList {
+      max-height: 100%;
+      flex-direction: column;
+    }
+    .innerList__item {
+      width: 100%;
+      border-bottom: 1px solid $gray-line;
       &::after {
-        content: '';
-        position: absolute;
-        bottom: -12px;
-        background-color: $dark;
-        height: 0rem;
-        width: 100%;
-        border-radius: 0.25rem 0.25rem 0 0;
+        left: 1rem;
+        bottom: 50%;
+        width: 4px;
+        transform: translateY(50%);
+        border-radius: 0.25rem;
       }
-      .nav__item__link {
-        color: $dark;
-        font-weight: $fw--md;
+      &.active::after {
+        height: 1rem;
       }
-      &.active {
-        &::after {
-          height: 0.25rem;
-        }
-        @include md {
-          &::after {
-            height: 1rem;
-          }
-        }
-      }
-      @include md {
-        &::after {
-          left: 0;
-          bottom: 50%;
-          width: 4px;
-          transform: translateY(25%);
-          border-radius: 0.25rem;
-        }
-      }
+    }
+    .innerList__item__link {
+      padding: 0.75rem 1.75rem;
+      font-weight: $fw--rg;
+      @include bg--hover;
     }
   }
   .header__companyBtnBox {
@@ -74,39 +110,74 @@
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
   }
-  @include md {
-    .header__navBox {
-      background-color: $primary;
-      position: fixed;
-      top: calc(4rem + 1px);
-      bottom: 0;
+  .menuCover {
+    display: none;
+    @include md {
+      top: calc(3rem + 1px);
       right: -100%;
-      width: 80%;
+      width: 20%;
+      position: fixed;
+      bottom: 0;
+      background-color: rgba($color: $dark, $alpha: 0.8);
       transition: all 0.3s;
-      padding: 1rem;
-      z-index: 1200;
-    }
-    .header__navBox.active {
-      right: 0%;
-    }
-    .header__nav {
-      max-height: 100%;
-      flex-direction: column;
-    }
-    .nav-item {
-      width: 100%;
-      padding-bottom: 0.5rem;
-      margin-top: 0.5rem;
-      border-bottom: 1px solid $gray-line;
-      padding-left: 0;
+      display: block;
+      &.active {
+        right: 0;
+      }
     }
   }
-  .menuCover {
-    top: calc(4rem + 1px);
-    left: -100%;
-    width: 20%;
-    &.active {
-      left: 0;
+}
+.userMenu {
+  width: 100%;
+  background-color: $light;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  @include shadow-normal;
+  position: absolute;
+  top: 3rem;
+  z-index: 1200;
+  display: none;
+  &__item {
+    cursor: pointer;
+    border-bottom: 1px solid $gray-line;
+    &:last-child {
+      border: 0;
+    }
+    &__link {
+      display: inline-block;
+      color: $dark;
+      padding: 0.75rem;
+      width: 100%;
+    }
+    .userMenu__item__link--jobSeeker:hover {
+      color: $primary-dark;
+    }
+  }
+  &__logOut {
+    background-color: $gray-light;
+    display: flex;
+    justify-content: center;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+  }
+  &.active {
+    display: block;
+  }
+  @include md {
+    display: block;
+    position: static;
+    padding: 0;
+    background-color: transparent;
+    @include shadow-none;
+    .userMenu__item {
+      border-bottom: 1px solid $gray-line;
+    }
+    .userMenu__item__link--jobSeeker:hover {
+      color: $dark;
+    }
+    .userMenu__item__link {
+      padding: 0.75rem 1.75rem;
+      @include bg--hover;
     }
   }
 }
@@ -1010,15 +1081,15 @@
       border-bottom: 0;
     }
   }
-  &__jobInfoImgBox{
+  &__jobInfoImgBox {
     border-radius: 0.5rem;
     background-color: $gray-light;
     padding: 0.75rem;
     margin-bottom: 1rem;
-    &:last-child{
+    &:last-child {
       margin-bottom: 0;
     }
-    &__img{
+    &__img {
       border-radius: 0.25rem;
       width: 100%;
       cursor: pointer;
@@ -1474,9 +1545,9 @@
     background-color: $light;
   }
   .addProcessBox__txt,
-    .addProcessBox__title {
-      color: $primary-dark;
-    }
+  .addProcessBox__title {
+    color: $primary-dark;
+  }
   &.completed {
     .addProcessBox__txt,
     .addProcessBox__title {
@@ -2047,7 +2118,7 @@
     }
   }
 }
-.newImgInputBtn{
+.newImgInputBtn {
   border-radius: 0.5rem;
   border: 1px dashed $secondary;
   height: 160px;
@@ -2059,22 +2130,22 @@
     background-color: $gray-line;
   }
 }
-.formStepBtnBox{
+.formStepBtnBox {
   display: flex;
 }
-.formStepBtnBox--border{
+.formStepBtnBox--border {
   border-top: 1px solid $gray-line;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
 }
-.shotJobImgBox{
+.shotJobImgBox {
   width: 100%;
-  &__img{
-  width: 100%;
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
+  &__img {
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
   }
-  &__content{
+  &__content {
     font-size: 14px;
   }
 }

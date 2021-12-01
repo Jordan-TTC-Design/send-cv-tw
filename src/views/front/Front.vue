@@ -1,122 +1,103 @@
 <template>
-  <header class="header header--front">
-    <div ref="Search" class="header__searchModal">
-      <SearchModal />
-    </div>
-    <div
-      class="header__userMenuModal"
-      :class="{ active: userMenuOpen }"
-      @click="userMenuOpen = !userMenuOpen"
-    >
-      <div class="container">
-        <div class="row justify-content-end">
-          <div class="col-3">
-            <div class="userMenu userMenu">
-              <ul class="userMenu__list">
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/work-application"
-                    >工作</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/document-cv"
-                    >文件</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/chatroom"
-                    >聊天室</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/admin/setting"
-                    >帳戶設定</router-link
-                  >
-                </li>
-                <li class="list__item pt-3">
-                  <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
-                    登出
-                  </button>
-                </li>
-              </ul>
+  <header ref="header" class="header header--front container-fluid">
+    <h1 class="header__logo">
+      <router-link aria-current="page" to="/"
+        ><img class="w-100" src="@/assets/images/logo/sendCV-logo-black.svg" alt="SendCVTW logo"
+      /></router-link>
+    </h1>
+    <div class="header__nav" ref="headerNavBox">
+      <ul class="header__nav__innerList" ref="headerNav">
+        <li class="innerList__item" :class="{ active: this.navState === '首頁' }">
+          <router-link class="innerList__item__link" aria-current="page" to="/">首頁</router-link>
+        </li>
+        <li class="innerList__item" :class="{ active: this.navState === '優質企業' }">
+          <router-link class="innerList__item__link" aria-current="page" to="/company-recommend"
+            >優質企業</router-link
+          >
+        </li>
+        <li class="innerList__item" :class="{ active: this.navState === '優質工作' }">
+          <router-link class="innerList__item__link" to="/products-list">優質工作</router-link>
+        </li>
+        <li class="innerList__item d-lg-block d-none">
+          <button class="innerList__item__link btn" type="button" @click="openSearchModal">
+            <i class="jobIcon text-dark bi bi-search"></i>
+          </button>
+        </li>
+        <li class="innerList__item d-lg-block d-none" v-if="!loginState">
+          <button class="nav-link btn btn-light text-dark" type="button" @click="login">
+            登入 / 註冊
+          </button>
+        </li>
+        <li
+          class="innerList__item d-lg-block d-none"
+          v-if="loginState"
+          @click="userMenuOpen = !userMenuOpen"
+        >
+          <div class="userBox">
+            <div class="userBox__person me-2">
+              <div class="userBox__person__box">
+                <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </li>
+        <li class="innerList__item nav-item" v-if="!loginState">
+          <router-link
+            class="btn btn-companyColor text-light nav-link"
+            to="/company-admin/company-home"
+            >企業專區</router-link
+          >
+        </li>
+      </ul>
+      <ul class="userMenu" :class="{ active: userMenuOpen }" @click="userMenuOpen = !userMenuOpen">
+        <li class="userMenu__item">
+          <router-link
+            class="userMenu__item__link userMenu__item__link--jobSeeker"
+            to="/admin/work-application"
+            >工作</router-link
+          >
+        </li>
+        <li class="userMenu__item">
+          <router-link
+            class="userMenu__item__link userMenu__item__link--jobSeeker"
+            to="/admin/document-cv"
+            >文件</router-link
+          >
+        </li>
+        <li class="userMenu__item">
+          <router-link
+            class="userMenu__item__link userMenu__item__link--jobSeeker"
+            to="/admin/chatroom"
+            >聊天室</router-link
+          >
+        </li>
+        <li class="userMenu__item">
+          <router-link
+            class="userMenu__item__link userMenu__item__link--jobSeeker"
+            to="/admin/setting"
+            >帳戶設定</router-link
+          >
+        </li>
+        <li class="userMenu__item pt-3">
+          <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
+            登出
+          </button>
+        </li>
+      </ul>
     </div>
-    <div class="container d-flex justify-content-between align-items-center">
-      <h1>
-        <router-link aria-current="page" to="/"
-          ><img
-            class="header__logo"
-            src="@/assets/images/logo/sendCV-logo-black.svg"
-            alt="SendCVTW logo"
-        /></router-link>
-      </h1>
-      <div class="header__navBox" ref="headerNavBox">
-        <ul class="header__nav" ref="headerNav">
-          <li class="nav__item nav-item me-2" :class="{ active: this.navState === '首頁' }">
-            <router-link class="nav__item__link nav-link" aria-current="page" to="/"
-              >首頁</router-link
-            >
-          </li>
-          <li class="nav__item nav-item me-2" :class="{ active: this.navState === '優質企業' }">
-            <router-link
-              class="nav__item__link nav-link"
-              aria-current="page"
-              to="/company-recommend"
-              >優質企業</router-link
-            >
-          </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '優質工作' }">
-            <router-link class="nav__item__link nav-link" to="/products-list">優質工作</router-link>
-          </li>
-          <li class="nav__item nav-item d-lg-block d-none me-2">
-            <button class="nav__item__link nav-link btn" type="button" @click="openSearchModal">
-              <i class="jobIcon text-dark bi bi-search"></i>
-            </button>
-          </li>
-          <li class="nav__item nav-item d-lg-block d-none me-2" v-if="!loginState">
-            <button class="nav-link btn btn-light text-dark" type="button" @click="login">
-              登入 / 註冊
-            </button>
-          </li>
-          <li class="nav__item nav-item" v-if="loginState">
-            <div class="userBox">
-              <div class="userBox__person me-2">
-                <div class="userBox__person__box">
-                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
-                </div>
-              </div>
-              <div
-                ref="userBoxPersonMenuBtn"
-                class="userBox__person__menu btn--circle"
-                :class="{ active: userMenuOpen }"
-                @click="userMenuOpen = !userMenuOpen"
-              >
-                <i class="text-dark jobIcon bi bi-chevron-up"></i>
-                <i class="text-dark jobIcon bi bi-chevron-down"></i>
-              </div>
-            </div>
-          </li>
-          <li class="nav__item nav-item" v-if="!loginState">
-            <router-link
-              class="btn btn-companyColor text-light nav-link"
-              to="/company-admin/company-home"
-              >企業專區</router-link
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="bgCover menuCover" ref="menuCover" @click="openRwdMenu"></div>
-      <div class="d-flex d-lg-none">
-        <div class="hamburgerMenu d-flex me-2" @click="openSearchModal" ref="headerSearchIcon">
-          <i class="jobIcon bi bi-search"></i>
-        </div>
-        <div class="hamburgerMenu d-flex" @click="openRwdMenu">
-          <i class="jobIcon bi bi-list"></i>
-        </div>
-      </div>
+    <div
+      class="hamburgerMenu d-lg-none d-flex me-2"
+      @click="openSearchModal"
+      ref="headerSearchIcon"
+    >
+      <i class="jobIcon text-dark bi bi-search"></i>
+    </div>
+    <div class="hamburgerMenu d-lg-none d-flex" @click="openRwdMenu">
+      <i class="jobIcon text-dark bi bi-list"></i>
+    </div>
+    <div class="menuCover" ref="menuCover" @click="openRwdMenu"></div>
+    <div ref="Search" class="header__searchModal">
+      <SearchModal />
     </div>
   </header>
   <!-- 有點不知道分區要不要寫在外元件 -->
