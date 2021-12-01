@@ -1,9 +1,9 @@
 <template>
   <div class="adminPage--py" v-if="dataReady">
     <Form v-slot="{ errors }" @submit="processUploadAd">
-      <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
-        <div class="container admin__subNav justify-content-between align-items-center">
-          <h2 class="admin__subNav__title me-0">新建廣告-{{ adType }}</h2>
+      <div class="adminSubNav adminSubNav--edit mb-6 box--shadow">
+        <div class="container adminSubNav__innerList justify-content-between align-items-center">
+          <h2 class="adminSubNav__innerList__title me-0">新建廣告-{{ adType }}</h2>
           <div>
             <button
               type="button"

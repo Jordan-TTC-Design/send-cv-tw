@@ -1,10 +1,10 @@
 <template>
   <div class="adminPage--py jobPage">
     <Form v-slot="{ errors }" @submit="uploadJob">
-      <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
-        <div class="container admin__subNav justify-content-between align-items-center">
+      <div class="adminSubNav adminSubNav--edit mb-6 box--shadow">
+        <div class="container adminSubNav__innerList justify-content-between align-items-center">
           <div class="d-flex align-items-center">
-            <h2 class="admin__subNav__title me-0">建立職位</h2>
+            <h2 class="adminSubNav__innerList__title me-0">建立職位</h2>
             <p class="ms-2">- {{ pagePreview ? '預覽狀態' : '編輯狀態' }}</p>
           </div>
           <div>

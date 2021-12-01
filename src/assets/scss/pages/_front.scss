@@ -1,130 +1,46 @@
-//前台header
-.header--front {
-  padding: 0.125rem 1rem;
-  background-color: $primary;
-  border-bottom: 1px solid $light;
+.frontStageSubNav {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
-  .header__logo {
-    max-height: 60px;
-  }
-  //header搜尋視窗定位
-  .header__searchModal {
+  justify-content: center;
+  background-color: $primary;
+  @include sm {
+    border-bottom: 1px solid $light;
     position: absolute;
-    top: 3.75rem;
-    right: 0;
+    top: 3rem;
     left: 0;
-    display: none;
-    &.active {
-      display: block;
-    }
+    width: 100%;
+    z-index: 100;
   }
-  .header__nav {
-    position: relative;
-  }
-  .header__nav__innerList {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .innerList__item {
-    position: relative;
-    &::after {
-      content: '';
-      position: absolute;
-      background-color: $dark;
-      height: 0rem;
+}
+.frontStageSubNav__item {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: $dark;
+    height: 0rem;
+    border-radius: 0.25rem;
+    width: calc(75% - 1rem);
+    bottom: 0rem;
+    left: 50%;
+    transform: translateX(-50%);
+    @include sm {
       width: calc(100% - 0.25rem);
       border-radius: 0.25rem 0.25rem 0 0;
-      bottom: -0.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    &.active::after {
-      height: 0.25rem;
     }
   }
-  .innerList__item__link {
-    color: $dark;
-    font-weight: $fw--md;
-    display: block;
-    padding: 0.75rem 1rem;
-    text-decoration: none;
+  &.active::after {
+    height: 0.25rem;
   }
-  @include md {
-    justify-content: end;
-    .header__logo {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .header__nav {
-      background-color: $light;
-      position: fixed;
-      top: calc(3rem + 1px);
-      bottom: 0;
-      left: -100%;
-      width: calc(80% + 1px);
-      transition: all 0.3s;
-      z-index: 1200;
-    }
-    .header__nav.active {
-      left: 0%;
-    }
-    .header__nav__innerList {
-      max-height: 100%;
-      flex-direction: column;
-    }
-    .innerList__item {
-      width: 100%;
-      border-bottom: 1px solid $gray-line;
-      &::after {
-        left: 1rem;
-        bottom: 50%;
-        width: 4px;
-        transform: translateY(50%);
-        border-radius: 0.25rem;
-      }
-      &.active::after {
-        height: 1rem;
-      }
-    }
-    .innerList__item__link {
-      padding: 0.75rem 1.75rem;
-      font-weight: $fw--rg;
-      @include bg--hover;
-    }
-  }
-  .header__companyBtnBox {
-    color: $primary;
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 0.75rem 0.75rem 0 0.75rem;
-    margin-right: 0.25rem;
-    padding: 0.75rem 1rem;
-  }
-  .header__companyBtnBox--sm {
-    color: $primary;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 0.5rem 0.5rem 0.5rem 0;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-  }
-  .menuCover {
-    display: none;
-    @include md {
-      top: calc(3rem + 1px);
-      right: -100%;
-      width: 20%;
-      position: fixed;
-      bottom: 0;
-      background-color: rgba($color: $dark, $alpha: 0.8);
-      transition: all 0.3s;
-      display: block;
-      &.active {
-        right: 0;
-      }
-    }
+}
+.frontStageSubNav__item__link {
+  color: $dark;
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  @include sm {
+    font-size: 14px;
   }
 }
 .userMenu {
@@ -153,6 +69,9 @@
       color: $primary-dark;
     }
   }
+  &__item.logoutBtn{
+    padding-top: 0.75rem;
+  }
   &__logOut {
     background-color: $gray-light;
     display: flex;
@@ -171,6 +90,14 @@
     @include shadow-none;
     .userMenu__item {
       border-bottom: 1px solid $gray-line;
+    }
+    .userMenu__item.logoutBtn{
+      padding: 0.75rem;
+      border-bottom: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
     .userMenu__item__link--jobSeeker:hover {
       color: $dark;

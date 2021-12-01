@@ -1,66 +1,38 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage"/>
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <div
-            class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5"
+    <AdminNav :nowPage="nowPage" />
+    <div class="container-lg pageSubNavContainer--fixed">
+      <div class="pageSubNav pageSubNav--sticky mb-5">
+        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
+          <li
+            class="innerNav__item"
+            :class="{ active: pageSubNavState === '已申請' }"
+            @click="this.pageSubNavState = '已申請'"
           >
-            <ul class="pageSubNav">
-              <li
-                ref="pageSubNav__item--job"
-                class="pageSubNav__item active putPointer"
-                @click="this.navState = 'job'"
-              >
-                <p class="pageSubNav__item__title">已申請</p>
-              </li>
-              <li
-                ref="pageSubNav__item--company"
-                class="pageSubNav__item putPointer"
-                @click="this.navState = 'company'"
-              >
-                <p class="pageSubNav__item__title">面試</p>
-              </li>
-              <li
-                ref="pageSubNav__item--company"
-                class="pageSubNav__item putPointer"
-                @click="this.navState = 'company'"
-              >
-                <p class="pageSubNav__item__title">已錄取</p>
-              </li>
-              <li
-                ref="pageSubNav__item--company"
-                class="pageSubNav__item putPointer"
-                @click="this.navState = 'company'"
-              >
-                <p class="pageSubNav__item__title">已婉拒</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="d-flex justify-content-end">
-            <div class="searchInput me-2">
-              <i class="jobIcon bi bi-search"></i>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="職位關鍵字"
-                aria-describedby="關鍵字"
-                v-model="filterData.keyword"
-              />
-            </div>
-            <select
-              class="form-select form-select-lg w-auto border-0 text-gray-dark"
-              @change="changeJobSort($event)"
-              v-model="sortWay"
-            >
-              <option selected value="time">最新至最舊</option>
-              <option value="money">薪水高至低</option>
-            </select>
-          </div>
-        </div>
+            <p>已申請</p>
+          </li>
+          <li
+            class="innerNav__item"
+            :class="{ active: pageSubNavState === '面試' }"
+            @click="this.pageSubNavState = '面試'"
+          >
+            <p>面試</p>
+          </li>
+          <li
+            class="innerNav__item"
+            :class="{ active: pageSubNavState === '已錄取' }"
+            @click="this.pageSubNavState = '已錄取'"
+          >
+            <p>已錄取</p>
+          </li>
+          <li
+            class="innerNav__item"
+            :class="{ active: pageSubNavState === '已婉拒' }"
+            @click="this.pageSubNavState = '已婉拒'"
+          >
+            <p>已婉拒</p>
+          </li>
+        </ul>
       </div>
     </div>
     <div ref="jobsListContainer" class="jobsListContainer container">
@@ -154,6 +126,7 @@ export default {
       fullWidth: 0,
       fullHeight: 0,
       nowPage: '職位申請',
+      pageSubNavState: '已申請',
       products: [],
       jobsList: [],
       nowPageJobs: [],

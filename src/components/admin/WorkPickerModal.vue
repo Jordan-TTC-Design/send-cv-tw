@@ -35,21 +35,21 @@
                 <ul class="pageSubNav">
                   <li
                     class="pageSubNav__item putPointer"
-                    :class="{ active: subMainNav === '影片' }"
-                    @click="this.subMainNav = '影片'"
+                    :class="{ active: pageSubNavState === '影片' }"
+                    @click="this.pageSubNavState = '影片'"
                   >
                     <p class="pageSubNav__item__title">影片</p>
                   </li>
                   <li
                     class="pageSubNav__item putPointer"
-                    :class="{ active: subMainNav === '作品' }"
-                    @click="this.subMainNav = '作品'"
+                    :class="{ active: pageSubNavState === '作品' }"
+                    @click="this.pageSubNavState = '作品'"
                   >
                     <p class="pageSubNav__item__title">作品</p>
                   </li>
                 </ul>
               </div>
-              <ul class="row row-cols-lg-3 row-cols-1" v-if="subMainNav === '影片' && dataReady">
+              <ul class="row row-cols-lg-3 row-cols-1" v-if="pageSubNavState === '影片' && dataReady">
                 <template v-for="(item, index) in user.docData.videoList" :key="index">
                   <li class="col">
                     <div class="scvCard" @click="chooseCV('video', index)">
@@ -74,7 +74,7 @@
                   </li>
                 </template>
               </ul>
-              <ul class="row row-cols-lg-2 row-cols-1" v-if="subMainNav === '作品' && dataReady">
+              <ul class="row row-cols-lg-2 row-cols-1" v-if="pageSubNavState === '作品' && dataReady">
                 <template v-for="(item, index) in user.docData.productList" :key="index">
                   <li class="col">
                     <div class="scvCard flex-row" @click="chooseCV('product', index)">
@@ -93,9 +93,7 @@
                       </div>
                       <div class="scvCard__body">
                         <p class="scvCard__title mb-2">{{ item.title }}</p>
-                        <p class="scvCard__subTxt mb-1">
-                          更新時間:{{ $filters.date(item.time) }}
-                        </p>
+                        <p class="scvCard__subTxt mb-1">更新時間:{{ $filters.date(item.time) }}</p>
                         <p class="scvCard__subTxt">檔案格式：jpg</p>
                       </div>
                     </div>
@@ -126,7 +124,7 @@ export default {
     return {
       date: new Date(),
       modal: {},
-      subMainNav: '影片',
+      pageSubNavState: '影片',
       dataReady: false,
       selectProductData: [],
       nowCvKey: null,

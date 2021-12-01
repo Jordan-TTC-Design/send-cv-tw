@@ -1,26 +1,32 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage"/>
-    <div class="container">
-      <div class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5">
-        <ul class="pageSubNav">
+    <AdminNav :nowPage="nowPage" />
+    <div class="container-lg pageSubNavContainer--fixed">
+      <div class="pageSubNav pageSubNav--sticky mb-5">
+        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
-            ref="pageSubNav__item--job"
-            class="pageSubNav__item active putPointer"
-            @click="this.navState = 'job'"
+            class="innerNav__item w--50"
+            :class="{ active: pageSubNavState === 'job' }"
+            @click="this.pageSubNavState = 'job'"
           >
-            <p class="pageSubNav__item__title">職位收藏</p>
+            <p>職位收藏</p>
           </li>
           <li
-            ref="pageSubNav__item--company"
-            class="pageSubNav__item putPointer"
-            @click="this.navState = 'company'"
+            class="innerNav__item w--50"
+            :class="{ active: pageSubNavState === 'company' }"
+            @click="this.pageSubNavState = 'company'"
           >
-            <p class="pageSubNav__item__title">企業收藏</p>
+            <p>企業收藏</p>
           </li>
         </ul>
       </div>
-      <div ref="collectionBoxList--job" class="bg-light p-6 rounded" v-if="navState === 'job'">
+    </div>
+    <div class="container">
+      <div
+        ref="collectionBoxList--job"
+        class="bg-light p-6 rounded"
+        v-if="pageSubNavState === 'job'"
+      >
         <div class="row">
           <div class="col-xl-4 col-md-6 col-12">
             <div class="collectionBox collectionBox--new" @click="newCollectionFolder">
@@ -95,7 +101,7 @@
       <div
         ref="collectionBoxList--company"
         class="collectionBoxList--company"
-        v-if="navState === 'company'"
+        v-if="pageSubNavState === 'company'"
       >
         <div class="row">
           <div class="col-12">
@@ -200,7 +206,7 @@ export default {
       allData: [],
       jobsList: [],
       nowPage: '收藏',
-      navState: 'job',
+      pageSubNavState: 'job',
       jobItem: {
         options: {
           company: {
@@ -215,7 +221,7 @@ export default {
     };
   },
   watch: {
-    navState(newValue, oldValue) {
+    pageSubNavState(newValue, oldValue) {
       emitter.emit('spinner-open-bg', 1000);
       this.$refs[`pageSubNav__item--${newValue}`].classList.add('active');
       this.$refs[`pageSubNav__item--${oldValue}`].classList.remove('active');

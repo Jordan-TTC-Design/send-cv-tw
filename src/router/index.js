@@ -170,7 +170,7 @@ const routes = [
   {
     // 企業後台
     path: '/company-admin',
-    component: () => import('../views/company/cop/CompanyAdmin.vue'),
+    component: () => import('../views/company/CompanyAdmin.vue'),
     children: [
       {
         // 企業方案介紹

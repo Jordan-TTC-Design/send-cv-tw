@@ -1,83 +1,112 @@
 <template>
-  <header class="header header--front">
-    <div ref="Search" class="header__searchModal">
-      <SearchModal />
-    </div>
-    <div ref="headerUserMenuModal" class="header__userMenuModal" @click="closeHeaderMenuModal">
-      <UserMenu />
-    </div>
-    <div class="container d-flex justify-content-between align-items-center">
-      <h1>
-        <router-link ia-current="page" to="/"
-          ><img
-            class="header__logo"
-            src="@/assets/images/logo/sendCV-logo-black.svg"
-            alt="SendCVTW logo"
-        /></router-link>
-      </h1>
-      <div class="header__navBox" ref="headerNavBox">
-        <ul class="header__nav" ref="headerNav">
-          <li class="nav__item nav-item" :class="{ active: this.navState === '首頁' }">
-            <router-link class="nav__item__link nav-link" aria-current="page" to="/"
-              >優質職位</router-link
+  <header ref="header" class="header header--front container-fluid">
+    <h1 class="header__logo">
+      <router-link class="h-100" aria-current="page" to="/"
+        ><img class="h-100" src="@/assets/images/logo/sendCV-logo-black.svg" alt="SendCVTW logo"
+      /></router-link>
+    </h1>
+    <div class="d-flex align-items-center">
+      <div class="hamburgerMenu me-2" @click="openSearchModal" ref="headerSearchIcon">
+        <i class="jobIcon text-dark bi bi-search"></i>
+      </div>
+      <div class="header__nav" ref="headerNavBox">
+        <ul class="header__nav__innerList order-lg-1 order-2" ref="headerNav">
+          <li class="innerList__item me-2" :class="{ active: this.navState === '首頁' }">
+            <router-link class="innerList__item__link" aria-current="page" to="/"
+              >優質工作</router-link
             >
           </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '優質企業' }">
-            <router-link
-              class="nav__item__link nav-link"
-              aria-current="page"
-              to="/company-recommend"
+          <li class="innerList__item me-2" :class="{ active: this.navState === '優質企業' }">
+            <router-link class="innerList__item__link" aria-current="page" to="/company-recommend"
               >優質企業</router-link
             >
           </li>
-          <li class="nav__item nav-item" :class="{ active: this.navState === '優質工作' }">
-            <router-link class="nav__item__link nav-link" to="/products-list">全部職位</router-link>
-          </li>
-          <li class="nav__item nav-item d-lg-block d-none">
-            <button class="nav__item__link nav-link btn" type="button" @click="openSearchModal">
-              搜尋
-            </button>
-          </li>
-          <li class="nav__item nav-item">
+          <li
+            class="innerList__item d-lg-block d-none"
+            v-if="loginState"
+            @click="userMenuOpen = !userMenuOpen"
+          >
             <div class="userBox">
               <div class="userBox__person me-2">
                 <div class="userBox__person__box">
                   <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
                 </div>
               </div>
-              <div
-                ref="userBoxPersonMenuBtn"
-                class="userBox__person__menu btn--circle"
-                @click="openHeaderMenuModal"
-              >
-                <i class="text-dark jobIcon bi bi-chevron-up"></i>
-                <i class="text-dark jobIcon bi bi-chevron-down"></i>
-              </div>
             </div>
           </li>
-          <li class="nav__item nav-item d-lg-none d-block">
-            <router-link
-              class="nav__item__link nav-link text-white"
-              to="/company-admin/company-home"
-              >企業會員加入</router-link
+        </ul>
+        <ul
+          class="header__nav__innerList header__nav__loginBtnList order-lg-2 order-1"
+          v-if="!loginState"
+        >
+          <li class="innerList__item">
+            <button
+              class="innerList__item__link btn btn--login--jobSeeker"
+              type="button"
+              @click="login"
             >
+              登入 / 註冊
+            </button>
           </li>
-          <li class="nav__item nav-item d-lg-none d-block">
-            <router-link class="nav__item__link nav-link text-white" to="/add-job"
-              >新建職位</router-link
+          <li class="innerList__item">
+            <router-link
+              class="innerList__item__link btn btn--login--company"
+              to="/company-admin/company-home"
+              >企業專區</router-link
             >
           </li>
         </ul>
+        <ul
+          class="userMenu order-3"
+          :class="{ active: userMenuOpen }"
+          @click="userMenuOpen = !userMenuOpen"
+          v-if="loginState"
+        >
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--jobSeeker"
+              to="/admin/work-application"
+              >工作</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--jobSeeker"
+              to="/admin/document-cv"
+              >文件</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--jobSeeker"
+              to="/admin/chatroom"
+              >聊天室</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--jobSeeker"
+              to="/admin/setting"
+              >帳戶設定</router-link
+            >
+          </li>
+          <li class="userMenu__item logoutBtn">
+            <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
+              登出
+            </button>
+          </li>
+        </ul>
       </div>
-      <div class="bgCover menuCover" ref="menuCover" @click="openRwdMenu"></div>
-      <div class="d-flex d-lg-none">
-        <div class="hamburgerMenu d-flex me-2" @click="openSearchModal" ref="headerSearchIcon">
-          <i class="jobIcon bi bi-search"></i>
-        </div>
-        <div class="hamburgerMenu d-flex" @click="openRwdMenu">
-          <i class="jobIcon bi bi-list"></i>
-        </div>
+      <div class="hamburgerMenu d-lg-none" @click="openRwdMenu">
+        <i class="jobIcon text-dark bi bi-list"></i>
       </div>
+    </div>
+    <div class="menuCover" ref="menuCover" @click="closeRwdMenu"></div>
+    <div ref="Search" class="header__searchModal">
+      <SearchModal />
+    </div>
+    <div ref="headerUserMenuModal" class="header__userMenuModal" @click="closeHeaderMenuModal">
+      <UserMenu />
     </div>
   </header>
   <div class="main main--bg" ref="main">
@@ -195,6 +224,7 @@
 <script>
 import SearchModal from '@/components/front/SearchModal.vue';
 import UserMenu from '@/components/helpers/UserMenu.vue';
+import database from '@/methods/firebaseinit';
 
 export default {
   components: {
@@ -203,7 +233,11 @@ export default {
   },
   data() {
     return {
+      userMenuOpen: false,
+      dataReady: false,
+      loginState: true,
       navState: '',
+      userAccountData: {},
       language: 'Chinese',
     };
   },
@@ -255,17 +289,40 @@ export default {
       this.$refs.headerUserMenuModal.classList.remove('active');
       this.$refs.userBoxPersonMenuBtn.classList.remove('active');
     },
+    checkLogin() {
+      this.loginState = this.userAccountData.login;
+      if (this.loginState === false) {
+        this.$router.push('/');
+      }
+    },
+    logout() {
+      console.log('成功登出');
+      this.userAccountData.login = false;
+      const userAccountDataRef = database.ref('user/account');
+      userAccountDataRef.set(this.userAccountData);
+      this.reload();
+    },
+    getJobSeekerUserData() {
+      const userAccountDataRef = database.ref('user/account');
+      userAccountDataRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          this.userAccountData = data;
+          console.log(this.userAccountData);
+          this.checkLogin();
+        }
+      });
+    },
   },
   mounted() {
+    this.getJobSeekerUserData();
     this.checkNavState();
     this.closeSearchModal();
     this.closeRwdMenu();
-    this.closeHeaderMenuModal();
   },
   updated() {
     this.checkNavState();
     this.closeSearchModal();
-    this.closeHeaderMenuModal();
     this.closeRwdMenu();
   },
 };

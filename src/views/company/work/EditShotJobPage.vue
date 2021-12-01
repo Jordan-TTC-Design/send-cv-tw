@@ -1,8 +1,8 @@
 <template>
   <div class="adminPage--py jobPage" v-if="dataReady">
     <Form v-slot="{ errors }" @submit="saveJobData">
-      <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
-        <div class="container admin__subNav justify-content-between align-items-center">
+      <div class="adminSubNav adminSubNav--edit mb-6 box--shadow">
+        <div class="container adminSubNav__innerList justify-content-between align-items-center">
           <div class="d-flex align-items-center">
             <button
               type="button"
@@ -11,7 +11,7 @@
             >
               <i class="jobIcon bi bi-chevron-left"></i>
             </button>
-            <h2 class="admin__subNav__title me-0" v-once>{{ jobForm.jobName }}</h2>
+            <h2 class="adminSubNav__innerList__title me-0" v-once>{{ jobForm.jobName }}</h2>
             <p class="ms-2">- {{ pagePreview ? '預覽狀態' : '編輯狀態' }}</p>
           </div>
           <div>
@@ -37,7 +37,9 @@
                     class="jobImg putPointer"
                     :src="jobForm.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
                     :alt="`${jobForm.jobName}職位圖片`"
-                    @click="openImgModal(jobForm.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png')"
+                    @click="
+                      openImgModal(jobForm.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png')
+                    "
                   />
                   <div class="jobInfoBox__logoImgBox">
                     <img
@@ -341,9 +343,7 @@
               </div>
               <div class="form__input form__input">
                 <div class="form__labelBox">
-                  <label for="jobFormPeopleNeed" class="labelBox__label form-label"
-                    >職務類別</label
-                  >
+                  <label for="jobFormPeopleNeed" class="labelBox__label form-label">職務類別</label>
                   <p class="formTag--must company">必填</p>
                   <p class="subTxt ms-2 text-secondary">(最多選3項)</p>
                 </div>
@@ -375,11 +375,9 @@
                 <div class="col-lg-8 col-12 d-flex flex-column justify-content-between">
                   <div class="form__input form__infoEditBox">
                     <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoJobContent"
-                        class="labelBox__label form-label me-2"
-                        >{{ `第 ${index + 1} 張圖片備註` }}</label
-                      >
+                      <label for="sendFormInfoJobContent" class="labelBox__label form-label me-2">{{
+                        `第 ${index + 1} 張圖片備註`
+                      }}</label>
                     </div>
                     <textarea
                       type="text"
@@ -495,11 +493,9 @@
                 <div class="col-lg-8 col-12 d-flex flex-column justify-content-between">
                   <div class="form__input form__infoEditBox">
                     <div class="form__labelBox">
-                      <label
-                        for="sendFormInfoJobContent"
-                        class="labelBox__label form-label me-2"
-                        >{{ `第 ${index + 1} 張圖片備註` }}</label
-                      >
+                      <label for="sendFormInfoJobContent" class="labelBox__label form-label me-2">{{
+                        `第 ${index + 1} 張圖片備註`
+                      }}</label>
                     </div>
                     <textarea
                       type="text"
@@ -527,9 +523,7 @@
               <div class="d-flex align-items-end mb-4">
                 <div class="form__input me-2">
                   <div class="form__labelBox">
-                    <label for="jobFormCompanyCity" class="labelBox__label form-label"
-                      >縣市</label
-                    >
+                    <label for="jobFormCompanyCity" class="labelBox__label form-label">縣市</label>
                   </div>
                   <Field
                     id="jobFormCompanyCity"

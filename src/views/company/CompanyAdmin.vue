@@ -1,142 +1,97 @@
 <template>
-  <header class="header header--company">
-    <div ref="Search" class="header__searchModal">
-      <SearchModal />
-    </div>
-    <div
-      ref="headerUserMenuModal"
-      class="header__userMenuModal"
-      :class="{ active: userMenuOpen }"
-      @click="userMenuOpen = !userMenuOpen"
-    >
-      <div class="container">
-        <div class="row justify-content-end">
-          <div class="col-3">
-            <div class="userMenu userMenu--company">
-              <ul class="userMenu__list">
-                <li class="list__item">
-                  <router-link
-                    class="list__item__link nav-link"
-                    to="/company-admin/company-over-view"
-                    >企業中心</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/company-admin/job-list"
-                    >職位管理</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link
-                    class="list__item__link nav-link"
-                    to="/company-admin/talent-recommend"
-                    >人才資料</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/company-admin/chatroom"
-                    >聊天室</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/company-admin/service-ad"
-                    >加值服務</router-link
-                  >
-                </li>
-                <li class="list__item">
-                  <router-link class="list__item__link nav-link" to="/company-admin/setting"
-                    >設定</router-link
-                  >
-                </li>
-                <li class="list__item pt-3">
-                  <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
-                    登出
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+  <header ref="header" class="header header--company container-fluid">
+    <h1 class="header__logo d-flex align-items-center">
+      <router-link class="h-100" aria-current="page" to="/"
+        ><img class="h-100" src="@/assets/images/logo/sendCV-logo-white.svg" alt="SendCVTW logo"
+      /></router-link>
+      <span class="subTxt text-light text-nowrap">企業專區</span>
+    </h1>
+    <div class="d-flex align-items-center" v-if="dataReady">
+      <div class="hamburgerMenu me-2" @click="openSearchModal" ref="headerSearchIcon">
+        <i class="jobIcon text-light bi bi-search"></i>
       </div>
-    </div>
-    <div class="container d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
-        <h1>
-          <router-link ia-current="page" to="/"
-            ><img
-              class="header__logo"
-              src="@/assets/images/logo/sendCV-logo-white.svg"
-              alt="SendCVTW logo"
-          /></router-link>
-        </h1>
-        <p class="subTxt text-light">企業專區</p>
+      <div class="hamburgerMenu me-2">
+        <i class="jobIcon bi bi-chat-left-dots text-light"></i>
       </div>
-      <div v-if="loginState && dataReady">
-        <div class="header__navBox" ref="headerNavBox">
-          <ul class="header__nav" ref="headerNav">
-            <li class="nav__item nav-item d-lg-block d-none">
-              <button
-                class="nav__item__link btn btn--circle btn--lg me-2"
-                type="button"
-                @click="openSearchModal"
-              >
-                <i class="jobIcon bi bi-search text-light"></i>
-              </button>
-            </li>
-            <li class="nav__item nav-item d-lg-block d-none">
-              <button class="nav__item__link btn btn--circle btn--lg me-2" type="button">
-                <i class="jobIcon bi bi-chat-left-dots text-light"></i>
-              </button>
-            </li>
-            <li class="nav__item nav-item">
-              <div class="userBox">
-                <div class="userBox__person me-2">
-                  <div class="userBox__person__box">
-                    <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
-                  </div>
-                </div>
-                <div
-                  ref="userBoxPersonMenuBtn"
-                  :class="{ active: userMenuOpen }"
-                  class="userBox__person__menu btn--circle"
-                  @click="userMenuOpen = !userMenuOpen"
-                >
-                  <i class="text-dark jobIcon bi bi-chevron-up"></i>
-                  <i class="text-dark jobIcon bi bi-chevron-down"></i>
+      <div class="header__nav" ref="headerNavBox">
+        <ul class="header__nav__innerList" ref="headerNav">
+          <li class="innerList__item" @click="userMenuOpen = !userMenuOpen" v-if="loginState">
+            <div class="userBox">
+              <div class="userBox__person me-2">
+                <div class="userBox__person__box">
+                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
                 </div>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="bgCover menuCover" ref="menuCover" @click="openRwdMenu"></div>
-        <div class="d-flex d-lg-none">
-          <div class="hamburgerMenu d-flex me-2" @click="openSearchModal" ref="headerSearchIcon">
-            <i class="jobIcon bi bi-search"></i>
-          </div>
-          <div class="hamburgerMenu d-flex" @click="openRwdMenu">
-            <i class="jobIcon bi bi-list"></i>
-          </div>
-        </div>
+            </div>
+          </li>
+          <li class="innerList__item me-2" v-if="!loginState">
+            <button class="btn text-light" type="button" @click="login">企業登入</button>
+          </li>
+          <li class="innerList__item me-2" v-if="!loginState">
+            <router-link class="nav-link text-light" to="/company-admin/company-home"
+              >企業註冊</router-link
+            >
+          </li>
+          <li class="innerList__item" v-if="!loginState">
+            <router-link class="btn btn-primary nav-link text-dark" to="/">求職者專區</router-link>
+          </li>
+        </ul>
+        <ul
+        ref="headerUserMenuModal"
+          class="userMenu order-3 userMenu--company"
+          :class="{ active: userMenuOpen }"
+          @click="userMenuOpen = !userMenuOpen"
+          v-if="loginState"
+        >
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--company"
+              to="/company-admin/company-over-view"
+              >企業中心</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--company"
+              to="/company-admin/talent-recommend"
+              >人才資料</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--company"
+              to="/company-admin/chatroom"
+              >聊天室</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--company"
+              to="/company-admin/service-ad"
+              >加值服務</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--company"
+              to="/company-admin/setting"
+              >帳戶設定</router-link
+            >
+          </li>
+          <li class="userMenu__item logoutBtn">
+            <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
+              登出
+            </button>
+          </li>
+        </ul>
       </div>
-      <div v-if="!loginState && dataReady">
-        <div class="header__navBox" ref="headerNavBox">
-          <ul class="header__nav" ref="headerNav">
-            <li class="nav__item nav-item">
-              <button class="btn text-light" type="button" @click="login">企業登入</button>
-            </li>
-            <li class="nav__item nav-item">
-              <router-link class="nav-link text-light" to="/company-admin/company-home"
-                >企業註冊</router-link
-              >
-            </li>
-            <li class="nav__item nav-item">
-              <router-link class="btn btn-primary nav-link text-dark" to="/"
-                >求職者專區</router-link
-              >
-            </li>
-          </ul>
-        </div>
+      <div class="hamburgerMenu d-flex d-lg-none" @click="openRwdMenu">
+        <i class="jobIcon bi bi-list"></i>
       </div>
+    </div>
+    <div class="menuCover" ref="menuCover" @click="closeRwdMenu"></div>
+    <div ref="Search" class="header__searchModal">
+      <SearchModal />
     </div>
   </header>
   <div class="main main--bg" ref="main">

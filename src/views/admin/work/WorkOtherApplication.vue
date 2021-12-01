@@ -1,55 +1,26 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <div
-            class="d-flex justify-content-center justify-content-lg-start align-items-center mb-5"
+    <div class="container-lg pageSubNavContainer--fixed">
+      <div class="pageSubNav pageSubNav--sticky mb-5">
+        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
+          <li
+            ref="pageSubNav__item--shotList"
+            class="innerNav__item w--50"
+            :class="{ active: pageSubNavState === 'shotList' }"
+            @click="changeSubNav('shotList')"
           >
-            <ul class="pageSubNav">
-              <li
-                ref="pageSubNav__item--shotList"
-                class="pageSubNav__item putPointer"
-                :class="{ active: navState === 'shotList' }"
-                @click="changeSubNav('shotList')"
-              >
-                <p class="pageSubNav__item__title">拍照求職</p>
-              </li>
-              <li
-                ref="pageSubNav__item--mailList"
-                class="pageSubNav__item putPointer"
-                :class="{ active: navState === 'mailList' }"
-                @click="changeSubNav('mailList')"
-              >
-                <p class="pageSubNav__item__title">寫郵件 SendCV</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="d-flex justify-content-end">
-            <div class="searchInput me-2">
-              <i class="jobIcon bi bi-search"></i>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="職位關鍵字"
-                aria-describedby="關鍵字"
-                v-model="filterData.keyword"
-              />
-            </div>
-
-            <select
-              class="form-select form-select-lg w-auto border-0 text-gray-dark"
-              @change="changeJobSort($event)"
-              v-model="sortWay"
-            >
-              <option selected value="time">最新至最舊</option>
-              <option value="money">薪水高至低</option>
-            </select>
-          </div>
-        </div>
+            <p  class="text-nowrap">拍照求職</p>
+          </li>
+           <li
+            ref="pageSubNav__item--mailList"
+            class="innerNav__item w--50"
+            :class="{ active: pageSubNavState === 'mailList' }"
+            @click="changeSubNav('mailList')"
+          >
+            <p class="text-nowrap">寫郵件 Send CV</p>
+          </li>
+        </ul>
       </div>
     </div>
     <div ref="jobsListContainer" class="jobsListContainer container">
@@ -57,7 +28,7 @@
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
       <div class="row">
-        <div class="col-lg-6 col-12" v-if="navState === 'shotList'">
+        <div class="col-lg-6 col-12" v-if="pageSubNavState === 'shotList'">
           <div class="jobListBox">
             <div class="ps-3 mb-3 bg-light rounded p-2">
               <p class="text-secondary fw-normal text-nowrap">
@@ -122,7 +93,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-6 col-12" v-if="navState === 'mailList'">
+        <div class="col-lg-6 col-12" v-if="pageSubNavState === 'mailList'">
           <div class="jobListBox">
             <div class="ps-3 mb-3 bg-light rounded p-2">
               <p class="text-secondary fw-normal text-nowrap">目前共 3 筆寫郵件SendCV紀錄</p>
@@ -429,7 +400,7 @@
             <div v-if="boxSubNav === '職位內容'">
               <div class="sideJobBox__section">
                 <h3 class="section__title--sub"><span class="title__icon"></span>職位內容</h3>
-                <div v-if="navState === 'shotList'">
+                <div v-if="pageSubNavState === 'shotList'">
                   <div
                     class="sideJobBox__jobInfoImgBox"
                     v-for="(itemUrl, number) in jobItem.data.jobImgUrl"
@@ -443,9 +414,9 @@
                     <p v-if="itemUrl.content" class="mt-2">{{ itemUrl.content }}</p>
                   </div>
                 </div>
-                <p v-if="navState === 'mailList'">{{ jobItem.data.jobContent }}</p>
+                <p v-if="pageSubNavState === 'mailList'">{{ jobItem.data.jobContent }}</p>
               </div>
-              <div class="sideJobBox__section" v-if="navState === 'shotList'">
+              <div class="sideJobBox__section" v-if="pageSubNavState === 'shotList'">
                 <h3 class="section__title--sub"><span class="title__icon"></span>申請方法</h3>
                 <div
                   class="sideJobBox__jobInfoImgBox"
@@ -498,7 +469,7 @@ export default {
       fullWidth: 0,
       fullHeight: 0,
       nowPage: '自我推薦',
-      navState: 'shotList',
+      pageSubNavState: 'shotList',
       boxSubNav: '申請資料',
       jobsList: [],
       jobItem: {
@@ -534,7 +505,7 @@ export default {
     };
   },
   // watch: {
-  //   navState: {
+  //   pageSubNavState: {
   //     deep: true,
   //     handler(newValue, oldValue) {
   //       if (newValue !== oldValue) {
@@ -550,9 +521,9 @@ export default {
       this.getNowPageItems();
     },
     changeSubNav(navName) {
-      this.navState = navName;
+      this.pageSubNavState = navName;
       this.pageNumber = 1;
-      this.filterListData(this.navState);
+      this.filterListData(this.pageSubNavState);
     },
     getOtherApplyData() {
       const otherApplyRef = database.ref('applyList/otherApplyList');
@@ -560,7 +531,7 @@ export default {
         const data = snapshot.val();
         this.otherApplyList = data;
         this.dataReady = true;
-        this.filterListData(this.navState);
+        this.filterListData(this.pageSubNavState);
       });
     },
     filterListData(dataName) {

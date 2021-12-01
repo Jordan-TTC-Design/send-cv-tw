@@ -114,6 +114,9 @@
   }
 }
 .userMenu--company {
+  min-width: 240px;
+  position: absolute;
+  right: 1rem;
   .userMenu__list {
     .list__item {
       &__link {

@@ -1,13 +1,13 @@
 <template>
   <div class="adminPage--py jobPage" v-if="dataReady">
-    <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
-      <div class="container admin__subNav justify-content-between align-items-center">
+    <div class="adminSubNav adminSubNav--edit mb-6 box--shadow">
+      <div class="container adminSubNav__innerList justify-content-between align-items-center">
         <div class="d-flex align-items-center">
           <button type="button" class="btn text-dark me-2"
           @click="goToPageLink(`/company-admin/job-list`)">
             <i class="jobIcon bi bi-chevron-left"></i>
           </button>
-          <h2 class="admin__subNav__title">{{ jobForm.jobName }}</h2>
+          <h2 class="adminSubNav__innerList__title">{{ jobForm.jobName }}</h2>
         </div>
         <div class="d-flex">
           <button type="button" class="btn btn-companyColor text-light me-2">升級推廣職位</button>

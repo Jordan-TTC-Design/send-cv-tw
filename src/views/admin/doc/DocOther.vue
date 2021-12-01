@@ -1,20 +1,20 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav class="d-lg-block d-none" :nowPage="nowPage" />
+    <AdminNav :nowPage="nowPage" />
     <div class="container-lg pageSubNavContainer--fixed">
-      <div class="pageSubNav pageSubNav--fixed mb-5">
+      <div class="pageSubNav pageSubNav--sticky mb-5">
         <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
             class="innerNav__item w--50"
-            :class="{ active: subMainNav === '影片' }"
-            @click="this.subMainNav = '影片'"
+            :class="{ active: pageSubNavState === '影片' }"
+            @click="this.pageSubNavState = '影片'"
           >
             <p>影片</p>
           </li>
           <li
             class="innerNav__item w--50"
-            :class="{ active: subMainNav === '作品' }"
-            @click="this.subMainNav = '作品'"
+            :class="{ active: pageSubNavState === '作品' }"
+            @click="this.pageSubNavState = '作品'"
           >
             <p>作品</p>
           </li>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="bg-light rounded p-4 mb-5 d-flex" v-if="subMainNav === '影片' && dataReady">
+      <div class="bg-light rounded p-4 mb-5 d-flex" v-if="pageSubNavState === '影片' && dataReady">
         <div class="bg-gray-line d-flex flex-column justify-content-center px-8">
           <h4 class="mb-4">
             立即上傳
@@ -36,7 +36,7 @@
         </div>
         <img class="w-50" src="https://i.imgur.com/tOFpDha.png" alt="" />
       </div>
-      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="subMainNav === '影片' && dataReady">
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="pageSubNavState === '影片' && dataReady">
         <li class="col">
           <div class="newScvCard putPointer h-100" @click="openDocModal('newVideo')">
             <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增影片</p>
@@ -72,7 +72,7 @@
           </div>
         </li>
       </ul>
-      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="subMainNav === '作品' && dataReady">
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="pageSubNavState === '作品' && dataReady">
         <li class="col">
           <div class="newScvCard putPointer h-100" @click="openDocModal('newProduct')">
             <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增作品</p>
@@ -121,7 +121,7 @@ export default {
     return {
       dataReady: false,
       nowPage: '其他文件',
-      subMainNav: '影片',
+      pageSubNavState: '影片',
       user: {},
     };
   },

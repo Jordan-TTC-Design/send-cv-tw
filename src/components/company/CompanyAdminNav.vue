@@ -1,66 +1,69 @@
 <template>
-  <div ref="adminSubHeader" class="admin__subHeader mb-6 box--shadow">
+  <div ref="adminSubHeader" class="adminSubNav mb-6 box--shadow">
     <div class="container">
-      <ul v-if="adminMainSection === '企業中心'" class="admin__subNav admin__subNav--company">
+      <ul
+        v-if="adminMainSection === '企業中心'"
+        class="adminSubNav__innerList adminSubNav__innerList--company"
+      >
         <li class="d-flex align-items-center d-md-flex d-none">
-          <h2 class="admin__subNav__title">企業中心</h2>
+          <h2 class="adminSubNav__innerList__title">企業中心</h2>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('company-over-view')"
           :class="{ active: nowPage === '總覽' }"
         >
-          <p class="admin__subNav__txt me-1">總覽</p>
+          <p class="adminSubNav__innerList__txt me-1">總覽</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('company-info')"
           :class="{ active: nowPage === '企業資料' }"
         >
-          <p class="admin__subNav__txt me-1">企業資料</p>
+          <p class="adminSubNav__innerList__txt me-1">企業資料</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('company-page-view')"
           :class="{ active: nowPage === '公司頁面' }"
         >
-          <p class="admin__subNav__txt me-1">公司頁面</p>
+          <p class="adminSubNav__innerList__txt me-1">公司頁面</p>
         </li>
       </ul>
       <ul
         v-if="adminMainSection === '職位管理'"
-        class="admin__subNav admin__subNav--company position-relative w-100"
+        class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
         <li class="d-md-flex align-items-center d-none">
-          <h2 class="admin__subNav__title">{{ `職位管理` }}</h2>
+          <h2 class="adminSubNav__innerList__title">{{ `職位管理` }}</h2>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('job-list')"
           :class="{ active: nowPage === '公司職位' }"
         >
-          <p class="admin__subNav__txt me-1">公司職位</p>
+          <p class="adminSubNav__innerList__txt me-1">公司職位</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('shot-job-list')"
           :class="{ active: nowPage === '拍照申請職位' }"
         >
-          <p class="admin__subNav__txt me-1">拍照申請職位</p>
+          <p class="adminSubNav__innerList__txt me-1">拍照申請職位</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('work-apply-list')"
           :class="{ active: nowPage === '應徵管理' }"
         >
-          <p class="admin__subNav__txt me-1">應徵管理</p>
+          <p class="adminSubNav__innerList__txt me-1">應徵管理</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('other-apply-list')"
           :class="{ active: nowPage === '自我推薦' }"
         >
-          <p class="admin__subNav__txt me-1">自我推薦</p>
+          <p class="adminSubNav__innerList__txt me-1">自我推薦</p>
         </li>
         <li class="d-flex align-items-center position-absolute end-0 h-100">
           <button
@@ -74,81 +77,81 @@
       </ul>
       <ul
         v-if="adminMainSection === '人才資料'"
-        class="admin__subNav admin__subNav--company position-relative w-100"
+        class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
         <li class="d-flex align-items-center d-md-flex d-none">
-          <h2 class="admin__subNav__title">人才資料</h2>
+          <h2 class="adminSubNav__innerList__title">人才資料</h2>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('talent-search')"
           :class="{ active: nowPage === '搜尋人才' }"
         >
-          <p class="admin__subNav__txt me-1">搜尋人才</p>
+          <p class="adminSubNav__innerList__txt me-1">搜尋人才</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('talent-collection')"
           :class="{ active: nowPage === '收藏人才' }"
         >
-          <p class="admin__subNav__txt me-1">收藏人才</p>
+          <p class="adminSubNav__innerList__txt me-1">收藏人才</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('talent-recommend')"
           :class="{ active: nowPage === '推薦人才' }"
         >
-          <p class="admin__subNav__txt me-1">推薦人才</p>
+          <p class="adminSubNav__innerList__txt me-1">推薦人才</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('talent-record')"
           :class="{ active: nowPage === '瀏覽紀錄' }"
         >
-          <p class="admin__subNav__txt me-1">瀏覽紀錄</p>
+          <p class="adminSubNav__innerList__txt me-1">瀏覽紀錄</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('talent-history')"
           :class="{ active: nowPage === '歷史面試' }"
         >
-          <p class="admin__subNav__txt me-1">歷史面試</p>
+          <p class="adminSubNav__innerList__txt me-1">歷史面試</p>
         </li>
       </ul>
       <ul
         v-if="adminMainSection === '加值服務'"
-        class="admin__subNav admin__subNav--company position-relative w-100"
+        class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
         <li class="d-flex align-items-center d-md-flex d-none">
-          <h2 class="admin__subNav__title">加值服務</h2>
+          <h2 class="adminSubNav__innerList__title">加值服務</h2>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('service-ad')"
           :class="{ active: nowPage === '廣告管理' }"
         >
-          <p class="admin__subNav__txt me-1">廣告管理</p>
+          <p class="adminSubNav__innerList__txt me-1">廣告管理</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('service-order')"
           :class="{ active: nowPage === '我的訂單' }"
         >
-          <p class="admin__subNav__txt me-1">我的訂單</p>
+          <p class="adminSubNav__innerList__txt me-1">我的訂單</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('service-membership')"
           :class="{ active: nowPage === '會員方案' }"
         >
-          <p class="admin__subNav__txt me-1">會員方案</p>
+          <p class="adminSubNav__innerList__txt me-1">會員方案</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('service-record')"
           :class="{ active: nowPage === '使用紀錄' }"
         >
-          <p class="admin__subNav__txt me-1">使用紀錄</p>
+          <p class="adminSubNav__innerList__txt me-1">使用紀錄</p>
         </li>
         <li class="d-flex align-items-center position-absolute end-0 h-100">
           <p class="me-2">目前使用：<span class="text-companyColor">免費方案</span></p>
@@ -169,45 +172,45 @@
       </ul>
       <ul
         v-if="adminMainSection === '設定'"
-        class="admin__subNav admin__subNav--company position-relative w-100"
+        class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
         <li class="d-flex align-items-center d-md-flex d-none">
-          <h2 class="admin__subNav__title">設定</h2>
+          <h2 class="adminSubNav__innerList__title">設定</h2>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('setting')"
           :class="{ active: nowPage === '我的帳戶' }"
         >
-          <p class="admin__subNav__txt me-1">我的帳戶</p>
+          <p class="adminSubNav__innerList__txt me-1">我的帳戶</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('setting-user-management')"
           :class="{ active: nowPage === '用戶管理' }"
         >
-          <p class="admin__subNav__txt me-1">用戶管理</p>
+          <p class="adminSubNav__innerList__txt me-1">用戶管理</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('setting-message-template')"
           :class="{ active: nowPage === '文字模板' }"
         >
-          <p class="admin__subNav__txt me-1">文字模板</p>
+          <p class="adminSubNav__innerList__txt me-1">文字模板</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('setting-email-bind')"
           :class="{ active: nowPage === '綁定信箱' }"
         >
-          <p class="admin__subNav__txt me-1">綁定信箱</p>
+          <p class="adminSubNav__innerList__txt me-1">綁定信箱</p>
         </li>
         <li
-          class="admin__subNav__item"
+          class="adminSubNav__innerList__item"
           @click="goToPageLink('setting-notification')"
           :class="{ active: nowPage === '通知設定' }"
         >
-          <p class="admin__subNav__txt me-1">通知設定</p>
+          <p class="adminSubNav__innerList__txt me-1">通知設定</p>
         </li>
       </ul>
     </div>

@@ -120,10 +120,10 @@
         <div ref="sectionHotJob" class="sectionHotJob section--py border-bottom border-gray-line">
           <div class="titleBox">
             <h3 class="titleBox__title">熱門職位</h3>
-            <p class="titleBox__tag">推薦</p>
+            <p class="titleBox__tag titleBox__tag--jobSeeker">推薦</p>
           </div>
-          <div class="row flex-wrap">
-            <div class="col-lg-6 col-12 mb-lg-0 mb-4">
+          <div class="row flex-wrap row-cols-lg-2 row-cols-1 gy-5">
+            <div class="col">
               <router-link
                 class="card--hotJob card--lg putPointer"
                 v-if="this.sortHotJobs[0]"
@@ -169,11 +169,11 @@
                 </div>
               </router-link>
             </div>
-            <div class="col-lg-6 col-12">
-              <div class="row">
+            <div class="col">
+              <div class="row row-cols-md-2 row-cols-1 gy-5">
                 <template v-for="(item, index) in sortHotJobs" :key="item.id">
                   <div
-                    class="col-md-6 col-12 mb-4"
+                    class="col"
                     :class="{ 'mb-lg-0': index > 2 }"
                     v-if="index >= 1 && index <= 4"
                   >
@@ -269,8 +269,8 @@
             <div class="titleBox justify-content-center">
               <h3 class="titleBox__title">如何使用拍照申請功能？</h3>
             </div>
-            <div class="row mb-5">
-              <div class="col-4">
+            <div class="row mb-5 row-cols-lg-3 row-cols-1">
+              <div class="col">
                 <div class="card--howTo">
                   <img src="@/assets/images/howto/snapJob-howto-1.png" alt="拍照申請說明圖" />
                   <div class="card__txtBox">
@@ -279,7 +279,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col">
                 <div class="card--howTo">
                   <img src="@/assets/images/howto/snapJob-howto-2.png" alt="拍照申請說明圖" />
                   <div class="card__txtBox">
@@ -288,7 +288,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col">
                 <div class="card--howTo">
                   <img src="@/assets/images/howto/snapJob-howto-3.png" alt="拍照申請說明圖" />
                   <div class="card__txtBox">
@@ -299,15 +299,17 @@
               </div>
             </div>
             <div class="row d-flex justify-content-center">
-              <div class="col-4">
+              <div class="col-lg-4 col-8">
                 <button type="button" class="btn btn-primary w-100">立即使用拍照申請功能</button>
               </div>
             </div>
           </div>
           <div class="recommendCardList section--py" v-if="dataReady">
-            <div class="titleBox">
-              <h3 class="titleBox__title">興趣職位推薦</h3>
-              <div class="recommendTagList">
+            <div class="d-flex flex-lg-row flex-column d-flex align-items-center mb-5">
+              <div class="titleBox mb-lg-0">
+                <h3 class="titleBox__title">興趣職位推薦</h3>
+              </div>
+              <div class="recommendTagList flex-wrap">
                 <button
                   type="button"
                   class="recommendTagList__btn btn btn-outline-gray-line active"
@@ -335,9 +337,9 @@
                 </button>
               </div>
             </div>
-            <ul class="row" v-if="sortHotJobs.length > 0">
+            <ul class="row row-cols-lg-2 row-cols-1" v-if="sortHotJobs.length > 0">
               <template v-for="(jobItem, index) in sortHotJobs" :key="jobItem.id">
-                <li class="col-lg-6 col-12" v-if="index < recommendCardList">
+                <li class="col" v-if="index < recommendCardList">
                   <div :ref="`list__item--${jobItem.id}`" class="list__item">
                     <button
                       class="collectBtn btn btn-outline-gray-line position-absolute"
@@ -426,8 +428,8 @@
           <div class="titleBox justify-content-center">
             <h3 class="titleBox__title">如何使用寫郵件sendCV功能？</h3>
           </div>
-          <div class="row mb-5">
-            <div class="col-4">
+          <div class="row row-cols-lg-3 row-cols-1 mb-5 gy-5">
+            <div class="col">
               <div class="card--howTo card--howTo--email">
                 <img
                   src="@/assets/images/howto/write-email-send-cv-1.jpg"
@@ -439,7 +441,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col">
               <div class="card--howTo card--howTo--email">
                 <img
                   src="@/assets/images/howto/write-email-send-cv-2.jpg"
@@ -451,7 +453,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col">
               <div class="card--howTo card--howTo--email">
                 <img
                   src="@/assets/images/howto/write-email-send-cv-3.jpg"
@@ -465,7 +467,7 @@
             </div>
           </div>
           <div class="row d-flex justify-content-center">
-            <div class="col-4">
+            <div class="col-lg-4 col-8">
               <button type="button" class="btn btn-primary w-100">立即使用寫郵件SendCV</button>
             </div>
           </div>

@@ -1,8 +1,8 @@
 <template>
   <div class="adminPage--py">
-    <div class="admin__subHeader admin__subHeader--edit mb-6 box--shadow">
-      <div class="container admin__subNav justify-content-between align-items-center">
-        <h2 class="admin__subNav__title me-0">{{ nowPage }}</h2>
+    <div class="adminSubNav adminSubNav--edit mb-6 box--shadow">
+      <div class="container adminSubNav__innerList justify-content-between align-items-center">
+        <h2 class="adminSubNav__innerList__title me-0">{{ nowPage }}</h2>
         <div>
           <router-link
             class="btn btn-outline-gray-line text-dark me-2"
