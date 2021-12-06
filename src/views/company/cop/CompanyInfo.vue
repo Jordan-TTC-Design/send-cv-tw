@@ -1,6 +1,26 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
+    <div class="container-lg pageSubNavContainer--sticky d-lg-none mb-5">
+      <div class="pageSubNav">
+        <ul class="innerNav innerNav--fill innerNav--company innerNav--single">
+          <li
+            class="innerNav__item w--50"
+            :class="{ active: pageSubNavState === '會員方案' }"
+            @click="this.pageSubNavState = '會員方案'"
+          >
+            <p>會員方案</p>
+          </li>
+          <li
+            class="innerNav__item w--50"
+            :class="{ active: pageSubNavState === '企業基本資料' }"
+            @click="this.pageSubNavState = '企業基本資料'"
+          >
+            <p>企業基本資料</p>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="container position-relative">
       <div class="row justify-content-center">
         <!-- 會員方案 -->
@@ -479,6 +499,7 @@ export default {
     return {
       date: new Date(),
       nowPage: '企業資料',
+      pageSubNavState: '會員方案',
       personalState: true,
       settingSideList: '個人資料',
       skillShowStyle: true,

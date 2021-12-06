@@ -1,7 +1,7 @@
 <template>
-  <div ref="adminSubHeader" class="adminSubNav container-fluid">
+  <div ref="adminSubHeader" class="adminSubNav adminSubNav--jobSeeker container-fluid">
     <ul v-if="adminMainSection === '工作'" class="adminSubNav__innerList">
-      <li class="d-flex align-items-center d-md-flex d-none">
+      <li class="d-flex align-items-center d-lg-flex d-none">
         <h2 class="adminSubNav__innerList__title">工作</h2>
       </li>
       <li
@@ -48,7 +48,7 @@
       </li>
     </ul>
     <ul v-if="adminMainSection === '文件'" class="adminSubNav__innerList">
-      <li class="d-flex align-items-center d-md-flex d-none">
+      <li class="d-flex align-items-center d-lg-flex d-none">
         <h2 class="adminSubNav__innerList__title">文件</h2>
       </li>
       <li
@@ -74,7 +74,7 @@
       </li>
     </ul>
     <ul v-if="adminMainSection === '個人帳戶'" class="adminSubNav__innerList">
-      <li class="d-flex align-items-center d-md-flex d-none">
+      <li class="d-flex align-items-center d-lg-flex d-none">
         <h2 class="adminSubNav__innerList__title">個人帳戶</h2>
       </li>
       <li

@@ -1,8 +1,8 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container-lg pageSubNavContainer--fixed">
-      <div class="pageSubNav pageSubNav--sticky mb-5">
+    <div class="container-lg pageSubNavContainer--sticky mb-5">
+      <div class="pageSubNav">
         <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
             class="innerNav__item w--50"

@@ -3,20 +3,9 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container">
       <div class="row justify-content-center" v-if="!editMode">
-        <div class="col-lg-9 col-12">
-          <div class="jobListBox">
-            <div
-              class="
-                d-flex
-                justify-content-between
-                align-items-center
-                px-3
-                mb-3
-                py-2
-                bg-light
-                rounded
-              "
-            >
+        <div class="col-lg-10 col-12">
+          <ul class="adminList adminList--single">
+            <li class="adminList__item adminList__item--title">
               <p class="text-secondary fw-normal text-nowrap">
                 目前共 {{ userList.length }} 個用戶
               </p>
@@ -27,71 +16,66 @@
               >
                 新增用戶
               </button>
-            </div>
-            <ul class="adminList--single">
-              <li class="list__item flex-md-row flex-column box--shadow p-3 mb-3">
+            </li>
+            <li class="adminList__item">
+              <div class="w-50">
+                <p class="itemTitle text-dark d-flex align-items-center mb-1">
+                  {{ meUser.chineseName }}<span class="jobTag ms-2">{{ meUser.userRole }}</span
+                  ><span class="jobTag jobTag--company ms-2">本人</span>
+                </p>
+                <p>{{ meUser.email }}</p>
+              </div>
+              <div class="d-flex">
+                <div
+                  class="btn btn--switch btn--switch--company putPointer"
+                  :class="{ 'text-secondary': !meUser.is_enabled }"
+                  @click="toogleUserState(meUser.key)"
+                >
+                  {{ meUser.is_enabled ? '帳號使用中' : '帳號已關閉' }}
+                  <div class="ms-2 switch__container" :class="{ active: meUser.is_enabled }">
+                    <div class="switch__controller"></div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-gray-light text-dark"
+                  @click="editUserData(meUser.key)"
+                >
+                  編輯
+                </button>
+              </div>
+            </li>
+            <template v-for="item in userList" :key="item.key">
+              <li class="adminList__item" v-if="item.key !== meUser.key">
                 <div class="w-50">
                   <p class="itemTitle text-dark d-flex align-items-center mb-1">
-                    {{ meUser.chineseName }}<span class="jobTag ms-2">{{ meUser.userRole }}</span
-                    ><span class="jobTag jobTag--company ms-2">本人</span>
+                    {{ item.chineseName }}
+                    <span class="jobTag ms-2" v-if="item.is_admin">管理員</span>
                   </p>
-                  <p>{{ meUser.email }}</p>
+                  <p>{{ item.email }}</p>
                 </div>
                 <div class="d-flex">
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
-                    :class="{ 'text-secondary': !meUser.is_enabled }"
-                    @click="toogleUserState(meUser.key)"
+                    :class="{ 'text-secondary': !item.is_enabled }"
+                    @click="toogleUserState(item.key)"
                   >
-                    {{ meUser.is_enabled ? '帳號使用中' : '帳號已關閉' }}
-                    <div class="ms-2 switch__container" :class="{ active: meUser.is_enabled }">
+                    {{ item.is_enabled ? '帳號使用中' : '帳號已關閉' }}
+                    <div class="ms-2 switch__container" :class="{ active: item.is_enabled }">
                       <div class="switch__controller"></div>
                     </div>
                   </div>
                   <button
                     type="button"
                     class="btn btn-gray-light text-dark"
-                    @click="editUserData(meUser.key)"
+                    @click="editUserData(item.key)"
                   >
                     編輯
                   </button>
                 </div>
               </li>
-              <template v-for="item in userList" :key="item.key">
-                <li
-                  class="list__item flex-md-row flex-column box--shadow p-3 mb-3"
-                  v-if="item.key !== meUser.key"
-                >
-                  <div class="w-50">
-                    <p class="itemTitle text-dark d-flex align-items-center mb-1">
-                      {{ item.chineseName }}
-                      <span class="jobTag ms-2" v-if="item.is_admin">管理員</span>
-                    </p>
-                    <p>{{ item.email }}</p>
-                  </div>
-                  <div class="d-flex">
-                    <div
-                      class="btn btn--switch btn--switch--company putPointer"
-                      :class="{ 'text-secondary': !item.is_enabled }"
-                      @click="toogleUserState(item.key)"
-                    >
-                      {{ item.is_enabled ? '帳號使用中' : '帳號已關閉' }}
-                      <div class="ms-2 switch__container" :class="{ active: item.is_enabled }">
-                        <div class="switch__controller"></div>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      class="btn btn-gray-light text-dark"
-                      @click="editUserData(item.key)"
-                    >
-                      編輯
-                    </button>
-                  </div>
-                </li>
-              </template>
-            </ul>
-          </div>
+            </template>
+          </ul>
         </div>
       </div>
       <div class="row" v-if="editMode">

@@ -1,0 +1,260 @@
+// header main set
+.header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 888;
+}
+
+.header {
+  padding: 0.125rem 1rem;
+  border-bottom: 1px solid $light;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .header__logo {
+    max-height: 60px;
+  }
+  //header搜尋視窗定位
+  .header__searchModal {
+    position: absolute;
+    top: 3.75rem;
+    right: 0;
+    left: 0;
+    display: none;
+    z-index: 1200;
+    &.active {
+      display: block;
+    }
+    @include sm {
+      top: 3rem;
+    }
+  }
+  .header__nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .header__nav__innerList {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .innerList__item {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: $dark;
+      height: 0rem;
+      width: calc(100% - 0.25rem);
+      border-radius: 0.25rem 0.25rem 0 0;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.active::after {
+      height: 0.25rem;
+    }
+  }
+  .innerList__item__link {
+    color: $dark;
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+  }
+  .innerList__item__link.btn--login--jobSeeker {
+    margin-right: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    &:hover {
+      background-color: rgba($color: $light, $alpha: 0.5);
+    }
+  }
+  .innerList__item__link.btn--login--company {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid $companyColor;
+    color: $companyColor;
+    &:hover {
+      background-color: rgba($color: $companyColor, $alpha: 0.1);
+    }
+  }
+  @include md {
+    .header__nav {
+      background-color: $light;
+      position: fixed;
+      top: calc(4rem + 1px);
+      bottom: 0;
+      left: -100%;
+      width: calc(80% + 1px);
+      transition: all 0.3s;
+      z-index: 1200;
+    }
+    .header__nav.active {
+      left: 0%;
+      flex-direction: column;
+    }
+    .header__nav__innerList {
+      max-height: 100%;
+      flex-direction: column;
+      width: 100%;
+    }
+    .header__nav__innerList.header__nav__loginBtnList {
+      order:1;
+      flex-direction: row;
+      padding: 1rem;
+      .innerList__item{
+        border-bottom: 0;
+      }
+    }
+    .innerList__item__link.btn--login--jobSeeker {
+      border: 1px solid $primary;
+      color: $primary-dark;
+      width: calc(100% - 0.5rem);
+      &:hover {
+        background-color: rgba($color: $primary-dark, $alpha: 0.1);
+      }
+    }
+    .innerList__item {
+      width: 100%;
+      border-bottom: 1px solid $gray-line;
+      &::after {
+        left: 1rem;
+        bottom: 50%;
+        width: 4px;
+        transform: translateY(50%);
+        border-radius: 0.25rem;
+      }
+      &.active::after {
+        height: 1rem;
+      }
+    }
+    .innerList__item__link {
+      padding: 0.75rem 1.75rem;
+      font-weight: $fw--rg;
+      @include bg--hover;
+    }
+  }
+
+  @include sm {
+    border-bottom: 0;
+    padding: 0.125rem 0.5rem;
+    .header__logo {
+      height: 40px;
+    }
+    .header__nav {
+      top: 3rem;
+    }
+  }
+  .menuCover {
+    display: none;
+    @include md {
+      top: calc(4rem + 1px);
+      right: -100%;
+      width: 20%;
+      position: fixed;
+      bottom: 0;
+      background-color: rgba($color: $dark, $alpha: 0.8);
+      transition: all 0.3s;
+      display: block;
+      z-index: 999;
+      &.active {
+        right: 0;
+      }
+    }
+    @include sm {
+      top: 3rem;
+    }
+  }
+}
+.header.header--jobSeeker{
+  background-color: $primary;
+}
+//前台header
+.header.header--company {
+  background-color: $companyColor;
+  // .menuCover {
+  //   top: calc(4rem + 1px);
+  //   left: -100%;
+  //   width: 20%;
+  //   &.active {
+  //     left: 0;
+  //   }
+  // }
+}
+.userMenu {
+  width: 100%;
+  background-color: $light;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  position: absolute;
+  top: 3rem;
+  z-index: 1200;
+  display: none;
+  @include shadow-normal;
+  &.active {
+    display: block;
+  }
+  &__item {
+    cursor: pointer;
+    border-bottom: 1px solid $gray-line;
+    &:last-child {
+      border: 0;
+    }
+    &__link {
+      display: inline-block;
+      color: $dark;
+      padding: 0.75rem;
+      width: 100%;
+    }
+  }
+  &__item.logoutBtn{
+    padding-top: 0.75rem;
+  }
+  &__logOut {
+    background-color: $gray-light;
+    display: flex;
+    justify-content: center;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+  }
+  &.userMenu--jobSeeker {
+    .userMenu__item__link:hover{
+      color: $primary-dark;
+    }
+  }
+  &.userMenu--company {
+    // 企業選單定位
+    min-width: 240px;
+    right: 1rem;
+    .userMenu__item__link:hover{
+      color: $companyColor;
+    }
+  }
+  @include md {
+    display: block;
+    position: static;
+    padding: 0;
+    background-color: transparent;
+    @include shadow-none;
+    .userMenu__item {
+      border-bottom: 1px solid $gray-line;
+    }
+    .userMenu__item.logoutBtn{
+      padding: 0.75rem;
+      border-bottom: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .userMenu__item__link {
+      padding: 0.75rem 1.75rem;
+      @include bg--hover;
+    }
+    &.userMenu--jobSeeker {
+      .userMenu__item__link:hover{
+        color: $dark;
+      }
+    }
+  }
+}

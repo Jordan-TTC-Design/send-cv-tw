@@ -43,71 +43,7 @@
     font-size: 14px;
   }
 }
-.userMenu {
-  width: 100%;
-  background-color: $light;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  @include shadow-normal;
-  position: absolute;
-  top: 3rem;
-  z-index: 1200;
-  display: none;
-  &__item {
-    cursor: pointer;
-    border-bottom: 1px solid $gray-line;
-    &:last-child {
-      border: 0;
-    }
-    &__link {
-      display: inline-block;
-      color: $dark;
-      padding: 0.75rem;
-      width: 100%;
-    }
-    .userMenu__item__link--jobSeeker:hover {
-      color: $primary-dark;
-    }
-  }
-  &__item.logoutBtn{
-    padding-top: 0.75rem;
-  }
-  &__logOut {
-    background-color: $gray-light;
-    display: flex;
-    justify-content: center;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-  }
-  &.active {
-    display: block;
-  }
-  @include md {
-    display: block;
-    position: static;
-    padding: 0;
-    background-color: transparent;
-    @include shadow-none;
-    .userMenu__item {
-      border-bottom: 1px solid $gray-line;
-    }
-    .userMenu__item.logoutBtn{
-      padding: 0.75rem;
-      border-bottom: 0;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-    .userMenu__item__link--jobSeeker:hover {
-      color: $dark;
-    }
-    .userMenu__item__link {
-      padding: 0.75rem 1.75rem;
-      @include bg--hover;
-    }
-  }
-}
+
 // 首頁的
 .mainBanner {
   position: relative;

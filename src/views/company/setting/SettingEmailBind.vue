@@ -34,14 +34,14 @@
               </div>
             </div>
           </div>
-          <div class="px-3 mb-3 py-2 bg-light rounded">
-            <p class="text-secondary fw-normal text-nowrap">
-              目前共 {{ otherEmailList.length }} 個信箱
-            </p>
-          </div>
-          <ul class="adminList--single">
+          <ul class="adminList adminList--single">
+            <li class="adminList__item px-3 py-2">
+              <p class="text-secondary fw-normal text-nowrap">
+                目前共 {{ otherEmailList.length }} 個信箱
+              </p>
+            </li>
             <template v-for="(item, index) in otherEmailList" :key="item.key">
-              <li class="list__item flex-md-row flex-column box--shadow p-3 mb-3">
+              <li class="adminList__item">
                 <div class="w-50">
                   <p class="itemTitle text-dark d-flex align-items-center mb-1">
                     {{ item.email }}

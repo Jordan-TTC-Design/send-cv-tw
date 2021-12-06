@@ -72,36 +72,34 @@
 }
 
 .userBox {
-  display: flex;
-  margin-right: 0.5rem;
+  height: 44px;
+  width: 44px;
+  padding: 2px;
+  border-radius: 50%;
+  background-color: $light;
   cursor: pointer;
   &__person {
-    height: 44px;
-    width: 44px;
-    background-color: $light;
-    border-radius: 50%;
-    padding: 2px;
-  }
-  &__person__box {
-    border-radius: 50%;
     overflow: hidden;
+    border-radius: 50%;
     &:hover {
       background-color: $gray-light;
     }
     img {
       max-width: 100%;
     }
-    .jobIcon {
-      line-height: 1rem;
-    }
   }
-  &__person__menu {
-    height: 44px;
-    width: 44px;
-    background-color: rgba($color: $light, $alpha: 0.8);
-    border-radius: 50%;
-    &:hover {
-      background-color: rgba($color: $light, $alpha: 0.5);
+}
+.rwdUserContainer{
+  @include md{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem ;
+    .userBox{
+      width: 5rem;
+      height: 5rem;
+      background-color: $gray-light;
     }
   }
 }
@@ -969,201 +967,4 @@
   position: sticky;
   top: 86px;
 }
-//頁面小分頁，搭配 innerNav 元件使用
-.pageSubNavContainer {
-  @include md {
-    padding: 0;
-  }
-}
-.pageSubNavContainer--fixed {
-  background-color: $gray-mid;
-  @include md {
-    padding-left: 0;
-    padding-right: 0;
-    align-items: stretch;
-    position: sticky;
-    top: 3rem;
-    left: 0;
-    right: 0;
-    margin-top: -1.5rem;
-    @include shadow-normal;
-    // background-color: rgba($color: $light, $alpha: 0.5);
-    opacity: 0.95;
-    z-index: 100;
-  }
-}
-.pageSubNav {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  &__item {
-    height: 44px;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transition: all 0.3s;
-    &__title {
-      color: $dark;
-      font-weight: $fw--md;
-    }
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      background-color: $primary;
-      height: 0rem;
-      width: 100%;
-      border-radius: 0.25rem 0.25rem 0 0;
-    }
-    &.active {
-      .pageSubNav__item__title {
-        color: $primary-dark;
-      }
-      &::after {
-        height: 0.25rem;
-      }
-    }
-  }
-  @include md {
-    .innerNav--single {
-      border-radius: 0;
-      background-color: rgba($color: $light, $alpha: 0.95);
-    }
-    align-items: stretch;
-  }
-}
-.pageSubNav--fixed {
-  @include md {
-    .innerNav--single {
-      border-radius: 0;
-      background-color: rgba($color: $light, $alpha: 0.95);
-    }
-    align-items: stretch;
-    position: fixed;
-    top: 64px;
-    left: 0;
-    right: 0;
-    @include shadow-normal;
-    z-index: 100;
-  }
-}
-.pageSubNav--sticky {
-  @include md {
-    .innerNav--single {
-      border-radius: 0;
-      background-color: rgba($color: $light, $alpha: 0.95);
-    }
-    align-items: stretch;
-    position: sticky;
-    top: 64px;
-    left: 0;
-    right: 0;
-    @include shadow-normal;
-    z-index: 100;
-  }
-}
-.adminSubNav {
-  padding: 0 3rem;
-  background-color: $light;
-  top: 60px;
-  margin-bottom: 2rem;
-  @include shadow-normal;
-  @include md {
-    display: flex;
-    margin-bottom: 1.5rem;
-    &.checked {
-      display: none;
-    }
-  }
-  @include sm {
-    padding: 0.25rem 1rem 0.75rem 1rem;
-    @include shadow-none;
-    background-color: $primary;
-  }
-}
-.adminSubNav--edit {
-  position: sticky;
-  top: 65px;
-  right: 0;
-  left: 0;
-  z-index: 99;
-}
-.adminSubNav__innerList {
-  width: 100%;
-  min-height: 60px;
-  display: flex;
-  background-color: $white;
-  &__title {
-    font-size: 20px;
-    color: $dark;
-    font-weight: 500;
-    margin-right: 3rem;
-  }
-  &__item {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    position: relative;
-    transition: all 0.3s;
-    &::after {
-      position: absolute;
-      content: '';
-      display: block;
-      background-color: $primary;
-      bottom: 0;
-      right: 4px;
-      left: 4px;
-      height: 0.25rem;
-      border-radius: 0.25rem 0.25rem 0 0;
-      transition: all 0.3s;
-      opacity: 0;
-    }
-    &:hover {
-      background-color: $primary-light;
-      .adminSubNav__innerList__txt {
-        color: $dark;
-      }
-    }
-    &.active {
-      background-color: $primary-light;
-      &::after {
-        opacity: 1;
-      }
-      .adminSubNav__innerList__txt {
-        color: $primary-dark;
-      }
-    }
-  }
-  @include sm {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    flex-wrap: wrap;
-    .adminSubNav__innerList__item {
-      width: 33.333%;
-      flex: 1;
-      padding: 0.5rem 1.5rem;
-      justify-content: center;
-      border-radius: 0.5rem;
-      position: relative;
-      font-size: 14px;
-    }
-    .adminSubNav__innerList__item::after {
-      height: 0;
-    }
-    // .adminSubNav__innerList__item::before {
-    //   content: '';
-    //   position: absolute;
-    //   width: 1px;
-    //   height: 80%;
-    //   top: 10%;
-    //   right: 0;
-    //   background-color: $gray-line;
-    // }
-    .adminSubNav__innerList__txt {
-      white-space: nowrap;
-    }
-  }
-}
+

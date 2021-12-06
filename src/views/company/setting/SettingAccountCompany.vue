@@ -3,11 +3,11 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative">
       <div class="row justify-content-center">
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-10 col-12">
           <div class="admin__mainContent">
             <h3 class="admin__mainContent__title">{{ nowPage }}</h3>
             <ul class="infoList infoList--company">
-              <li class="infoList__item show--compressed">
+              <li class="infoList__item">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">帳號信箱</p>
@@ -18,14 +18,14 @@
                   </div>
                   <button
                     type="button"
-                    class="btn--edit btn btn-gray-light text-dark"
+                    class="btn--edit btn text-dark"
                     @click="openSettingAccountModal('變更帳號')"
                   >
-                    <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                    <i class="jobIcon--sm bi bi-pencil-square"></i>
                   </button>
                 </div>
               </li>
-              <li class="infoList__item show--compressed">
+              <li class="infoList__item">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">聯絡電話</p>
@@ -36,15 +36,15 @@
                   </div>
                   <button
                     type="button"
-                    class="btn--edit btn btn-gray-light text-dark"
+                    class="btn--edit btn text-dark"
                     @click="openSettingAccountModal('變更電話')"
                   >
-                    <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                    <i class="jobIcon--sm bi bi-pencil-square"></i>
                   </button>
                 </div>
               </li>
-              <li class="infoList__item show--compressed">
-                <div class="d-flex justify-content-between align-items-center">
+              <li class="infoList__item">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
                   <div>
                     <p class="infoList__item__title">密碼</p>
                     <p v-if="user.password !== ''" class="infoList__item__content">
@@ -54,40 +54,49 @@
                   </div>
                   <button
                     type="button"
-                    class="btn--edit btn btn-gray-light text-dark"
+                    class="btn--edit btn text-dark"
                     @click="openSettingAccountModal('變更密碼')"
                   >
-                    <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                    <i class="jobIcon--sm bi bi-pencil-square"></i>
                   </button>
                 </div>
               </li>
-              <li class="infoList__item show--compressed">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
+              <li class="infoList__item">
+                <div
+                  class="
+                    d-flex
+                    flex-lg-row flex-column
+                    justify-content-between
+                    align-items-lg-center align-items-start
+                  "
+                >
+                  <div class="mb-lg-0 mb-3">
                     <p class="infoList__item__title">雙重認證</p>
                     <p class="infoList__item__content">
                       一經設定，後續除了需要填寫帳號密碼外，同時需要填寫行動裝置上的驗證碼才能進行登入。
                     </p>
                   </div>
-                  <button type="button" class="btn btn-companyColor text-light">
+                  <button type="button" class="btn btn-companyColor text-light text-nowrap">
                     啟動雙重認證
                   </button>
                 </div>
               </li>
-              <li class="infoList__item show--compressed list--last">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
+              <li class="infoList__item list--last">
+                <div
+                  class="
+                    d-flex
+                    flex-lg-row flex-column
+                    justify-content-between
+                    align-items-lg-center align-items-start
+                  "
+                >
+                  <div class="mb-lg-0 mb-3">
                     <p class="infoList__item__title">刪除帳號</p>
                     <p class="infoList__item__content">
                       點擊刪除帳號後帳號依舊會保留7 天，於此期間內隨時可以選擇取消刪除。
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger"
-                  >
-                    刪除帳號
-                  </button>
+                  <button type="button" class="btn btn-outline-danger text-nowrap">刪除帳號</button>
                 </div>
               </li>
             </ul>

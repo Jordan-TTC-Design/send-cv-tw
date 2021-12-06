@@ -1,5 +1,5 @@
 <template>
-  <header ref="header" class="header header--front container-fluid">
+  <header ref="header" class="header header--jobSeeker container-fluid">
     <h1 class="header__logo">
       <router-link class="h-100" aria-current="page" to="/"
         ><img class="h-100" src="@/assets/images/logo/sendCV-logo-black.svg" alt="SendCVTW logo"
@@ -42,10 +42,8 @@
             @click="userMenuOpen = !userMenuOpen"
           >
             <div class="userBox">
-              <div class="userBox__person me-2">
-                <div class="userBox__person__box">
-                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
-                </div>
+              <div class="userBox__person">
+                <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
               </div>
             </div>
           </li>
@@ -72,38 +70,24 @@
           </li>
         </ul>
         <ul
-          class="userMenu order-3"
+          class="userMenu userMenu--jobSeeker order-3"
           :class="{ active: userMenuOpen }"
           @click="userMenuOpen = !userMenuOpen"
           v-if="loginState"
         >
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/work-application"
+            <router-link class="userMenu__item__link" to="/admin/work-application"
               >工作</router-link
             >
           </li>
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/document-cv"
-              >文件</router-link
-            >
+            <router-link class="userMenu__item__link" to="/admin/document-cv">文件</router-link>
           </li>
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/chatroom"
-              >聊天室</router-link
-            >
+            <router-link class="userMenu__item__link" to="/admin/chatroom">聊天室</router-link>
           </li>
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/setting"
-              >帳戶設定</router-link
-            >
+            <router-link class="userMenu__item__link" to="/admin/setting">帳戶設定</router-link>
           </li>
           <li class="userMenu__item logoutBtn">
             <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
@@ -121,7 +105,6 @@
       <SearchModal />
     </div>
   </header>
-  <!-- 有點不知道分區要不要寫在外元件 -->
   <div class="main main--bg" ref="main">
     <router-view></router-view>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <header ref="header" class="header header--front container-fluid">
+  <header ref="header" class="header header--jobSeeker container-fluid">
     <h1 class="header__logo">
       <router-link class="h-100" aria-current="page" to="/"
         ><img class="h-100" src="@/assets/images/logo/sendCV-logo-black.svg" alt="SendCVTW logo"
@@ -9,30 +9,38 @@
       <div class="hamburgerMenu me-2" @click="openSearchModal" ref="headerSearchIcon">
         <i class="jobIcon text-dark bi bi-search"></i>
       </div>
+      <div class="hamburgerMenu me-2">
+        <i class="jobIcon text-dark bi bi-chat-left-dots"></i>
+      </div>
       <div class="header__nav" ref="headerNavBox">
         <ul class="header__nav__innerList order-lg-1 order-2" ref="headerNav">
-          <li class="innerList__item me-2" :class="{ active: this.navState === '首頁' }">
+          <li
+            class="innerList__item me-2 order-lg-1 order-2"
+            :class="{ active: this.navState === '首頁' }"
+          >
             <router-link class="innerList__item__link" aria-current="page" to="/"
               >優質工作</router-link
             >
           </li>
-          <li class="innerList__item me-2" :class="{ active: this.navState === '優質企業' }">
+          <li
+            class="innerList__item me-2 order-lg-2 order-3"
+            :class="{ active: this.navState === '優質企業' }"
+          >
             <router-link class="innerList__item__link" aria-current="page" to="/company-recommend"
               >優質企業</router-link
             >
           </li>
           <li
-            class="innerList__item d-lg-block d-none"
+            class="innerList__item rwdUserContainer order-lg-3 order-1"
             v-if="loginState"
             @click="userMenuOpen = !userMenuOpen"
           >
-            <div class="userBox">
-              <div class="userBox__person me-2">
-                <div class="userBox__person__box">
-                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
-                </div>
+            <div class="userBox mb-lg-0 mb-4">
+              <div class="userBox__person">
+                <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
               </div>
             </div>
+            <p class="d-lg-none">用戶名稱</p>
           </li>
         </ul>
         <ul
@@ -57,38 +65,24 @@
           </li>
         </ul>
         <ul
-          class="userMenu order-3"
+          class="userMenu userMenu--jobSeeker order-3"
           :class="{ active: userMenuOpen }"
           @click="userMenuOpen = !userMenuOpen"
           v-if="loginState"
         >
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/work-application"
+            <router-link class="userMenu__item__link" to="/admin/work-application"
               >工作</router-link
             >
           </li>
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/document-cv"
-              >文件</router-link
-            >
+            <router-link class="userMenu__item__link" to="/admin/document-cv">文件</router-link>
           </li>
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/chatroom"
-              >聊天室</router-link
-            >
+            <router-link class="userMenu__item__link" to="/admin/chatroom">聊天室</router-link>
           </li>
           <li class="userMenu__item">
-            <router-link
-              class="userMenu__item__link userMenu__item__link--jobSeeker"
-              to="/admin/setting"
-              >帳戶設定</router-link
-            >
+            <router-link class="userMenu__item__link" to="/admin/setting">帳戶設定</router-link>
           </li>
           <li class="userMenu__item logoutBtn">
             <button type="button" class="btn btn-gray-light text-dark w-100" @click="logout">
@@ -104,9 +98,6 @@
     <div class="menuCover" ref="menuCover" @click="closeRwdMenu"></div>
     <div ref="Search" class="header__searchModal">
       <SearchModal />
-    </div>
-    <div ref="headerUserMenuModal" class="header__userMenuModal" @click="closeHeaderMenuModal">
-      <UserMenu />
     </div>
   </header>
   <div class="main main--bg" ref="main">
@@ -223,13 +214,11 @@
 </template>
 <script>
 import SearchModal from '@/components/front/SearchModal.vue';
-import UserMenu from '@/components/helpers/UserMenu.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
     SearchModal,
-    UserMenu,
   },
   data() {
     return {
@@ -280,14 +269,6 @@ export default {
     },
     closeSearchModal() {
       this.$refs.Search.classList.remove('active');
-    },
-    openHeaderMenuModal() {
-      this.$refs.headerUserMenuModal.classList.toggle('active');
-      this.$refs.userBoxPersonMenuBtn.classList.toggle('active');
-    },
-    closeHeaderMenuModal() {
-      this.$refs.headerUserMenuModal.classList.remove('active');
-      this.$refs.userBoxPersonMenuBtn.classList.remove('active');
     },
     checkLogin() {
       this.loginState = this.userAccountData.login;

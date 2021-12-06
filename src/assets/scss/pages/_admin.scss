@@ -317,35 +317,6 @@
     color: $companyColor;
   }
 }
-.header__userMenuModal {
-  position: absolute;
-  top: 0rem;
-  width: 100%;
-  z-index: 1200;
-  display: none;
-  height: 100vh;
-  padding-top: 3.75rem;
-  &.active {
-    display: block;
-  }
-}
-.userBox__person__menu {
-  .bi-chevron-up {
-    display: none;
-  }
-  .bi-chevron-down {
-    display: block;
-  }
-  &.active {
-    .bi-chevron-up {
-      display: block;
-    }
-    .bi-chevron-down {
-      display: none;
-    }
-  }
-}
-
 .setting__sideList {
   position: sticky;
   top: 86px;
@@ -1084,15 +1055,29 @@
     color: $dark;
   }
 }
-.adminList--single {
-  .list__item {
+.adminList.adminList--single {
+  .adminList__item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: $light;
     border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    @include shadow-normal;
     &:hover {
       background-color: rgba($color: $light, $alpha: 0.8);
+    }
+    @include md {
+      flex-direction: column;
+    }
+  }
+  // .adminList__item__content{
+  // }
+  .adminList__item.adminList__item--title{
+    padding: 0.5rem 0.75rem;
+    @include md {
+      flex-direction: row;
     }
   }
 }

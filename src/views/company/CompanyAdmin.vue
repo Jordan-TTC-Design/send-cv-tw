@@ -13,16 +13,19 @@
       <div class="hamburgerMenu me-2">
         <i class="jobIcon bi bi-chat-left-dots text-light"></i>
       </div>
-      <div class="header__nav" ref="headerNavBox">
-        <ul class="header__nav__innerList" ref="headerNav">
-          <li class="innerList__item" @click="userMenuOpen = !userMenuOpen" v-if="loginState">
-            <div class="userBox">
-              <div class="userBox__person me-2">
-                <div class="userBox__person__box">
-                  <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
-                </div>
+      <div ref="headerNav" class="header__nav">
+        <ul class="header__nav__innerList">
+          <li
+            class="innerList__item rwdUserContainer"
+            @click="userMenuOpen = !userMenuOpen"
+            v-if="loginState"
+          >
+            <div class="userBox mb-lg-0 mb-4">
+              <div class="userBox__person">
+                <img src="https://i.imgur.com/ZWHoRPi.png" alt="個人相片" />
               </div>
             </div>
+            <p class="d-lg-none">聚賢亞洲有限公司</p>
           </li>
           <li class="innerList__item me-2" v-if="!loginState">
             <button class="btn text-light" type="button" @click="login">企業登入</button>
@@ -37,8 +40,8 @@
           </li>
         </ul>
         <ul
-        ref="headerUserMenuModal"
-          class="userMenu order-3 userMenu--company"
+          ref="headerUserMenuModal"
+          class="userMenu userMenu--company order-3"
           :class="{ active: userMenuOpen }"
           @click="userMenuOpen = !userMenuOpen"
           v-if="loginState"
@@ -270,14 +273,14 @@ export default {
       }
     },
     openRwdMenu() {
-      this.$refs.headerNavBox.classList.toggle('active');
+      this.$refs.headerNav.classList.toggle('active');
       this.$refs.menuCover.classList.toggle('active');
       this.$refs.main.classList.toggle('openRwdMenu');
       this.$refs.headerSearchIcon.classList.toggle('d-none');
       this.$refs.Search.classList.remove('active');
     },
     closeRwdMenu() {
-      this.$refs.headerNavBox.classList.remove('active');
+      this.$refs.headerNav.classList.remove('active');
       this.$refs.menuCover.classList.remove('active');
       this.$refs.main.classList.remove('openRwdMenu');
       this.$refs.headerSearchIcon.classList.remove('d-none');
