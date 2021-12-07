@@ -80,6 +80,18 @@
     }
   }
 }
+.infoList--withBtn{
+  .infoList__item{
+    @include md{
+      flex-direction: column;
+      align-items: stretch;
+      .infoList__btnBox{
+        align-self: end;
+        padding-top: 0.75rem;
+      }
+    }
+  }
+}
 .infoList--bgHover {
   .infoList__item {
     @include bg--hover;

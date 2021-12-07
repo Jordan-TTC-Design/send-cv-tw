@@ -1055,29 +1055,4 @@
     color: $dark;
   }
 }
-.adminList.adminList--single {
-  .adminList__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: $light;
-    border-radius: 0.5rem;
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
-    @include shadow-normal;
-    &:hover {
-      background-color: rgba($color: $light, $alpha: 0.8);
-    }
-    @include md {
-      flex-direction: column;
-    }
-  }
-  // .adminList__item__content{
-  // }
-  .adminList__item.adminList__item--title{
-    padding: 0.5rem 0.75rem;
-    @include md {
-      flex-direction: row;
-    }
-  }
-}
+

@@ -4,8 +4,8 @@
     <div class="container">
       <div class="row justify-content-center" v-if="!editMode">
         <div class="col-lg-10 col-12">
-          <ul class="adminList adminList--single">
-            <li class="adminList__item adminList__item--title">
+          <ul class="adminList adminList--card">
+            <li class="adminList__item adminList__titleItem">
               <p class="text-secondary fw-normal text-nowrap">
                 目前共 {{ userList.length }} 個用戶
               </p>
@@ -18,14 +18,14 @@
               </button>
             </li>
             <li class="adminList__item">
-              <div class="w-50">
+              <div class="adminList__item__body">
                 <p class="itemTitle text-dark d-flex align-items-center mb-1">
                   {{ meUser.chineseName }}<span class="jobTag ms-2">{{ meUser.userRole }}</span
                   ><span class="jobTag jobTag--company ms-2">本人</span>
                 </p>
                 <p>{{ meUser.email }}</p>
               </div>
-              <div class="d-flex">
+              <div class="adminList__item__footer--line btnBox">
                 <div
                   class="btn btn--switch btn--switch--company putPointer"
                   :class="{ 'text-secondary': !meUser.is_enabled }"
@@ -47,14 +47,14 @@
             </li>
             <template v-for="item in userList" :key="item.key">
               <li class="adminList__item" v-if="item.key !== meUser.key">
-                <div class="w-50">
+                <div class="adminList__item__body">
                   <p class="itemTitle text-dark d-flex align-items-center mb-1">
                     {{ item.chineseName }}
                     <span class="jobTag ms-2" v-if="item.is_admin">管理員</span>
                   </p>
                   <p>{{ item.email }}</p>
                 </div>
-                <div class="d-flex">
+                <div class="adminList__item__footer--line btnBox">
                   <div
                     class="btn btn--switch btn--switch--company putPointer"
                     :class="{ 'text-secondary': !item.is_enabled }"

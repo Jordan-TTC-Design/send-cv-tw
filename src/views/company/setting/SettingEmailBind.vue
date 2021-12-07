@@ -34,22 +34,22 @@
               </div>
             </div>
           </div>
-          <ul class="adminList adminList--single">
-            <li class="adminList__item px-3 py-2">
+          <ul class="adminList adminList--card">
+            <li class="adminList__item adminList__titleItem">
               <p class="text-secondary fw-normal text-nowrap">
                 目前共 {{ otherEmailList.length }} 個信箱
               </p>
             </li>
             <template v-for="(item, index) in otherEmailList" :key="item.key">
               <li class="adminList__item">
-                <div class="w-50">
+                <div class="adminList__item__body">
                   <p class="itemTitle text-dark d-flex align-items-center mb-1">
                     {{ item.email }}
                     <span class="jobTag ms-2">{{ item.is_enabled ? '驗證成功' : '尚未驗證' }}</span>
                   </p>
                   <p class="subTxt text-secondary">登陸時間：2021-12-20 12:30</p>
                 </div>
-                <div class="d-flex">
+                <div class="adminList__item__footer--line btnBox">
                   <button
                     type="button"
                     class="btn btn-gray-light text-dark"

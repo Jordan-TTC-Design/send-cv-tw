@@ -4,7 +4,11 @@
     <div class="container">
       <div class="row" v-if="selectOrder.key === ''">
         <div class="col-lg-3">
-          <form class="sideContentBox" @submit="toSearchJob">
+          <form
+            class="sideContentBox rwdFullModal"
+            @submit="toSearchJob"
+            :class="{ active: filterOpen }"
+          >
             <div class="sideContentBox__header d-flex justify-content-between align-items-center">
               <p class="subTxt">篩選</p>
               <div class="sideContentBox__header__btnBox">
@@ -27,9 +31,7 @@
               </div>
               <div class="form__input">
                 <div class="form__labelBox">
-                  <label for="filterFormType" class="labelBox__label form-label"
-                    >訂單類別</label
-                  >
+                  <label for="filterFormType" class="labelBox__label form-label">訂單類別</label>
                 </div>
                 <select
                   class="form-select"
@@ -83,6 +85,15 @@
               <button type="submit" class="btn btn-companyColor text-light w--100">篩選</button>
             </div>
           </form>
+          <div class="sideBtnBox d-lg-none">
+            <button
+              type="button"
+              class="sideBtn btn btn-light mb-2"
+              @click="filterOpen = !filterOpen"
+            >
+              <i class="jobIcon bi bi-funnel-fill"></i>
+            </button>
+          </div>
         </div>
         <div class="col-lg-9 col-12">
           <div class="adminContentBox adminContentBox--full payService__orderList">
@@ -130,7 +141,7 @@
                         <span v-if="item.productList.length > 1">...</span>
                       </p>
                     </li>
-                    <li class="tableList__item flex-grow-1">
+                    <li class="tableList__item">
                       <p class="tableList__item__title">訂單金額</p>
                       <div class="d-flex align-items-center flex-wrap">
                         <p class="tableList__item__txt me-2">NT${{ item.totalPrice }}</p>
@@ -237,11 +248,17 @@
                   </button>
                 </div>
               </li>
-              <li class="tableList__item" v-if="selectOrder.payInfo.payState === '已完成退款'">
+              <li
+                class="tableList__item"
+                v-if="selectOrder.payInfo.payState === '已完成退款'"
+              >
                 <p class="tableList__item__title">退款帳號</p>
                 <p class="tableList__item__txt mb-1">3566-8041-1593-9509</p>
               </li>
-              <li class="tableList__item" v-if="selectOrder.payInfo.payState === '已完成退款'">
+              <li
+                class="tableList__item"
+                v-if="selectOrder.payInfo.payState === '已完成退款'"
+              >
                 <p class="tableList__item__title">退款日期</p>
                 <p class="tableList__item__txt">2021/09/05</p>
               </li>
@@ -344,6 +361,7 @@ export default {
       nowPage: '我的訂單',
       dataReady: false,
       subNav: '訂單完成',
+      filterOpen: false,
       orderList: [],
       filterForm: {
         key: '',

@@ -177,7 +177,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  &__item {
+  &{
     height: 44px;
     padding: 0 1rem;
     display: flex;
@@ -205,6 +205,13 @@
       &::after {
         height: 0.25rem;
       }
+    }
+    &.btnBox{
+      width: 100%;
+      background-color: rgba($color: $light, $alpha: 0.95);
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
     }
   }
   @include md {

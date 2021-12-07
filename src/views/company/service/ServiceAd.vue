@@ -1,10 +1,20 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
+    <div
+      class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
+      :class="{ 'rwdClose--md': rwdSelect === '' }"
+    >
+      <div class="pageSubNav btnBox">
+        <button type="button" class="btn" @click="backToList">
+          <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+        </button>
+      </div>
+    </div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-3">
-          <div class="sideContentBox pb-3">
+        <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
+          <div ref="sideContentBox" class="sideContentBox rwdSelectBox pb-3">
             <ul class="innerList innerList--company">
               <li class="innerList__item p-0">
                 <div class="collapseList collapseList--company">
@@ -13,32 +23,32 @@
                   </div>
                   <ul class="collapseList__body active">
                     <li
-                    class="collapseList__item putPointer"
-                    @click="selectInnerListItem('大型版面廣告')"
-                    :class="{
-                      active: sideBoxInnerList === '大型版面廣告' && sideBoxList === '首頁廣告',
-                    }"
-                  >
-                    <p class="collapseList__item__title">大型版面廣告</p>
-                  </li>
-                  <li
-                    class="collapseList__item putPointer"
-                    @click="selectInnerListItem('一般版面廣告')"
-                    :class="{
-                      active: sideBoxInnerList === '一般版面廣告' && sideBoxList === '首頁廣告',
-                    }"
-                  >
-                    <p class="collapseList__item__title">一般版面廣告</p>
-                  </li>
-                  <li
-                    class="collapseList__item putPointer"
-                    @click="selectInnerListItem('小型版面廣告')"
-                    :class="{
-                      active: sideBoxInnerList === '小型版面廣告' && sideBoxList === '首頁廣告',
-                    }"
-                  >
-                    <p class="collapseList__item__title">小型版面廣告</p>
-                  </li>
+                      class="collapseList__item putPointer"
+                      @click="selectInnerListItem('大型版面廣告')"
+                      :class="{
+                        active: sideBoxInnerList === '大型版面廣告' && sideBoxList === '首頁廣告',
+                      }"
+                    >
+                      <p class="collapseList__item__title">大型版面廣告</p>
+                    </li>
+                    <li
+                      class="collapseList__item putPointer"
+                      @click="selectInnerListItem('一般版面廣告')"
+                      :class="{
+                        active: sideBoxInnerList === '一般版面廣告' && sideBoxList === '首頁廣告',
+                      }"
+                    >
+                      <p class="collapseList__item__title">一般版面廣告</p>
+                    </li>
+                    <li
+                      class="collapseList__item putPointer"
+                      @click="selectInnerListItem('小型版面廣告')"
+                      :class="{
+                        active: sideBoxInnerList === '小型版面廣告' && sideBoxList === '首頁廣告',
+                      }"
+                    >
+                      <p class="collapseList__item__title">小型版面廣告</p>
+                    </li>
                   </ul>
                 </div>
               </li>
@@ -59,7 +69,11 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-9" v-if="dataReady === true">
+        <div
+          class="col-lg-9"
+          v-if="dataReady === true"
+          :class="{ 'rwdClose--md': rwdSelect === '' }"
+        >
           <div v-if="sideBoxList === '首頁廣告'">
             <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
               <div>
@@ -522,6 +536,7 @@ export default {
     return {
       nowPage: '廣告管理',
       sideBoxList: '首頁廣告',
+      rwdSelect: '',
       sideBoxInnerList: '大型版面廣告',
       sideBoxInnerState: '刊登中',
       subNav: '廣告說明',
@@ -608,7 +623,6 @@ export default {
   },
   methods: {
     toogleGetCart() {
-      console.log('hi');
       emitter.emit('toogle-send-cart-data');
     },
     getCart(data) {
@@ -683,14 +697,24 @@ export default {
     goToPageLink(routerLink) {
       this.$router.push(routerLink);
     },
-    selectAdSection(adSectionType) {
-      if (adSectionType === '粉絲專頁廣告') {
+    selectAdSection(action) {
+      if (action === '粉絲專頁廣告') {
         this.sideBoxInnerList = '粉絲專頁廣告';
-      } else if (adSectionType === '職位推廣') {
+      } else if (action === '職位推廣') {
         this.sideBoxInnerList = '職位推廣';
       }
-      this.sideBoxList = adSectionType;
+      this.sideBoxList = action;
+      this.rwdSelect = action;
       this.subNav = '廣告說明';
+    },
+    async backToList() {
+      await this.processSelectData('');
+      document.documentElement.scrollTop = 0;
+    },
+    processSelectData(action) {
+      this.rwdSelect = action;
+      this.sideBoxInnerList = action;
+      this.sideBoxList = action;
     },
     selectInnerListItem(adType) {
       this.selectAdSection('首頁廣告');

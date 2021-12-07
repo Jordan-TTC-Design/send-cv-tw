@@ -94,6 +94,35 @@
     }
   }
 }
+.sideContentBox.rwdSelectBox {
+  @include md {
+    .collapseList__item.active {
+      background-color: $light;
+      p {
+        color: $gray-dark;
+      }
+    }
+    .collapseList__item.active::after {
+      display: none;
+    }
+  }
+}
+.sideContentBox.rwdFullModal {
+  @include md {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(6rem);
+    z-index: 999;
+    display: none;
+    min-width: 50%;
+    &.active {
+      display: block;
+    }
+  }
+  @include sm {
+    bottom: 5rem;
+  }
+}
 //主要的板塊設計
 // 後台主要區塊的板塊設計：分為有無padding、固定高
 .adminContentBox {
