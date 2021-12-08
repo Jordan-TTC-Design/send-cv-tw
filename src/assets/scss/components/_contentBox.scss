@@ -3,16 +3,25 @@
   border-radius: 0.5rem;
   background-color: $white;
   @include shadow-normal;
+  @include md {
+    min-height: 480px;
+  }
   &__header {
     padding: 0.75rem;
     border-bottom: 1px solid $gray-line;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     &__btnBox {
       display: flex;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       right: 0;
+    }
+    &.personSetting {
+      flex-direction: column;
     }
   }
   &__title {
@@ -105,22 +114,67 @@
     .collapseList__item.active::after {
       display: none;
     }
+    .innerList__item.active {
+      background-color: $light;
+      p,
+      .item__title,
+      .subTxt {
+        color: $gray-dark;
+      }
+    }
+    .innerList__item.active::after {
+      display: none;
+    }
   }
 }
-.sideContentBox.rwdFullModal {
+.sideContentBox.sideContentBox--filter {
+  position: sticky;
+  top: 6rem;
+  max-height: calc(100vh - 132px);
+  display: flex;
+  flex-direction: column;
+  .sideContentBox__body {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+  }
+}
+.sideContentBox.rwdSideModal {
   @include md {
+    display: none;
     position: fixed;
     right: 1rem;
     bottom: calc(6rem);
     z-index: 999;
-    display: none;
     min-width: 50%;
+    @include shadow-md;
     &.active {
-      display: block;
+      display: flex;
+      flex-direction: column;
     }
   }
   @include sm {
     bottom: 5rem;
+  }
+}
+.sideContentBox.sideContentBox--filter.rwdSideModal,
+.sideContentBox.cvSideBox.rwdSideModal{
+  @include lg {
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: calc(6rem);
+    z-index: 999;
+    min-width: 50%;
+    @include shadow-md;
+    &.active {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @include md {
+    top: 4rem;
   }
 }
 //主要的板塊設計
@@ -162,7 +216,6 @@
 // 待刪除
 .adminSelectBox {
   @include md {
-    display: none;
     &.checked {
       display: block;
     }

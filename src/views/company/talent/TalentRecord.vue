@@ -4,14 +4,18 @@
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-3">
-          <div class="sideContentBox mb-5">
-            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+          <form
+            @submit="searchTalent"
+            class="sideContentBox rwdSideModal"
+            :class="{ active: filterOpen }"
+          >
+            <div class="sideContentBox__header">
               <p class="subTxt">篩選</p>
               <div class="sideContentBox__header__btnBox">
                 <button type="button" class="btn text-dark">清除條件</button>
               </div>
             </div>
-            <form @submit="searchTalent" class="sideContentBox__body">
+            <div class="sideContentBox__body">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="searchKeyword" class="labelBox__label form-label">搜尋關鍵字</label>
@@ -21,14 +25,14 @@
                   type="text"
                   id="searchKeyword"
                   placeholder="請輸入"
-                  v-model="searchForm.keyword"
+                  v-model="filterData.keyword"
                 />
               </div>
-              <div class="form__input mb-0">
+              <div class="form__input">
                 <div class="form__labelBox">
                   <label for="searchKeyword" class="labelBox__label form-label">匹配職位</label>
                 </div>
-                <select class="form-select" aria-label="matchJob" v-model="searchForm.matchJob">
+                <select class="form-select" aria-label="matchJob" v-model="filterData.matchJob">
                   <option selected disabled value="">可選擇配對職位</option>
                   <option value="false">不選擇</option>
                   <template v-for="item in companyJobList" :key="item.key">
@@ -38,17 +42,27 @@
                   </template>
                 </select>
               </div>
-            </form>
-          </div>
+              <div class="form__input mb-0">
+                <div class="form__labelBox">
+                  <label for="filterMethod" class="labelBox__label form-label">排列方法</label>
+                </div>
+                <select
+                  class="form-select"
+                  aria-label="排列方法"
+                  id="filterMethod"
+                  v-model="filterData.filterMethod"
+                >
+                  <template v-for="item in filterData.filterMethod" :key="item.title">
+                    <option :value="item.title" :selected="item.selected">
+                      {{ item.title }}
+                    </option>
+                  </template>
+                </select>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="col-lg-9">
-          <button
-            type="button"
-            class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
-            @click="backToList"
-          >
-            <i class="bi bi-chevron-left me-2"></i>返回
-          </button>
           <div class="adminContentBox pb-3">
             <div
               class="
@@ -61,24 +75,11 @@
               "
             >
               <p class="subTxt">收藏夾：{{ mailApplyList.length }} 位人才</p>
-              <div class="d-flex align-items-center">
-                <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
-                <select class="form-select" aria-label="排列方法" id="filterMethod">
-                  <option
-                    v-for="item in filterData"
-                    :value="item.title"
-                    :key="item.title"
-                    :selected="item.select"
-                  >
-                    {{ item.title }}
-                  </option>
-                </select>
-              </div>
             </div>
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <li class="talentCard talentCard--inner align-items-start">
-                  <div class="me-4 d-flex align-items-center">
+                <li class="talentCard talentCard--inner">
+                  <div class="talentCard__userImgBox">
                     <div class="talentCard__introVideo">
                       <p class="subTxt text-secondary">尚未設定</p>
                     </div>
@@ -88,7 +89,7 @@
                       :alt="`${user.account.chineseName}個人求職照片`"
                     />
                   </div>
-                  <div class="flex-grow-1">
+                  <div class="talentCard__body">
                     <div class="talentNameInfo mb-3">
                       <p
                         class="talentNameInfo__name me-2 putPointer"
@@ -127,7 +128,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="d-flex align-items-end align-self-end">
+                  <div class="talentCard__btnBox">
                     <button
                       type="button"
                       class="btn btn-outline-companyColor me-2"
@@ -143,7 +144,7 @@
                     </button>
                   </div>
                   <button
-                    class="collectBtn btn btn-outline-gray-line position-absolute"
+                    class="collectBtn btn btn-outline-gray-line position-absolute bg-light"
                     type="button"
                   >
                     <i class="jobIcon bi bi-bookmark-fill"></i>
@@ -175,29 +176,31 @@ export default {
   },
   data() {
     return {
-      fullWidth: 0,
-      fullHeight: 0,
-      scrollTop: 0,
-      nowPage: '瀏覽紀錄',
       dataReady: false,
+      nowPage: '瀏覽紀錄',
       selectItem: {},
       mailApplyList: [],
       user: {},
       selectJobKey: '',
-      filterData: [
-        {
-          title: '依據時間排序',
-          selected: true,
-        },
-        {
-          title: '依據匹配度排序',
-          selected: false,
-        },
-      ],
-      searchForm: {
+      filterData: {
         keyword: '',
         matchJob: '',
+        filterMethod: [
+          {
+            title: '依據時間排序',
+            selected: true,
+          },
+          {
+            title: '依據匹配度排序',
+            selected: false,
+          },
+        ],
       },
+      // rwd
+      filterOpen: false,
+      fullWidth: 0,
+      fullHeight: 0,
+      scrollTop: 0,
     };
   },
   methods: {

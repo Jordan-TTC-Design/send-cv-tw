@@ -1,9 +1,19 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
+    <div
+      class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
+      :class="{ 'rwdClose--md': rwdSelect === '' }"
+    >
+      <div class="pageSubNav btnBox">
+        <button type="button" class="btn" @click="backToList">
+          <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+        </button>
+      </div>
+    </div>
     <div class="container position-relative companyPage">
       <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox pb-3">
             <ul class="innerNav innerNav--fill innerNav--company">
               <li
@@ -21,7 +31,7 @@
                 <p>已關閉</p>
               </li>
             </ul>
-            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+            <div class="sideContentBox__header">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
               <div class="sideContentBox__header__btnBox">
                 <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
@@ -34,7 +44,7 @@
                 class="innerList__item putPointer"
                 v-for="item in nowJobList"
                 :key="item.key"
-                @click="selectJobFormJobList(item.key)"
+                @click="selectListItem(item.key)"
               >
                 <p class="item__title mb-1">
                   {{ item.jobName }}
@@ -44,17 +54,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-9">
-          <button
-            type="button"
-            class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
-            @click="backToList"
-          >
-            <i class="jobIcon--sm bi bi-chevron-left me-2"></i>返回<span
-              class="applyBackBtn__title ms-4"
-              >{{ selectItem.jobName }}</span
-            >
-          </button>
+        <div class="col-lg-9" :class="{ 'rwdClose--md': rwdSelect === '' }">
           <div
             ref="adminSelectBox"
             class="adminContentBox adminSelectBox py-5"
@@ -168,8 +168,9 @@ export default {
   },
   data() {
     return {
-      sideListNav: '刊登中',
       nowPage: '拍照申請職位',
+      sideListNav: '刊登中',
+      mainContentList: '',
       fullWidth: 0,
       fullHeight: 0,
       scrollTop: 0,
@@ -179,6 +180,8 @@ export default {
       shotList: [],
       company: {},
       allJobList: {},
+      // rwd
+      rwdSelect: '',
     };
   },
   computed: {
@@ -246,6 +249,18 @@ export default {
           document.documentElement.scrollTop = 0;
         }
       });
+    },
+    selectListItem(itemId) {
+      this.selectJobFormJobList(itemId);
+      this.processSelectData(itemId);
+    },
+    async backToList() {
+      await this.processSelectData('');
+      document.documentElement.scrollTop = 0;
+    },
+    processSelectData(action) {
+      this.rwdSelect = action;
+      this.mainContentList = action;
     },
   },
   created() {

@@ -20,24 +20,24 @@
     // 特別另外做白一點
     background-color: rgba($color: $light, $alpha: 0.5);
   }
-  &__img--top{
+  &__img--top {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     width: 100%;
     -o-object-fit: cover;
     object-fit: cover;
   }
-  &__img{
+  &__img {
     width: 148px;
     height: 108px;
     -o-object-fit: cover;
     object-fit: cover;
     border-radius: 0.25rem;
   }
-  .imgCover{
+  .imgCover {
     position: relative;
   }
-  .imgCover::after{
+  .imgCover::after {
     content: '';
     position: absolute;
     background-color: rgba($color: $dark, $alpha: 0.4);
@@ -47,10 +47,10 @@
     bottom: 0;
     border-radius: 0.25rem;
   }
-  .imgCover--top{
+  .imgCover--top {
     position: relative;
   }
-  .imgCover--top::after{
+  .imgCover--top::after {
     content: '';
     position: absolute;
     background-color: rgba($color: $dark, $alpha: 0.4);
@@ -80,8 +80,8 @@
     font-weight: $fw--md;
     color: $dark;
   }
-  &__subTxt{
-    color:$secondary;
+  &__subTxt {
+    color: $secondary;
     font-size: 14px;
   }
   &__img {
@@ -90,7 +90,7 @@
     object-fit: cover;
     border-radius: 0.25rem;
   }
-  &__btnBox{
+  &__btnBox {
     position: absolute;
     bottom: 0.75rem;
     right: 0.75rem;
@@ -125,10 +125,62 @@
   align-items: center;
   justify-content: center;
   // height: calc(100% - 1.25rem);
-  &__txt{
+  &__txt {
     color: $dark;
   }
   &:hover {
     background-color: $gray-line;
+  }
+}
+
+.serviceCard {
+  display: flex;
+  border-bottom: 1px solid $gray-line;
+  @include bg--hover;
+  &__header{
+    padding: 0.75rem;
+    width: 24%;
+  }
+  &__img {
+    border-radius: 0.25rem;
+    object-fit: cover;
+    width: 100%;
+  }
+  &__body{
+    flex-grow: 1;
+    padding: 0.75rem;
+  }
+  &__btnBox {
+    display: flex;
+    justify-content: end;
+    align-items: flex-end;
+    align-self: stretch;
+    padding: 0.75rem;
+  }
+  &__title {
+    color: $dark;
+    font-weight: $fw--md;
+  }
+  &__infoTxt {
+    display: flex;
+    align-items: center;
+    .subTxt {
+      font-size: 14px;
+      color: $secondary;
+      min-width: 4rem;
+      margin-right: 0.75rem;
+    }
+  }
+  @include md{
+    flex-direction: column;
+    &__header{
+      width: 100%;
+    }
+    &__img {
+      height: 160px;
+    }
+    &__btnBox {
+      display: none;
+    }
   }
 }

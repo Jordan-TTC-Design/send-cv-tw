@@ -467,7 +467,7 @@
         </div>
         <div class="col-lg-3">
           <div class="sideContentBox pb-3 mb-5">
-            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+            <div class="sideContentBox__header">
               <p class="subTxt">搜尋紀錄</p>
               <div class="sideContentBox__header__btnBox">
                 <button type="button" class="btn text-dark">清除條件</button>

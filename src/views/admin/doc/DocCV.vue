@@ -1,8 +1,8 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container">
-      <ul class="row row-cols-lg-3 row-cols-1 gy-5">
+    <div class="container-lg">
+      <ul class="row row-cols-xl-3 row-cols-lg-2 row-cols-1 gy-5">
         <li class="col">
           <router-link class="newScvCard putPointer h-100" to="document-cv/cv/new">
             <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增履歷</p>

@@ -56,6 +56,13 @@
           <li class="userMenu__item">
             <router-link
               class="userMenu__item__link userMenu__item__link--company"
+              to="/company-admin/job-list"
+              >職位管理</router-link
+            >
+          </li>
+          <li class="userMenu__item">
+            <router-link
+              class="userMenu__item__link userMenu__item__link--company"
               to="/company-admin/talent-recommend"
               >人才資料</router-link
             >

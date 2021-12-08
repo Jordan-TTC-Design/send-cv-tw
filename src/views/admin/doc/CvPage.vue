@@ -1,10 +1,10 @@
 <template>
-  <div class="adminPage--py" v-if="dataReady">
-    <div class="container">
+  <div class="adminPage--py">
+    <div class="container" v-if="dataReady">
       <div class="row">
-        <div class="col-xl-8 col-12">
-          <div class="admin__subNav bg-gray-mid align-items-center justify-content-between">
-            <h2 class="admin__subNav__title ms-4" ref="cvTitle">
+        <div class="col-xl-8">
+          <div class="cvSubNav">
+            <h2 class="cvSubNav__title ms-4 d-flex align-items-center" ref="cvTitle">
               {{ tempCvData.cvName }}
               <button type="button" class="btn ms-2" @click="toggleCvTitleInput">
                 <i class="jobIcon bi bi-pencil-square text-dark"></i>
@@ -25,27 +25,27 @@
                 保存
               </button>
             </div>
-            <div class="d-flex">
-              <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                <i class="jobIcon me-1 bi bi-cloud-download"></i>預覽履歷
+            <div class="cvSubNav__btnBox">
+              <button type="button" class="btn btn-light text-dark me-2">
+                <i class="jobIcon bi bi-eyeglasses"></i>
               </button>
-              <button type="button" class="btn btn-outline-gray-line text-dark">
-                <i class="jobIcon-sm me-1 bi bi-share-fill"></i>履歷設定
+              <button type="button" class="btn btn-light text-dark">
+                <i class="jobIcon bi bi-gear-fill"></i>
               </button>
             </div>
           </div>
-          <div class="cvContainer mb-5 position-relative">
-            <div class="cvContainer__titleBox mb-5">
-              <h3 class="cvContainer__title">
+          <div class="cvSection position-relative">
+            <div class="cvSection__titleBox mb-5">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle me-2"></div>
                 個人資訊
               </h3>
             </div>
-            <div class="cvContainer__userBg">
-              <img class="cvContainer__userBg__img" :src="tempCvData.cvImgUrl" alt="履歷封面" />
+            <div class="cvSection__userBg">
+              <img class="cvSection__userBg__img" :src="tempCvData.cvImgUrl" alt="履歷封面" />
               <button
                 type="button"
-                class="cvContainer__userBg__btn btn btn--circle"
+                class="cvSection__userBg__btn btn btn--circle"
                 @click="openExsitImgEditModal(tempCvData.cvImgUrl)"
               >
                 <i class="jobIcon bi bi-pencil-square text-dark"></i>
@@ -81,8 +81,8 @@
                 tempCvData.userData.account.addressDist
               }}
             </p>
-            <div class="cvContainer__titleBox mb-4">
-              <h3 class="cvContainer__title">
+            <div class="cvSection__titleBox mb-4">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle me-2"></div>
                 自我介紹
               </h3>
@@ -96,9 +96,9 @@
             </div>
             <div v-html="tempCvData.userData.docData.videoList[2].content"></div>
           </div>
-          <div class="cvContainer mb-5">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle me-2"></div>
                 工作經驗
               </h3>
@@ -110,8 +110,8 @@
                 新增工作經驗
               </button>
             </div>
-            <ul>
-              <li class="col-12">
+            <ul class="infoList">
+              <li class="w-100">
                 <WorkExpTemplate
                   v-if="editTemplate === 'editWorkExp--new'"
                   :workExpData="tempWorkExp"
@@ -121,73 +121,71 @@
                 />
               </li>
               <template v-for="(tempItem, index) in tempCvData.userData.workExp.works" :key="index">
-                <li class="col-12">
-                  <div
-                    class="infoList__item infoList__item--job"
-                    :ref="`workExp--${index}`"
-                    :class="{
-                      'd-none': editTemplate === `editWorkExp--${index}`,
-                      'list--last': index === tempCvData.userData.workExp.works.length - 1,
-                    }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <div class="d-flex">
-                          <p class="infoList__item__jobTitle mb-1 me-2">
-                            {{ tempItem.companyName }}
-                          </p>
-                          <p class="infoList__item__jobTitle mb-1">
-                            <span class="me-2">-</span>{{ tempItem.jobName }}
-                          </p>
-                        </div>
-                        <p class="infoList__item__subTitle mb-3">
-                          {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
-                          {{
-                            tempItem.isStillWork
-                              ? '仍在職'
-                              : `${tempItem.endYear}.${tempItem.endMonth}`
-                          }}
+                <li
+                  class="infoList__item infoList__item--job"
+                  :ref="`workExp--${index}`"
+                  :class="{
+                    'd-none': editTemplate === `editWorkExp--${index}`,
+                    'list--last': index === tempCvData.userData.workExp.works.length - 1,
+                  }"
+                >
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="d-flex">
+                        <p class="infoList__item__jobTitle mb-1 me-2">
+                          {{ tempItem.companyName }}
+                        </p>
+                        <p class="infoList__item__jobTitle mb-1">
+                          <span class="me-2">-</span>{{ tempItem.jobName }}
                         </p>
                       </div>
-                      <div class="dropdown">
-                        <button
-                          class="btn position-relative"
-                          type="button"
-                          :id="`dropdownMenuButton--workExp--${index}`"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          :disabled="editMode"
-                        >
-                          <i class="jobIcon bi bi-three-dots"></i>
-                        </button>
-                        <ul
-                          :ref="`dropDownMenu--${index}`"
-                          class="dropDownMenu dropdown-menu"
-                          :aria-labelledby="`dropdownMenuButton--workExp--${index}`"
-                        >
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="editTemplateData(`editWorkExp--${index}`)"
-                          >
-                            編輯
-                          </li>
-                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="deleteTemplateData('workExp', index)"
-                          >
-                            刪除
-                          </li>
-                        </ul>
-                      </div>
+                      <p class="infoList__item__subTitle mb-3">
+                        {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
+                        {{
+                          tempItem.isStillWork
+                            ? '仍在職'
+                            : `${tempItem.endYear}.${tempItem.endMonth}`
+                        }}
+                      </p>
                     </div>
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">職務內容與成就</p>
-                      <div class="infoList__item__content" v-html="tempItem.jobContent"></div>
+                    <div class="dropdown">
+                      <button
+                        class="btn position-relative"
+                        type="button"
+                        :id="`dropdownMenuButton--workExp--${index}`"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        :disabled="editMode"
+                      >
+                        <i class="jobIcon bi bi-three-dots"></i>
+                      </button>
+                      <ul
+                        :ref="`dropDownMenu--${index}`"
+                        class="dropDownMenu dropdown-menu"
+                        :aria-labelledby="`dropdownMenuButton--workExp--${index}`"
+                      >
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="editTemplateData(`editWorkExp--${index}`)"
+                        >
+                          編輯
+                        </li>
+                        <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="deleteTemplateData('workExp', index)"
+                        >
+                          刪除
+                        </li>
+                      </ul>
                     </div>
                   </div>
+                  <div class="infoList__item__contentBox">
+                    <p class="contentBox__title mb-1">職務內容與成就</p>
+                    <div class="infoList__item__content" v-html="tempItem.jobContent"></div>
+                  </div>
                 </li>
-                <li class="col-12">
+                <li class="w-100">
                   <WorkExpTemplate
                     v-if="editTemplate === `editWorkExp--${index}`"
                     :workExpData="tempItem"
@@ -199,9 +197,9 @@
               </template>
             </ul>
           </div>
-          <div class="cvContainer mb-5">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle me-2"></div>
                 學歷
               </h3>
@@ -213,8 +211,8 @@
                 新增學歷
               </button>
             </div>
-            <ul>
-              <li class="col-12">
+            <ul class="infoList">
+              <li class="w-100">
                 <EducationExpTemplate
                   v-if="editTemplate === `editEducationExp--new`"
                   :educationExpData="tempEducation"
@@ -227,70 +225,67 @@
                 v-for="(tempItem, index) in tempCvData.userData.educationExp.educations"
                 :key="index"
               >
-                <li class="col-12">
-                  <div
-                    class="infoList__item infoList__item--job"
-                    :ref="`educationExp--${index}`"
-                    :class="{
-                      'd-none': editTemplate === `editEducationExp--${index}`,
-                      'list--last':
-                        index === tempCvData.userData.educationExp.educations.length - 1,
-                    }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__jobTitle mb-1">
-                          {{ tempItem.schoolName }} - {{ tempItem.majorName }}
-                        </p>
-                        <p class="infoList__item__subTitle mb-3">
-                          {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
-                          {{
-                            tempItem.isStillAtSchool
-                              ? '仍在學'
-                              : `${tempItem.endYear}.${tempItem.endMonth}`
-                          }}
-                          <span class="ms-2 text-secondary">{{ tempItem.educationLevel }}</span>
-                        </p>
-                      </div>
-                      <div class="dropdown">
-                        <button
-                          class="btn position-relative"
-                          type="button"
-                          :id="`dropdownMenuButton--education--${index}`"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          :disabled="editMode"
-                        >
-                          <i class="jobIcon bi bi-three-dots"></i>
-                        </button>
-                        <ul
-                          :ref="`dropDownMenu--${index}`"
-                          class="dropDownMenu dropdown-menu"
-                          :aria-labelledby="`dropdownMenuButton--education--${index}`"
-                        >
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="editTemplateData(`editEducationExp--${index}`)"
-                          >
-                            編輯
-                          </li>
-                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="deleteTemplateData('education', index)"
-                          >
-                            刪除
-                          </li>
-                        </ul>
-                      </div>
+                <li
+                  class="infoList__item infoList__item--job"
+                  :ref="`educationExp--${index}`"
+                  :class="{
+                    'd-none': editTemplate === `editEducationExp--${index}`,
+                    'list--last': index === tempCvData.userData.educationExp.educations.length - 1,
+                  }"
+                >
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <p class="infoList__item__jobTitle mb-1">
+                        {{ tempItem.schoolName }} - {{ tempItem.majorName }}
+                      </p>
+                      <p class="infoList__item__subTitle mb-3">
+                        {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
+                        {{
+                          tempItem.isStillAtSchool
+                            ? '仍在學'
+                            : `${tempItem.endYear}.${tempItem.endMonth}`
+                        }}
+                        <span class="ms-2 text-secondary">{{ tempItem.educationLevel }}</span>
+                      </p>
                     </div>
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">學習專業與經歷</p>
-                      <div class="infoList__item__content" v-html="tempItem.educationContent"></div>
+                    <div class="dropdown">
+                      <button
+                        class="btn position-relative"
+                        type="button"
+                        :id="`dropdownMenuButton--education--${index}`"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        :disabled="editMode"
+                      >
+                        <i class="jobIcon bi bi-three-dots"></i>
+                      </button>
+                      <ul
+                        :ref="`dropDownMenu--${index}`"
+                        class="dropDownMenu dropdown-menu"
+                        :aria-labelledby="`dropdownMenuButton--education--${index}`"
+                      >
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="editTemplateData(`editEducationExp--${index}`)"
+                        >
+                          編輯
+                        </li>
+                        <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="deleteTemplateData('education', index)"
+                        >
+                          刪除
+                        </li>
+                      </ul>
                     </div>
                   </div>
+                  <div class="infoList__item__contentBox">
+                    <p class="contentBox__title mb-1">學習專業與經歷</p>
+                    <div class="infoList__item__content" v-html="tempItem.educationContent"></div>
+                  </div>
                 </li>
-                <li class="col-12">
+                <li class="w-100">
                   <EducationExpTemplate
                     v-if="editTemplate === `editEducationExp--${index}`"
                     :educationExpData="tempItem"
@@ -302,9 +297,9 @@
               </template>
             </ul>
           </div>
-          <div class="cvContainer mb-5">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle me-2"></div>
                 專業技能
               </h3>
@@ -316,58 +311,53 @@
                 新增專業技能
               </button>
             </div>
-            <ul class="row">
+            <ul class="infoList">
               <!-- 語言 -->
-              <li class="col-12">
-                <div
-                  ref="languageData"
-                  class="infoList__item show--compressed"
-                  :class="{ 'd-none': editTemplate === 'editLanguage' }"
-                >
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                      <p class="infoList__item__title">語言</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in tempCvData.userData.languages"
-                          :key="index"
-                        >
-                          <li class="infoList__item__skillList__skill">
-                            <p>{{ item.name }} - {{ item.languageLevel }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
-                    <div class="dropdown">
-                      <button
-                        class="btn position-relative"
-                        type="button"
-                        :id="`dropdownMenuButton--language`"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        :disabled="editMode"
-                      >
-                        <i class="jobIcon bi bi-three-dots"></i>
-                      </button>
-                      <ul
-                        :ref="`dropDownMenu--language`"
-                        class="dropDownMenu dropdown-menu"
-                        :aria-labelledby="`dropdownMenuButton--language`"
-                      >
-                        <li
-                          class="dropDownMenu__item dropdown-item"
-                          @click="editTemplateData(`editLanguage`)"
-                        >
-                          編輯
+              <li
+                ref="languageData"
+                class="infoList__item show--compressed"
+                :class="{ 'd-none': editTemplate === 'editLanguage' }"
+              >
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <p class="infoList__item__title">語言</p>
+                    <ul class="infoList__item__skillList">
+                      <template v-for="(item, index) in tempCvData.userData.languages" :key="index">
+                        <li class="infoList__item__skillList__skill">
+                          <p>{{ item.name }} - {{ item.languageLevel }}</p>
                         </li>
-                        <li class="dropDownMenu__item dropdown-item">調整排序</li>
-                      </ul>
-                    </div>
+                      </template>
+                    </ul>
+                  </div>
+                  <div class="dropdown">
+                    <button
+                      class="btn position-relative"
+                      type="button"
+                      :id="`dropdownMenuButton--language`"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      :disabled="editMode"
+                    >
+                      <i class="jobIcon bi bi-three-dots"></i>
+                    </button>
+                    <ul
+                      :ref="`dropDownMenu--language`"
+                      class="dropDownMenu dropdown-menu"
+                      :aria-labelledby="`dropdownMenuButton--language`"
+                    >
+                      <li
+                        class="dropDownMenu__item dropdown-item"
+                        @click="editTemplateData(`editLanguage`)"
+                      >
+                        編輯
+                      </li>
+                      <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                    </ul>
                   </div>
                 </div>
               </li>
               <!-- 語言編輯 -->
-              <li class="col-12">
+              <li class="w-100">
                 <LanguageDataTemplate
                   v-if="editTemplate === `editLanguage`"
                   :sendLanguages="tempCvData.userData.languages"
@@ -376,19 +366,71 @@
                 />
               </li>
               <!-- 證照 -->
-              <li class="col-12">
-                <div
+              <li
+                class="infoList__item show--compressed"
+                :class="{ 'd-none': editTemplate === 'editLicense' }"
+              >
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <p class="infoList__item__title">證照</p>
+                    <ul class="infoList__item__skillList">
+                      <template v-for="(item, index) in tempCvData.userData.licenses" :key="index">
+                        <li class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                  <div class="dropdown">
+                    <button
+                      class="btn position-relative"
+                      type="button"
+                      :id="`dropdownMenuButton--license`"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      :disabled="editMode"
+                    >
+                      <i class="jobIcon bi bi-three-dots"></i>
+                    </button>
+                    <ul
+                      :ref="`dropDownMenu--license`"
+                      class="dropDownMenu dropdown-menu"
+                      :aria-labelledby="`dropdownMenuButton--license`"
+                    >
+                      <li
+                        class="dropDownMenu__item dropdown-item"
+                        @click="editTemplateData(`editLicense`)"
+                      >
+                        編輯
+                      </li>
+                      <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <!-- 證照編輯 -->
+              <li class="w-100">
+                <LicenseDataTemplate
+                  v-if="editTemplate === `editLicense`"
+                  :sendLicenses="tempCvData.userData.licenses"
+                  @returnLicenseData="saveLicenseData"
+                  @reuturnCloseForm="closeTemplate"
+                />
+              </li>
+              <!-- 技能 -->
+              <template v-for="(skill, index) in tempCvData.userData.skills" :key="index">
+                <li
                   class="infoList__item show--compressed"
-                  :class="{ 'd-none': editTemplate === 'editLicense' }"
+                  :class="{
+                    'd-none': editTemplate === `editSkill--${index}`,
+                    'list--last': index === tempCvData.userData.skills.length - 1,
+                  }"
                 >
                   <div class="d-flex justify-content-between align-items-start">
                     <div>
-                      <p class="infoList__item__title">證照</p>
+                      <p class="infoList__item__title">{{ skill.groupName }}</p>
                       <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in tempCvData.userData.licenses"
-                          :key="index"
-                        >
+                        <template v-for="item in skill.skillList" :key="item.name">
                           <li class="infoList__item__skillList__skill">
                             <p>{{ item.name }}</p>
                           </li>
@@ -399,7 +441,7 @@
                       <button
                         class="btn position-relative"
                         type="button"
-                        :id="`dropdownMenuButton--license`"
+                        :id="`dropdownMenuButton--skill--${index}`"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                         :disabled="editMode"
@@ -407,88 +449,29 @@
                         <i class="jobIcon bi bi-three-dots"></i>
                       </button>
                       <ul
-                        :ref="`dropDownMenu--license`"
+                        :ref="`dropDownMenu--${index}`"
                         class="dropDownMenu dropdown-menu"
-                        :aria-labelledby="`dropdownMenuButton--license`"
+                        :aria-labelledby="`dropdownMenuButton--skill--${index}`"
                       >
                         <li
                           class="dropDownMenu__item dropdown-item"
-                          @click="editTemplateData(`editLicense`)"
+                          @click="editTemplateData(`editSkill--${index}`)"
                         >
                           編輯
                         </li>
                         <li class="dropDownMenu__item dropdown-item">調整排序</li>
+                        <li
+                          class="dropDownMenu__item dropdown-item"
+                          @click="deleteTemplateData('skill', index)"
+                        >
+                          刪除
+                        </li>
                       </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <!-- 證照編輯 -->
-              <li class="col-12">
-                <LicenseDataTemplate
-                  v-if="editTemplate === `editLicense`"
-                  :sendLicenses="tempCvData.userData.licenses"
-                  @returnLicenseData="saveLicenseData"
-                  @reuturnCloseForm="closeTemplate"
-                />
-              </li>
-              <!-- 技能 -->
-              <template v-for="(skill, index) in tempCvData.userData.skills" :key="index">
-                <li class="col-12">
-                  <div
-                    class="infoList__item show--compressed"
-                    :class="{
-                      'd-none': editTemplate === `editSkill--${index}`,
-                      'list--last': index === tempCvData.userData.skills.length - 1,
-                    }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">{{ skill.groupName }}</p>
-                        <ul class="infoList__item__skillList">
-                          <template v-for="item in skill.skillList" :key="item.name">
-                            <li class="infoList__item__skillList__skill">
-                              <p>{{ item.name }}</p>
-                            </li>
-                          </template>
-                        </ul>
-                      </div>
-                      <div class="dropdown">
-                        <button
-                          class="btn position-relative"
-                          type="button"
-                          :id="`dropdownMenuButton--skill--${index}`"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          :disabled="editMode"
-                        >
-                          <i class="jobIcon bi bi-three-dots"></i>
-                        </button>
-                        <ul
-                          :ref="`dropDownMenu--${index}`"
-                          class="dropDownMenu dropdown-menu"
-                          :aria-labelledby="`dropdownMenuButton--skill--${index}`"
-                        >
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="editTemplateData(`editSkill--${index}`)"
-                          >
-                            編輯
-                          </li>
-                          <li class="dropDownMenu__item dropdown-item">調整排序</li>
-                          <li
-                            class="dropDownMenu__item dropdown-item"
-                            @click="deleteTemplateData('skill', index)"
-                          >
-                            刪除
-                          </li>
-                        </ul>
-                      </div>
                     </div>
                   </div>
                 </li>
                 <!-- 技能編輯 -->
-                <li class="col-12">
+                <li class="w-100">
                   <SkillDataTemplate
                     v-if="editTemplate === `editSkill--${index}`"
                     :sendSkillData="skill"
@@ -499,7 +482,7 @@
                 </li>
               </template>
               <!-- 新增技能 -->
-              <li class="col-12">
+              <li class="w-100">
                 <SkillDataTemplate
                   v-if="editTemplate === `editSkill--new`"
                   :sendSkillData="tempSkillList"
@@ -511,9 +494,9 @@
             </ul>
           </div>
           <template v-for="(listItem, listIndex) in tempCvData.cvSectionList" :key="listIndex">
-            <div class="cvContainer mb-5">
-              <div class="cvContainer__titleBox">
-                <h3 class="cvContainer__title" :ref="`expDataTitle--${listIndex}`">
+            <div class="cvSection">
+              <div class="cvSection__titleBox">
+                <h3 class="cvSection__title" :ref="`expDataTitle--${listIndex}`">
                   <div class="tag--doubleCircle me-2"></div>
                   {{ listItem.sectionTitle }}
                   <button
@@ -562,9 +545,9 @@
               </template>
             </div>
           </template>
-          <div class="cvContainer mb-5" v-if="tempCvData.userData.docData">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection" v-if="tempCvData.userData.docData">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle me-2"></div>
                 我的作品
               </h3>
@@ -632,76 +615,70 @@
             </template>
           </div>
           <!-- 其他資訊 -->
-          <div class="cvContainer" v-if="tempCvData.userData.docData">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection" v-if="tempCvData.userData.docData">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle me-2"></div>
                 其他資訊
               </h3>
             </div>
-            <ul class="row">
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">駕照</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in tempCvData.userData.others.driverLicenses"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+            <ul class="infoList">
+              <li class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">駕照</p>
+                    <ul class="infoList__item__skillList">
+                      <template
+                        v-for="(item, index) in tempCvData.userData.others.driverLicenses"
+                        :key="index"
+                      >
+                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
                 </div>
               </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">特殊身份</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in tempCvData.userData.others.identities"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+              <li class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">特殊身份</p>
+                    <ul class="infoList__item__skillList">
+                      <template
+                        v-for="(item, index) in tempCvData.userData.others.identities"
+                        :key="index"
+                      >
+                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
                 </div>
               </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">兵役</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in tempCvData.userData.others.militaryServices"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+              <li class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">兵役</p>
+                    <ul class="infoList__item__skillList">
+                      <template
+                        v-for="(item, index) in tempCvData.userData.others.militaryServices"
+                        :key="index"
+                      >
+                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
                 </div>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-xl-4 col-12">
-          <div class="cvSideBox">
+        <div class="col-xl-4">
+          <div class="cvSideBox sideContentBox rwdSideModal" :class="{ active: filterOpen }">
             <div class="cvSideBox__title">
               <p>履歷完成度</p>
               <p>0%</p>
@@ -815,6 +792,13 @@
   </div>
   <div class="sideBtnBox">
     <UpTopBtn />
+    <button
+      type="button"
+      class="sideBtn btn btn-light mt-2 d-xl-none"
+      @click="filterOpen = !filterOpen"
+    >
+      <i class="jobIcon bi bi-stack"></i>
+    </button>
   </div>
   <WorkPickerModal
     :userData="tempCvData.userData"
@@ -854,6 +838,7 @@ export default {
   data() {
     return {
       date: new Date(),
+      dataReady: false,
       nowPage: '基本資料',
       personalState: true,
       settingSideList: '個人資料',
@@ -909,8 +894,9 @@ export default {
         imgUrl: '',
         editorStyle: '',
       },
-      dataReady: false,
       tempCvData: {},
+      // rwd
+      filterOpen: false,
     };
   },
   watch: {

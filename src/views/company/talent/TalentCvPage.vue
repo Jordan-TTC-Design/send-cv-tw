@@ -2,44 +2,29 @@
   <div class="adminPage--py" v-if="dataReady">
     <div class="container">
       <div class="row">
-        <div class="col-xl-8 col-12">
-          <div class="admin__subNav bg-gray-mid align-items-center justify-content-between">
-            <h2 class="admin__subNav__title ms-4" ref="cvTitle">
+        <div class="col-xl-8">
+          <div class="cvSubNav">
+            <h2 class="cvSubNav__title ms-4" ref="cvTitle">
               {{ cvData.userData.account.chineseName }}的履歷
             </h2>
-            <div class="d-flex d-none" ref="cvTitle--edit">
-              <div class="form__input mb-0 me-2">
-                <input
-                  id="cvTitle--edit"
-                  name="履歷名稱"
-                  type="text"
-                  class="form-control h-100"
-                  placeholder="請輸入履歷名稱"
-                  v-model="cvData.cvName"
-                />
-              </div>
-              <button type="button" class="btn btn-gray-light text-dark" @click="saveCvTitle">
-                保存
-              </button>
-            </div>
             <div class="d-flex">
-              <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                <i class="jobIcon me-1 bi bi-cloud-download"></i>預覽履歷
+              <button type="button" class="btn btn-light text-dark me-2">
+                <i class="jobIcon bi bi-eyeglasses"></i>
               </button>
-              <button type="button" class="btn btn-outline-gray-line text-dark">
-                <i class="jobIcon-sm me-1 bi bi-share-fill"></i>履歷設定
+              <button type="button" class="btn btn-light text-dark">
+                <i class="jobIcon bi bi-share-fill"></i>
               </button>
             </div>
           </div>
-          <div class="cvContainer mb-5 position-relative">
-            <div class="cvContainer__titleBox mb-5">
-              <h3 class="cvContainer__title">
+          <div class="cvSection position-relative">
+            <div class="cvSection__titleBox mb-5">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle--company me-2"></div>
                 個人資訊
               </h3>
             </div>
-            <div class="cvContainer__userBg">
-              <img class="cvContainer__userBg__img" :src="cvData.cvImgUrl" alt="履歷封面" />
+            <div class="cvSection__userBg">
+              <img class="cvSection__userBg__img" :src="cvData.cvImgUrl" alt="履歷封面" />
               <div class="userImgBox">
                 <img
                   class="userImgBox__img"
@@ -65,8 +50,8 @@
               <span class="me-3 text-secondary">居住區域</span>
               {{ cvData.userData.account.addressCity }}，{{ cvData.userData.account.addressDist }}
             </p>
-            <div class="cvContainer__titleBox mb-4">
-              <h3 class="cvContainer__title">
+            <div class="cvSection__titleBox mb-4">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle--company me-2"></div>
                 自我介紹
               </h3>
@@ -80,130 +65,144 @@
             </div>
             <div v-html="cvData.userData.docData.videoList[2].content"></div>
           </div>
-          <div class="cvContainer mb-5">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle--company me-2"></div>
                 工作經驗
               </h3>
             </div>
-            <ul>
+            <ul class="infoList">
               <template v-for="(tempItem, index) in cvData.userData.workExp.works" :key="index">
-                <li class="col-12">
-                  <div
-                    class="infoList__item infoList__item--job"
-                    :ref="`workExp--${index}`"
-                    :class="{
-                      'list--last': index === cvData.userData.workExp.works.length - 1,
-                    }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <div class="d-flex">
-                          <p class="infoList__item__jobTitle mb-1 me-2">
-                            {{ tempItem.companyName }}
-                          </p>
-                          <p class="infoList__item__jobTitle mb-1">
-                            <span class="me-2">-</span>{{ tempItem.jobName }}
-                          </p>
-                        </div>
-                        <p class="infoList__item__subTitle mb-3">
-                          {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
-                          {{
-                            tempItem.isStillWork
-                              ? '仍在職'
-                              : `${tempItem.endYear}.${tempItem.endMonth}`
-                          }}
+                <li
+                  class="infoList__item infoList__item--job"
+                  :ref="`workExp--${index}`"
+                  :class="{
+                    'list--last': index === cvData.userData.workExp.works.length - 1,
+                  }"
+                >
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="d-flex">
+                        <p class="infoList__item__jobTitle mb-1 me-2">
+                          {{ tempItem.companyName }}
+                        </p>
+                        <p class="infoList__item__jobTitle mb-1">
+                          <span class="me-2">-</span>{{ tempItem.jobName }}
                         </p>
                       </div>
+                      <p class="infoList__item__subTitle mb-3">
+                        {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
+                        {{
+                          tempItem.isStillWork
+                            ? '仍在職'
+                            : `${tempItem.endYear}.${tempItem.endMonth}`
+                        }}
+                      </p>
                     </div>
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">職務內容與成就</p>
-                      <div class="infoList__item__content" v-html="tempItem.jobContent"></div>
-                    </div>
+                  </div>
+                  <div class="infoList__item__contentBox">
+                    <p class="contentBox__title mb-1">職務內容與成就</p>
+                    <div class="infoList__item__content" v-html="tempItem.jobContent"></div>
                   </div>
                 </li>
               </template>
             </ul>
           </div>
-          <div class="cvContainer mb-5">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle--company me-2"></div>
                 學歷
               </h3>
             </div>
-            <ul>
+            <ul class="infoList">
               <template
                 v-for="(tempItem, index) in cvData.userData.educationExp.educations"
                 :key="index"
               >
-                <li class="col-12">
-                  <div
-                    class="infoList__item infoList__item--job"
-                    :ref="`educationExp--${index}`"
-                    :class="{
-                      'list--last': index === cvData.userData.educationExp.educations.length - 1,
-                    }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__jobTitle mb-1">
-                          {{ tempItem.schoolName }} - {{ tempItem.majorName }}
-                        </p>
-                        <p class="infoList__item__subTitle mb-3">
-                          {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
-                          {{
-                            tempItem.isStillAtSchool
-                              ? '仍在學'
-                              : `${tempItem.endYear}.${tempItem.endMonth}`
-                          }}
-                          <span class="ms-2 text-secondary">{{ tempItem.educationLevel }}</span>
-                        </p>
-                      </div>
+                <li
+                  class="infoList__item infoList__item--job"
+                  :ref="`educationExp--${index}`"
+                  :class="{
+                    'list--last': index === cvData.userData.educationExp.educations.length - 1,
+                  }"
+                >
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <p class="infoList__item__jobTitle mb-1">
+                        {{ tempItem.schoolName }} - {{ tempItem.majorName }}
+                      </p>
+                      <p class="infoList__item__subTitle mb-3">
+                        {{ `${tempItem.startYear}.${tempItem.startMonth}` }} ~
+                        {{
+                          tempItem.isStillAtSchool
+                            ? '仍在學'
+                            : `${tempItem.endYear}.${tempItem.endMonth}`
+                        }}
+                        <span class="ms-2 text-secondary">{{ tempItem.educationLevel }}</span>
+                      </p>
                     </div>
-                    <div class="infoList__item__contentBox">
-                      <p class="contentBox__title mb-1">學習專業與經歷</p>
-                      <div class="infoList__item__content" v-html="tempItem.educationContent"></div>
-                    </div>
+                  </div>
+                  <div class="infoList__item__contentBox">
+                    <p class="contentBox__title mb-1">學習專業與經歷</p>
+                    <div class="infoList__item__content" v-html="tempItem.educationContent"></div>
                   </div>
                 </li>
               </template>
             </ul>
           </div>
-          <div class="cvContainer mb-5">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle--company me-2"></div>
                 專業技能
               </h3>
             </div>
-            <ul class="row">
+            <ul class="infoList">
               <!-- 語言 -->
-              <li class="col-12">
-                <div ref="languageData" class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                      <p class="infoList__item__title">語言</p>
-                      <ul class="infoList__item__skillList">
-                        <template v-for="(item, index) in cvData.userData.languages" :key="index">
-                          <li class="infoList__item__skillList__skill">
-                            <p>{{ item.name }} - {{ item.languageLevel }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+              <li ref="languageData" class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <p class="infoList__item__title">語言</p>
+                    <ul class="infoList__item__skillList">
+                      <template v-for="(item, index) in cvData.userData.languages" :key="index">
+                        <li class="infoList__item__skillList__skill">
+                          <p>{{ item.name }} - {{ item.languageLevel }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
                 </div>
               </li>
               <!-- 證照 -->
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
+              <li class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <p class="infoList__item__title">證照</p>
+                    <ul class="infoList__item__skillList">
+                      <template v-for="(item, index) in cvData.userData.licenses" :key="index">
+                        <li class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <!-- 技能 -->
+              <template v-for="(skill, index) in cvData.userData.skills" :key="index">
+                <li
+                  class="infoList__item show--compressed"
+                  :class="{
+                    'list--last': index === cvData.userData.skills.length - 1,
+                  }"
+                >
                   <div class="d-flex justify-content-between align-items-start">
                     <div>
-                      <p class="infoList__item__title">證照</p>
+                      <p class="infoList__item__title">{{ skill.groupName }}</p>
                       <ul class="infoList__item__skillList">
-                        <template v-for="(item, index) in cvData.userData.licenses" :key="index">
+                        <template v-for="item in skill.skillList" :key="item.name">
                           <li class="infoList__item__skillList__skill">
                             <p>{{ item.name }}</p>
                           </li>
@@ -211,38 +210,14 @@
                       </ul>
                     </div>
                   </div>
-                </div>
-              </li>
-              <!-- 技能 -->
-              <template v-for="(skill, index) in cvData.userData.skills" :key="index">
-                <li class="col-12">
-                  <div
-                    class="infoList__item show--compressed"
-                    :class="{
-                      'list--last': index === cvData.userData.skills.length - 1,
-                    }"
-                  >
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <p class="infoList__item__title">{{ skill.groupName }}</p>
-                        <ul class="infoList__item__skillList">
-                          <template v-for="item in skill.skillList" :key="item.name">
-                            <li class="infoList__item__skillList__skill">
-                              <p>{{ item.name }}</p>
-                            </li>
-                          </template>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
                 </li>
               </template>
             </ul>
           </div>
           <template v-for="(listItem, listIndex) in cvData.cvSectionList" :key="listIndex">
-            <div class="cvContainer mb-5">
-              <div class="cvContainer__titleBox">
-                <h3 class="cvContainer__title" :ref="`expDataTitle--${listIndex}`">
+            <div class="cvSection">
+              <div class="cvSection__titleBox">
+                <h3 class="cvSection__title" :ref="`expDataTitle--${listIndex}`">
                   <div class="tag--doubleCircle--company me-2"></div>
                   {{ listItem.sectionTitle }}
                 </h3>
@@ -256,9 +231,9 @@
               </template>
             </div>
           </template>
-          <div class="cvContainer mb-5" v-if="cvData.userData.docData">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection" v-if="cvData.userData.docData">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle--company me-2"></div>
                 我的作品
               </h3>
@@ -308,75 +283,69 @@
             </template>
           </div>
           <!-- 其他資訊 -->
-          <div class="cvContainer" v-if="cvData.userData.docData">
-            <div class="cvContainer__titleBox">
-              <h3 class="cvContainer__title">
+          <div class="cvSection" v-if="cvData.userData.docData">
+            <div class="cvSection__titleBox">
+              <h3 class="cvSection__title">
                 <div class="tag--doubleCircle--company me-2"></div>
                 其他資訊
               </h3>
             </div>
-            <ul class="row">
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">駕照</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in cvData.userData.others.driverLicenses"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+            <ul class="infoList">
+              <li class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">駕照</p>
+                    <ul class="infoList__item__skillList">
+                      <template
+                        v-for="(item, index) in cvData.userData.others.driverLicenses"
+                        :key="index"
+                      >
+                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
                 </div>
               </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">特殊身份</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in cvData.userData.others.identities"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+              <li class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">特殊身份</p>
+                    <ul class="infoList__item__skillList">
+                      <template
+                        v-for="(item, index) in cvData.userData.others.identities"
+                        :key="index"
+                      >
+                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
                 </div>
               </li>
-              <li class="col-12">
-                <div class="infoList__item show--compressed">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">兵役</p>
-                      <ul class="infoList__item__skillList">
-                        <template
-                          v-for="(item, index) in cvData.userData.others.militaryServices"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.name }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+              <li class="infoList__item show--compressed">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="infoList__item__title">兵役</p>
+                    <ul class="infoList__item__skillList">
+                      <template
+                        v-for="(item, index) in cvData.userData.others.militaryServices"
+                        :key="index"
+                      >
+                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                          <p>{{ item.name }}</p>
+                        </li>
+                      </template>
+                    </ul>
                   </div>
                 </div>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-xl-4 col-12">
+        <div class="col-xl-4">
           <div class="sideChatBox">
             <div class="sideChatBox__title">
               <p class="text-light">聊天室</p>

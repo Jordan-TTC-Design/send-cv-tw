@@ -1,0 +1,239 @@
+.cvSection {
+  padding: 1.5rem;
+  background-color: $light;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  &__titleBox {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $gray-line;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__title {
+    font-size: 1.25rem;
+    color: $dark;
+    font-weight: $fw--bd;
+    display: flex;
+    align-items: center;
+    &__tag {
+      background-color: $primary-light;
+      width: 1.25rem;
+      height: 0.75rem;
+      border-radius: 0.5rem;
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        background-color: $primary;
+        border-radius: 50%;
+        height: 0.75rem;
+        width: 0.75rem;
+      }
+    }
+  }
+  &__userBg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $gray-light;
+    width: 40%;
+    height: 160px;
+    border-radius: 0 0.5rem 0 0.5rem;
+    &__img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0 0.5rem 0 0.5rem;
+      object-fit: cover;
+    }
+    &__btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
+    .userImgBox {
+      position: absolute;
+      bottom: 0;
+      right: 1.5rem;
+      transform: translateY(50%);
+    }
+  }
+  .introVideoBox {
+    width: 100%;
+    border-radius: 0.5rem;
+    height: 320px;
+    background-color: $gray-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__video {
+      object-fit: contain;
+      height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+.cvSubNav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  &__title {
+    color:$dark;
+    font-size: 24px;
+  }
+  &__btnBox{
+    display: flex;
+  }
+  @include md{
+    &__title {
+      font-size: 20px;
+    }
+  }
+}
+.cvSideBox {
+  @include shadow-normal;
+  position: sticky;
+  top: 5rem;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 132px);
+  background-color: $light;
+  border-radius: 0.5rem;
+  &__title {
+    background-color: $primary;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    p {
+      color: $dark;
+    }
+  }
+  &__sectionList {
+    flex-grow: 1;
+    padding: 0.75rem 0rem;
+    border-bottom: 1px solid $gray-line;
+    overflow-y: auto;
+    .list__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.5rem 0 1rem;
+      position: relative;
+      &:hover {
+        background-color: $gray-light;
+      }
+      &.cvSideBox__sectionList--change {
+        padding-left: 2rem;
+      }
+    }
+    &__txt {
+      display: flex;
+      align-items: center;
+    }
+    &__check {
+      color: $gray-line;
+    }
+    &__changeBtn {
+      height: 100%;
+      width: 1.5rem;
+      position: absolute;
+      left: 0.5rem;
+      cursor: pointer;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 25%;
+        background-color: $gray-dark;
+        width: 2px;
+        height: 50%;
+        border-radius: 2px;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        right: 8px;
+        top: 25%;
+        background-color: $gray-dark;
+        width: 2px;
+        height: 50%;
+        border-radius: 2px;
+      }
+    }
+  }
+  &__footer {
+    padding: 0.5rem 0.75rem;
+  }
+}
+.cvExpSection {
+  padding: 1rem 0 1.5rem 0;
+  border-bottom: 1px solid $gray-line;
+  &__titleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title {
+    font-size: 1.25rem;
+    color: $dark;
+    font-weight: $fw--md;
+  }
+  &:hover {
+    // background-color: $gray-light;
+    .cvExpSection__title {
+      color: $primary-dark;
+    }
+  }
+  .btn--circle:hover {
+    background-color: $gray-light;
+  }
+  &--edit {
+    padding: 1rem 0 1.5rem 0;
+    border-bottom: 1px solid $gray-line;
+  }
+  &:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+.cvExpSection__content {
+  display: flex;
+  justify-content: space-between;
+  &__txt {
+    width: calc(60% - 0.5rem);
+  }
+  &__imgBox {
+    width: calc(40% - 0.5rem);
+    background-color: $gray-light;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    img {
+      width: 100%;
+      object-fit: contain;
+      border-radius: 0.5rem;
+    }
+  }
+}
+.cvExpSection__content.cvExpSection--largeImg {
+  flex-direction: column;
+  .cvExpSection__content__txt {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+  .cvExpSection__content__imgBox {
+    width: 100%;
+  }
+}
+.cvExpSection__content--works {
+  .cvExpSection__content__txt {
+    width: calc(50% - 0.5rem);
+  }
+  .cvExpSection__content__imgBox {
+    width: calc(50% - 0.5rem);
+  }
+}

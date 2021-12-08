@@ -5,11 +5,11 @@
       <div class="row" v-if="selectOrder.key === ''">
         <div class="col-lg-3">
           <form
-            class="sideContentBox rwdFullModal"
+            class="sideContentBox rwdSideModal"
             @submit="toSearchJob"
             :class="{ active: filterOpen }"
           >
-            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+            <div class="sideContentBox__header">
               <p class="subTxt">篩選</p>
               <div class="sideContentBox__header__btnBox">
                 <button type="button" class="btn text-dark">清除條件</button>
@@ -85,17 +85,8 @@
               <button type="submit" class="btn btn-companyColor text-light w--100">篩選</button>
             </div>
           </form>
-          <div class="sideBtnBox d-lg-none">
-            <button
-              type="button"
-              class="sideBtn btn btn-light mb-2"
-              @click="filterOpen = !filterOpen"
-            >
-              <i class="jobIcon bi bi-funnel-fill"></i>
-            </button>
-          </div>
         </div>
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <div class="adminContentBox adminContentBox--full payService__orderList">
             <ul class="innerNav innerNav--company innerNav--bgColor">
               <li
@@ -167,7 +158,7 @@
       </div>
       <!-- 點擊訂單列表展開訂單明細 -->
       <div class="row justify-content-center" v-if="selectOrder.key !== ''">
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <button
             type="button"
             class="backToPageBtn btn btn-light text-dark mb-4"
@@ -178,7 +169,7 @@
             >
           </button>
         </div>
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9">
           <div class="contentBox orderInfoBox p-4 mb-5">
             <h5 class="subTitle text-dark mb-2 ms-1">訂單資訊</h5>
             <ul class="tableList">
@@ -248,17 +239,11 @@
                   </button>
                 </div>
               </li>
-              <li
-                class="tableList__item"
-                v-if="selectOrder.payInfo.payState === '已完成退款'"
-              >
+              <li class="tableList__item" v-if="selectOrder.payInfo.payState === '已完成退款'">
                 <p class="tableList__item__title">退款帳號</p>
                 <p class="tableList__item__txt mb-1">3566-8041-1593-9509</p>
               </li>
-              <li
-                class="tableList__item"
-                v-if="selectOrder.payInfo.payState === '已完成退款'"
-              >
+              <li class="tableList__item" v-if="selectOrder.payInfo.payState === '已完成退款'">
                 <p class="tableList__item__title">退款日期</p>
                 <p class="tableList__item__txt">2021/09/05</p>
               </li>
@@ -345,6 +330,11 @@
         </div>
       </div>
     </div>
+    <div class="sideBtnBox d-lg-none">
+      <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
+        <i class="jobIcon bi bi-funnel-fill"></i>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -358,10 +348,9 @@ export default {
   },
   data() {
     return {
-      nowPage: '我的訂單',
       dataReady: false,
+      nowPage: '我的訂單',
       subNav: '訂單完成',
-      filterOpen: false,
       orderList: [],
       filterForm: {
         key: '',
@@ -379,6 +368,8 @@ export default {
         { typeName: '推廣職位' },
         { typeName: '其他' },
       ],
+      // rwd
+      filterOpen: false,
     };
   },
   computed: {

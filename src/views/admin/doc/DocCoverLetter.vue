@@ -1,8 +1,8 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container">
-      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="dataReady">
+    <div class="container-lg">
+      <ul class="row row-cols-xl-3 row-cols-lg-2 row-cols-1 gy-5" v-if="dataReady">
         <li class="col">
           <div class="newScvCard putPointer h-100" @click="openDocModal('newCoverLetter')">
             <p class="newScvCard__txt" ><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增求職信</p>

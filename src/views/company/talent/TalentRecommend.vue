@@ -1,11 +1,21 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
+    <div
+      class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
+      :class="{ 'rwdClose--md': rwdSelect === '' }"
+    >
+      <div class="pageSubNav btnBox">
+        <button type="button" class="btn" @click="backToList">
+          <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+        </button>
+      </div>
+    </div>
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-3">
+        <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox pb-3">
-            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+            <div class="sideContentBox__header">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個公司職位</p>
               <div class="sideContentBox__header__btnBox">
                 <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
@@ -17,7 +27,7 @@
                 class="innerList__item putPointer"
                 v-for="item in nowJobList"
                 :key="item.key"
-                @click="selectJobFormJobList(item.key)"
+                @click="selectList(listName)"
               >
                 <p class="item__title mb-1">
                   {{ item.jobName }}
@@ -27,14 +37,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-9">
-          <button
-            type="button"
-            class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
-            @click="backToList"
-          >
-            <i class="bi bi-chevron-left me-2"></i>返回
-          </button>
+        <div class="col-lg-9" :class="{ 'rwdClose--md': rwdSelect === '' }">
           <div class="adminContentBox pb-3">
             <div
               class="
@@ -63,8 +66,8 @@
             </div>
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <li class="talentCard talentCard--inner align-items-start">
-                  <div class="me-4 d-flex align-items-center">
+                <li class="talentCard talentCard--inner">
+                  <div class="talentCard__userImgBox">
                     <div class="talentCard__introVideo">
                       <p class="subTxt text-secondary">尚未設定</p>
                     </div>
@@ -74,7 +77,7 @@
                       :alt="`${user.account.chineseName}個人求職照片`"
                     />
                   </div>
-                  <div class="flex-grow-1">
+                  <div class="talentCard__body">
                     <div class="talentNameInfo mb-3">
                       <p
                         class="talentNameInfo__name me-2 putPointer"
@@ -113,7 +116,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="d-flex align-items-end align-self-end">
+                  <div class="talentCard__btnBox">
                     <button
                       type="button"
                       class="btn btn-outline-companyColor me-2"
@@ -161,12 +164,10 @@ export default {
   },
   data() {
     return {
-      fullWidth: 0,
-      fullHeight: 0,
-      scrollTop: 0,
-      sideListNav: '公司職位',
-      nowPage: '推薦人才',
       dataReady: false,
+      nowPage: '推薦人才',
+      sideListNav: '公司職位',
+      mainContentLisr: '',
       selectItem: {},
       companyJobList: [],
       mailApplyList: [],
@@ -183,6 +184,11 @@ export default {
           selected: false,
         },
       ],
+      // rwd
+      rwdSelect: '',
+      fullWidth: 0,
+      fullHeight: 0,
+      scrollTop: 0,
     };
   },
   computed: {
@@ -302,6 +308,17 @@ export default {
           this.dataReady = true;
         }
       });
+    },
+    selectList(listName) {
+      this.processSelectData(listName);
+    },
+    async backToList() {
+      await this.processSelectData('');
+      document.documentElement.scrollTop = 0;
+    },
+    processSelectData(action) {
+      this.rwdSelect = action;
+      this.mainContentLisr = action;
     },
   },
   created() {

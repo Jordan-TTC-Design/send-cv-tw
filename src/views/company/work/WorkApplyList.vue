@@ -1,9 +1,19 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
+    <div
+      class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
+      :class="{ 'rwdClose--md': rwdSelect === '' }"
+    >
+      <div class="pageSubNav btnBox">
+        <button type="button" class="btn" @click="backToList">
+          <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+        </button>
+      </div>
+    </div>
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-4">
+        <div class="col-lg-4" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox pb-3">
             <ul class="innerNav innerNav--fill innerNav--company">
               <li
@@ -21,7 +31,7 @@
                 <p>拍照申請職位</p>
               </li>
             </ul>
-            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+            <div class="sideContentBox__header">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
               <div class="sideContentBox__header__btnBox">
                 <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
@@ -34,7 +44,7 @@
                 class="innerList__item putPointer"
                 v-for="item in nowJobList"
                 :key="item.key"
-                @click="selectJobFormJobList(item.key)"
+                @click="selectListItem(item.key)"
               >
                 <p class="item__title mb-1">
                   {{ item.jobName }}
@@ -44,14 +54,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-8">
-          <button
-            type="button"
-            class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
-            @click="backToList"
-          >
-            <i class="bi bi-chevron-left me-2"></i>返回
-          </button>
+        <div class="col-lg-8" :class="{ 'rwdClose--md': rwdSelect === '' }">
           <div class="adminContentBox pb-3">
             <ul class="innerNav innerNav--fill innerNav--company innerNav--bgColor">
               <li
@@ -190,10 +193,11 @@ export default {
   },
   data() {
     return {
-      sideListNav: '公司職位',
-      nowPage: '應徵管理',
-      subNav: '新申請',
       dataReady: false,
+      nowPage: '應徵管理',
+      sideListNav: '公司職位',
+      subNav: '新申請',
+      mainContentList: '',
       fullWidth: 0,
       fullHeight: 0,
       scrollTop: 0,
@@ -203,6 +207,9 @@ export default {
       shotJobList: [],
       user: {},
       selectJobKey: '',
+      // rwd
+      filterOpen: false,
+      rwdSelect: '',
     };
   },
   computed: {
@@ -323,12 +330,23 @@ export default {
         }
       });
     },
+    selectListItem(itemId) {
+      this.selectJobFormJobList(itemId);
+      this.processSelectData(itemId);
+    },
+    async backToList() {
+      await this.processSelectData('');
+      document.documentElement.scrollTop = 0;
+    },
+    processSelectData(action) {
+      this.rwdSelect = action;
+      this.mainContentList = action;
+    },
   },
   created() {
     this.getJobListData();
     this.getShotJobList();
     this.getUserData();
-    emitter.emit('spinner-open-bg', 800);
   },
   mounted() {
     const vm = this;

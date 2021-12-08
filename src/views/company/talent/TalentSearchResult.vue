@@ -3,13 +3,16 @@
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container position-relative companyPage">
       <div class="row" v-if="dataReady === true">
-        <div class="col-lg-4">
-          <div class="admin-sideList list-group admin-sideList--company">
-            <div class="sideList__top justify-content-between align-items-center px-3 py-1">
+        <div class="col-xxl-3 col-xl-4">
+          <div
+            class="sideContentBox sideContentBox--filter rwdSideModal"
+            :class="{ active: filterOpen }"
+          >
+            <div class="sideContentBox__header py-1">
               <p class="subTxt">搜尋條件</p>
               <button type="button" class="btn btn-outline-gray-line text-dark">清除</button>
             </div>
-            <form @submit="searchTalent" class="p-3">
+            <form @submit="searchTalent" class="sideContentBox__body">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="searchKeyword" class="labelBox__label form-label">搜尋關鍵字</label>
@@ -412,14 +415,7 @@
             </form>
           </div>
         </div>
-        <div class="col-lg-8">
-          <button
-            type="button"
-            class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
-            @click="backToList"
-          >
-            <i class="bi bi-chevron-left me-2"></i>返回
-          </button>
+        <div class="col-xxl-9 col-xl-8">
           <p class="ps-4 mb-4">搜尋條件：</p>
           <div class="adminContentBox pb-3">
             <div
@@ -433,26 +429,23 @@
               "
             >
               <p class="subTxt">收藏夾：{{ mailApplyList.length }} 位人才</p>
-              <div class="d-flex align-items-center">
-                <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>
-                <div class="form__input">
-                  <select class="form-select" aria-label="排列方法" id="filterMethod">
-                    <option
-                      v-for="item in filterData"
-                      :value="item.title"
-                      :key="item.title"
-                      :selected="item.select"
-                    >
-                      {{ item.title }}
-                    </option>
-                  </select>
-                </div>
+              <div class="form__input mb-0">
+                <select class="form-select" aria-label="排列方法" id="filterMethod">
+                  <option
+                    v-for="item in filterData"
+                    :value="item.title"
+                    :key="item.title"
+                    :selected="item.select"
+                  >
+                    {{ item.title }}
+                  </option>
+                </select>
               </div>
             </div>
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <li class="talentCard talentCard--inner align-items-start">
-                  <div class="me-4 d-flex align-items-center">
+                <li class="talentCard talentCard--inner">
+                  <div class="talentCard__userImgBox">
                     <div class="talentCard__introVideo">
                       <p class="subTxt text-secondary">尚未設定</p>
                     </div>
@@ -462,7 +455,7 @@
                       :alt="`${user.account.chineseName}個人求職照片`"
                     />
                   </div>
-                  <div class="flex-grow-1">
+                  <div class="talentCard__body">
                     <div class="talentNameInfo mb-3">
                       <p
                         class="talentNameInfo__name me-2 putPointer"
@@ -501,7 +494,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="d-flex align-items-end align-self-end">
+                  <div class="talentCard__btnBox">
                     <button
                       type="button"
                       class="btn btn-outline-companyColor me-2"
@@ -529,6 +522,11 @@
         </div>
       </div>
     </div>
+    <div class="sideBtnBox d-xl-none">
+      <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
+        <i class="jobIcon bi bi-funnel-fill"></i>
+      </button>
+    </div>
   </div>
   <PersonPopModal />
   <PersonActionModal />
@@ -550,11 +548,10 @@ export default {
   },
   data() {
     return {
+      dataReady: false,
+      nowPage: '搜尋人才',
       fullWidth: 0,
       fullHeight: 0,
-      scrollTop: 0,
-      nowPage: '搜尋人才',
-      dataReady: false,
       formData: {},
       selectItem: {},
       mailApplyList: [],
@@ -591,6 +588,10 @@ export default {
         militaryService: 0,
         identities: [],
       },
+      // rwd
+      filterOpen: false,
+      rwdSelect: '',
+      scrollTop: 0,
     };
   },
   methods: {

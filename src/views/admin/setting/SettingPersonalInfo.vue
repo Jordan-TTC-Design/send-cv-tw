@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="sideContentBox pb-3">
-            <div class="sideContentBox__header pt-5">
+            <div class="sideContentBox__header personSetting">
               <div class="userImgBox mb-4 bg-gray-light mx-auto">
                 <img class="userImgBox__img" :src="user.account.userImgUrl" alt="" />
                 <div class="userImgBox__editBtn">

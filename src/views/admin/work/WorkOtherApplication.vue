@@ -27,8 +27,8 @@
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
-      <div class="row">
-        <div class="col-lg-6 col-12" v-if="pageSubNavState === 'shotList'">
+      <div class="row row-col-lg-2">
+        <div class="col" v-if="pageSubNavState === 'shotList'">
           <div class="jobListBox">
             <div class="ps-3 mb-3 bg-light rounded p-2">
               <p class="text-secondary fw-normal text-nowrap">
@@ -93,7 +93,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-6 col-12" v-if="pageSubNavState === 'mailList'">
+        <div class="col" v-if="pageSubNavState === 'mailList'">
           <div class="jobListBox">
             <div class="ps-3 mb-3 bg-light rounded p-2">
               <p class="text-secondary fw-normal text-nowrap">目前共 3 筆寫郵件SendCV紀錄</p>
@@ -156,7 +156,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-6 col-12 d-lg-block d-none" v-if="jobItem.key !== ''">
+        <div class="col d-lg-block d-none" v-if="jobItem.key !== ''">
           <div ref="jobSelectBox" class="sideJobBox sideJobBox--sticky box--shadow">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div class="mb-3">

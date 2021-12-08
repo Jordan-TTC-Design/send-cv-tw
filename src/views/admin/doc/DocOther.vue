@@ -21,7 +21,7 @@
         </ul>
       </div>
     </div>
-    <div class="container">
+    <div class="container-lg">
       <div class="bg-light rounded p-4 mb-5 d-flex" v-if="pageSubNavState === '影片' && dataReady">
         <div class="bg-gray-line d-flex flex-column justify-content-center px-8">
           <h4 class="mb-4">

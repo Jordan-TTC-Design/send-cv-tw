@@ -13,32 +13,32 @@
                   </div>
                   <ul class="collapseList__body active">
                     <li
-                    class="collapseList__item putPointer"
-                    @click="selectInnerListItem('大型版面廣告')"
-                    :class="{
-                      active: sideBoxInnerList === '大型版面廣告' && sideBoxList === '首頁廣告',
-                    }"
-                  >
-                    <p class="collapseList__item__title">大型版面廣告</p>
-                  </li>
-                  <li
-                    class="collapseList__item putPointer"
-                    @click="selectInnerListItem('一般版面廣告')"
-                    :class="{
-                      active: sideBoxInnerList === '一般版面廣告' && sideBoxList === '首頁廣告',
-                    }"
-                  >
-                    <p class="collapseList__item__title">一般版面廣告</p>
-                  </li>
-                  <li
-                    class="collapseList__item putPointer"
-                    @click="selectInnerListItem('小型版面廣告')"
-                    :class="{
-                      active: sideBoxInnerList === '小型版面廣告' && sideBoxList === '首頁廣告',
-                    }"
-                  >
-                    <p class="collapseList__item__title">小型版面廣告</p>
-                  </li>
+                      class="collapseList__item putPointer"
+                      @click="selectInnerListItem('大型版面廣告')"
+                      :class="{
+                        active: mainContentList === '大型版面廣告' && sideBoxList === '首頁廣告',
+                      }"
+                    >
+                      <p class="collapseList__item__title">大型版面廣告</p>
+                    </li>
+                    <li
+                      class="collapseList__item putPointer"
+                      @click="selectInnerListItem('一般版面廣告')"
+                      :class="{
+                        active: mainContentList === '一般版面廣告' && sideBoxList === '首頁廣告',
+                      }"
+                    >
+                      <p class="collapseList__item__title">一般版面廣告</p>
+                    </li>
+                    <li
+                      class="collapseList__item putPointer"
+                      @click="selectInnerListItem('小型版面廣告')"
+                      :class="{
+                        active: mainContentList === '小型版面廣告' && sideBoxList === '首頁廣告',
+                      }"
+                    >
+                      <p class="collapseList__item__title">小型版面廣告</p>
+                    </li>
                   </ul>
                 </div>
               </li>
@@ -64,7 +64,7 @@
             <div class="bg-white rounded box--shadow p-5 mb-4 d-flex justify-content-between">
               <div>
                 <h3 class="section__title--sub">
-                  <span class="tag--doubleCircle--company me-2"></span>{{ sideBoxInnerList }}
+                  <span class="tag--doubleCircle--company me-2"></span>{{ mainContentList }}
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.adTokens }}</p>
                 <p class="subTxt text-secondary">
@@ -76,7 +76,7 @@
                   type="button"
                   class="btn btn-outline-gray-line text-dark me-2"
                   @click="addCart('ad_webBig')"
-                  v-if="sideBoxInnerList === '大型版面廣告'"
+                  v-if="mainContentList === '大型版面廣告'"
                 >
                   購買額度
                 </button>
@@ -84,7 +84,7 @@
                   type="button"
                   class="btn btn-outline-gray-line text-dark me-2"
                   @click="addCart('ad_webMd')"
-                  v-if="sideBoxInnerList === '一般版面廣告'"
+                  v-if="mainContentList === '一般版面廣告'"
                 >
                   購買額度
                 </button>
@@ -92,7 +92,7 @@
                   type="button"
                   class="btn btn-outline-gray-line text-dark me-2"
                   @click="addCart('ad_webSm')"
-                  v-if="sideBoxInnerList === '小型版面廣告'"
+                  v-if="mainContentList === '小型版面廣告'"
                 >
                   購買額度
                 </button>
@@ -194,31 +194,26 @@
                   >
                 </div>
               </div>
-              <ul class="adminInnerList" v-if="nowAdList.length > 0">
+              <ul class="w-100" v-if="nowAdList.length > 0">
                 <template v-for="(item, index) in nowAdList" :key="index">
-                  <li class="adminInnerList__item">
-                    <img
-                      class="adminInnerList__item__img me-3"
-                      :src="item.adImgUrl.url"
-                      alt="廣告圖片"
-                    />
-                    <div class="flex-grow-1 me-3">
-                      <p
-                        class="adminInnerList__item__title mb-2 putPointer"
-                        @click="openAdDataModal(item)"
-                      >
+                  <li class="serviceCard">
+                    <div class="serviceCard__header">
+                      <img class="serviceCard__img me-3" :src="item.adImgUrl.url" alt="廣告圖片" />
+                    </div>
+                    <div class="serviceCard__body">
+                      <p class="serviceCard__title mb-2 putPointer" @click="openAdDataModal(item)">
                         {{ item.adName }}
                       </p>
-                      <div class="adminInnerList__item__infoTxt mb-1">
+                      <div class="serviceCard__infoTxt mb-1">
                         <p class="subTxt">刊登日期</p>
                         <p>{{ item.startDate }}</p>
                       </div>
-                      <div class="adminInnerList__item__infoTxt">
+                      <div class="serviceCard__infoTxt">
                         <p class="subTxt">廣告內容</p>
                         <div v-html="item.adContent"></div>
                       </div>
                     </div>
-                    <div class="d-flex align-items-end">
+                    <div class="serviceCard__btnBox">
                       <button
                         type="button"
                         class="btn btn-outline-gray-line text-dark"
@@ -365,26 +360,19 @@
                   </button>
                 </div>
               </div>
-              <ul class="adminInnerList" v-if="nowAdList.length > 0">
+              <ul class="w-100" v-if="nowAdList.length > 0">
                 <template v-for="(item, index) in nowAdList" :key="index">
-                  <li class="adminInnerList__item">
-                    <img
-                      class="adminInnerList__item__img me-3"
-                      :src="item.adImgUrl.url"
-                      alt="廣告圖片"
-                    />
+                  <li class="serviceCard">
+                    <img class="serviceCard__img me-3" :src="item.adImgUrl.url" alt="廣告圖片" />
                     <div class="flex-grow-1 me-3">
-                      <p
-                        class="adminInnerList__item__title mb-2 putPointer"
-                        @click="openAdDataModal(item)"
-                      >
+                      <p class="serviceCard__title mb-2 putPointer" @click="openAdDataModal(item)">
                         {{ item.adName }}
                       </p>
-                      <div class="adminInnerList__item__infoTxt mb-1">
+                      <div class="serviceCard__infoTxt mb-1">
                         <p class="subTxt">刊登日期</p>
                         <p>{{ item.startDate }}</p>
                       </div>
-                      <div class="adminInnerList__item__infoTxt">
+                      <div class="serviceCard__infoTxt">
                         <p class="subTxt">廣告內容</p>
                         <div v-html="item.adContent"></div>
                       </div>
@@ -522,7 +510,7 @@ export default {
     return {
       nowPage: '使用紀錄',
       sideBoxList: '首頁廣告',
-      sideBoxInnerList: '大型版面廣告',
+      mainContentList: '大型版面廣告',
       sideBoxInnerState: '刊登中',
       subNav: '廣告說明',
       allAdList: [],
@@ -581,27 +569,27 @@ export default {
   },
   computed: {
     nowAdList() {
-      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const tempArray = this.allAdList.filter((item) => item.adType === this.mainContentList);
       const stateArray = tempArray.filter((item) => item.adState === this.subNav);
       return stateArray;
     },
     newAdList() {
-      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const tempArray = this.allAdList.filter((item) => item.adType === this.mainContentList);
       const stateArray = tempArray.filter((item) => item.adState === '審核中');
       return stateArray;
     },
     onAdList() {
-      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const tempArray = this.allAdList.filter((item) => item.adType === this.mainContentList);
       const stateArray = tempArray.filter((item) => item.adState === '刊登中');
       return stateArray;
     },
     offAdList() {
-      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const tempArray = this.allAdList.filter((item) => item.adType === this.mainContentList);
       const stateArray = tempArray.filter((item) => item.adState === '已過期');
       return stateArray;
     },
     declineAdList() {
-      const tempArray = this.allAdList.filter((item) => item.adType === this.sideBoxInnerList);
+      const tempArray = this.allAdList.filter((item) => item.adType === this.mainContentList);
       const stateArray = tempArray.filter((item) => item.adState === '審核失敗');
       return stateArray;
     },
@@ -664,11 +652,11 @@ export default {
     },
     goToNewAdPage() {
       let routerLink = '';
-      if (this.sideBoxInnerList === '大型版面廣告') {
+      if (this.mainContentList === '大型版面廣告') {
         routerLink = 'service-ad/new-ad/web-ad-big';
-      } else if (this.sideBoxInnerList === '一般版面廣告') {
+      } else if (this.mainContentList === '一般版面廣告') {
         routerLink = 'service-ad/new-ad/web-ad-md';
-      } else if (this.sideBoxInnerList === '小型版面廣告') {
+      } else if (this.mainContentList === '小型版面廣告') {
         routerLink = 'service-ad/new-ad/web-ad-sm';
       }
       this.$router.push(routerLink);
@@ -685,16 +673,16 @@ export default {
     },
     selectAdSection(adSectionType) {
       if (adSectionType === '粉絲專頁廣告') {
-        this.sideBoxInnerList = '粉絲專頁廣告';
+        this.mainContentList = '粉絲專頁廣告';
       } else if (adSectionType === '職位推廣') {
-        this.sideBoxInnerList = '職位推廣';
+        this.mainContentList = '職位推廣';
       }
       this.sideBoxList = adSectionType;
       this.subNav = '廣告說明';
     },
     selectInnerListItem(adType) {
       this.selectAdSection('首頁廣告');
-      this.sideBoxInnerList = adType;
+      this.mainContentList = adType;
     },
     getCompanyData() {
       const companyRef = database.ref('company');

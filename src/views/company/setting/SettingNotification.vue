@@ -31,28 +31,28 @@
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 應徵通知')"
-                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 應徵通知' }"
+                  :class="{ active: mainContentList === 'sendCV Web通知 - 應徵通知' }"
                 >
                   <p class="collapseList__item__title">應徵通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 聊天室通知')"
-                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 聊天室通知' }"
+                  :class="{ active: mainContentList === 'sendCV Web通知 - 聊天室通知' }"
                 >
                   <p class="collapseList__item__title">聊天室通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 推薦通知')"
-                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 推薦通知' }"
+                  :class="{ active: mainContentList === 'sendCV Web通知 - 推薦通知' }"
                 >
                   <p class="collapseList__item__title">推薦通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('sendCV Web通知 - 面試提醒通知')"
-                  :class="{ active: sideBoxInnerList === 'sendCV Web通知 - 面試提醒通知' }"
+                  :class="{ active: mainContentList === 'sendCV Web通知 - 面試提醒通知' }"
                 >
                   <p class="collapseList__item__title">面試提醒通知</p>
                 </li>
@@ -74,35 +74,35 @@
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 應徵通知')"
-                  :class="{ active: sideBoxInnerList === '信箱通知 - 應徵通知' }"
+                  :class="{ active: mainContentList === '信箱通知 - 應徵通知' }"
                 >
                   <p class="collapseList__item__title">應徵通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 聊天室通知')"
-                  :class="{ active: sideBoxInnerList === '信箱通知 - 聊天室通知' }"
+                  :class="{ active: mainContentList === '信箱通知 - 聊天室通知' }"
                 >
                   <p class="collapseList__item__title">聊天室通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 推薦通知')"
-                  :class="{ active: sideBoxInnerList === '信箱通知 - 推薦通知' }"
+                  :class="{ active: mainContentList === '信箱通知 - 推薦通知' }"
                 >
                   <p class="collapseList__item__title">推薦通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 職位通知')"
-                  :class="{ active: sideBoxInnerList === '信箱通知 - 職位通知' }"
+                  :class="{ active: mainContentList === '信箱通知 - 職位通知' }"
                 >
                   <p class="collapseList__item__title">職位通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('信箱通知 - 面試提醒通知')"
-                  :class="{ active: sideBoxInnerList === '信箱通知 - 面試提醒通知' }"
+                  :class="{ active: mainContentList === '信箱通知 - 面試提醒通知' }"
                 >
                   <p class="collapseList__item__title">面試提醒通知</p>
                 </li>
@@ -124,35 +124,35 @@
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 應徵通知')"
-                  :class="{ active: sideBoxInnerList === '手機APP通知 - 應徵通知' }"
+                  :class="{ active: mainContentList === '手機APP通知 - 應徵通知' }"
                 >
                   <p class="collapseList__item__title">應徵通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 聊天室通知')"
-                  :class="{ active: sideBoxInnerList === '手機APP通知 - 聊天室通知' }"
+                  :class="{ active: mainContentList === '手機APP通知 - 聊天室通知' }"
                 >
                   <p class="collapseList__item__title">聊天室通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 推薦通知')"
-                  :class="{ active: sideBoxInnerList === '手機APP通知 - 推薦通知' }"
+                  :class="{ active: mainContentList === '手機APP通知 - 推薦通知' }"
                 >
                   <p class="collapseList__item__title">推薦通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 職位通知')"
-                  :class="{ active: sideBoxInnerList === '手機APP通知 - 職位通知' }"
+                  :class="{ active: mainContentList === '手機APP通知 - 職位通知' }"
                 >
                   <p class="collapseList__item__title">職位通知</p>
                 </li>
                 <li
                   class="collapseList__item putPointer"
                   @click="selectListItem('手機APP通知 - 面試提醒通知')"
-                  :class="{ active: sideBoxInnerList === '手機APP通知 - 面試提醒通知' }"
+                  :class="{ active: mainContentList === '手機APP通知 - 面試提醒通知' }"
                 >
                   <p class="collapseList__item__title">面試提醒通知</p>
                 </li>
@@ -964,7 +964,7 @@ export default {
       rwdSelect: '',
       nowPage: '通知設定',
       sideBoxList: 'sendCV Web通知',
-      sideBoxInnerList: 'sendCV Web通知 - 應徵通知',
+      mainContentList: 'sendCV Web通知 - 應徵通知',
       notify: {
         web: {
           applys: {
@@ -1040,11 +1040,11 @@ export default {
     selectCollapseList(action) {
       this.sideBoxList = action;
       if (action === 'sendCV Web通知') {
-        this.sideBoxInnerList = 'sendCV Web通知 - 應徵通知';
+        this.mainContentList = 'sendCV Web通知 - 應徵通知';
       } else if (action === '信箱通知') {
-        this.sideBoxInnerList = '信箱通知 - 應徵通知';
+        this.mainContentList = '信箱通知 - 應徵通知';
       } else if (action === '手機APP通知') {
-        this.sideBoxInnerList = '手機APP通知 - 應徵通知';
+        this.mainContentList = '手機APP通知 - 應徵通知';
       }
     },
     async selectListItem(action) {
@@ -1057,7 +1057,7 @@ export default {
     },
     processSelectData(action) {
       this.rwdSelect = action;
-      this.sideBoxInnerList = action;
+      this.mainContentList = action;
     },
     // 保存全部用戶資料
     getUserListData() {

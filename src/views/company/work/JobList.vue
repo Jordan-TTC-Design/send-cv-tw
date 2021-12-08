@@ -1,10 +1,20 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
+    <div
+      class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
+      :class="{ 'rwdClose--md': rwdSelect === '' }"
+    >
+      <div class="pageSubNav btnBox">
+        <button type="button" class="btn" @click="backToList">
+          <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+        </button>
+      </div>
+    </div>
     <div class="container position-relative companyPage" v-if="dataReady === true">
       <div class="row">
-        <div class="col-lg-3">
-          <div class="sideContentBox pb-3">
+        <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
+          <div class="sideContentBox rwdSelectBox pb-3">
             <ul class="innerNav innerNav--fill innerNav--company">
               <li
                 class="innerNav__item w--50"
@@ -21,7 +31,7 @@
                 <p>已關閉</p>
               </li>
             </ul>
-            <div class="sideContentBox__header d-flex justify-content-between align-items-center">
+            <div class="sideContentBox__header">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
               <div class="sideContentBox__header__btnBox">
                 <button type="button" class="btn"><i class="jobIcon bi bi-search"></i></button>
@@ -29,12 +39,12 @@
             </div>
             <ul class="innerList innerList--company">
               <li
-                :class="{ active: item.key === selectItem.key && fullWidth > 992 }"
+                :class="{ active: item.key === selectItem.key}"
                 :ref="`companyJobList-${item.key}`"
                 class="innerList__item putPointer"
                 v-for="item in nowJobList"
                 :key="item.key"
-                @click="selectJobFormJobList(item.key)"
+                @click="selectListItem(item.key)"
               >
                 <p class="item__title mb-1">
                   {{ item.jobName }}
@@ -44,17 +54,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-9">
-          <button
-            type="button"
-            class="applyBackBtn btn btn-light text-dark mt-6 mb-4 d-lg-none"
-            @click="backToList"
-          >
-            <i class="jobIcon--sm bi bi-chevron-left me-2"></i>返回<span
-              class="applyBackBtn__title ms-4"
-              >{{ selectItem.jobName }}</span
-            >
-          </button>
+        <div class="col-lg-9" :class="{ 'rwdClose--md': rwdSelect === '' }">
           <div
             ref="adminSelectBox"
             class="adminContentBox adminSelectBox py-5"
@@ -202,7 +202,6 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
 
@@ -212,18 +211,20 @@ export default {
   },
   data() {
     return {
-      sideListNav: '刊登中',
-      fullWidth: 0,
-      fullHeight: 0,
-      scrollTop: 0,
+      dataReady: false,
       nowPage: '公司職位',
+      sideListNav: '刊登中',
+      mainContentList: '',
       editMode: false,
       formData: {},
       selectItem: {},
       companyJobList: [],
       company: {},
-      dataReady: false,
       allJobList: {},
+      // rwd
+      filterOpen: false,
+      rwdSelect: '',
+      scrollTop: 0,
     };
   },
   computed: {
@@ -293,19 +294,21 @@ export default {
       });
       this.dataReady = true;
     },
+    selectListItem(itemId) {
+      this.selectJobFormJobList(itemId);
+      this.processSelectData(itemId);
+    },
+    async backToList() {
+      await this.processSelectData('');
+      document.documentElement.scrollTop = 0;
+    },
+    processSelectData(action) {
+      this.rwdSelect = action;
+      this.mainContentList = action;
+    },
   },
   created() {
     this.getJobListData();
-    emitter.emit('spinner-open-bg', 800);
-  },
-  mounted() {
-    const vm = this;
-    vm.fullWidth = window.innerWidth;
-    vm.fullHeight = window.innerHeight;
-    window.onresize = () => {
-      vm.fullWidth = window.innerWidth;
-      vm.fullHeight = window.innerHeight;
-    };
   },
 };
 </script>
