@@ -1,16 +1,47 @@
 .chatRoom {
-  height: calc(100vh - 64px);
+  height: calc(100vh - 4rem);
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   position: fixed;
   z-index: 99;
-  top: 64px;
-}
-.chatRoom__leftContainer {
-  width: 24%;
-  height: 100%;
-  overflow-y: scroll;
-  .chatRoom__filterBox {
+  top: 4rem;
+  @include sm {
+    height: calc(100vh - 3rem);
+    top: 3rem;
+  }
+  &__chatListArea {
+    width: 24%;
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid $gray-line;
+    @include lg {
+      width: 40%;
+    }
+    @include sm {
+      width: 100%;
+      &.rwdClose--sm {
+        display: none;
+      }
+    }
+  }
+  &__chatArea {
+    width: 38%;
+    height: 100%;
+    position: relative;
+    @include lg {
+      width: 60%;
+    }
+    @include sm {
+      width: 100%;
+      &.rwdClose--sm {
+        display: none;
+      }
+    }
+  }
+  &__filterBox {
     padding: 0.75rem;
     border-bottom: 1px solid $gray-line;
     position: sticky;
@@ -22,14 +53,29 @@
       border-radius: 0.5rem;
     }
   }
+  &__chatList {
+    flex-grow: 1;
+    overflow-y: scroll;
+  }
 }
-.chatRoom__card {
+
+.chatCard {
   cursor: pointer;
   background-color: $light;
   border-bottom: 1px solid $gray-line;
   padding: 0.75rem;
   position: relative;
-  .card__img {
+  &__body {
+    display: flex;
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__tagList {
+    display: flex;
+  }
+  &__img {
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -37,7 +83,7 @@
     border: 1px solid $gray-line;
     background-color: $light;
   }
-  .card__title {
+  &__title {
     font-weight: $fw--md;
     color: $dark;
   }
@@ -68,11 +114,6 @@
     }
   }
 }
-.chatRoom__chatArea {
-  width: 38%;
-  height: 100%;
-  position: relative;
-}
 .chatArea__userBox {
   height: 50px;
   padding: 0 0.75rem;
@@ -88,7 +129,7 @@
     border-radius: 0.25rem;
   }
 }
-.chatArea__chatTxtContainer {
+.chatArea__txtContainer {
   width: 100%;
   height: calc(100% - 190px);
   background-color: $gray-light;
@@ -99,7 +140,6 @@
 }
 .chatArea__inputContainer {
   background-color: $gray-line;
-  // height: 120px;
   padding: 0.75rem;
   position: absolute;
   bottom: 0;
@@ -120,11 +160,12 @@
   }
 }
 .chatRoom__infoArea {
-  background-color: $light;
   width: 38%;
   height: 100%;
   overflow-y: scroll;
   position: relative;
+  border-left: 1px solid $gray-line;
+  background-color: $light;
   .boxSubNav {
     position: sticky;
     top: 0;
@@ -165,9 +206,48 @@
     background-color: $light;
     padding: 0.75rem 1rem;
   }
+  @include lg {
+    position: fixed;
+    right: 0;
+    top: 4rem;
+    bottom: 0;
+    width: 80%;
+    z-index: 1020;
+    transform: translateX(100%);
+    transition: all 0.3s;
+    &.active {
+      transform: translateX(0);
+      transition: all 0.3s;
+    }
+  }
+  @include sm {
+    top: 3rem;
+  }
 }
 .chatRoom__infoArea--company {
   .boxSubNav__item.active {
     background-color: $companyColor-light;
+  }
+}
+
+.menuCover--chat {
+  display: none;
+  transition: all 0.3s;
+  @include lg {
+    display: block;
+    top: 4rem;
+    left: 0;
+    width: 20%;
+    position: fixed;
+    bottom: 0;
+    background-color: rgba($color: $dark, $alpha: 0.8);
+    z-index: 1030;
+    transform: translateX(-100%);
+    &.active {
+      transform: translateX(0);
+    }
+  }
+  @include sm {
+    top: 3rem;
   }
 }

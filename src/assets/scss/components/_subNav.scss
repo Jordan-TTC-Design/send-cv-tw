@@ -20,6 +20,64 @@
   @include sm {
     padding: 0.25rem 1rem 0.75rem 1rem;
   }
+  &__sideBtnList {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    bottom: 50%;
+    transform: translateY(50%);
+    @include md {
+      position: fixed;
+      bottom: 6rem;
+      right: 1rem;
+      z-index: 998;
+      transform: translateY(0);
+      flex-direction: column;
+    }
+    @include sm {
+      bottom: 5rem;
+    }
+  }
+  .sideBtn {
+    width: auto;
+    height: auto;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $gray-light;
+    color:$dark;
+    @include shadow-none;
+    .jobIcon {
+      font-size: 1.5rem;
+    }
+    @include md {
+      background-color: rgba(247, 247, 247, 0.9);
+      border: 1px solid $light;
+      width: 3.5rem;
+      height: 3.5rem;
+      @include shadow-md;
+    }
+    @include sm {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+  .sideBtn--company{
+    background-color: $companyColor;
+    p {
+      color: $light;
+    }
+    &:hover {
+      .jobIcon {
+        color: $companyColor;
+      }
+    }
+    @include md {
+      background-color: rgba(247, 247, 247, 0.9);
+    }
+  }
 }
 .adminSubNav--edit {
   position: sticky;
@@ -31,8 +89,8 @@
 .adminSubNav__innerList {
   width: 100%;
   min-height: 60px;
-  display: flex;
   background-color: $white;
+  display: flex;
   &__title {
     font-size: 20px;
     color: $dark;
@@ -91,20 +149,12 @@
     .adminSubNav__innerList__item::after {
       height: 0;
     }
-    // .adminSubNav__innerList__item::before {
-    //   content: '';
-    //   position: absolute;
-    //   width: 1px;
-    //   height: 80%;
-    //   top: 10%;
-    //   right: 0;
-    //   background-color: $gray-line;
-    // }
     .adminSubNav__innerList__txt {
       white-space: nowrap;
     }
   }
 }
+
 .adminSubNav--company {
   .adminSubNav__innerList__item::after {
     background-color: $companyColor;
@@ -125,6 +175,7 @@
     background-color: $companyColor;
   }
 }
+
 .adminSubNav--jobSeeker {
   .adminSubNav__innerList__item::after {
     background-color: $primary;
@@ -169,7 +220,7 @@
     opacity: 0.95;
     z-index: 100;
   }
-  @include sm{
+  @include sm {
     top: 3rem;
   }
 }
@@ -177,7 +228,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  &{
+  &__item {
     height: 44px;
     padding: 0 1rem;
     display: flex;
@@ -206,7 +257,7 @@
         height: 0.25rem;
       }
     }
-    &.btnBox{
+    &.btnBox {
       width: 100%;
       background-color: rgba($color: $light, $alpha: 0.95);
       display: flex;
@@ -220,35 +271,5 @@
       background-color: rgba($color: $light, $alpha: 0.95);
     }
     align-items: stretch;
-  }
-}
-.pageSubNav--fixed {
-  @include md {
-    .innerNav--single {
-      border-radius: 0;
-      background-color: rgba($color: $light, $alpha: 0.95);
-    }
-    align-items: stretch;
-    position: fixed;
-    top: 64px;
-    left: 0;
-    right: 0;
-    @include shadow-normal;
-    z-index: 100;
-  }
-}
-.pageSubNav--sticky {
-  @include md {
-    .innerNav--single {
-      border-radius: 0;
-      background-color: rgba($color: $light, $alpha: 0.95);
-    }
-    align-items: stretch;
-    // position: sticky;
-    top: 64px;
-    left: 0;
-    right: 0;
-    @include shadow-normal;
-    z-index: 100;
   }
 }

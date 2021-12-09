@@ -11,7 +11,7 @@
         </button>
       </div>
     </div>
-    <div class="container">
+    <div class="container-xl">
       <div class="row">
         <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div ref="sideContentBox" class="sideContentBox rwdSelectBox pb-3">
@@ -522,14 +522,13 @@ export default {
   },
   data() {
     return {
+      dataReady: false,
       nowPage: '廣告管理',
       sideBoxList: '首頁廣告',
-      rwdSelect: '',
       mainContentList: '大型版面廣告',
       sideBoxInnerState: '刊登中',
       subNav: '廣告說明',
       allAdList: [],
-      dataReady: false,
       company: {},
       cart: {},
       selectItem: {},
@@ -580,6 +579,8 @@ export default {
           totalPrice: 300,
         },
       },
+      // rwd
+      rwdSelect: '',
     };
   },
   computed: {

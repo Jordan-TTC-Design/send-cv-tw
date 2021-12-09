@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container">
+    <div class="container-xl">
       <div class="row" v-if="selectOrder.key === ''">
         <div class="col-lg-3">
           <form

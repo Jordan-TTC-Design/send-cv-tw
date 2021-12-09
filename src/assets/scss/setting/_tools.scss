@@ -942,7 +942,11 @@
     display: none;
   }
 }
-
+.rwdClose--sm {
+  @include sm {
+    display: none;
+  }
+}
 // 用於後台資訊列表呈現 單一橫向卡片式
 .adminList.adminList--card {
   .adminList__item {

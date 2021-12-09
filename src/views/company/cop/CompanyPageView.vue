@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container position-relative companyPage">
+    <div class="container-xl position-relative companyPage">
       <div class="row justify-content-center">
         <!-- 企業資料 -->
         <div class="col-lg-9">

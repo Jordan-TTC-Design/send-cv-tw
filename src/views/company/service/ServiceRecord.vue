@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container">
+    <div class="container-xl">
       <div class="row">
         <div class="col-lg-3">
           <div class="sideContentBox pb-3">

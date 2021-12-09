@@ -76,17 +76,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1020;
   .jobIcon {
     font-size: 1.5rem;
   }
   &:hover {
     .jobIcon {
-      color: $primary;
+      color: $dark;
     }
   }
   @include sm {
     width: 2.5rem;
     height: 2.5rem;
+  }
+}
+.sideBtn--jobSeeker {
+  &:hover {
+    .jobIcon {
+      color: $primary;
+    }
   }
 }
 // 收藏按鈕(搭配bootstrap btn-outline-gray-line)

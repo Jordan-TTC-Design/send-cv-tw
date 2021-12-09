@@ -159,7 +159,7 @@
   }
 }
 .sideContentBox.sideContentBox--filter.rwdSideModal,
-.sideContentBox.cvSideBox.rwdSideModal{
+.sideContentBox.cvSideBox.rwdSideModal {
   @include lg {
     display: none;
     position: fixed;
@@ -184,11 +184,66 @@
   background-color: $light;
   border-radius: 0.5rem;
   @include shadow-normal;
+  display: flex;
+  flex-direction: column;
   &__btnBox {
+    display: flex;
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
+  }
+  &__header {
+    position: relative;
+    padding: 1.5rem;
+    border-bottom: 1px solid $gray-line;
+  }
+  &__body{
+    position: relative;
+    border-bottom: 1px solid $gray-line;
+    padding: 1.5rem;
+  }
+  &__section {
+    position: relative;
+    border-bottom: 1px solid $gray-line;
+    padding: 1.5rem;
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+  &__header__innerBtnList {
     display: flex;
+    flex-grow: 1;
+    align-self: end;
+    align-items: end;
+    @include sm {
+      background-color: $light;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 999;
+      padding: 0.75rem 1rem;
+      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16);
+      justify-content: end;
+    }
+  }
+  .jobImgBox {
+    padding: 0.25rem;
+    background-color: $gray-line;
+    border-radius: 0.5rem;
+    .jobImg {
+      border-radius: 0.25rem;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @include md {
+      height: 180px;
+    }
   }
 }
 
@@ -200,38 +255,4 @@
 }
 .adminContentBox--full {
   min-height: calc(80vh - 132px);
-}
-.adminContentBox__section {
-  position: relative;
-  border-bottom: 1px solid $gray-line;
-  padding: 1.5rem;
-  &:first-child {
-    padding-top: 0;
-  }
-  &:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-}
-// 待刪除
-.adminSelectBox {
-  @include md {
-    &.checked {
-      display: block;
-    }
-  }
-  .adminSelectBox__btnList {
-    display: flex;
-    justify-content: flex-end;
-    @include md {
-      background-color: $light;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      z-index: 999;
-      padding: 0.75rem 1rem;
-      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16);
-    }
-  }
 }

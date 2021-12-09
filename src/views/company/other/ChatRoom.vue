@@ -1,6 +1,6 @@
 <template>
   <div class="chatRoom bg-light" v-if="dataReady">
-    <div class="chatRoom__leftContainer">
+    <div class="chatRoom__chatListArea" :class="{ 'rwdClose--sm': rwdSelect !== '' }">
       <div class="chatRoom__filterBox bg-light">
         <div class="searchInput mb-3">
           <i class="jobIcon bi bi-search"></i>
@@ -24,49 +24,62 @@
         </div>
       </div>
       <!-- 聊天列表 -->
-      <ul class="chatRoom__userList">
+      <ul class="chatRoom__chatList">
         <template v-for="item in jobApplyData" :key="item.key">
           <li
             :ref="`chatRoom__card--${item.key}`"
-            class="list__item chatRoom__card"
-            @click="selectChat(item.key)"
+            class="list__item chatCard"
+            @click="selectListItem(item.key)"
           >
-            <div class="chatRoom__card__top d-flex mb-2">
-              <img class="card__img me-2" :src="user.account.userImgUrl" />
-              <div>
-                <p class="card__title mb-1">{{ user.account.chineseName }}</p>
+            <div class="chatCard__body mb-2">
+              <img class="chatCard__img me-2" :src="user.account.userImgUrl" />
+              <div class="flex-grow-1">
+                <p class="chatCard__title mb-1">{{ user.account.chineseName }}</p>
                 <p class="subTxt mb-1">招募職位：{{ item.jobInfo.jobName }}</p>
                 <p class="subTxt">您好，我們最近看到你在找工作...</p>
               </div>
             </div>
-            <div class="chatRoom__card__bottom">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex">
-                  <p class="jobTag me-2">100%</p>
-                  <p class="jobTag">{{ item.applyState }}</p>
-                </div>
-                <p class="subTxt text-secondary">2021/10/12</p>
+            <div class="chatCard__footer">
+              <div class="chatCard__tagList">
+                <p class="jobTag me-2">100%</p>
+                <p class="jobTag">{{ item.applyState }}</p>
               </div>
+              <p class="subTxt text-secondary">2021/10/12</p>
             </div>
           </li>
         </template>
       </ul>
     </div>
-    <div class="chatRoom__chatArea">
+    <div
+      class="chatRoom__chatArea"
+      :class="{ 'rwdClose--sm': rwdSelect === '' && rwdSelect === 'infoArea' }"
+    >
       <!-- 用戶 -->
       <div class="chatArea__userBox">
         <div class="d-flex align-items-center">
+          <button type="button" class="btn d-md-none" @click="backToList">
+            <i class="jobIcon bi bi-chevron-left"></i>
+          </button>
           <img class="companyLogo me-2" :src="user.account.userImgUrl" alt="公司logo" />
           <p class="pageLink putPointer text-decoration-underline">
             {{ user.account.chineseName }}
           </p>
         </div>
-        <button type="button" class="btn btn--circle btn-sm">
-          <i class="jobIcon bi bi-three-dots"></i>
-        </button>
+        <div class="d-flex">
+          <button
+            type="button"
+            class="btn btn-outline-light d-xl-none text-dark me-2"
+            @click="openInfoArea = 'userInfo'"
+          >
+            <i class="jobIcon-sm bi bi-info-square-fill me-2"></i>應徵資訊
+          </button>
+          <button type="button" class="btn btn--circle btn-sm">
+            <i class="jobIcon bi bi-three-dots"></i>
+          </button>
+        </div>
       </div>
       <!-- 對話視窗 -->
-      <div class="chatArea__chatTxtContainer py-4" :class="{ active: chatInput === 10 }">
+      <div class="chatArea__txtContainer py-4" :class="{ active: chatInput === 10 }">
         <template v-for="item in chatroom" :key="item.key">
           <div class="chatBox checkBox--left">
             <img class="chatBox__img" :src="user.account.userImgUrl" />
@@ -120,7 +133,7 @@
       </div>
       <!-- 輸入框 -->
       <div class="chatArea__inputContainer">
-        <div class="input-group mb-3 position-relative">
+        <div class="input-group mb-3">
           <textarea
             type="text"
             class="form-control chatArea__txtInput"
@@ -139,16 +152,16 @@
         </div>
         <div class="d-flex justify-content-between">
           <div class="d-flex">
-            <button type="button" class="btn btn--circle">
+            <button type="button" class="btn btn-outline-gray-line">
               <i class="jobIcon bi bi-archive-fill"></i>
             </button>
-            <button type="button" class="btn btn--circle">
+            <button type="button" class="btn btn-outline-gray-line">
               <i class="jobIcon bi bi-folder-fill"></i>
             </button>
             <button
               type="button"
-              class="btn btn--circle"
-              @click="rightContainer = 'messageTemplate'"
+              class="btn btn-outline-gray-line"
+              @click="openInfoArea = 'messageTemplate'"
             >
               <i
                 class="jobIcon bi bi-chat-left-quote-fill"
@@ -164,9 +177,12 @@
     </div>
     <!-- 用戶資訊 -->
     <div
-      v-if="rightContainer === 'userInfo'"
       class="chatRoom__infoArea chatRoom__infoArea--company"
+      :class="{ active: openInfoArea === 'userInfo' }"
     >
+      <button type="button" class="btn d-xl-none" @click="openInfoArea = ''">
+        <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+      </button>
       <ul class="boxSubNav boxSubNav--company">
         <li
           class="boxSubNav__item w--50"
@@ -458,12 +474,11 @@
     </div>
     <!-- 文字模板 -->
     <div
-      v-if="rightContainer === 'messageTemplate'"
       class="chatRoom__infoArea chatRoom__infoArea--company"
+      :class="{ active: openInfoArea === 'messageTemplate' }"
     >
-      <div></div>
       <div class="sideContainerTitleBox ps-1">
-        <button type="button" class="btn" @click="rightContainer = 'userInfo'">
+        <button type="button" class="btn" @click="openInfoArea = ''">
           <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
         </button>
       </div>
@@ -493,6 +508,12 @@
       </div>
     </div>
   </div>
+  <div
+    class="menuCover--chat"
+    ref="menuCover"
+    @click="openInfoArea = ''"
+    :class="{ active: openInfoArea === 'userInfo' || openInfoArea === 'messageTemplate' }"
+  ></div>
   <DocModal
     :userData="user"
     @returnUserData="getUserDataFromModal"
@@ -511,8 +532,6 @@ export default {
   },
   data() {
     return {
-      fullWidth: 0,
-      fullHeight: 0,
       dataReady: false,
       boxSubNav: '個人資料',
       rightContainer: 'userInfo',
@@ -545,6 +564,9 @@ export default {
       message: '',
       userRef: database.ref('user'),
       jobApplyData: [],
+      // rwd
+      rwdSelect: '',
+      openInfoArea: '',
     };
   },
   methods: {
@@ -643,20 +665,20 @@ export default {
         }
       });
     },
+    selectListItem(itemId) {
+      this.processSelectData(itemId);
+    },
+    backToList() {
+      this.processSelectData('');
+    },
+    processSelectData(action) {
+      this.rwdSelect = action;
+    },
   },
   created() {
     this.getJobApplyDataData();
     this.getChatListData();
     emitter.emit('spinner-open-bg', 1200);
-  },
-  mounted() {
-    const vm = this;
-    vm.fullWidth = window.innerWidth;
-    vm.fullHeight = window.innerHeight;
-    window.onresize = () => {
-      vm.fullWidth = window.innerWidth;
-      vm.fullHeight = window.innerHeight;
-    };
   },
 };
 </script>

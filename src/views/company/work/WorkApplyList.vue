@@ -11,7 +11,7 @@
         </button>
       </div>
     </div>
-    <div class="container position-relative companyPage">
+    <div class="container-xl position-relative companyPage">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-4" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox pb-3">
@@ -95,8 +95,8 @@
             </ul>
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <li class="talentCard talentCard--inner align-items-start">
-                  <div class="me-4 d-flex align-items-center">
+                <li class="talentCard talentCard--inner">
+                  <div class="talentCard__userImgBox">
                     <div class="talentCard__introVideo">
                       <p class="subTxt text-secondary">尚未設定</p>
                     </div>
@@ -106,7 +106,7 @@
                       :alt="`${user.account.chineseName}個人求職照片`"
                     />
                   </div>
-                  <div class="flex-grow-1">
+                  <div class="talentCard__body">
                     <div class="talentNameInfo mb-3">
                       <p
                         class="talentNameInfo__name me-2 putPointer"
@@ -145,7 +145,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="d-flex align-items-end align-self-end">
+                  <div class="talentCard__btnBox">
                     <button
                       type="button"
                       class="btn btn-outline-companyColor me-2"

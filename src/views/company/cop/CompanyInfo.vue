@@ -6,25 +6,25 @@
         <ul class="innerNav innerNav--fill innerNav--company innerNav--single">
           <li
             class="innerNav__item w--50"
-            :class="{ active: pageSubNavState === '會員方案' }"
-            @click="this.pageSubNavState = '會員方案'"
+            :class="{ active: rwdSelect === '會員方案' }"
+            @click="this.rwdSelect = '會員方案'"
           >
             <p>會員方案</p>
           </li>
           <li
             class="innerNav__item w--50"
-            :class="{ active: pageSubNavState === '企業基本資料' }"
-            @click="this.pageSubNavState = '企業基本資料'"
+            :class="{ active: rwdSelect === '企業基本資料' }"
+            @click="this.rwdSelect = '企業基本資料'"
           >
             <p>企業基本資料</p>
           </li>
         </ul>
       </div>
     </div>
-    <div class="container position-relative">
+    <div class="container-xl position-relative">
       <div class="row justify-content-center">
         <!-- 會員方案 -->
-        <div class="col-lg-4">
+        <div class="col-lg-4" :class="{ 'rwdClose--md': rwdSelect === '企業基本資料' }">
           <div class="sideContentBox">
             <div class="sideContentBox__body p-5">
               <div class="d-flex align-items-start justify-content-between">
@@ -69,7 +69,7 @@
           </div>
         </div>
         <!-- 企業資料 -->
-        <div class="col-lg-8">
+        <div class="col-lg-8" :class="{ 'rwdClose--md': rwdSelect === '會員方案' }">
           <div class="adminContentBox adminContentBox--p adminContentBox--full">
             <h3 class="pageSubTitle text-dark mb-3">企業基本資料</h3>
             <div class="adminContentBox__btnBox">
@@ -499,7 +499,6 @@ export default {
     return {
       date: new Date(),
       nowPage: '企業資料',
-      pageSubNavState: '會員方案',
       personalState: true,
       settingSideList: '個人資料',
       skillShowStyle: true,
@@ -528,6 +527,8 @@ export default {
         },
       },
       tempImgurl: '',
+      // rwd
+      rwdSelect: '會員方案',
     };
   },
   methods: {

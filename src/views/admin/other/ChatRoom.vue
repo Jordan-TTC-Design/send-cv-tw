@@ -1,6 +1,7 @@
 <template>
   <div class="chatRoom bg-light">
-    <div class="chatRoom__leftContainer">
+    <div class="chatRoom__chatListContainer"
+    :class="{ 'rwdClose--sm': rwdSelect !== '' }">
       <div class="chatRoom__filterBox bg-light">
         <div class="searchInput mb-3">
           <i class="jobIcon bi bi-search"></i>
@@ -51,7 +52,7 @@
         </template>
       </ul>
     </div>
-    <div class="chatRoom__chatArea">
+    <div class="chatRoom__chatArea" :class="{ 'rwdClose--sm': rwdSelect === '' }">
       <div class="chatArea__userBox">
         <div class="d-flex align-items-center">
           <img

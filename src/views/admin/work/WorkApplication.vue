@@ -40,7 +40,7 @@
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
       <div class="row">
-        <div class="col-lg-6 col-12" v-if="jobsList.length > 0">
+        <div class="col-lg-6" v-if="jobsList.length > 0">
           <div class="jobListBox">
             <div
               class="
@@ -71,7 +71,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-6 col-12 d-lg-block d-none" v-if="jobsList.length > 0">
+        <div class="col-lg-6 d-lg-block d-none" v-if="jobsList.length > 0">
           <ApplicationJobSideBox ref="jobSelectBox" :select-job-item="jobItem" />
         </div>
         <div class="col-12 d-flex justify-content-center" v-if="jobsList.length === 0">

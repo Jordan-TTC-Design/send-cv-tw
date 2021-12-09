@@ -156,7 +156,7 @@
       background-color: rgba($color: $dark, $alpha: 0.8);
       transition: all 0.3s;
       display: block;
-      z-index: 999;
+      z-index: 1030;
       &.active {
         right: 0;
       }

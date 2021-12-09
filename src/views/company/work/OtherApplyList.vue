@@ -1,9 +1,9 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container position-relative companyPage">
+    <div class="container-xl position-relative">
       <div class="row justify-content-center" v-if="dataReady === true">
-        <div class="col-lg-10 col-12">
+        <div class="col-lg-10">
           <div class="adminContentBox pb-3">
             <ul class="innerNav innerNav--fill innerNav--company innerNav--bgColor">
               <li

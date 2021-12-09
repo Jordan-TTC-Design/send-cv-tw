@@ -11,9 +11,9 @@
         </button>
       </div>
     </div>
-    <div class="container position-relative companyPage">
+    <div class="container-xl position-relative">
       <div class="row">
-        <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
+        <div class="col-xl-3 col-lg-4" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox pb-3">
             <ul class="innerNav innerNav--fill innerNav--company">
               <li
@@ -54,25 +54,23 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-9" :class="{ 'rwdClose--md': rwdSelect === '' }">
-          <div
-            ref="adminSelectBox"
-            class="adminContentBox adminSelectBox py-5"
-            v-if="selectItem.key"
-          >
-            <div class="adminContentBox__section">
-              <div class="row">
-                <div class="col-lg-3">
-                  <img
-                    class="jobImage w-100"
-                    :src="selectItem.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
-                    alt="職位圖片"
-                  />
+        <div class="col-xl-9 col-lg-8" :class="{ 'rwdClose--md': rwdSelect === '' }">
+          <div ref="adminSelectBox" class="adminContentBox" v-if="selectItem.key">
+            <div class="adminContentBox__header">
+              <div class="row gy-4">
+                <div class="col-md-4">
+                  <div class="jobImgBox">
+                    <img
+                      class="jobImg"
+                      :src="selectItem.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
+                      alt="職位圖片"
+                    />
+                  </div>
                 </div>
-                <div class="col-md-9 d-flex flex-column">
+                <div class="col-md-8 d-flex flex-column">
                   <h4 class="pageSubTitle mb-2">{{ selectItem.jobName }}</h4>
                   <p class="text-secondary mb-1">更新時間：2021-12-1</p>
-                  <div class="adminSelectBox__btnList w-100 flex-grow-1 align-items-end">
+                  <div class="adminContentBox__header__innerBtnList">
                     <select
                       class="form-select w-auto me-2"
                       @change="changeJobState(allJobList[selectItem.key].key)"
@@ -107,45 +105,41 @@
                 </div>
               </div>
             </div>
-            <div class="adminContentBox__section">
+            <div class="adminContentBox__body">
               <h4 class="pageSubTitle">職位系統資訊</h4>
-              <ul class="infoList infoList--company">
+              <ul class="infoList infoList--company infoList--withBtn">
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">需求人數</p>
-                      <p class="infoList__item__content">1人</p>
-                    </div>
+                  <div class="infoList__item__txtBox">
+                    <p class="infoList__item__title">需求人數</p>
+                    <p class="infoList__item__content">1人</p>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button type="button" class="btn btn-outline-gray-line text-dark">
                       推薦人才 20 人
                     </button>
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">已應徵人才</p>
-                      <p class="infoList__item__content">1 人</p>
-                    </div>
-                    <div class="d-flex">
-                      <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                        新申請 20 人
-                      </button>
-                      <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                        正在聯絡 10 人
-                      </button>
-                      <button type="button" class="btn btn-outline-gray-line text-dark">
-                        邀請面試 2 人
-                      </button>
-                    </div>
+                  <div class="infoList__item__txtBox">
+                    <p class="infoList__item__title">已應徵人才</p>
+                    <p class="infoList__item__content">1 人</p>
+                  </div>
+                  <div class="infoList__btnBox">
+                    <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                      新申請 20 人
+                    </button>
+                    <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                      正在聯絡 10 人
+                    </button>
+                    <button type="button" class="btn btn-outline-gray-line text-dark">
+                      邀請面試 2 人
+                    </button>
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">創建時間</p>
-                      <p class="infoList__item__content">2020.01.13 19:38</p>
-                    </div>
+                  <div class="infoList__item__txtBox">
+                    <p class="infoList__item__title">創建時間</p>
+                    <p class="infoList__item__content">2020.01.13 19:38</p>
                   </div>
                 </li>
               </ul>
