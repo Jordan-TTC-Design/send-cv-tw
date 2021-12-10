@@ -1,9 +1,9 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container">
+    <div class="container-xl">
       <div class="row justify-content-center" v-if="!editMode">
-        <div class="col-lg-10 col-12">
+        <div class="col-xl-10 col-12">
           <ul class="adminList adminList--card">
             <li class="adminList__item adminList__titleItem">
               <p class="text-secondary fw-normal text-nowrap">

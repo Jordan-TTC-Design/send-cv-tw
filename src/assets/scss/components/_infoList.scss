@@ -93,6 +93,12 @@
       border-bottom-left-radius: 0.5rem;
       border-bottom-right-radius: 0.5rem;
     }
+    &__txtBox{
+      flex-shrink:1;
+    }
+    .infoList__btnBox{
+      flex-shrink:0;
+    }
   }
 }
 .infoList--withBtn{

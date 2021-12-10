@@ -1,11 +1,11 @@
 <template>
   <div ref="adminSubHeader" class="adminSubNav adminSubNav--company container-fluid">
-    <div class="container-xxl">
+    <div class="container-xl">
       <ul
         v-if="adminMainSection === '企業中心'"
         class="adminSubNav__innerList adminSubNav__innerList--company"
       >
-        <li class="d-flex align-items-center d-lg-flex d-none">
+        <li class="align-items-center d-lg-flex d-none">
           <h2 class="adminSubNav__innerList__title">企業中心</h2>
         </li>
         <li
@@ -34,7 +34,7 @@
         v-if="adminMainSection === '職位管理'"
         class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
-        <li class="d-md-flex align-items-center d-none">
+        <li class="align-items-center d-lg-flex d-none">
           <h2 class="adminSubNav__innerList__title">{{ `職位管理` }}</h2>
         </li>
         <li
@@ -76,7 +76,7 @@
         v-if="adminMainSection === '人才資料'"
         class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
-        <li class="d-flex align-items-center d-lg-flex d-none">
+        <li class="align-items-center d-lg-flex d-none">
           <h2 class="adminSubNav__innerList__title">人才資料</h2>
         </li>
         <li
@@ -119,7 +119,7 @@
         v-if="adminMainSection === '加值服務'"
         class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
-        <li class="d-flex align-items-center d-lg-flex d-none">
+        <li class="align-items-center d-lg-flex d-none">
           <h2 class="adminSubNav__innerList__title">加值服務</h2>
         </li>
         <li
@@ -175,7 +175,7 @@
         v-if="adminMainSection === '設定'"
         class="adminSubNav__innerList adminSubNav__innerList--company position-relative w-100"
       >
-        <li class="d-flex align-items-center d-lg-flex d-none">
+        <li class="align-items-center d-lg-flex d-none">
           <h2 class="adminSubNav__innerList__title">設定</h2>
         </li>
         <li

@@ -5,14 +5,12 @@
   top: 60px;
   margin-bottom: 2rem;
   @include shadow-normal;
+  @include lg{
+  padding: 0 0.25rem 0 1rem;
+  }
   @include md {
     display: flex;
     margin-bottom: 1.5rem;
-    &.checked {
-      display: none;
-    }
-  }
-  @include md {
     padding: 0.75rem 1rem 0.75rem 1rem;
     @include shadow-none;
     background-color: $primary;
@@ -47,7 +45,7 @@
     justify-content: center;
     align-items: center;
     background-color: $gray-light;
-    color:$dark;
+    color: $dark;
     @include shadow-none;
     .jobIcon {
       font-size: 1.5rem;
@@ -64,7 +62,7 @@
       height: 2.5rem;
     }
   }
-  .sideBtn--company{
+  .sideBtn--company {
     background-color: $companyColor;
     p {
       color: $light;
@@ -196,6 +194,20 @@
     background-color: $primary;
   }
 }
+.adminSubNav--rwdNomal {
+  position: sticky;
+  top: 4rem;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  background-color: $light;
+  @include md {
+    padding: 0 0 0 0.5rem ;
+  }
+  @include sm {
+    top: 3rem;
+  }
+}
 // .adminSubNav--marginBottom{
 // }
 // 個別頁面的小導覽頁
@@ -226,8 +238,8 @@
 }
 .pageSubNav {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  // flex-direction: column;
+  // align-items: flex-start;
   &__item {
     height: 44px;
     padding: 0 1rem;
@@ -262,14 +274,14 @@
       background-color: rgba($color: $light, $alpha: 0.95);
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: start;
     }
   }
   @include md {
     .innerNav--single {
+      width: 100%;
       border-radius: 0;
       background-color: rgba($color: $light, $alpha: 0.95);
     }
-    align-items: stretch;
   }
 }

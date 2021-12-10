@@ -2,7 +2,7 @@
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
     <div
-      class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
+      class="container-xl pageSubNavContainer--sticky mb-5 d-lg-none"
       :class="{ 'rwdClose--md': rwdSelect === '' }"
     >
       <div class="pageSubNav btnBox">
@@ -11,7 +11,7 @@
         </button>
       </div>
     </div>
-    <div class="container" v-if="dataReady === true">
+    <div class="container-xl" v-if="dataReady === true">
       <div class="row">
         <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div ref="sideContentBox" class="sideContentBox rwdSelectBox pb-3">
@@ -115,7 +115,7 @@
                 :class="{ active: sideBoxList === '手機APP通知' }"
               >
                 <p class="item__title d-flex justify-content-between">手機APP通知</p>
-                <p class="">
+                <p>
                   <i v-if="sideBoxList !== '手機APP通知'" class="jobIcon bi bi-chevron-down"></i>
                   <i v-if="sideBoxList === '手機APP通知'" class="jobIcon bi bi-chevron-up"></i>
                 </p>
@@ -168,7 +168,7 @@
                   <span class="tag--doubleCircle--company me-2"></span>sendCV Web通知
                 </h3>
               </div>
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">
                   <p class="text-dark">應徵相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
@@ -191,7 +191,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">使用拍照申請</p>
                     <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
                   </div>
@@ -211,7 +211,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">寫郵件SendCV</p>
                     <p class="mb-1 subTxt">
                       當有求職者透過 寫郵件SendCV 寄送履歷自我推薦，會通知您！
@@ -289,7 +289,7 @@
               </ul>
             </li>
             <li ref="sendCV Web通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
                   <p class="text-dark">聊天室通知</p>
                   <div class="infoList__btnBox">
@@ -310,9 +310,9 @@
               </ul>
             </li>
             <li ref="sendCV Web通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">推薦通知</p>
                     <p class="subTxt">
                       為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
@@ -336,9 +336,9 @@
               </ul>
             </li>
             <li ref="sendCV Web通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">面試提醒通知</p>
                     <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
                   </div>
@@ -367,7 +367,7 @@
                   <span class="tag--doubleCircle--company me-2"></span>信箱通知
                 </h3>
               </div>
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">
                   <p class="text-dark">應徵相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
@@ -390,7 +390,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">使用拍照申請</p>
                     <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
                   </div>
@@ -412,7 +412,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">寫郵件SendCV</p>
                     <p class="mb-1 subTxt">
                       當有求職者透過 寫郵件SendCV 寄送履歷自我推薦，會通知您！
@@ -494,7 +494,7 @@
               </ul>
             </li>
             <li ref="信箱通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
                   <p class="text-dark">聊天室通知</p>
                   <div class="infoList__btnBox">
@@ -515,9 +515,9 @@
               </ul>
             </li>
             <li ref="信箱通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">推薦通知</p>
                     <p class="subTxt">
                       為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
@@ -543,7 +543,7 @@
               </ul>
             </li>
             <li ref="信箱通知 - 職位通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">
                   <p class="text-dark">職位相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
@@ -600,7 +600,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="text-dark mb-1">同意面試通知</p>
                     <p class="subTxt">
                       為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
@@ -624,9 +624,9 @@
               </ul>
             </li>
             <li ref="信箱通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">面試提醒通知</p>
                     <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
                   </div>
@@ -657,7 +657,7 @@
                   <span class="tag--doubleCircle--company me-2"></span>手機APP通知
                 </h3>
               </div>
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">
                   <p class="text-dark">應徵相關通知</p>
                   <div class="infoList__btnBox">
@@ -693,7 +693,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">使用拍照申請</p>
                     <p class="subTxt">當有求職者透過拍照申請創建職位或應徵時，會通知您！</p>
                   </div>
@@ -713,7 +713,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">寫郵件SendCV</p>
                     <p class="mb-1 subTxt">
                       當有求職者透過 寫郵件SendCV 寄送履歷自我推薦，會通知您！
@@ -791,7 +791,7 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 聊天室通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
                   <p class="text-dark">聊天室通知</p>
                   <div class="infoList__btnBox">
@@ -812,9 +812,9 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 推薦通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">推薦通知</p>
                     <p class="subTxt">
                       為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
@@ -838,7 +838,7 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 職位通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">
                   <p class="text-dark">職位相關通知</p>
                   <p class="text-companyColor me-4">建議開啟</p>
@@ -895,7 +895,7 @@
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="text-dark mb-1">同意面試通知</p>
                     <p class="subTxt">
                       為已建立的職位推薦符合的求職者，保持開啟狀態不錯過任何優秀人才。
@@ -919,9 +919,9 @@
               </ul>
             </li>
             <li ref="手機APP通知 - 面試提醒通知" class="mb-5 rounded bg-light box--shadow">
-              <ul class="infoList--lg infoList--withBtn infoList--bgHover">
+              <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item border-0">
-                  <div>
+                  <div class="infoList__item__txtBox">
                     <p class="mb-1 text-dark">面試提醒通知</p>
                     <p class="subTxt">開啟功能將在面試前一天提醒您，幫助您提前做準備。</p>
                   </div>

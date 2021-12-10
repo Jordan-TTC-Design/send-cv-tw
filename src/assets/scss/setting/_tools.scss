@@ -704,66 +704,14 @@
     }
   }
 }
-// 自定義table
-.flexTable {
-  &__header {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid $gray-line;
-  }
-  &__footer {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0.75rem 1rem;
-    bottom: 0;
-  }
-  &__cell {
-    padding: 0 0.5rem;
-    &:first-child {
-      padding-left: 0;
-    }
-    &:last-child {
-      padding-right: 0;
-    }
-    &--0 {
-      flex: 0;
-    }
-    &--1 {
-      flex: 1;
-    }
-    &--2 {
-      flex: 2;
-    }
-    &--3 {
-      flex: 3;
-    }
-    &--4 {
-      flex: 4;
-    }
-  }
-  &__item {
-    padding: 0.75rem 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    border-bottom: 1px solid $gray-line;
-    &__title {
-      font-weight: $fw--md;
-      color: $dark;
-    }
-    &:hover {
-      background-color: rgba($color: $gray-light, $alpha: 0.5);
-      .flexTable__body__item__title {
-        color: $companyColor;
-      }
-    }
-  }
-}
+
 
 // 自己設定的尺寸
 .w--100 {
   width: 100%;
+}
+.w--75 {
+    width: 75%;
 }
 .w--50 {
   width: 50%;
@@ -774,6 +722,11 @@
 .w--xl--100 {
   @include xl {
     width: 100%;
+  }
+}
+.w--xl--75 {
+  @include xl {
+    width: 75%;
   }
 }
 .w--xl--50 {
@@ -796,6 +749,11 @@
     width: 100%;
   }
 }
+.w--lg--75 {
+  @include lg {
+    width: 75%;
+  }
+}
 .w--lg--50 {
   @include lg {
     width: 50%;
@@ -816,6 +774,11 @@
     width: 100%;
   }
 }
+.w--md--75 {
+  @include md {
+    width: 75%;
+  }
+}
 .w--md--50 {
   @include md {
     width: 50%;
@@ -834,6 +797,11 @@
 .w--sm--100 {
   @include sm {
     width: 100%;
+  }
+}
+.w--sm--75 {
+  @include sm {
+    width: 75%;
   }
 }
 .w--sm--50 {

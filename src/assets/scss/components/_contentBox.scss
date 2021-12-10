@@ -256,3 +256,8 @@
 .adminContentBox--full {
   min-height: calc(80vh - 132px);
 }
+.sideContentBox.payBillBox{
+  @include md{
+    min-height:auto;
+  }
+}

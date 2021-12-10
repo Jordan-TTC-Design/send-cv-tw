@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container" v-if="dataReady">
+    <div class="container-xl" v-if="dataReady">
       <div class="row mb-5">
         <div class="col-6">
           <div class="rounded bg-white box--shadow p-5 h-100 d-flex">

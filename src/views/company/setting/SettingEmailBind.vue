@@ -1,9 +1,9 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container">
+    <div class="container-xl">
       <div class="row justify-content-center">
-        <div class="col-lg-9 col-12">
+        <div class="col-xl-9 col-12">
           <div class="p-5 mb-5 rounded bg-light box--shadow">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="subTitle">綁定其他信箱</h2>

@@ -331,7 +331,7 @@
       </div>
     </div>
     <div class="sideBtnBox d-lg-none">
-      <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
+      <button type="button" class="sideBtn btn btn-light" @click="filterOpen = !filterOpen">
         <i class="jobIcon bi bi-funnel-fill"></i>
       </button>
     </div>

@@ -30,13 +30,13 @@
         </div>
       </div>
       <div class="row mb-lg-8 justify-content-center pt-lg-7 mb-8 pt-6">
-        <div class="col-lg-12 col-10">
+        <div class="col-lg-12">
           <h3 class="pageTitle mb-5 text-lg-start text-center">成為付費用戶有什麼好處？</h3>
           <p class="mb-lg-8 mb-6 text-lg-start text-center">
             讓我們為您的徵才活動適時地提供幫助，讓您更有效率的使用SendCV。
           </p>
         </div>
-        <div class="col-lg-6 col-md-12 col-12">
+        <div class="col-lg-6">
           <div class="bg-gray-light rounded d-flex mb-4">
             <div class="p-6">
               <h5 class="text-dark mb-2">專屬的企業廣告</h5>
@@ -46,7 +46,7 @@
             <img class="w-50" src="https://i.imgur.com/N3KuGQr.png" alt="" />
           </div>
         </div>
-        <div class="col-lg-6 col-md-12 col-12">
+        <div class="col-lg-6">
           <div class="bg-gray-light rounded d-flex mb-4">
             <div class="p-6">
               <h5 class="text-dark mb-2">設定推廣職位</h5>
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="row mb-lg-8 pt-lg-7 mb-8 pt-6 justify-content-lg-start justify-content-center">
-        <div class="col-lg-6 col-10 mb-lg-8 mb-6">
+        <div class="col-lg-6 mb-lg-8 mb-6">
           <h3 class="pageTitle text-lg-start text-center">比較不同方案</h3>
           <p class="mb-5 text-lg-start text-center">
             除了免費會員外，我們提供兩種不同的會員方案，除了基本的刊登職位、搜尋人才履歷外，另外增加方便企業招募的服務，以及推薦給求職人的功能。
@@ -109,14 +109,7 @@
             </div>
             <div class="flexTable__body d-flex flex-row p-0">
               <div class="flexTable__item flexTable__cell--1 border-0">
-                <div
-                  class="
-                    flexTable__cell flexTable__cell--4
-                    border-top-0
-                    flex-column
-                    justify-content-start
-                  "
-                >
+                <div class="flexTable__cell flexTable__cell--4 memberShipList__itemHeader">
                   <h5 class="my-4">免費方案</h5>
                   <h3 class="text-dark fw-bold mb-2">
                     <span class="me-2 subTxt text-dark">$</span>免費<span
@@ -162,14 +155,7 @@
                 </div>
               </div>
               <div class="flexTable__item flexTable__cell--1 border-0 memberShipList__hotItem">
-                <div
-                  class="
-                    flexTable__cell flexTable__cell--4
-                    border-top-0
-                    flex-column
-                    justify-content-start
-                  "
-                >
+                <div class="flexTable__cell flexTable__cell--4 memberShipList__itemHeader">
                   <h5 class="my-4">基本方案</h5>
                   <h3 class="text-dark fw-bold mb-2">
                     <span class="me-2 subTxt text-dark">$</span>800<span
@@ -217,14 +203,7 @@
                 </div>
               </div>
               <div class="flexTable__item flexTable__cell--1 border-0 memberShipList__bestItem">
-                <div
-                  class="
-                    flexTable__cell flexTable__cell--4
-                    border-top-0
-                    flex-column
-                    justify-content-start
-                  "
-                >
+                <div class="flexTable__cell flexTable__cell--4 memberShipList__itemHeader">
                   <h5 class="my-4">精選方案</h5>
                   <h3 class="text-dark fw-bold mb-2">
                     <span class="me-2 subTxt text-dark">$</span>1,400<span
@@ -282,7 +261,7 @@
             不管您購買什麼方案，都可以享有以下的額外服務，讓您在徵才的同時從眾多企業中脫穎而出!
           </p>
         </div>
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-4">
           <div
             class="
               d-flex
@@ -302,7 +281,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-4">
           <div
             class="
               d-flex
@@ -324,7 +303,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-4">
           <div
             class="
               d-flex

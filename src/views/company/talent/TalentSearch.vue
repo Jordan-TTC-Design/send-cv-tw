@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container position-relative companyPage">
+    <div class="container-xl position-relative">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-9">
           <form @submit="searchTalent" class="adminContentBox">
@@ -10,8 +10,8 @@
                 <span class="tag--doubleCircle--company me-2"></span>搜尋人才
               </h3>
               <div class="row align-items-end">
-                <div class="col-lg-5 col-12">
-                  <div class="form__input mb-0">
+                <div class="col-lg-5">
+                  <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchKeyword" class="labelBox__label form-label"
                         >搜尋關鍵字</label
@@ -26,8 +26,8 @@
                     />
                   </div>
                 </div>
-                <div class="col-lg-5 col-12">
-                  <div class="form__input mb-0">
+                <div class="col-lg-5">
+                  <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchKeyword" class="labelBox__label form-label">匹配職位</label>
                     </div>
@@ -43,16 +43,18 @@
                   </div>
                 </div>
                 <div class="col">
-                  <button type="submit" class="btn btn-companyColor text-light w-100">
-                    搜尋人才
-                  </button>
+                  <div class="form__input">
+                    <button type="submit" class="btn btn-companyColor text-light w-100">
+                      搜尋人才
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="p-5">
-              <div class="row mb-5">
-                <div class="col-lg-6 col-12">
-                  <div class="form__input mb-4">
+              <div class="row mb-2">
+                <div class="col-lg-6">
+                  <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchWorkExp" class="labelBox__label form-label">工作經驗</label>
                     </div>
@@ -89,8 +91,8 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form__input mb-4">
+                <div class="col-lg-6">
+                  <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchIntroVideo--ok" class="labelBox__label form-label"
                         >自我介紹影片</label
@@ -123,7 +125,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
+                <div class="col-lg-3 col-md-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchLanguage" class="labelBox__label form-label"
@@ -147,7 +149,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
+                <div class="col-lg-3 col-md-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchLanguage" class="labelBox__label form-label"
@@ -171,7 +173,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
+                <div class="col-lg-3 col-md-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchLanguage" class="labelBox__label form-label"
@@ -195,7 +197,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
+                <div class="col-lg-3 col-md-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="searchLanguage" class="labelBox__label form-label"
@@ -264,7 +266,7 @@
                       <label class="form-check-label" for="salaryRangeInterview"> 接受面議 </label>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-12">
+                  <div class="col-lg-6">
                     <div class="form__input">
                       <div class="form__labelBox">
                         <label for="searchLoginTime" class="labelBox__label form-label"
@@ -330,7 +332,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-12">
+                  <div class="col-lg-6">
                     <div class="form__input">
                       <div class="form__labelBox">
                         <label for="searchExpat" class="labelBox__label form-label">外派出差</label>
@@ -363,7 +365,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-12">
+                  <div class="col-lg-6">
                     <div class="form__input">
                       <div class="form__labelBox">
                         <label for="searchMilitaryService" class="labelBox__label form-label"
@@ -413,7 +415,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-12">
+                  <div class="col-lg-6">
                     <div class="form__input">
                       <div class="form__labelBox">
                         <label for="searchIdentites" class="labelBox__label form-label"
@@ -466,7 +468,7 @@
           </form>
         </div>
         <div class="col-lg-3">
-          <div class="sideContentBox pb-3 mb-5">
+          <div class="sideContentBox rwdSideModal pb-3" :class="{ active: historyOpen }">
             <div class="sideContentBox__header">
               <p class="subTxt">搜尋紀錄</p>
               <div class="sideContentBox__header__btnBox">
@@ -487,12 +489,16 @@
         </div>
       </div>
     </div>
+    <div class="sideBtnBox d-lg-none">
+      <button type="button" class="sideBtn btn btn-light" @click=" historyOpen = !historyOpen ">
+        <i class="jobIcon bi bi-clock-fill"></i>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import webData from '@/methods/webData';
-// import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
 
@@ -502,8 +508,8 @@ export default {
   },
   data() {
     return {
-      nowPage: '搜尋人才',
       dataReady: false,
+      nowPage: '搜尋人才',
       companyJobList: [],
       formData: {},
       searchForm: {
@@ -526,6 +532,8 @@ export default {
         militaryService: 0,
         identities: [],
       },
+      // rwd
+      historyOpen: false,
     };
   },
   methods: {

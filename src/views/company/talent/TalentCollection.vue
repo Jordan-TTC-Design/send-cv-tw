@@ -11,7 +11,7 @@
         </button>
       </div>
     </div>
-    <div class="container position-relative companyPage">
+    <div class="container-xl position-relative companyPage">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-3" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox pb-3 mb-5">

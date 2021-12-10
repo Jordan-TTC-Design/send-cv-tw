@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
-    <div class="adminSubNav adminSubNav--edit mb-6 box--shadow">
-      <div class="container adminSubNav__innerList justify-content-between align-items-center">
+    <div class="adminSubNav adminSubNav--rwdNomal mb-6 box--shadow">
+      <div class="container-xl adminSubNav__innerList justify-content-between align-items-center">
         <h2 class="adminSubNav__innerList__title me-0">{{ nowPage }}</h2>
         <div>
           <router-link
@@ -13,30 +13,29 @@
         </div>
       </div>
     </div>
-    <div class="container" v-if="dataReady === true">
-      <div class="row">
+    <div class="container-xl" v-if="dataReady === true">
+      <div class="row gy-5">
         <div class="col-lg-9">
           <div class="adminContentBox flexTable serviceCart">
             <div class="flexTable__header">
               <p class="flexTable__cell flexTable__cell--3">商品名稱</p>
-              <p class="flexTable__cell flexTable__cell--1 text-center">項目金額</p>
-              <p class="flexTable__cell flexTable__cell--2 text-center">購買數量</p>
-              <p class="flexTable__cell flexTable__cell--1 text-center">小計</p>
+              <p class="flexTable__cell flexTable__cell--2 text-center d-md-block d-none">購買數量</p>
+              <p class="flexTable__cell flexTable__cell--1 text-center d-md-block d-none">小計</p>
               <p class="flexTable__cell invisible">操作</p>
             </div>
             <div class="flexTable__body">
               <template v-for="(item, index) in cart.productList" :key="item.name">
-                <div class="flexTable__item align-items-center">
-                  <div class="flexTable__cell flexTable__cell--3 d-flex align-items-center">
-                    <img class="w-50 rounded me-2" :src="item.imgUrl" alt="訂單圖片" />
-                    <div>
+                <div class="flexTable__item cartItem">
+                  <div class="flexTable__cell flexTable__cell--3 cartItem__productArea">
+                    <img class="w--50 w--sm--25 rounded" :src="item.imgUrl" alt="訂單圖片" />
+                    <div class="ps-4">
                       <p class="flexTable__body__item__title mb-1">{{ item.name }}</p>
-                      <p class="subTxt">{{ item.name }}使用額度</p>
+                      <p class="subTxt mb-2">{{ item.name }}使用額度</p>
+                      <p class="subTxt">NT$400</p>
                     </div>
                   </div>
-                  <p class="flexTable__cell flexTable__cell--1 text-center">NT$400</p>
-                  <div class="flexTable__cell flexTable__cell--2 form__input">
-                    <div class="fakeInput--counter w-100">
+                  <div class="flexTable__cell flexTable__cell--2 cartItem__numArea">
+                    <div class="fakeInput--counter w--100 w--sm--75">
                       <div
                         class="fakeBtn"
                         @click="minusData(index)"
@@ -50,11 +49,13 @@
                       </div>
                     </div>
                   </div>
-                  <p class="flexTable__cell flexTable__cell--1 text-center">
+                  <div class="flexTable__cell flexTable__cell--1 d-md-block d-none">
+                    <p class="text-center">
                     NT${{ countedTotal(item.price, item.num) }}
                   </p>
+                  </div>
                   <div class="flexTable__cell">
-                    <button type="button" class="btn" @click="deleteProduct(index)">
+                    <button type="button" class="btn btn--cartDelete" @click="deleteProduct(index)">
                       <i class="jobIcon-sm bi bi-x-lg"></i>
                     </button>
                   </div>
@@ -69,7 +70,7 @@
           </div>
         </div>
         <div class="col-lg-3">
-          <div class="sideContentBox">
+          <div class="sideContentBox payBillBox">
             <div class="sideContentBox__header">
               <p class="subTxt">付款設定</p>
             </div>
@@ -148,9 +149,7 @@
                   <div v-if="cart.invoice.type === '電子統編發票'">
                     <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="unitNumber" class="labelBox__label form-label"
-                          >統一編號</label
-                        >
+                        <label for="unitNumber" class="labelBox__label form-label">統一編號</label>
                       </div>
                       <input
                         type="text"
@@ -163,9 +162,7 @@
                     </div>
                     <div class="form__input">
                       <div class="form__labelBox">
-                        <label for="companyName" class="labelBox__label form-label"
-                          >發票抬頭</label
-                        >
+                        <label for="companyName" class="labelBox__label form-label">發票抬頭</label>
                       </div>
                       <input
                         type="text"
@@ -186,9 +183,7 @@
                 <button type="button" class="btn btn-gray-light text-dark" @click="sendOrder">
                   建立訂單
                 </button>
-                <button type="submit" class="btn btn-companyColor text-light">
-                  前往付款
-                </button>
+                <button type="submit" class="btn btn-companyColor text-light">前往付款</button>
               </div>
             </form>
           </div>

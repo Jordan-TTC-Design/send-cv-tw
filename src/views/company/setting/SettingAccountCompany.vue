@@ -1,9 +1,9 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container position-relative">
+    <div class="container-xl position-relative">
       <div class="row justify-content-center">
-        <div class="col-lg-10 col-12">
+        <div class="col-xl-10 col-12">
           <div class="admin__mainContent">
             <h3 class="admin__mainContent__title">{{ nowPage }}</h3>
             <ul class="infoList infoList--company">
