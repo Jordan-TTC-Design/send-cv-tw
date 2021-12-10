@@ -1,0 +1,253 @@
+.chatRoom {
+  height: calc(100vh - 4rem);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  z-index: 99;
+  top: 4rem;
+  @include sm {
+    height: calc(100vh - 3rem);
+    top: 3rem;
+  }
+  &__chatListArea {
+    width: 24%;
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid $gray-line;
+    @include lg {
+      width: 40%;
+    }
+    @include sm {
+      width: 100%;
+      &.rwdClose--sm {
+        display: none;
+      }
+    }
+  }
+  &__chatArea {
+    width: 38%;
+    height: 100%;
+    position: relative;
+    @include lg {
+      width: 60%;
+    }
+    @include sm {
+      width: 100%;
+      &.rwdClose--sm {
+        display: none;
+      }
+    }
+  }
+  &__filterBox {
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    .searchInput {
+      height: 44px;
+      border: 1px solid $gray-line;
+      border-radius: 0.5rem;
+    }
+  }
+  &__chatList {
+    flex-grow: 1;
+    overflow-y: scroll;
+  }
+}
+
+.chatCard {
+  cursor: pointer;
+  background-color: $light;
+  border-bottom: 1px solid $gray-line;
+  padding: 0.75rem;
+  position: relative;
+  &__body {
+    display: flex;
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__tagList {
+    display: flex;
+  }
+  &__img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 1px solid $gray-line;
+    background-color: $light;
+  }
+  &__title {
+    font-weight: $fw--md;
+    color: $dark;
+  }
+  &:hover {
+    background-color: rgba($color: $gray-light, $alpha: 0.5);
+    .card__title {
+      color: $primary-dark;
+    }
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0.5rem;
+    background-color: $primary;
+    border-radius: 0 0.5rem 0.5rem 0;
+    display: none;
+  }
+  &.active {
+    background-color: rgba($color: $primary-light, $alpha: 0.5);
+    &::before {
+      display: block;
+      .card__title {
+        color: $primary-dark;
+      }
+    }
+  }
+}
+.chatArea__userBox {
+  height: 50px;
+  padding: 0 0.75rem;
+  background-color: $light;
+  border-bottom: 1px solid $gray-line;
+  border-right: 1px solid $gray-line;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .companyLogo {
+    height: 28px;
+    border: 1px solid $gray-line;
+    border-radius: 0.25rem;
+  }
+}
+.chatArea__txtContainer {
+  width: 100%;
+  height: calc(100% - 190px);
+  background-color: $gray-light;
+  overflow-y: scroll;
+  &.active {
+    height: calc(100% - 382px);
+  }
+}
+.chatArea__inputContainer {
+  background-color: $gray-line;
+  padding: 0.75rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .chatArea__txtInput {
+    border: 0;
+    resize: none;
+  }
+  .btn--openTextArea {
+    position: relative;
+    width: 3rem;
+    .jobIcon {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+    }
+  }
+}
+.chatRoom__infoArea {
+  width: 38%;
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
+  border-left: 1px solid $gray-line;
+  background-color: $light;
+  .boxSubNav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+  .boxSubNav__item.active {
+    background-color: $primary-light;
+  }
+  .companyImageContainer {
+    height: 10rem;
+    width: 100%;
+    position: relative;
+    &__img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .imgCover {
+      position: absolute;
+      background-color: rgba($color: $dark, $alpha: 0.5);
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+    &__txt {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+    }
+  }
+  &__footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-top: 1px solid $gray-line;
+    background-color: $light;
+    padding: 0.75rem 1rem;
+  }
+  @include lg {
+    position: fixed;
+    right: 0;
+    top: 4rem;
+    bottom: 0;
+    width: 80%;
+    z-index: 1020;
+    transform: translateX(100%);
+    transition: all 0.3s;
+    &.active {
+      transform: translateX(0);
+      transition: all 0.3s;
+    }
+  }
+  @include sm {
+    top: 3rem;
+  }
+}
+.chatRoom__infoArea--company {
+  .boxSubNav__item.active {
+    background-color: $companyColor-light;
+  }
+}
+
+.menuCover--chat {
+  display: none;
+  transition: all 0.3s;
+  @include lg {
+    display: block;
+    top: 4rem;
+    left: 0;
+    width: 20%;
+    position: fixed;
+    bottom: 0;
+    background-color: rgba($color: $dark, $alpha: 0.8);
+    z-index: 1030;
+    transform: translateX(-100%);
+    &.active {
+      transform: translateX(0);
+    }
+  }
+  @include sm {
+    top: 3rem;
+  }
+}

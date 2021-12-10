@@ -12,8 +12,12 @@
       <div class="sideFilterBox__section">
         <!-- 關鍵字 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-keyword" class="form-label inputItem__title">關鍵字</label>
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-keyword" class="labelBox__label form-label"
+                >關鍵字</label
+              >
+            </div>
             <input
               type="text"
               class="form-control"
@@ -26,8 +30,10 @@
         </div>
         <!-- 地區 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-city" class="form-label inputItem__title">地區</label>
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-city" class="labelBox__label form-label">地區</label>
+            </div>
             <select
               class="form-select"
               aria-label="地區"
@@ -36,18 +42,20 @@
             >
               <option disabled>請選擇地區</option>
               <option selected value="不限">不限</option>
-              <option v-for="(item, index) in formData.city" :value="item" :key="`地區${index}`">{{
-                item
-              }}</option>
+              <option v-for="(item, index) in formData.city" :value="item" :key="`地區${index}`">
+                {{ item }}
+              </option>
             </select>
           </div>
         </div>
         <!-- 薪資 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-salary" class="form-label inputItem__title"
-              >薪資待遇</label
-            >
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-salary" class="labelBox__label form-label"
+                >薪資待遇</label
+              >
+            </div>
             <div class="d-flex align-items-center">
               <input
                 type="number"
@@ -92,10 +100,12 @@
         <p class="sideFilterBox__section__tag">工作要求</p>
         <!-- 工作經驗 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-workExp" class="form-label inputItem__title"
-              >工作經驗</label
-            >
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-workExp" class="labelBox__label form-label"
+                >工作經驗</label
+              >
+            </div>
             <select
               class="form-select"
               aria-label="工作經驗"
@@ -108,17 +118,20 @@
                 :value="item"
                 :selected="item === '不限'"
                 :key="`工作經驗${index}`"
-                >{{ item }}</option
               >
+                {{ item }}
+              </option>
             </select>
           </div>
         </div>
         <!-- 學歷要求 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-education" class="form-label inputItem__title"
-              >學歷要求</label
-            >
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-education" class="labelBox__label form-label"
+                >學歷要求</label
+              >
+            </div>
             <select
               class="form-select"
               aria-label="學歷要求"
@@ -131,8 +144,9 @@
                 :value="item"
                 :selected="item === '不限'"
                 :key="`學歷要求${index}`"
-                >{{ item }}</option
               >
+                {{ item }}
+              </option>
             </select>
           </div>
         </div>
@@ -141,10 +155,12 @@
         <p class="sideFilterBox__section__tag">職位相關</p>
         <!-- 產業類別 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-industry" class="form-label inputItem__title"
-              >產業類別</label
-            >
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-industry" class="labelBox__label form-label"
+                >產業類別</label
+              >
+            </div>
             <select
               class="form-select"
               aria-label="產業類別"
@@ -157,17 +173,20 @@
                 v-for="(item, index) in formData.industryCategory"
                 :value="item"
                 :key="`產業類別${index}`"
-                >{{ item }}</option
               >
+                {{ item }}
+              </option>
             </select>
           </div>
         </div>
         <!-- 職位類別 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-jobCategory" class="form-label inputItem__title"
-              >職位類別</label
-            >
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-jobCategory" class="labelBox__label form-label"
+                >職位類別</label
+              >
+            </div>
             <select
               class="form-select"
               aria-label="職位類別"
@@ -180,17 +199,20 @@
                 v-for="(item, index) in formData.jobCategory"
                 :value="item"
                 :key="`職位類別${index}`"
-                >{{ item }}</option
               >
+                {{ item }}
+              </option>
             </select>
           </div>
         </div>
         <!-- 工作時段 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-workTime" class="form-label inputItem__title"
-              >工作時段</label
-            >
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-workTime" class="labelBox__label form-label"
+                >工作時段</label
+              >
+            </div>
             <select
               class="form-select"
               aria-label="工作時段"
@@ -203,17 +225,20 @@
                 v-for="(item, index) in formData.workTime"
                 :value="item"
                 :key="`工作時段${index}`"
-                >{{ item }}</option
               >
+                {{ item }}
+              </option>
             </select>
           </div>
         </div>
         <!-- 工作性質 -->
         <div class="mb-3">
-          <div class="inputGroup--item">
-            <label for="searchFilterForm-workType" class="form-label inputItem__title"
-              >工作性質</label
-            >
+          <div class="form__input">
+            <div class="form__labelBox">
+              <label for="searchFilterForm-workType" class="labelBox__label form-label"
+                >工作性質</label
+              >
+            </div>
             <select
               class="form-select"
               aria-label="工作性質"
@@ -226,17 +251,16 @@
                 v-for="(item, index) in formData.workType"
                 :value="item"
                 :key="`工作性質${index}`"
-                >{{ item }}</option
               >
+                {{ item }}
+              </option>
             </select>
           </div>
         </div>
       </div>
     </div>
     <div class="sideFilterBox__footer">
-      <button type="button" class="btn btn-gray-light" @click="cleanFilter">
-        清除全部
-      </button>
+      <button type="button" class="btn btn-gray-light" @click="cleanFilter">清除全部</button>
       <button
         type="button"
         class="btn btn-primary btn--applyJob"
@@ -247,7 +271,7 @@
     </div>
   </div>
   <div class="bg-cover--dark d-md-none" v-if="filterBoxOpenState" @click="openFilter"></div>
-  <button type="button" class="sideIconBtn btn btn-light mb-2" @click="openFilter">
+  <button type="button" class="sideBtn btn btn-light mb-2" @click="openFilter">
     <i class="jobIcon bi bi-funnel"></i>
   </button>
 </template>

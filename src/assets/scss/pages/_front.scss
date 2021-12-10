@@ -1,115 +1,49 @@
-//前台header
-.header--front {
-  padding: 0.125rem 0px;
+.frontStageSubNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   background-color: $primary;
-  border-bottom: 1px solid $light;
-  .header__logo {
-    max-height: 60px;
-  }
-  //header搜尋視窗定位
-  .header__searchModal {
+  @include sm {
+    border-bottom: 1px solid $light;
     position: absolute;
-    top: 3.75rem;
-    right: 0;
+    top: 3rem;
     left: 0;
-    display: none;
-    &.active {
-      display: block;
-    }
-  }
-  .header__navBox {
-    position: relative;
-  }
-  .header__nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    .nav__item {
-      position: relative;
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -12px;
-        background-color: $dark;
-        height: 0rem;
-        width: 100%;
-        border-radius: 0.25rem 0.25rem 0 0;
-      }
-      .nav__item__link {
-        color: $dark;
-        font-weight: $fw--md;
-      }
-      &.active {
-        &::after {
-          height: 0.25rem;
-        }
-        @include md {
-          &::after {
-            height: 1rem;
-          }
-        }
-      }
-      @include md {
-        &::after {
-          left: 0;
-          bottom: 50%;
-          width: 4px;
-          transform: translateY(25%);
-          border-radius: 0.25rem;
-        }
-      }
-    }
-  }
-  .header__companyBtnBox {
-    color: $primary;
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 0.75rem 0.75rem 0 0.75rem;
-    margin-right: 0.25rem;
-    padding: 0.75rem 1rem;
-  }
-  .header__companyBtnBox--sm {
-    color: $primary;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 0.5rem 0.5rem 0.5rem 0;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-  }
-  @include md {
-    .header__navBox {
-      background-color: $primary;
-      position: fixed;
-      top: calc(4rem + 1px);
-      bottom: 0;
-      right: -100%;
-      width: 80%;
-      transition: all 0.3s;
-      padding: 1rem;
-      z-index: 1200;
-    }
-    .header__navBox.active {
-      right: 0%;
-    }
-    .header__nav {
-      max-height: 100%;
-      flex-direction: column;
-    }
-    .nav-item {
-      width: 100%;
-      padding-bottom: 0.5rem;
-      margin-top: 0.5rem;
-      border-bottom: 1px solid $gray-line;
-      padding-left: 0;
-    }
-  }
-  .menuCover {
-    top: calc(4rem + 1px);
-    left: -100%;
-    width: 20%;
-    &.active {
-      left: 0;
-    }
+    width: 100%;
+    z-index: 100;
   }
 }
+.frontStageSubNav__item {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: $dark;
+    height: 0rem;
+    border-radius: 0.25rem;
+    width: calc(75% - 1rem);
+    bottom: 0rem;
+    left: 50%;
+    transform: translateX(-50%);
+    @include sm {
+      width: calc(100% - 0.25rem);
+      border-radius: 0.25rem 0.25rem 0 0;
+    }
+  }
+  &.active::after {
+    height: 0.25rem;
+  }
+}
+.frontStageSubNav__item__link {
+  color: $dark;
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  @include sm {
+    font-size: 14px;
+  }
+}
+
 // 首頁的
 .mainBanner {
   position: relative;
@@ -118,8 +52,7 @@
     max-width: 5.5rem;
   }
   &__title {
-    font-size: 3rem;
-    color: $white;
+    font-size: 1.25rem;
     @include md {
       font-size: 2.5rem;
     }
@@ -128,9 +61,8 @@
     }
   }
   &__innerBox {
-    padding-top: 6.75rem;
-    padding-bottom: 4.5rem;
-    margin-top: -4rem;
+    margin: 5rem 0;
+    padding: 1.5rem;
     @include md {
       padding-top: 2.75rem;
     }
@@ -145,30 +77,47 @@
       padding-bottom: 7rem;
     }
   }
-  &__img--bg {
+  &__bgBox {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    &__bg {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      &--left {
+        width: 20%;
+        left: 0;
+      }
+      &--right {
+        width: 80%;
+        right: 0;
+      }
+    }
+  }
+  &__img {
     position: absolute;
     object-fit: cover;
     height: 100%;
+    max-width: 100%;
     top: 0;
-    right: 0%;
+    left: 0;
     z-index: -1;
-    @include xl {
-      height: 80%;
-      top: 10%;
-    }
-    @include lg {
-      height: 60%;
-      top: 20%;
-    }
     @include md {
-      height: 48%;
-      top: 28%;
-      right: 50%;
-      transform: translateX(50%);
     }
     @include sm {
-      height: 28%;
-      top: 27%;
+    }
+  }
+  &__searchBar__tagList {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: -0.75rem;
+    .jobTag {
+      margin-right: 0.5rem;
+      margin-bottom: 0.75rem;
     }
   }
 }
@@ -450,6 +399,34 @@
   }
   &:hover {
     @include shadow-md;
+  }
+}
+// 設定推薦列表
+.recommendTagList {
+  display: flex;
+  &__btn {
+    margin-right: 0.5rem;
+    color: $dark;
+    &.active {
+      border: 1px solid $primary;
+      color: $primary-dark;
+      background-color: $primary-light;
+    }
+    &--new {
+      color: $companyColor;
+      .jobIcon--sm {
+        color: $companyColor;
+      }
+    }
+    &--new:hover {
+      color: $light;
+      .jobIcon--sm {
+        color: $light;
+      }
+    }
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 // 優質企業頁面
@@ -967,6 +944,20 @@
       border-bottom: 0;
     }
   }
+  &__jobInfoImgBox {
+    border-radius: 0.5rem;
+    background-color: $gray-light;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &__img {
+      border-radius: 0.25rem;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
 }
 .sideJobBox--sticky {
   position: sticky;
@@ -1121,9 +1112,9 @@
   }
   .companyPage__companyImage {
     border-radius: 8px;
-    max-width: calc(33.333% - 12px);
+    width: calc(33.333% - 12px);
     @include sm {
-      max-width: 100%;
+      width: 100%;
     }
   }
   .companyJobList {
@@ -1347,7 +1338,8 @@
 }
 //front-footer
 .footer--front {
-  background-color: #3f6745;
+  background-color: $dark;
+  z-index: 1;
 }
 
 //新增企業
@@ -1362,7 +1354,7 @@
 }
 .addProcessBox {
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: $light;
   text-align: center;
   position: relative;
   &__title {
@@ -1384,7 +1376,7 @@
       align-items: center;
       width: 2rem;
       height: 2rem;
-      background-color: #9fb3a2;
+      background-color: $primary-light;
       border-radius: 50%;
     }
     .jobIcon {
@@ -1394,19 +1386,36 @@
   }
 }
 .addProcessBox.unActive {
-  background-color: $gray-line;
+  background-color: $gray-light;
   color: #979797;
+  .addProcessBox__txt,
   .addProcessBox__title {
     color: #979797;
   }
 }
 .addProcessBox.completed {
-  background-color: #9fb3a2;
+  background-color: $primary-light;
   .addProcessBox__txt {
     color: $primary;
   }
   .icon--okBox {
     display: block;
+  }
+}
+.addProcessBox--inner {
+  background-color: $primary-light;
+  .icon--okBox {
+    background-color: $light;
+  }
+  .addProcessBox__txt,
+  .addProcessBox__title {
+    color: $primary-dark;
+  }
+  &.completed {
+    .addProcessBox__txt,
+    .addProcessBox__title {
+      color: $primary-dark;
+    }
   }
 }
 .cropImgBox {
@@ -1442,7 +1451,7 @@
     // 設置背景混和模式為相乘模式
   }
   .iconBox {
-    background-color: $gray-light;
+    background-color: $light;
     border-radius: 50%;
     padding: 4px;
     position: absolute;
@@ -1455,12 +1464,12 @@
       align-items: center;
       width: 2rem;
       height: 2rem;
-      background-color: #9fb3a2;
+      background-color: $gray-light;
       border-radius: 50%;
     }
     .jobIcon {
       font-size: 16px;
-      color: $primary;
+      color: $dark;
     }
   }
 }
@@ -1663,35 +1672,7 @@
     }
   }
 }
-// 工具類
-.inputGroup--item {
-  .inputItem__title {
-    // color:#1d1d1d;
-    font-size: 14px;
-    margin-left: 0.75rem;
-    margin-bottom: 0.25rem;
-  }
-}
-.form__labelBox {
-  display: flex;
-  align-items: center;
-  margin: 0px 12px 4px 12px;
-  .form__label--custom {
-    font-size: 14px;
-    margin-bottom: 0;
-  }
-}
-.formTag--must {
-  padding: 1px 0.5rem;
-  margin-left: 4px;
-  border-radius: 0.25rem;
-  background-color: #09a758;
-  color: $white;
-  font-size: 8px;
-}
-.form__inputBox {
-  margin-bottom: 16px;
-}
+
 //元件
 .goodCardList.swipper--custom {
   margin-right: calc(var(--bs-gutter-x) / -2);
@@ -1763,28 +1744,6 @@
   }
 }
 
-// helper
-.form__infoEditBox {
-  .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
-  .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
-    border-radius: 0.5rem;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
-  .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
-    border-radius: 0.5rem;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .ck-editor__editable_inline {
-    min-height: 240px;
-  }
-  .ck-content h2 {
-    font-size: 24px;
-  }
-}
-
 .form-check {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -1819,51 +1778,51 @@
       @include sm {
         width: 100%;
       }
-      .nav__title{
-        color:$light;
+      .nav__title {
+        color: $light;
         margin-right: 0.5rem;
         transition: all 0.3s;
       }
-      &:hover{
-      padding-left: 1.5rem;
+      &:hover {
+        padding-left: 1.5rem;
       }
     }
   }
 }
-.footer__followUsList{
+.footer__followUsList {
   display: flex;
   align-items: center;
-  li{
+  li {
     margin-right: 0.5rem;
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
   }
-  .btn--circle{
+  .btn--circle {
     height: 44px;
     width: 44px;
     transition: all 0.3s;
-    .jobIcon{
-      color:$light;
+    .jobIcon {
+      color: $light;
       line-height: 1rem;
     }
-    &:hover{
+    &:hover {
       background-color: rgba($color: $gray-light, $alpha: 0.5);
     }
   }
 }
-.footer__appleDownLoadList{
+.footer__appleDownLoadList {
   display: flex;
   align-items: center;
-  li{
+  li {
     margin-right: 0.5rem;
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
   }
-  .btn{
+  .btn {
     padding: 0;
-    &:hover{
+    &:hover {
       background-color: rgba($color: $gray-light, $alpha: 0.5);
     }
   }
@@ -1993,5 +1952,63 @@
     .applySideBox {
       padding: 1rem;
     }
+  }
+}
+// 申請頁面的文件選擇區
+.docSelector {
+  display: flex;
+  flex-direction: column;
+  &__titleBox {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: $gray-light;
+    display: flex;
+    align-items: center;
+  }
+  &__contentBox {
+    background-color: $gray-light;
+    border-radius: 0.5rem;
+    width: 100%;
+    min-height: 96px;
+    display: flex;
+    padding: 0.5rem;
+    flex-grow: 1;
+    overflow-x: auto;
+    .scvCard.scvCard--coverLetter {
+      flex-shrink: 0;
+      min-height: 64px;
+      width: 40%;
+    }
+  }
+}
+.newImgInputBtn {
+  border-radius: 0.5rem;
+  border: 1px dashed $secondary;
+  height: 160px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: $gray-line;
+  }
+}
+.formStepBtnBox {
+  display: flex;
+}
+.formStepBtnBox--border {
+  border-top: 1px solid $gray-line;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+.shotJobImgBox {
+  width: 100%;
+  &__img {
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  &__content {
+    font-size: 14px;
   }
 }

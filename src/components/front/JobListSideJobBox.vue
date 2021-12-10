@@ -73,7 +73,7 @@
             {{ $filters.date(jobItem.options.job.create) }}
           </p>
           <router-link
-            class="btn--applyJob btn btn-primary btn-bg d-flex align-items-center me-2"
+            class="btn--w--md btn btn-primary btn-bg d-flex align-items-center me-2"
             type="button"
             :to="`/apply-job/${jobItem.id}`"
             >申請</router-link

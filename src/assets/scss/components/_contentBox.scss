@@ -1,0 +1,263 @@
+// 側邊的板塊設計
+.sideContentBox {
+  border-radius: 0.5rem;
+  background-color: $white;
+  @include shadow-normal;
+  @include md {
+    min-height: 480px;
+  }
+  &__header {
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__btnBox {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+    }
+    &.personSetting {
+      flex-direction: column;
+    }
+  }
+  &__title {
+    font-size: 1.25rem;
+    font-weight: $fw--md;
+    color: $dark;
+  }
+  &__body {
+    padding: 0.75rem;
+  }
+  &__footer {
+    padding: 0.75rem;
+    padding-top: 0;
+  }
+  &__footer--border {
+    padding: 0.75rem;
+    border-top: 1px solid $gray-line;
+  }
+  .innerList {
+    &__item {
+      padding: 0.75rem;
+      border-bottom: 1px solid $gray-line;
+      @include bg--hover;
+      @include list__chooseMark--company;
+      .item__title {
+        color: $dark;
+      }
+    }
+  }
+  .innerList--company {
+    .innerList__item {
+      @include list__chooseMark--company;
+    }
+    .innerList__item.active {
+      background-color: $companyColor-light;
+      .item__title {
+        color: $companyColor;
+      }
+      .subTxt {
+        color: $companyColor;
+      }
+    }
+  }
+  .innerList--jobSeeker {
+    .innerList__item {
+      @include list__chooseMark--jobSeeker;
+    }
+    .innerList__item.active {
+      background-color: $primary-light;
+      .item__title {
+        color: $primary-dark;
+      }
+      .subTxt {
+        color: $primary-dark;
+      }
+    }
+  }
+  .innerList__item.active {
+    &::after {
+      width: 0.25rem;
+    }
+  }
+  // 針對檢查完成項目的，單行
+  .innerList--checkList {
+    .innerList__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .checkIcon--jobSeeker,
+    .checkIcon--company {
+      color: $gray-line;
+    }
+    .checkIcon--jobSeeker.active {
+      color: $primary;
+    }
+    .checkIcon--company.active {
+      color: $companyColor;
+    }
+  }
+}
+.sideContentBox.rwdSelectBox {
+  @include md {
+    .collapseList__item.active {
+      background-color: $light;
+      p {
+        color: $gray-dark;
+      }
+    }
+    .collapseList__item.active::after {
+      display: none;
+    }
+    .innerList__item.active {
+      background-color: $light;
+      p,
+      .item__title,
+      .subTxt {
+        color: $gray-dark;
+      }
+    }
+    .innerList__item.active::after {
+      display: none;
+    }
+  }
+}
+.sideContentBox.sideContentBox--filter {
+  position: sticky;
+  top: 6rem;
+  max-height: calc(100vh - 132px);
+  display: flex;
+  flex-direction: column;
+  .sideContentBox__body {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+  }
+}
+.sideContentBox.rwdSideModal {
+  @include md {
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: calc(6rem);
+    z-index: 999;
+    min-width: 50%;
+    @include shadow-md;
+    &.active {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @include sm {
+    bottom: 5rem;
+  }
+}
+.sideContentBox.sideContentBox--filter.rwdSideModal,
+.sideContentBox.cvSideBox.rwdSideModal {
+  @include lg {
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: calc(6rem);
+    z-index: 999;
+    min-width: 50%;
+    @include shadow-md;
+    &.active {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @include md {
+    top: 4rem;
+  }
+}
+//主要的板塊設計
+// 後台主要區塊的板塊設計：分為有無padding、固定高
+.adminContentBox {
+  position: relative;
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include shadow-normal;
+  display: flex;
+  flex-direction: column;
+  &__btnBox {
+    display: flex;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+  &__header {
+    position: relative;
+    padding: 1.5rem;
+    border-bottom: 1px solid $gray-line;
+  }
+  &__body{
+    position: relative;
+    border-bottom: 1px solid $gray-line;
+    padding: 1.5rem;
+  }
+  &__section {
+    position: relative;
+    border-bottom: 1px solid $gray-line;
+    padding: 1.5rem;
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+  &__header__innerBtnList {
+    display: flex;
+    flex-grow: 1;
+    align-self: end;
+    align-items: end;
+    @include sm {
+      background-color: $light;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 999;
+      padding: 0.75rem 1rem;
+      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16);
+      justify-content: end;
+    }
+  }
+  .jobImgBox {
+    padding: 0.25rem;
+    background-color: $gray-line;
+    border-radius: 0.5rem;
+    .jobImg {
+      border-radius: 0.25rem;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @include md {
+      height: 180px;
+    }
+  }
+}
+
+.adminContentBox--p {
+  padding: 1.5rem;
+}
+.adminContentBox--p--sm {
+  padding: 1rem;
+}
+.adminContentBox--full {
+  min-height: calc(80vh - 132px);
+}
+.sideContentBox.payBillBox{
+  @include md{
+    min-height:auto;
+  }
+}

@@ -1,0 +1,287 @@
+// 後台表頭的導覽
+.adminSubNav {
+  padding: 0 3rem;
+  background-color: $light;
+  top: 60px;
+  margin-bottom: 2rem;
+  @include shadow-normal;
+  @include lg{
+  padding: 0 0.25rem 0 1rem;
+  }
+  @include md {
+    display: flex;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    @include shadow-none;
+    background-color: $primary;
+  }
+  @include sm {
+    padding: 0.25rem 1rem 0.75rem 1rem;
+  }
+  &__sideBtnList {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    bottom: 50%;
+    transform: translateY(50%);
+    @include md {
+      position: fixed;
+      bottom: 6rem;
+      right: 1rem;
+      z-index: 998;
+      transform: translateY(0);
+      flex-direction: column;
+    }
+    @include sm {
+      bottom: 5rem;
+    }
+  }
+  .sideBtn {
+    width: auto;
+    height: auto;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $gray-light;
+    color: $dark;
+    @include shadow-none;
+    .jobIcon {
+      font-size: 1.5rem;
+    }
+    @include md {
+      background-color: rgba(247, 247, 247, 0.9);
+      border: 1px solid $light;
+      width: 3.5rem;
+      height: 3.5rem;
+      @include shadow-md;
+    }
+    @include sm {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+  .sideBtn--company {
+    background-color: $companyColor;
+    p {
+      color: $light;
+    }
+    &:hover {
+      .jobIcon {
+        color: $companyColor;
+      }
+    }
+    @include md {
+      background-color: rgba(247, 247, 247, 0.9);
+    }
+  }
+}
+.adminSubNav--edit {
+  position: sticky;
+  top: 65px;
+  right: 0;
+  left: 0;
+  z-index: 99;
+}
+.adminSubNav__innerList {
+  width: 100%;
+  min-height: 60px;
+  background-color: $white;
+  display: flex;
+  &__title {
+    font-size: 20px;
+    color: $dark;
+    font-weight: 500;
+    margin-right: 3rem;
+  }
+  &__item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    position: relative;
+    transition: all 0.3s;
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      background-color: $dark;
+      bottom: 0;
+      right: 4px;
+      left: 4px;
+      height: 0.25rem;
+      border-radius: 0.25rem 0.25rem 0 0;
+      transition: all 0.3s;
+      opacity: 0;
+    }
+    &:hover {
+      background-color: $gray-light;
+      .adminSubNav__innerList__txt {
+        color: $dark;
+      }
+    }
+    &.active {
+      background-color: $gray-light;
+      &::after {
+        opacity: 1;
+      }
+      .adminSubNav__innerList__txt {
+        color: $dark;
+      }
+    }
+  }
+  @include md {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    flex-wrap: wrap;
+    .adminSubNav__innerList__item {
+      width: 33.333%;
+      flex: 1;
+      padding: 0.5rem 1.5rem;
+      justify-content: center;
+      border-radius: 0.5rem;
+      position: relative;
+      font-size: 14px;
+    }
+    .adminSubNav__innerList__item::after {
+      height: 0;
+    }
+    .adminSubNav__innerList__txt {
+      white-space: nowrap;
+    }
+  }
+}
+
+.adminSubNav--company {
+  .adminSubNav__innerList__item::after {
+    background-color: $companyColor;
+  }
+  .adminSubNav__innerList__item:hover {
+    background-color: $companyColor-light;
+    .adminSubNav__innerList__txt {
+      color: $companyColor;
+    }
+  }
+  .adminSubNav__innerList__item.active {
+    background-color: $companyColor-light;
+    .adminSubNav__innerList__txt {
+      color: $companyColor;
+    }
+  }
+  @include md {
+    background-color: $companyColor;
+  }
+}
+
+.adminSubNav--jobSeeker {
+  .adminSubNav__innerList__item::after {
+    background-color: $primary;
+  }
+  .adminSubNav__innerList__item:hover {
+    background-color: $primary-light;
+    .adminSubNav__innerList__txt {
+      color: $dark;
+    }
+  }
+  .adminSubNav__innerList__item.active {
+    background-color: $primary-light;
+    .adminSubNav__innerList__txt {
+      color: $primary-dark;
+    }
+  }
+  @include md {
+    background-color: $primary;
+  }
+}
+.adminSubNav--rwdNomal {
+  position: sticky;
+  top: 4rem;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  background-color: $light;
+  @include md {
+    padding: 0 0 0 0.5rem ;
+  }
+  @include sm {
+    top: 3rem;
+  }
+}
+// .adminSubNav--marginBottom{
+// }
+// 個別頁面的小導覽頁
+//頁面小分頁，搭配 innerNav 元件使用
+.pageSubNavContainer {
+  @include md {
+    padding: 0;
+  }
+}
+.pageSubNavContainer--sticky {
+  background-color: $gray-mid;
+  @include md {
+    padding-left: 0;
+    padding-right: 0;
+    align-items: stretch;
+    position: sticky;
+    top: calc(4rem + 1px);
+    left: 0;
+    right: 0;
+    margin-top: -1.5rem;
+    @include shadow-normal;
+    opacity: 0.95;
+    z-index: 100;
+  }
+  @include sm {
+    top: 3rem;
+  }
+}
+.pageSubNav {
+  display: flex;
+  // flex-direction: column;
+  // align-items: flex-start;
+  &__item {
+    height: 44px;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+    &__title {
+      color: $dark;
+      font-weight: $fw--md;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      background-color: $primary;
+      height: 0rem;
+      width: 100%;
+      border-radius: 0.25rem 0.25rem 0 0;
+    }
+    &.active {
+      .pageSubNav__item__title {
+        color: $primary-dark;
+      }
+      &::after {
+        height: 0.25rem;
+      }
+    }
+    &.btnBox {
+      width: 100%;
+      background-color: rgba($color: $light, $alpha: 0.95);
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+    }
+  }
+  @include md {
+    .innerNav--single {
+      width: 100%;
+      border-radius: 0;
+      background-color: rgba($color: $light, $alpha: 0.95);
+    }
+  }
+}

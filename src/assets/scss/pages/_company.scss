@@ -1,0 +1,413 @@
+.emptyCompanyImgBox {
+  position: relative;
+  border-radius: 0.5rem;
+  width: calc(33.333% - 12px);
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba($color: $dark, $alpha: 0.5);
+    border-radius: 0.5rem;
+  }
+  .emptyCompanyImg {
+    border-radius: 8px;
+    width: 100%;
+  }
+}
+.width--33 {
+  position: relative;
+  width: calc(33.333% - 12px);
+}
+.personTagBox {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: -0.5rem;
+  &__item {
+    margin-bottom: 0.5rem;
+  }
+}
+.personTag {
+  border-radius: 1.25rem;
+  padding: 0.25rem 0.75rem;
+  color: $dark;
+  margin-right: 0.5rem;
+  border: 1px solid $secondary;
+  .jobIcon {
+    font-size: 1rem;
+    margin-right: 0.25rem;
+  }
+}
+.personTag--new {
+  border: 1px dashed $secondary;
+  color: $dark;
+}
+
+.personPop {
+  .modal-content.heightFixed {
+    height: 88vh;
+  }
+  .popModal__header {
+    padding: 1.5rem 0 0 0;
+  }
+  .popModal__body {
+    overflow-y: scroll;
+  }
+  .btnBox {
+    display: flex;
+    align-items: flex-end;
+  }
+  &__personInfoBox {
+    display: flex;
+    justify-content: space-between;
+    &__innerBox {
+      display: flex;
+      align-items: center;
+    }
+    .personInfoBox__personalImg {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+    }
+    .personInfoBox__name {
+      font-size: 20px;
+      font-weight: $fw--md;
+    }
+  }
+  &__nav {
+    display: flex;
+    padding-left: 1.5rem;
+    background-color: $gray-light;
+    border-top: 1px solid $gray-line;
+    border-bottom: 1px solid $gray-line;
+    &__item {
+      padding: 0.75rem 0.75rem;
+      cursor: pointer;
+      position: relative;
+      &::after {
+        content: '';
+        width: 1px;
+        height: 1.5rem;
+        background-color: $gray-line;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        position: absolute;
+      }
+      &::before {
+        content: '';
+        width: 4rem;
+        height: 0.25rem;
+        border-radius: 0.25rem 0.25rem 0 0;
+        background-color: $companyColor;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+      }
+      &.active {
+        &::before {
+          display: block;
+        }
+        p,
+        span {
+          color: $companyColor;
+        }
+      }
+      &:hover {
+        p,
+        span {
+          color: $companyColor;
+        }
+      }
+    }
+  }
+  .personPopContentBox {
+    padding: 1.5rem;
+    border-bottom: 1px solid $gray-line;
+    height: 100%;
+    &__doc {
+      padding: 0.5rem;
+      display: flex;
+      border-color: $light;
+      border-radius: 0.5rem;
+      &__img {
+        width: 120px;
+        border-radius: 0.25rem;
+      }
+      &:hover {
+        background-color: $gray-light;
+      }
+    }
+  }
+}
+.sideChatBox {
+  background-color: $light;
+  @include shadow-normal;
+  border-radius: 0.5rem;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__title {
+    background-color: $companyColor;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    p {
+      color: $dark;
+    }
+  }
+  &__chatTxtContainer {
+    width: 100%;
+    flex-grow: 1;
+    background-color: $gray-light;
+    overflow-y: scroll;
+    &.active {
+      height: calc(100% - 382px);
+    }
+  }
+  &__inputContainer {
+    background-color: $gray-line;
+    padding: 0.75rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    .sideChatBox__txtInput {
+      border: 0;
+      resize: none;
+    }
+    .btn--openTextArea {
+      position: relative;
+      width: 3rem;
+      .jobIcon {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.75rem;
+      }
+    }
+  }
+}
+
+.adPreviewContainer {
+  background-color: $gray-light;
+  max-height: 480px;
+  overflow-y: auto;
+  &__img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+// 針對企業後台的 orderList table 設定
+.payService__orderList {
+  .tableList__item {
+    width: 25%;
+    @include md {
+      width: 50%;
+    }
+    @include sm {
+      width: 100%;
+    }
+  }
+}
+.orderInfoBox {
+  .tableList__item {
+    width: 25%;
+  }
+}
+.signFlowImgBox {
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+}
+.signFlowContainer {
+  @include sm {
+    padding-top: 180px;
+  }
+}
+.signFlow__img {
+  width: 480px;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  @include xl {
+    width: 360px;
+  }
+  @include md {
+    width: 240px;
+  }
+  @include sm {
+    width: 160px;
+    height: auto;
+  }
+}
+.signFlow__img--left {
+  left: 5%;
+  @include lg {
+    transform: translateX(-20%);
+  }
+  @include md {
+    transform: translateX(-50%);
+  }
+  @include sm {
+    transform: translateY(0%);
+  }
+}
+.signFlow__img--right {
+  right: 5%;
+  @include xl {
+    transform: translateX(10%);
+  }
+  @include md {
+    transform: translateX(10%);
+  }
+}
+.memberShipList {
+  border-radius: 0.5rem;
+  border: 1px solid $gray-line;
+  &__titleItem {
+    width: 25%;
+  }
+  &__item {
+    width: 25%;
+  }
+}
+.memberShipList.flexTable {
+  min-height: 800px;
+  padding: 0;
+  border: 1px solid $gray-line;
+  border-radius: 0.5rem;
+  .flexTable__cell {
+    border-right: 1px solid $gray-line;
+    border-top: 1px solid $gray-line;
+  }
+  .flexTable__header {
+    flex-grow: 1;
+    .flexTable__cell {
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    @include md {
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  .flexTable__body {
+    flex-grow: 3;
+    .flexTable__cell {
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+    }
+    .flexTable__cell--center {
+      justify-content: center;
+    }
+    .flexTable__item {
+      flex-direction: column;
+      padding: 0;
+    }
+    .flexTable__item:last-child {
+      .flexTable__cell {
+        border-right: 0;
+      }
+    }
+    @include md {
+      flex-grow: 2;
+      width: 240px;
+      overflow-x: scroll;
+      .flexTable__item {
+        min-width: 240px;
+      }
+    }
+  }
+  .memberShipList__hotItem {
+    position: relative;
+    &::before {
+      font-size: 14px;
+      content: '最熱門';
+      position: absolute;
+      top: -1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2rem;
+      padding: 0.5rem 0.75rem;
+      background-color: $primary;
+      color: $dark;
+    }
+  }
+  .memberShipList__bestItem {
+    position: relative;
+    &::before {
+      font-size: 14px;
+      content: '最優惠';
+      position: absolute;
+      top: -1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2rem;
+      padding: 0.5rem 0.75rem;
+      background-color: $companyColor;
+      color: $light;
+    }
+  }
+  .memberShipList__itemHeader.flexTable__cell {
+    flex-direction: column;
+    justify-content: start;
+    border-top: 0;
+  }
+  @include lg {
+    .memberShipList__itemHeader.flexTable__cell {
+      padding-top: 3rem;
+    }
+    .memberShipList__hotItem::before,
+    .memberShipList__bestItem::before {
+      top: 1rem;
+      width: 72px;
+      text-align: center;
+    }
+  }
+}
+
+// 購物車樣式
+.cartItem {
+  position: relative;
+  .cartItem__productArea {
+    display: flex;
+    align-items: center;
+  }
+  @include sm {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    .cartItem__productArea {
+      align-items: flex-start;
+    }
+    .flexTable__cell {
+      padding: 0;
+    }
+    .cartItem__productArea {
+      margin-bottom: 1rem;
+    }
+    .cartItem__numArea {
+      display: flex;
+      justify-content: end;
+      padding-left: 1rem;
+    }
+    .btn--cartDelete {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+    }
+  }
+}

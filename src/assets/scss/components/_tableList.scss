@@ -1,0 +1,37 @@
+.tableList {
+  display: flex;
+  flex-wrap: wrap;
+  &__item {
+    padding: 0.5rem;
+    &__title {
+      font-size: 0.875rem;
+      color: $secondary;
+      margin-bottom: 0.25rem;
+    }
+    &:hover {
+      .tableList__item__title {
+        color: $companyColor;
+      }
+    }
+    &--btnList {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    &__tagBtn--company {
+      border-radius: 0.25rem;
+      border: 1px solid $gray-line;
+      padding: 1px 0.5rem;
+      &:hover {
+        border: 1px solid $companyColor;
+        color: $companyColor;
+      }
+    }
+  }
+  @include md{
+    align-items: stretch;
+    &__item{
+      width: 100%;
+    }
+  }
+}

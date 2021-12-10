@@ -1,7 +1,7 @@
 <template>
   <div
     ref="jobCollectModal"
-    class="jobCollectModal modal fade"
+    class="jobCollectModal modal fade popModal"
     id="exampleModalToggle"
     aria-hidden="true"
     aria-labelledby="exampleModalToggleLabel"
@@ -63,7 +63,7 @@
   </div>
   <div
     ref="createJobCollectModal"
-    class="jobCollectModal modal fade"
+    class="jobCollectModal modal fade popModal"
     id="exampleModalToggle2"
     aria-hidden="true"
     aria-labelledby="exampleModalToggleLabel2"
@@ -71,7 +71,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
-        <div class="modal-body">
+        <div class="popModal__body--p">
           <div class="d-flex justify-content-between mb-4">
             <div>
               <h3 class="section__title--sub mb-2">
@@ -87,9 +87,9 @@
           </div>
           <Form ref="creatFolderForm" v-slot="{ errors }" @submit="createFolder">
             <!-- 表單1-1：公司名稱(必填) -->
-            <div class="form__inputBox">
+            <div class="form__input">
               <div class="form__labelBox">
-                <label for="collectForderName" class="form__label--custom form-label"
+                <label for="collectForderName" class="labelBox__label form-label"
                   >收藏夾名稱</label
                 >
                 <p class="formTag--must">必填</p>
@@ -106,9 +106,7 @@
               ></Field>
               <ErrorMessage name="收藏夾名稱" class="invalid-feedback"></ErrorMessage>
             </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">
-              建立
-            </button>
+            <button type="submit" class="btn btn-primary w-100 mb-3">建立</button>
             <button
               class="btn btn-gray-light w-100"
               data-bs-target="#exampleModalToggle"

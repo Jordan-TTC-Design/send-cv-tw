@@ -1,0 +1,233 @@
+// 資訊列表
+.infoList {
+  .infoList__item {
+    padding: 0.75rem 0;
+    @include border-bottom;
+    &__title {
+      font-size: 0.875rem;
+      color: $secondary;
+      margin-bottom: 0.25rem;
+    }
+    .subTxt {
+      font-size: 0.875rem;
+      color: $secondary;
+    }
+    &__content {
+      font-size: 1rem;
+    }
+    &.list--last {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    &__socialMediaBox {
+      background-color: $gray-light;
+      border-radius: 0.25rem;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      &:hover {
+        .socialMediaBox__title {
+          color: $primary-dark;
+        }
+      }
+      .txtLink {
+        font-size: 14px;
+      }
+    }
+  }
+  .infoList__item:hover {
+    .infoList__item__title,
+    .subTxt {
+      color: $dark;
+    }
+  }
+}
+.infoList.infoList--company {
+  .infoList__item:hover {
+    .infoList__item__title,
+    .subTxt {
+      color: $companyColor;
+    }
+  }
+  .infoList__item__socialMediaBox {
+    &:hover {
+      .socialMediaBox__title {
+        color: $companyColor;
+      }
+    }
+  }
+}
+.infoList.infoList--noneBordar {
+  .infoList__item {
+    border-bottom: 0;
+  }
+}
+.infoList.infoList--jobSeeker {
+  .infoList__item:hover {
+    .infoList__item__title,
+    .subTxt {
+      color: $primary-dark;
+    }
+  }
+  .infoList__item__socialMediaBox {
+    &:hover {
+      .socialMediaBox__title {
+        color: $primary-dark;
+      }
+    }
+  }
+}
+.infoList--lg {
+  .infoList__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0.75rem;
+    @include border-bottom;
+    &:first-child {
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+    &:last-child {
+      border-bottom: 0;
+      border-bottom-left-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
+    &__txtBox{
+      flex-shrink:1;
+    }
+    .infoList__btnBox{
+      flex-shrink:0;
+    }
+  }
+}
+.infoList--withBtn{
+  .infoList__item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    @include md{
+      flex-wrap: wrap;
+      align-items: stretch;
+      .infoList__btnBox{
+        display: flex;
+        align-self: end;
+        padding-top: 0.75rem;
+        .btn{
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+}
+.infoList--bgHover {
+  .infoList__item {
+    @include bg--hover;
+  }
+}
+
+// 多項值組成的橫向列表
+.infoList__item {
+  .infoList__innerList {
+    display: flex;
+    flex-wrap: wrap;
+    .infoList__innerList__item {
+      position: relative;
+      margin-right: 0.5rem;
+      padding-right: 0.5rem;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        border-right: 1px solid $gray-line;
+      }
+      &:last-child {
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// 以下待修改
+.infoList__item {
+  &__jobTitle {
+    color: $dark;
+  }
+  &__subTitle {
+    font-size: 14px;
+    color: $secondary;
+  }
+  &__contentBox {
+    padding: 0.75rem;
+    background-color: $gray-light;
+    border-radius: 0.5rem;
+    .contentBox__title {
+      font-size: 14px;
+      color: $secondary;
+    }
+  }
+  &.show--compressed {
+    .btn--edit {
+      min-width: 78px;
+    }
+    .infoList__item__skillList {
+      display: flex;
+      flex-wrap: wrap;
+      &__skill {
+        position: relative;
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          border-right: 1px solid $gray-line;
+        }
+        &:last-child {
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            border-right: 0;
+          }
+        }
+      }
+    }
+  }
+  &.show--normal {
+    border-bottom: 0px;
+    .infoList__item__titleBox {
+      border-radius: 0.5rem;
+      background-color: $gray-light;
+      padding: 0.25rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      p {
+        color: $dark;
+        font-weight: $fw--md;
+      }
+    }
+    .infoList__item__skillList {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      &__skill {
+        position: relative;
+        width: calc(50% - 10px);
+        padding: 0.75rem 0;
+        border-bottom: 1px solid $gray-line;
+      }
+    }
+  }
+}

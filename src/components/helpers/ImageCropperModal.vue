@@ -1,6 +1,6 @@
 <template>
   <div
-    class="modal fade"
+    class="popModal modal fade"
     tabindex="-1"
     aria-labelledby="imageCropperModal"
     aria-hidden="true"
@@ -12,7 +12,7 @@
           <h5 class="modal-title">編輯照片{{ nowId }}</h5>
           <button type="button" @click="closeModal" class="btn-close" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="popModal__body--p">
           <div class="container">
             <div class="row">
               <div class="col-8">
@@ -30,9 +30,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-primary" @click="processImage">
-            確定
-          </button>
+          <button type="button" class="btn btn-outline-primary" @click="processImage">確定</button>
         </div>
       </div>
     </div>
@@ -40,9 +38,9 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import Modal from 'bootstrap/js/dist/modal';
 import Cropper from 'cropperjs';
+import emitter from '@/methods/emitter';
 
 export default {
   data() {

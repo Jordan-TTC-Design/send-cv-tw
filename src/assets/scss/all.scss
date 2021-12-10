@@ -13,6 +13,22 @@
 @import './setting/mixins-me';
 @import './setting/main';
 @import './setting/tools';
+
+
+//自訂義元件
+@import './components/header';
+@import './components/btn';
+@import './components/popModal';
+@import './components/subNav';
+@import './components/contentBox';
+@import './components/innerNav';
+@import './components/talentCard';
+@import './components/infoList';
+@import './components/forms';
+@import './components/cards';
+@import './components/fonts';
+@import './components/tableList';
+@import './components/flexTable';
 @import './setting/spinner';
 
 //套件自訂
@@ -21,3 +37,6 @@
 //頁面
 @import './pages/front';
 @import './pages/admin';
+@import './pages/company';
+@import './pages/cv';
+@import './pages/chatRoom';

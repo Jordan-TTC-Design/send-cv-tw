@@ -8,10 +8,12 @@
               <p class="filterBox__section__tag--title">搜尋條件</p>
               <div class="row flex-grow-1">
                 <div class="col-xl-4 col-lg-3 col-6 mb-lg-0 mb-3">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-keyword" class="form-label inputItem__title"
-                      >關鍵字</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-keyword" class="labelBox__label form-label"
+                        >關鍵字</label
+                      >
+                    </div>
                     <input
                       type="text"
                       class="form-control"
@@ -23,10 +25,12 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-6">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-city" class="form-label inputItem__title"
-                      >地區</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-city" class="labelBox__label form-label"
+                        >地區</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="地區"
@@ -49,7 +53,7 @@
                   <div class="d-flex align-items-end h-100">
                     <button
                       type="button"
-                      class="btn btn-primary btn--applyJob me-2 flex-grow-1"
+                      class="btn btn-primary btn--w--md me-2 flex-grow-1"
                       @click="filterJobs"
                     >
                       搜尋職位
@@ -80,10 +84,12 @@
               <p class="filterBox__section__tag">薪資條件</p>
               <div class="filterBox__section__content row flex-grow-1">
                 <div class="col-xl-6 col-lg-8 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-salary" class="form-label inputItem__title"
-                      >薪資待遇</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-salary" class="labelBox__label form-label"
+                        >薪資待遇</label
+                      >
+                    </div>
                     <div class="d-flex align-items-center">
                       <input
                         type="number"
@@ -135,10 +141,12 @@
               <p class="filterBox__section__tag">工作要求</p>
               <div class="filterBox__section__content row flex-grow-1">
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-workExp" class="form-label inputItem__title"
-                      >工作經驗</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-workExp" class="labelBox__label form-label"
+                        >工作經驗</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="工作經驗"
@@ -158,10 +166,12 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-education" class="form-label inputItem__title"
-                      >學歷要求</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-education" class="labelBox__label form-label"
+                        >學歷要求</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="學歷要求"
@@ -186,10 +196,12 @@
               <p class="filterBox__section__tag">職位相關</p>
               <div class="filterBox__section__content row flex-grow-1">
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-workType" class="form-label inputItem__title"
-                      >工作性質</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-workType" class="labelBox__label form-label"
+                        >工作性質</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="工作性質"
@@ -209,10 +221,12 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-workTime" class="form-label inputItem__title"
-                      >工作時段</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-workTime" class="labelBox__label form-label"
+                        >工作時段</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="工作時段"
@@ -232,10 +246,12 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-jobCategory" class="form-label inputItem__title"
-                      >職位類別</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-jobCategory" class="labelBox__label form-label"
+                        >職位類別</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="職位類別"
@@ -255,10 +271,12 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-industry" class="form-label inputItem__title"
-                      >產業類別</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-industry" class="labelBox__label form-label"
+                        >產業類別</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="產業類別"
@@ -284,7 +302,7 @@
       </div>
     </div>
     <div class="jobsListContainer container">
-      <h3 class="pageTitle ps-3">搜尋結果</h3>
+      <h3 class="pageTitle ps-3 mb-4">搜尋結果</h3>
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>

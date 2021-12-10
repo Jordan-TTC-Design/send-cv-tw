@@ -1,7 +1,7 @@
 <template>
   <div
     ref="deletePersonTagModal"
-    class="deletePersonTagModal modal fade"
+    class="deletePersonTagModal popModal modal fade"
     id="deletePersonTagModal"
     aria-hidden="true"
     aria-labelledby="deletePersonTagModalLabel"
@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
-        <div class="modal-body">
+        <div class="popModal__body">
           <div class="d-flex justify-content-between mb-4">
             <div>
               <h3 class="section__title--sub mb-2"><span class="title__icon"></span>刪除標籤</h3>
@@ -41,7 +41,7 @@
   <!-- 新增標籤Modal -->
   <div
     ref="newPersonTagModal"
-    class="newPersonTagModal modal fade"
+    class="newPersonTagModal popModal modal fade"
     id="newPersonTagModal"
     aria-hidden="true"
     aria-labelledby="newPersonTagModalLabel"
@@ -49,7 +49,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
-        <div class="modal-body">
+        <div class="popModal__body">
           <div class="d-flex justify-content-between mb-4">
             <div>
               <h3 class="section__title--sub mb-2"><span class="title__icon"></span>備註</h3>
@@ -60,9 +60,9 @@
           <Form ref="sendFormInfoForm1" v-slot="{ errors }" @submit="checkPersonLocal">
             <div class="row">
               <div class="col-12">
-                <div class="form__inputBox">
+                <div class="form__input">
                   <div class="form__labelBox">
-                    <label for="tagFormInfoTagName" class="form__label--custom form-label"
+                    <label for="tagFormInfoTagName" class="labelBox__label form-label"
                       >標籤名稱</label
                     >
                     <p class="formTag--must">必填</p>
@@ -82,9 +82,9 @@
                 </div>
               </div>
               <div class="col-12">
-                <div class="form__inputBox">
+                <div class="form__input">
                   <div class="form__labelBox">
-                    <label for="tagFormInfoUserName" class="form__label--custom form-label"
+                    <label for="tagFormInfoUserName" class="labelBox__label form-label"
                       >備註人</label
                     >
                     <p class="formTag--must">必填</p>
@@ -108,9 +108,7 @@
                   <button type="button" class="btn btn-gray-light me-2" @click="closeModal">
                     取消
                   </button>
-                  <button type="submit" class="btn btn-primary flex-grow-1">
-                    確定
-                  </button>
+                  <button type="submit" class="btn btn-primary flex-grow-1">確定</button>
                 </div>
               </div>
             </div>
@@ -122,8 +120,8 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import Modal from 'bootstrap/js/dist/modal';
+import emitter from '@/methods/emitter';
 
 export default {
   emits: ['return-company-collection'],

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="deleteModal"
-    class="deleteModal modal fade"
+    class="deleteModal popModal modal fade"
     id="deleteModal"
     aria-hidden="true"
     aria-labelledby="deleteModalLabel"
@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
-        <div class="modal-body">
+        <div class="popModal__body--p">
           <div class="d-flex justify-content-between mb-4">
             <div>
               <h3 class="section__title--sub mb-2">

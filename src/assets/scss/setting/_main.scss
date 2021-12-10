@@ -4,16 +4,20 @@ $fw--rg: 400;
 $fw--md: 500;
 $fw--bd: 700;
 
-//header
-.header {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 666;
-  &__logo {
-    max-height: 100%;
-  }
-}
+//字體粗細
+$fz--xs: 12px;
+$fz--sm: 14px;
+$fz--rg: 16px;
+$fz--lg: 20px;
+$fz--xl: 48px;
+
+$rounded-top:0.5rem 0.5rem 0 0;
+$rounded-bottom:0 0 0.5rem 0.5rem;
+
+$rounded-top-sm:0.25rem 0.25rem 0 0;
+$rounded-bottom-sm:0 0 0.25rem 0.25rem;
+
+
 .section {
   margin-bottom: 3rem;
 }
@@ -57,16 +61,16 @@ $fw--bd: 700;
 .main {
   min-height: calc(100vh - 291px);
   position: relative;
-  left: 0;
-  transition: all 0.3s;
-  &.openRwdMenu {
-    left: -80%;
-  }
+  // left: 0;
+  // transition: all 0.3s;
+  // &.openRwdMenu {
+  //   left: -80%;
+  // }
 }
 p {
   line-height: 1.5;
 }
-.jobImage {
+.jobImage,.jobImg {
   max-width: 100%;
   border-radius: 8px;
 }
@@ -90,19 +94,18 @@ p {
     border-radius: 0.25rem;
   }
 }
-.pageTitle {
-  font-size: 1.5rem;
-  font-weight: $fw--bd;
-  color: $dark;
-  margin-bottom: 1rem;
-}
+
+// .subTitle待刪除
 .subTitle {
   font-size: 1.25rem;
   font-weight: $fw--md;
 }
+.itemTitle {
+  font-weight: $fw--md;
+}
 .section__title--sub {
   font-size: 1.25rem;
-  color: $primary;
+  color: $dark;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -155,40 +158,20 @@ p {
 .adminPage--py {
   padding-bottom: 3rem;
 }
-//頁面小分頁
-.page__sideNav {
-  background-color: $light;
-  padding: 0 0.75rem;
-  border-radius: 0.5rem;
-  display: flex;
-  &__item {
-    height: 44px;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transition: all 0.3s;
-    &__title {
-      color: $dark;
-      font-weight: $fw--md;
-    }
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      background-color: $primary;
-      height: 0rem;
-      width: 100%;
-      border-radius: 0.25rem 0.25rem 0 0;
-    }
-    &.active {
-      .page__sideNav__item__title {
-        color: $primary;
-      }
-      &::after {
-        height: 0.25rem;
-      }
-    }
+
+.btnNumber{
+  position: relative;
+  &__number{
+    font-size: 0.75rem;
+    position: absolute;
+    top: -0.5rem;
+    left: calc( 100% - 0.65rem );
+    border-radius: 0.5rem;
+    padding: 1px 0.25rem;
+  }
+  &__number--companyColor{
+    background-color: $companyColor;
+    color:$light;
+    border:2px solid $light;
   }
 }

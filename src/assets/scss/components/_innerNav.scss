@@ -1,0 +1,118 @@
+.innerNav {
+  display: flex;
+  @include border-bottom;
+  &__item {
+    padding: 0.75rem 0.75rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &::after {
+      content: '';
+      width: 1px;
+      height: 1.5rem;
+      background-color: $gray-line;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      position: absolute;
+    }
+    &:first-child {
+      border-radius: 0.5rem 0 0 0;
+    }
+    &::before {
+      content: '';
+      width: 4rem;
+      height: 0.25rem;
+      border-radius: 0.25rem 0.25rem 0 0;
+      background-color: $dark;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+    }
+    &.active {
+      &::before {
+        display: block;
+      }
+      p,
+      span {
+        color: $dark;
+      }
+    }
+    &:hover {
+      p,
+      span {
+        color: $dark;
+      }
+    }
+  }
+}
+// 企業顏色
+.innerNav.innerNav--company {
+  .innerNav__item::before {
+    background-color: $companyColor;
+  }
+  .innerNav__item.active {
+    p,
+    span {
+      color: $companyColor;
+    }
+  }
+  .innerNav__item:hover {
+    p,
+    span {
+      color: $companyColor;
+    }
+  }
+}
+.innerNav.innerNav--jobSeeker {
+  .innerNav__item::before {
+    background-color: $primary;
+  }
+  .innerNav__item.active {
+    p,
+    span {
+      color: $primary-dark;
+    }
+  }
+  .innerNav__item:hover {
+    p,
+    span {
+      color: $primary-dark;
+    }
+  }
+}
+// 列表滿版
+.innerNav.innerNav--fill {
+  .innerNav__item {
+    flex-grow: 1;
+  }
+  .innerNav__item:last-child {
+    border-radius: 0 0.5rem 0 0;
+    &::after{
+      display: none;
+    }
+  }
+}
+// 列表需要背景
+.innerNav.innerNav--bgColor {
+  .innerNav__item:last-child::after {
+    display: none;
+  }
+  .innerNav__item.active {
+    background-color: $companyColor-light;
+    &::before {
+      display: block;
+    }
+  }
+}
+.innerNav--single{
+  width: auto;
+  background-color: $light;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  border-bottom: 0 ;
+}

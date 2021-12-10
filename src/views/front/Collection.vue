@@ -6,20 +6,20 @@
         align-items-center mb-6"
       >
         <h3 class="section__title ps-3 mb-0 me-6">收藏</h3>
-        <ul class="page__sideNav">
+        <ul class="pageSubNav">
           <li
-            ref="page__sideNav__item--job"
-            class="page__sideNav__item active putPointer"
+            ref="pageSubNav__item--job"
+            class="pageSubNav__item active putPointer"
             @click="this.navState = 'job'"
           >
-            <p class="page__sideNav__item__title">職位收藏</p>
+            <p class="pageSubNav__item__title">職位收藏</p>
           </li>
           <li
-            ref="page__sideNav__item--company"
-            class="page__sideNav__item putPointer"
+            ref="pageSubNav__item--company"
+            class="pageSubNav__item putPointer"
             @click="this.navState = 'company'"
           >
-            <p class="page__sideNav__item__title">企業收藏</p>
+            <p class="pageSubNav__item__title">企業收藏</p>
           </li>
         </ul>
       </div>
@@ -217,8 +217,8 @@ export default {
   watch: {
     navState(newValue, oldValue) {
       emitter.emit('spinner-open-bg', 1000);
-      this.$refs[`page__sideNav__item--${newValue}`].classList.add('active');
-      this.$refs[`page__sideNav__item--${oldValue}`].classList.remove('active');
+      this.$refs[`pageSubNav__item--${newValue}`].classList.add('active');
+      this.$refs[`pageSubNav__item--${oldValue}`].classList.remove('active');
     },
   },
   computed: {

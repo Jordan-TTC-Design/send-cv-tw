@@ -3,7 +3,7 @@
     <div class="container-fuild">
       <div class="container">
         <div class="sction--weeklyCompany section--pb">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">本週推薦企業</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="section--aroundCompany section--pb" v-if="sortCompany.length > 0">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">附近企業推薦</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -138,7 +138,7 @@
           </div>
         </div>
         <div class="section--newCompany section--pb" v-if="sortCompany.length > 0">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">最新企業徵才</h3>
             <p class="titleBox__tag">推薦</p>
           </div>
@@ -188,7 +188,7 @@
       <div class="bg-white">
         <div class="container">
           <div class="recommendCardList section--py">
-            <div class="titleBox--tag">
+            <div class="titleBox">
               <h3 class="titleBox__title">興趣行業推薦企業</h3>
               <div class="recommendTagList">
                 <button
@@ -197,14 +197,24 @@
                 >
                   根據個人興趣
                 </button>
+                <template v-for="(item, index) in user.recommedCompanyList" :key="index">
+                  <button type="button" class="recommendTagList__btn btn btn-outline-gray-line">
+                    {{ item.title }}
+                    <i
+                      class="ms-1 jobIcon-sm bi bi-pencil-square"
+                      @click="openRecommedModal('編輯興趣行業推薦條件', index)"
+                    ></i>
+                  </button>
+                </template>
                 <button
                   type="button"
                   class="
                     recommendTagList__btn recommendTagList__btn--new
                     btn btn-outline-companyColor
                   "
+                  @click="openRecommedModal('新增興趣行業推薦條件')"
                 >
-                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增興趣推薦條件
+                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增
                 </button>
               </div>
             </div>
@@ -290,7 +300,7 @@
       <!-- 全部職位 -->
       <div class="container">
         <div class="section--py">
-          <div class="titleBox--tag">
+          <div class="titleBox">
             <h3 class="titleBox__title">全部企業</h3>
           </div>
           <!-- 篩選條件 -->
@@ -299,10 +309,12 @@
               <p class="filterBox__section__tag--title">篩選條件</p>
               <div class="row flex-grow-1">
                 <div class="col-lg-3 col-6 mb-lg-0 mb-3">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-keyword" class="form-label inputItem__title"
-                      >關鍵字</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-keyword" class="labelBox__label form-label"
+                        >關鍵字</label
+                      >
+                    </div>
                     <input
                       type="text"
                       class="form-control"
@@ -314,10 +326,12 @@
                   </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-12">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-industry" class="form-label inputItem__title"
-                      >產業類別</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-industry" class="labelBox__label form-label"
+                        >產業類別</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="產業類別"
@@ -337,10 +351,12 @@
                   </div>
                 </div>
                 <div class="col-lg-2 col-6">
-                  <div class="inputGroup--item">
-                    <label for="searchFilterForm-city" class="form-label inputItem__title"
-                      >地區</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="searchFilterForm-city" class="labelBox__label form-label"
+                        >地區</label
+                      >
+                    </div>
                     <select
                       class="form-select"
                       aria-label="地區"
@@ -360,10 +376,12 @@
                   </div>
                 </div>
                 <div class="col-lg-2 col-6">
-                  <div class="inputGroup--item">
-                    <label for="sendFormInfoCostToken" class="form-label inputItem__title"
-                      >是否顯示適合職位</label
-                    >
+                  <div class="form__input">
+                    <div class="form__labelBox">
+                      <label for="sendFormInfoCostToken" class="labelBox__label form-label"
+                        >是否顯示適合職位</label
+                      >
+                    </div>
                     <div
                       class="
                         inputItem__switch
@@ -394,7 +412,7 @@
                   <div class="d-flex align-items-end h-100">
                     <button
                       type="button"
-                      class="btn btn-primary btn--applyJob me-2 flex-grow-1"
+                      class="btn btn-primary btn--w--md me-2 flex-grow-1"
                       @click="filterJobs"
                     >
                       篩選企業
@@ -467,6 +485,10 @@
     <UpTopBtn />
   </div>
   <JobCollect ref="JobCollectModal" @return-job-collection="getJobCollect" />
+  <RecommedModal
+    @return-recommed-data="saveRecommedData"
+    @delete-recommed-data="deleteRecommedData"
+  />
 </template>
 
 <script>
@@ -476,9 +498,11 @@ import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
+import RecommedModal from '@/components/front/RecommedModal.vue';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
+import database from '@/methods/firebaseinit';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -488,6 +512,7 @@ export default {
     SwiperSlide,
     UpTopBtn,
     JobCollect,
+    RecommedModal,
   },
   data() {
     return {
@@ -520,6 +545,8 @@ export default {
         },
         slidesPerView: this.swiperNum,
       },
+      user: {},
+      dataReady: false,
       companySwiperDetail: {
         autoPlay: {
           delay: 2000,
@@ -612,6 +639,46 @@ export default {
     },
   },
   methods: {
+    // 取得資料
+    getFbData() {
+      const userRef = database.ref('user');
+      userRef.once('value', (snapshot) => {
+        const data = snapshot.val();
+        this.user = data;
+        this.dataReady = true;
+      });
+    },
+    // 保存資料
+    saveUserData() {
+      const userRef = database.ref('user');
+      userRef.set(this.user);
+    },
+    openRecommedModal(actionTxt, index) {
+      const obj = {
+        action: actionTxt,
+        data: this.user,
+        index,
+      };
+      emitter.emit('open-recommed-modal', obj);
+    },
+    saveRecommedData(obj) {
+      if (obj.action === '新增興趣行業推薦條件') {
+        if (this.user.recommedCompanyList) {
+          this.user.recommedCompanyList.push(obj.data);
+        } else if (!this.user.recommedCompanyList) {
+          this.user.recommedCompanyList = [];
+          this.user.recommedCompanyList.push(obj.data);
+        }
+      } else if (obj.action === '編輯興趣行業推薦條件') {
+        this.user.recommedCompanyList.splice(obj.index, 1, obj.data);
+      }
+      console.log(this.user.recommedCompanyList);
+      this.saveUserData();
+    },
+    deleteRecommedData(index) {
+      this.user.recommedCompanyList.splice(index, 1);
+      this.saveUserData();
+    },
     showMore(dataList) {
       this[dataList] += 4;
     },
@@ -713,7 +780,9 @@ export default {
   created() {
     this.formData = webData;
     this.getOgData();
+    this.getFbData();
     emitter.emit('spinner-open-bg', 1500);
+    emitter.emit('get-nav-state', '優質企業');
   },
   mounted() {
     const vm = this;
