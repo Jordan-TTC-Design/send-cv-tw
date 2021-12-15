@@ -258,7 +258,7 @@
                     <span class="me-1 subTxt">$</span>800<span class="ms-1 subTxt">/月</span>
                   </p>
                 </div>
-                <p class="subTxt text-secondary mb-3">＊實際費用計算日期由企業審核通過後開始計算</p>
+                <p class="subTxt--foil mb-3">＊實際費用計算日期由企業審核通過後開始計算</p>
                 <div class="border border-gray-line p-2 pb-0 rounded">
                   <div class="mb-3">
                     <p class="text-secondary subTxt mb-1">基本功能</p>
@@ -397,7 +397,7 @@
                     <span class="me-1 subTxt">$</span>800<span class="ms-1 subTxt">/月</span>
                   </p>
                 </div>
-                <p class="subTxt text-secondary mb-3">＊實際費用計算日期由企業審核通過後開始計算</p>
+                <p class="subTxt--foil mb-3">＊實際費用計算日期由企業審核通過後開始計算</p>
                 <div class="border border-gray-line p-2 pb-0 rounded">
                   <div class="mb-3">
                     <p class="text-secondary subTxt mb-1">基本功能</p>
@@ -495,7 +495,7 @@
                     <label class="form-check-label" for="formPayType--atm">
                       ATM付款(轉帳/網路線上繳款)
                     </label>
-                    <p class="subTxt text-secondary">
+                    <p class="subTxt--foil">
                       每筆訂單會產生一組虛擬代碼，依虛擬代碼進行ATM轉帳。
                     </p>
                   </div>

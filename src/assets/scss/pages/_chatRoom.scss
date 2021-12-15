@@ -1,3 +1,32 @@
+// 聊天室頁面
+.chatBox {
+  padding: 0.75rem;
+  display: flex;
+  &__img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: $light;
+    border: 1px solid $gray-line;
+    margin-right: 0.5rem;
+  }
+  &__txtBox {
+    padding: 0.5rem;
+    background-color: $light;
+    border-radius: 0.5rem;
+    max-width: 360px;
+    @include shadow-normal;
+  }
+  &.checkBox--right {
+    flex-direction: row-reverse;
+    .chatBox__img {
+      margin-right: 0;
+      margin-left: 0.5rem;
+    }
+  }
+}
+
 .chatRoom {
   height: calc(100vh - 4rem);
   width: 100%;
@@ -229,7 +258,11 @@
     background-color: $companyColor-light;
   }
 }
-
+.chatRoom__infoArea--jobSeeker {
+  .boxSubNav__item.active {
+    background-color: $primary-light;
+  }
+}
 .menuCover--chat {
   display: none;
   transition: all 0.3s;

@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container-lg pageSubNavContainer--sticky mb-5">
+    <div class="container-xl pageSubNavContainer--sticky mb-5">
       <div class="pageSubNav">
         <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
@@ -35,7 +35,7 @@
         </ul>
       </div>
     </div>
-    <div ref="jobsListContainer" class="jobsListContainer container">
+    <div ref="jobsListContainer" class="container-xl">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>

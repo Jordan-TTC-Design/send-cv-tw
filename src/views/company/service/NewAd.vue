@@ -23,13 +23,14 @@
           </div>
         </div>
       </div>
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
-          <div class="col-lg-8 col-12">
-            <div class="jobContentSection box--shadow mb-4">
-              <h3 class="section__title--sub">
-                <span class="tag--doubleCircle--company me-2"></span>廣告內容
-              </h3>
+          <div class="col-lg-8">
+            <div class="jobContentBox box--shadow mb-4">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double--company me-2"></span>
+                廣告內容
+              </h4>
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="adName" class="labelBox__label form-label">廣告標題</label>
@@ -185,11 +186,12 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-12">
-            <div class="jobContentSection box--shadow mb-lg-0 mb-3">
-              <h3 class="section__title--sub">
-                <span class="tag--doubleCircle--company me-2"></span>廣告刊登設定
-              </h3>
+          <div class="col-lg-4">
+            <div class="jobContentBox box--shadow mb-lg-0 mb-3">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double--company me-2"></span>
+                廣告刊登設定
+              </h4>
               <div class="mb-2 d-flex align-items-center justify-content-between">
                 <p>目前剩餘額度：{{ company.payService.adTokens }}</p>
                 <button type="button" class="btn btn-outline-gray-line text-dark">購買額度</button>

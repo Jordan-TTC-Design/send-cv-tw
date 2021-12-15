@@ -2,7 +2,7 @@
 .form__input {
   margin-bottom: 1rem;
 }
-.form__input.last{
+.form__input.last {
   margin-bottom: 0;
 }
 // 表單 input 的 label 容器，可以搭配必填
@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   margin: 0px 12px 4px 12px;
-  .labelBox__label{
+  .labelBox__label {
     font-size: 14px;
     margin-bottom: 0;
   }
@@ -29,7 +29,10 @@
   background-color: $companyColor;
   color: $light;
 }
-
+.form-check {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
 .inputItem__switch {
   height: 38px;
   display: flex;
@@ -115,4 +118,113 @@
       color: $gray-line;
     }
   }
+}
+.form__infoEditBox {
+  .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
+  .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+    border-radius: 0.5rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
+  .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+    border-radius: 0.5rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .ck-editor__editable_inline {
+    min-height: 240px;
+  }
+  .ck-content h2 {
+    font-size: 24px;
+  }
+}
+.form__infoEditBox--sm {
+  .ck-editor__editable_inline {
+    min-height: 160px;
+  }
+}
+.cropImgBox {
+  width: 100%;
+  height: 160px;
+  background-color: $gray-light;
+  border: 1px solid $gray-line;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 8px;
+  border-radius: 0.5rem;
+  .cropImg {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
+  .cropImgBox__deleteBtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 80;
+  }
+  .cropImgBox__cover {
+    height: 100%;
+    width: 100%;
+    background-color: #1d1d1d;
+    opacity: 0.3;
+    position: absolute;
+    border-radius: calc(0.5rem - 1px);
+    // 設置背景混和模式為相乘模式
+  }
+  .iconBox {
+    background-color: $light;
+    border-radius: 50%;
+    padding: 4px;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 50;
+    &__innerBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2rem;
+      height: 2rem;
+      background-color: $gray-light;
+      border-radius: 50%;
+    }
+    .jobIcon {
+      font-size: 16px;
+      color: $dark;
+    }
+  }
+}
+.cropImgBox--lg {
+  min-height: 360px;
+}
+.editorSelectBoxList {
+  display: flex;
+  justify-content: space-between;
+}
+.editorSelectBox {
+  border-radius: 0.5rem;
+  border: 1px solid $gray-line;
+  width: calc(33.333% - 0.5rem);
+  cursor: pointer;
+  &__title {
+    padding: 0.25rem 0.75rem;
+    background-color: $gray-light;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  &__imgBox {
+    min-height: 120px;
+  }
+}
+.formStepBtnBox {
+  display: flex;
+}
+.formStepBtnBox--border {
+  border-top: 1px solid $gray-line;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
 }

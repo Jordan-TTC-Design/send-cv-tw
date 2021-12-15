@@ -38,25 +38,6 @@
   .JobContent__txtBox {
     width: 100%;
   }
-  .page__title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #1d1d1d;
-    margin-bottom: 12px;
-  }
-  .page__txt {
-    color: #646464;
-  }
-  .page__link {
-    text-decoration: underline;
-  }
-  .companyPage__companyImage {
-    border-radius: 8px;
-    max-width: calc(33.333% - 12px);
-    @include sm {
-      max-width: 100%;
-    }
-  }
   .logoImageBox.company {
     position: relative;
     right: 0;
@@ -74,31 +55,6 @@
   .jobContent__imgBox.company {
     width: auto;
     margin-right: 12px;
-  }
-}
-.adminInfoList {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: -0.75rem;
-  .innerList__item {
-    margin-bottom: 0.75rem;
-    width: 50%;
-    @include sm {
-      width: 100%;
-      .btn {
-        width: 100%;
-      }
-    }
-    &:hover {
-      .innerList__item__txt {
-        color: $primary;
-      }
-    }
-    &__subTxt {
-      font-size: 14px;
-      color: $secondary;
-      margin-bottom: 0.25rem;
-    }
   }
 }
 .applyJobPage {
@@ -147,19 +103,7 @@
     right: 1.5rem;
   }
 }
-.btn--preview {
-  background-color: $light;
-  border: 1px solid $gray-line;
-  color: $dark;
-}
-.btn--preview.active {
-  background-color: $companyColor-light;
-  color: $companyColor;
-  border: 1px solid $companyColor-light;
-  .jobIcon--sm {
-    color: $companyColor;
-  }
-}
+
 .setting__sideList {
   position: sticky;
   top: 86px;
@@ -245,56 +189,60 @@
     display: flex;
   }
 }
+// 瀏覽紀錄
 .readRecordList {
-  .list__item {
+  &__item {
     background-color: $light;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 0.75rem;
-    padding: 0.75rem;
     border-radius: 0.5rem;
+    position: relative;
+    @include shadow-normal;
     &__title {
       font-weight: $fw--md;
       color: $dark;
     }
-    &__jobContent {
+    &__body {
       display: flex;
-      width: 60%;
+      padding: 0.75rem;
     }
-    &__salaryBox {
-      width: 10%;
+    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
     }
     &__btnBox {
-      width: 30%;
       display: flex;
       justify-content: flex-end;
     }
-  }
-  .list__item__logoImgBox {
-    padding: 0.25rem;
-    border: 1px solid $gray-line;
-    border-radius: 0.25rem;
-    height: 78px;
-    .logoImg {
-      border: 0;
-      height: 100%;
+    &__logoImgBox {
+      padding: 0.25rem;
+      border: 1px solid $gray-line;
+      border-radius: 0.25rem;
+      height: 5rem;
+      .logoImg {
+        border: 0;
+        height: 100%;
+      }
     }
   }
-  &.companyRecord {
-    .list__item {
-      &__jobContent {
-        width: 40%;
-        align-items: center;
+  @include md {
+    .readRecordList__item {
+      flex-direction: column;
+      &__body {
+       width: 100%;
       }
-      &__industryBox {
-        width: 20%;
-      }
-      &__jobsBox {
-        width: 20%;
-      }
-      &__btnBox {
-        width: 20%;
-      }
+    }
+    .readRecordList__item__footer {
+      width: 100%;
+      border-top: 1px solid $gray-line;
+      padding-top: 0.75rem;
+    }
+    .readRecordList__item__logoImgBox {
+      height: 3rem;
     }
   }
 }
@@ -348,18 +296,7 @@
     }
   }
 }
-.btn--newSkill {
-  color: $companyColor;
-  .jobIcon--sm {
-    color: $companyColor;
-  }
-  &:hover {
-    color: $light;
-    .jobIcon--sm {
-      color: $light;
-    }
-  }
-}
+
 .textarea--tag {
   position: relative;
   &__tagList {
@@ -434,4 +371,3 @@
     color: $dark;
   }
 }
-

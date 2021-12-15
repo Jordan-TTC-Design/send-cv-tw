@@ -47,7 +47,7 @@
                 <li class="talentCard talentCard--inner">
                   <div class="talentCard__userImgBox">
                     <div class="talentCard__introVideo">
-                      <p class="subTxt text-secondary">尚未設定</p>
+                      <p class="subTxt--foil">尚未設定</p>
                     </div>
                     <img
                       class="talentCard__personalImg"

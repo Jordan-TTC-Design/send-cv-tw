@@ -1,7 +1,6 @@
 <template>
-  <div class="chatRoom bg-light">
-    <div class="chatRoom__chatListContainer"
-    :class="{ 'rwdClose--sm': rwdSelect !== '' }">
+  <div class="chatRoom bg-light" v-if="dataReady">
+    <div class="chatRoom__chatListArea" :class="{ 'rwdClose--sm': rwdSelect !== '' }">
       <div class="chatRoom__filterBox bg-light">
         <div class="searchInput mb-3">
           <i class="jobIcon bi bi-search"></i>
@@ -24,37 +23,39 @@
           </select>
         </div>
       </div>
-      <ul class="chatRoom__userList">
+      <ul class="chatRoom__chatList">
         <template v-for="temItem in nowPageJobs" :key="temItem.id">
           <li
             :ref="`chatRoom__card--${temItem.id}`"
-            class="list__item chatRoom__card"
-            @click="selectChat(temItem.id)"
+            class="list__item chatCard"
+            @click="selectListItem(temItem.id)"
           >
-            <div class="chatRoom__card__top d-flex mb-2">
-              <img class="card__img me-2" :src="temItem.options.company.companyLogoUrl" />
-              <div>
-                <p class="card__title mb-1">{{ temItem.options.company.companyName }}</p>
+            <div class="chatCard__top d-flex mb-2">
+              <img class="chatCard__img me-2" :src="temItem.options.company.companyLogoUrl" />
+              <div class="flex-grow-1">
+                <p class="chatCard__title mb-1">{{ temItem.options.company.companyName }}</p>
                 <p class="subTxt mb-1">招募職位：{{ temItem.title }}</p>
                 <p class="subTxt">您好，我們最近看到你在找工作...</p>
               </div>
             </div>
-            <div class="chatRoom__card__bottom">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex">
-                  <p class="jobTag me-2">100%</p>
-                  <p class="jobTag">已申請</p>
-                </div>
-                <p class="subTxt text-secondary">2021/10/12</p>
+            <div class="chatCard__footer">
+              <div class="chatCard__tagList">
+                <p class="jobTag me-2">100%</p>
+                <p class="jobTag">已申請</p>
               </div>
+              <p class="subTxt text-secondary">2021/10/12</p>
             </div>
           </li>
         </template>
       </ul>
     </div>
+    <!-- 中間聊天 -->
     <div class="chatRoom__chatArea" :class="{ 'rwdClose--sm': rwdSelect === '' }">
       <div class="chatArea__userBox">
         <div class="d-flex align-items-center">
+          <button type="button" class="btn d-md-none" @click="backToList">
+            <i class="jobIcon bi bi-chevron-left"></i>
+          </button>
           <img
             class="companyLogo me-2"
             :src="jobItem.options.company.companyLogoUrl"
@@ -66,11 +67,20 @@
             >{{ jobItem.options.company.companyName }}</router-link
           >
         </div>
-        <button type="button" class="btn btn--circle btn-sm">
-          <i class="jobIcon bi bi-three-dots"></i>
-        </button>
+        <div class="d-flex">
+          <button
+            type="button"
+            class="btn btn-outline-light d-xl-none text-dark me-2"
+            @click="openInfoArea = 'userInfo'"
+          >
+            <i class="jobIcon-sm bi bi-info-square-fill me-2"></i>應徵資訊
+          </button>
+          <button type="button" class="btn btn--circle btn-sm">
+            <i class="jobIcon bi bi-three-dots"></i>
+          </button>
+        </div>
       </div>
-      <div class="chatArea__chatTxtContainer py-4" :class="{ active: chatInput === 10 }">
+      <div class="chatArea__txtContainer py-4" :class="{ active: chatInput === 10 }">
         <template v-for="item in chatroom" :key="item.key">
           <div class="chatBox checkBox--left">
             <img class="chatBox__img" :src="jobItem.options.company.companyLogoUrl" />
@@ -136,7 +146,7 @@
         </div>
       </div>
       <div class="chatArea__inputContainer">
-        <div class="input-group mb-3 position-relative">
+        <div class="input-group mb-3">
           <textarea
             type="text"
             class="form-control chatArea__txtInput"
@@ -161,10 +171,14 @@
             <button type="button" class="btn btn--circle">
               <i class="jobIcon bi bi-folder-fill"></i>
             </button>
-            <button type="button" class="btn btn--circle" @click="rightContainer = '文字模板'">
+            <button
+              type="button"
+              class="btn btn-outline-gray-line"
+              @click="openInfoArea = 'messageTemplate'"
+            >
               <i
                 class="jobIcon bi bi-chat-left-quote-fill"
-                :class="{ 'text-primary-dark': rightContainer === '文字模板' }"
+                :class="{ 'text-primary-dark': openInfoArea === 'messageTemplate' }"
               ></i>
             </button>
           </div>
@@ -172,17 +186,21 @@
         </div>
       </div>
     </div>
-    <div v-if="rightContainer === '資訊欄'" class="chatRoom__infoArea">
-      <ul class="boxSubNav">
+    <!-- 右側資訊欄 -->
+    <div class="chatRoom__infoArea" :class="{ active: openInfoArea === 'userInfo' }">
+      <button type="button" class="btn d-xl-none" @click="openInfoArea = ''">
+        <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+      </button>
+      <ul class="boxSubNav boxSubNav--jobSeeker">
         <li
-          class="boxSubNav__item boxSubNav--50"
+          class="boxSubNav__item w--50"
           :class="{ active: boxSubNav === '申請資料' }"
           @click="changeNav('boxSubNav', '申請資料')"
         >
           <p>申請資料</p>
         </li>
         <li
-          class="boxSubNav__item boxSubNav--50"
+          class="boxSubNav__item w--50"
           :class="{ active: boxSubNav === '職位內容' }"
           @click="changeNav('boxSubNav', '職位內容')"
         >
@@ -203,96 +221,88 @@
           </div>
         </swiper-slide>
       </swiper>
-      <div ref="sideJobBox" class="sideJobBox pt-0">
+      <div class="sideJobContainer pt-0">
         <div class="d-flex align-items-center mb-2">
           <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
           <button type="button" class="jobTag btn">100%匹配度</button>
         </div>
-        <div class="sideJobBox__txtBox pb-4 border-bottom border-gray-line">
+        <div class="sideJobContainer__txtBox pb-4 border-bottom border-gray-line">
           <div>
             <router-link
-              class="sideJobBox__title mb-3 d-block"
+              class="sideJobContainer__title mb-3 d-block"
               type="button"
               :to="`/products-list/product/${jobItem.id}`"
               >{{ jobItem.title }}</router-link
             >
           </div>
-          <p class="page__txt subTxt" v-if="!jobItem.options.job.salaryInterView">
+          <p class="subTxt" v-if="!jobItem.options.job.salaryInterView">
             <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
             {{ jobItem.price }} / 月薪
           </p>
-          <p class="page__txt subTxt" v-if="jobItem.options.job.salaryInterView">
+          <p class="subTxt" v-if="jobItem.options.job.salaryInterView">
             <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
             薪資面議
           </p>
         </div>
         <div v-if="boxSubNav === '申請資料'">
-          <ul>
+          <ul class="infoList infoList--jobSeeker infoList--withBtn">
             <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="infoList__item__title">應徵狀態</p>
-                  <p class="infoList__item__content">面試邀請</p>
-                </div>
-                <div class="d-flex">
-                  <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                    改時間
-                  </button>
-                  <button type="button" class="btn btn-gray-light text-dark me-2">婉拒</button>
-                  <button type="button" class="btn btn-primary text-dark">同意</button>
-                </div>
+              <div>
+                <p class="infoList__item__title">應徵狀態</p>
+                <p class="infoList__item__content">面試邀請</p>
+              </div>
+              <div class="infoList__btnBox">
+                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                  改時間
+                </button>
+                <button type="button" class="btn btn-gray-light text-dark me-2">婉拒</button>
+                <button type="button" class="btn btn-primary text-dark">同意</button>
               </div>
             </li>
             <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="infoList__item__title">面試時間</p>
-                  <p class="infoList__item__content">2020.01.13 19:38</p>
-                </div>
+              <div>
+                <p class="infoList__item__title">面試時間</p>
+                <p class="infoList__item__content">2020.01.13 19:38</p>
               </div>
             </li>
             <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="infoList__item__title">面試地點</p>
-                  <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
-                </div>
+              <div>
+                <p class="infoList__item__title">面試地點</p>
+                <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
+              </div>
+              <div class="infoList__btnBox">
                 <button type="button" class="btn btn-outline-gray-line text-dark me-2">
                   打開地圖
                 </button>
               </div>
             </li>
             <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="infoList__item__title">應徵方式</p>
-                  <p class="infoList__item__content">sendCV 申請職位</p>
-                </div>
+              <div>
+                <p class="infoList__item__title">應徵方式</p>
+                <p class="infoList__item__content">sendCV 申請職位</p>
               </div>
             </li>
             <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="infoList__item__title">應徵時間</p>
-                  <p class="infoList__item__content">2020.01.13 19:38</p>
-                </div>
+              <div>
+                <p class="infoList__item__title">應徵時間</p>
+                <p class="infoList__item__content">2020.01.13 19:38</p>
               </div>
             </li>
             <li class="infoList__item list--last mb-5">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="infoList__item__title">應徵紀錄</p>
-                  <p class="infoList__item__content">
-                    面試邀請<span class="subTxt">2020.01.13 19:38</span>
-                  </p>
-                </div>
+              <div>
+                <p class="infoList__item__title">應徵紀錄</p>
+                <p class="infoList__item__content">
+                  面試邀請<span class="subTxt">2020.01.13 19:38</span>
+                </p>
+              </div>
+              <div class="infoList__btnBox">
                 <button type="button" class="btn btn-outline-gray-line text-dark me-2">
                   查看全部
                 </button>
               </div>
             </li>
           </ul>
-          <ul ref="collapse" class="accordion">
+          <ul ref="collapseDoc" class="accordion">
             <!-- 應徵文件 -->
             <li class="accordion-item bg-gray-light py-2">
               <p class="text-dark text-center">應徵文件</p>
@@ -335,7 +345,7 @@
                   求職信
                 </button>
               </h2>
-              <div id="applyDocument-coverLetter" class="accordion-collapse collapse">
+              <div id="applyDocument-coverLetter" class="accordion-collapse collapse show">
                 <div class="accordion-body">
                   <strong>This is the second item's accordion body.</strong> It is hidden by
                   default, until the collapse plugin adds the appropriate classes that we use to
@@ -400,7 +410,7 @@
           </ul>
         </div>
         <div v-if="boxSubNav === '職位內容'">
-          <div class="sideJobBox__section">
+          <div class="sideJobContainer__section">
             <h3 class="section__title--sub"><span class="title__icon"></span>職位內容</h3>
             <p class="mb-3">
               <i class="jobIcon--sm me-1 bi bi-journal"></i>工作性質：{{
@@ -423,9 +433,9 @@
               }}
             </p>
             <p class="mb-3">工作內容：</p>
-            <div class="page__txt" v-html="jobItem.content"></div>
+            <div class="bodyTxt" v-html="jobItem.content"></div>
           </div>
-          <div class="sideJobBox__section">
+          <div class="sideJobContainer__section">
             <h3 class="section__title--sub"><span class="title__icon"> </span>應徵條件</h3>
             <p class="mb-3">
               <span><i class="jobIcon--sm me-1 bi bi-book"></i></span>學歷要求：{{
@@ -438,9 +448,9 @@
               }}
             </p>
             <p class="mb-3">其他條件：</p>
-            <div class="page__txt" v-html="jobItem.options.job.otherRequirement"></div>
+            <div class="bodyTxt" v-html="jobItem.options.job.otherRequirement"></div>
           </div>
-          <div class="sideJobBox__section">
+          <div class="sideJobContainer__section">
             <h3 class="section__title--sub"><span class="title__icon"></span>申請方法</h3>
             <p class="mb-3">
               <span><i class="jobIcon--sm me-1 bi bi-person"></i></span>職位聯絡人：{{
@@ -458,15 +468,17 @@
               }}
             </a>
             <p class="mb-3">申請備註：</p>
-            <div class="page__txt" v-html="jobItem.options.job.otherApplyInfo"></div>
+            <div class="bodyTxt" v-html="jobItem.options.job.otherApplyInfo"></div>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="rightContainer === '文字模板'" class="chatRoom__infoArea">
-      <div></div>
-      <div class="sideContainerTitleBox ps-1">
-        <button type="button" class="btn" @click="rightContainer = '資訊欄'">
+    <div
+      class="chatRoom__infoArea chatRoom__infoArea--jobSeeker"
+      :class="{ active: openInfoArea === 'messageTemplate' }"
+    >
+      <div class="border-bottom border-gray-line">
+        <button type="button" class="btn d-xl-none" @click="openInfoArea = ''">
           <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
         </button>
       </div>
@@ -496,6 +508,12 @@
       </div>
     </div>
   </div>
+  <div
+    class="menuCover--chat"
+    ref="menuCover"
+    @click="openInfoArea = ''"
+    :class="{ active: openInfoArea === 'userInfo' || openInfoArea === 'messageTemplate' }"
+  ></div>
   <JobCollect></JobCollect>
   <DocModal
     :userData="user"
@@ -505,6 +523,7 @@
 </template>
 
 <script>
+// import Collapse from 'bootstrap/js/dist/collapse';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { Autoplay, Pagination } from 'swiper/core';
 import database from '@/methods/firebaseinit';
@@ -524,10 +543,10 @@ export default {
   },
   data() {
     return {
+      dataReady: false,
+      boxSubNav: '申請資料',
       fullWidth: 0,
       fullHeight: 0,
-      boxSubNav: '申請資料',
-      rightContainer: '資訊欄',
       products: [],
       jobsList: [],
       nowPageJobs: [],
@@ -571,6 +590,10 @@ export default {
       },
       message: '',
       userRef: database.ref('user'),
+      collapse: '',
+      // rwd
+      rwdSelect: '',
+      openInfoArea: '',
     };
   },
   computed: {
@@ -653,22 +676,6 @@ export default {
         });
       }
     },
-    // 點擊卡片：pc->選擇右側職位，pad->跳轉至該職位頁面
-    selectChat(id) {
-      if (this.fullWidth > 991) {
-        this.nowPageJobs.forEach((item) => {
-          if (item.id === id) {
-            this.jobItem = item;
-            this.$refs[`chatRoom__card--${item.id}`].classList.add('active');
-          } else if (item.id !== id) {
-            this.$refs[`chatRoom__card--${item.id}`].classList.remove('active');
-          }
-        });
-        // this.$refs.jobSelectBox.toTop();
-      } else {
-        // this.$router.push(`/products-list/product/${id}`);
-      }
-    },
     selectChatFrist(id) {
       if (this.fullWidth > 991) {
         this.nowPageJobs.forEach((item) => {
@@ -697,11 +704,6 @@ export default {
       }
       this.nowPageJobs = JSON.parse(JSON.stringify(temPageJobs));
       this.checkJobCollect();
-      setTimeout(() => {
-        if (this.nowPageJobs.length > 0) {
-          this.selectChatFrist(this.nowPageJobs[0].id);
-        }
-      }, 10);
     },
     // 篩選出所有職位
     classifyJob() {
@@ -778,22 +780,25 @@ export default {
       this.message = '';
       this.getChatListData();
     },
+    selectListItem(itemId) {
+      this.processSelectData(itemId);
+    },
+    backToList() {
+      this.processSelectData('');
+    },
+    processSelectData(action) {
+      this.rwdSelect = action;
+    },
   },
   created() {
     this.getOgData();
     this.getFbData();
+    this.getChatListData();
     this.formData = webData;
     emitter.emit('spinner-open-bg', 1200);
   },
   mounted() {
-    this.getChatListData();
-    const vm = this;
-    vm.fullWidth = window.innerWidth;
-    vm.fullHeight = window.innerHeight;
-    window.onresize = () => {
-      vm.fullWidth = window.innerWidth;
-      vm.fullHeight = window.innerHeight;
-    };
+    // this.collapse = new Collapse(this.$refs.collapseDoc);
   },
 };
 </script>

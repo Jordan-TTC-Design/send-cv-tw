@@ -1,14 +1,24 @@
 <template>
-  <div class="page--py">
-    <div ref="jobsListContainer" class="jobsListContainer container">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="section__title ps-3 mb-0">職位收藏夾 - {{ jobFolder.title }}</h3>
-        <button type="button" class="btn btn-outline-secondary" @click="deleteFolder">
+  <div class="adminPage--py">
+    <div
+      class="container-xl pageSubNavContainer--sticky mb-md-5 mb-6 pt-lg-5 pt-md-2 pt-7 p-2"
+      :class="{ 'rwdClose--md': rwdSelect === '' }"
+    >
+      <div class="pageSubNav btnBox justify-content-between">
+        <div class="d-flex align-items-center">
+          <router-link class="btn text-dark" to="/admin/work-collection"
+            ><i class="jobIcon bi bi-chevron-left text-dark"></i
+          ></router-link>
+          <h5 class="text-dark">職位收藏夾 - {{ jobFolder.title }}</h5>
+        </div>
+        <button type="button" class="btn btn-outline-secondary text-dark" @click="deleteFolder">
           刪除收藏夾
         </button>
       </div>
+    </div>
+    <div class="container-xl">
       <div class="row" v-if="nowPageJobs.length">
-        <div class="col-lg-6 col-12">
+        <div class="col-lg-6">
           <div class="jobListBox">
             <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
               <div class="d-flex flex-wrap">
@@ -42,7 +52,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-6 col-12 d-lg-block d-none">
+        <div class="col-lg-6 d-lg-block d-none">
           <JobListSideJobBox ref="jobSelectBox" :select-job-item="jobItem" />
         </div>
       </div>

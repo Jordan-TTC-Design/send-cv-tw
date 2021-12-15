@@ -31,6 +31,12 @@
     }
   }
 }
+.btn--sm {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .btn--lg {
   width: 44px;
   height: 44px;
@@ -248,4 +254,29 @@
 }
 .btn--text--dark {
   color: $dark;
+}
+.btn--preview {
+  background-color: $light;
+  border: 1px solid $gray-line;
+  color: $dark;
+}
+.btn--preview.active {
+  background-color: $companyColor-light;
+  color: $companyColor;
+  border: 1px solid $companyColor-light;
+  .jobIcon--sm {
+    color: $companyColor;
+  }
+}
+.btn--newSkill {
+  color: $companyColor;
+  .jobIcon--sm {
+    color: $companyColor;
+  }
+  &:hover {
+    color: $light;
+    .jobIcon--sm {
+      color: $light;
+    }
+  }
 }

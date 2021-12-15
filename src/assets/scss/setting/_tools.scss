@@ -7,31 +7,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
 }
-
-// 標籤
-.jobTag {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  background-color: $gray-mid;
-  display: inline-block;
-  &:hover {
-    background-color: $gray-line;
-    color: $dark;
-  }
-}
-.jobTag--new {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  background-color: $primary;
-  color: $light;
-  display: inline-block;
-}
-.jobTag--company {
-  background-color: $companyColor-light;
-  color: $companyColor;
-}
 // 特殊樣式工具區
 // 手指
 .putPointer {
@@ -43,11 +18,6 @@
 }
 .box--shadow--lg {
   @include shadow-lg;
-}
-@include md {
-  .w-md-100 {
-    width: 100%;
-  }
 }
 
 // 題錯工具
@@ -103,37 +73,41 @@
     }
   }
 }
-
+// 用戶頭像大
+.userImgBox {
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+  padding: 0.25rem;
+  background-color: $light;
+  position: relative;
+  &__img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &__editBtn {
+    position: absolute;
+    bottom: -0.75rem;
+    right: -0.75rem;
+    padding: 0.25rem;
+    border-radius: 50%;
+    background-color: $light;
+    .btn--circle {
+      background-color: $gray-light;
+    }
+  }
+}
 // 提示匡
 .remind {
   padding: 0.75rem;
   background-color: $primary-light;
   max-width: 37.5rem;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   &__title {
     color: $primary-dark;
     font-size: 14px;
-  }
-}
-// 標示新的資料等
-.tag--new {
-  padding-top: 0.75rem;
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: $primary;
-    border-radius: 50%;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  &__txt {
-    font-weight: $fw--md;
-    font-size: 0.75rem;
-    color: $primary-dark;
   }
 }
 
@@ -209,32 +183,18 @@
     }
   }
 }
-
-// 聊天室頁面
-.chatBox {
-  padding: 0.75rem;
-  display: flex;
-  &__img {
-    width: 44px;
-    height: 44px;
-    object-fit: cover;
-    border-radius: 50%;
-    background-color: $light;
-    border: 1px solid $gray-line;
-    margin-right: 0.5rem;
+.boxSubNav--jobSeeker {
+  .boxSubNav__item::before {
+    background-color: $primary;
   }
-  &__txtBox {
-    padding: 0.5rem;
-    background-color: $light;
-    border-radius: 0.5rem;
-    max-width: 360px;
-    @include shadow-normal;
+  .boxSubNav__item.active {
+    p {
+      color: $primary-dark;
+    }
   }
-  &.checkBox--right {
-    flex-direction: row-reverse;
-    .chatBox__img {
-      margin-right: 0;
-      margin-left: 0.5rem;
+  .boxSubNav__item:hover {
+    p {
+      color: $primary-dark;
     }
   }
 }
@@ -336,53 +296,7 @@
     }
   }
 }
-.editorSelectBoxList {
-  display: flex;
-  justify-content: space-between;
-}
-.editorSelectBox {
-  border-radius: 0.5rem;
-  border: 1px solid $gray-line;
-  width: calc(33.333% - 0.5rem);
-  cursor: pointer;
-  &__title {
-    padding: 0.25rem 0.75rem;
-    background-color: $gray-light;
-    border-radius: 0.5rem 0.5rem 0 0;
-  }
-  &__imgBox {
-    min-height: 120px;
-  }
-}
 
-.form__infoEditBox {
-  .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
-  .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
-    border-radius: 0.5rem;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
-  .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
-    border-radius: 0.5rem;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .ck-editor__editable_inline {
-    min-height: 240px;
-  }
-  .ck-content h2 {
-    font-size: 24px;
-  }
-}
-.form__infoEditBox--sm {
-  .ck-editor__editable_inline {
-    min-height: 160px;
-  }
-}
-.cropImgBox--lg {
-  min-height: 360px;
-}
 
 .docVideo__contentBox {
   background-color: $gray-light;
@@ -411,83 +325,8 @@
     }
   }
 }
-// 後台日曆
-.calendar {
-  background-color: $light;
-  border-radius: 0.5rem;
-  table {
-    width: 100%;
-    td {
-      border-right: 1px solid $gray-line;
-      border-bottom: 1px solid $gray-line;
-      &:last-child {
-        border-right: 0;
-      }
-    }
-  }
-  &__header {
-    border-radius: 0.5rem 0.5rem 0 0;
-    padding: 1rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid $gray-line;
-  }
-  &__weekBox {
-    display: flex;
-    border-bottom: 1px solid $gray-line;
-    &__day {
-      flex-grow: 1;
-      width: calc(100% / 7);
-      padding: 0.75rem 0;
-      text-align: center;
-      font-size: 1rem;
-      font-weight: $fw--rg;
-      &:hover {
-        background-color: $gray-light;
-      }
-    }
-  }
-  &__dayBox {
-    display: flex;
-    &__date {
-      flex-grow: 1;
-      width: calc(100% / 7);
-      padding: 0.75rem;
-      min-height: 120px;
-      &.nextMonth {
-        background-color: rgba($color: $gray-line, $alpha: 0.5);
-      }
-      &:hover {
-        background-color: $gray-light;
-      }
-    }
-  }
-}
-.userImgBox {
-  width: 7.5rem;
-  height: 7.5rem;
-  border-radius: 50%;
-  padding: 0.25rem;
-  background-color: $light;
-  position: relative;
-  &__img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  &__editBtn {
-    position: absolute;
-    bottom: -0.75rem;
-    right: -0.75rem;
-    padding: 0.25rem;
-    border-radius: 50%;
-    background-color: $light;
-    .btn--circle {
-      background-color: $gray-light;
-    }
-  }
-}
+
+
 .timeLine {
   display: flex;
   position: relative;
@@ -552,7 +391,72 @@
     background-color: $companyColor;
   }
 }
-
+.addProcessBox {
+  border-radius: 0.5rem;
+  background-color: $light;
+  text-align: center;
+  position: relative;
+  &__title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $primary;
+  }
+  .icon--okBox {
+    display: none;
+    background-color: $gray-mid;
+    border-radius: 50%;
+    padding: 0.25rem;
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    &__innerBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2rem;
+      height: 2rem;
+      background-color: $primary-light;
+      border-radius: 50%;
+    }
+    .jobIcon {
+      font-size: 1rem;
+      color: $primary;
+    }
+  }
+}
+.addProcessBox.unActive {
+  background-color: $gray-light;
+  color: $secondary;
+  .addProcessBox__txt,
+  .addProcessBox__title {
+    color: $secondary;
+  }
+}
+.addProcessBox.completed {
+  background-color: $primary-light;
+  .addProcessBox__txt {
+    color: $primary;
+  }
+  .icon--okBox {
+    display: block;
+  }
+}
+.addProcessBox--inner {
+  background-color: $primary-light;
+  .icon--okBox {
+    background-color: $light;
+  }
+  .addProcessBox__txt,
+  .addProcessBox__title {
+    color: $primary-dark;
+  }
+  &.completed {
+    .addProcessBox__txt,
+    .addProcessBox__title {
+      color: $primary-dark;
+    }
+  }
+}
 // icon 雙圈
 .tag--doubleCircle {
   background-color: $primary-light;
@@ -622,6 +526,7 @@
   right: 1.5rem;
 }
 
+// 職位資訊列表
 .jobDataList {
   &__item {
     display: flex;
@@ -644,7 +549,11 @@
       color: $primary-dark;
     }
   }
+  &__item:last-child{
+    margin-bottom: 0;
+  }
 }
+
 .form__input--question {
   position: relative;
   .iconBox {
@@ -670,6 +579,7 @@
     }
   }
 }
+
 .boxInnerList {
   padding-bottom: 0.5rem;
   &__item {
@@ -702,121 +612,6 @@
       top: 0;
       position: absolute;
     }
-  }
-}
-
-
-// 自己設定的尺寸
-.w--100 {
-  width: 100%;
-}
-.w--75 {
-    width: 75%;
-}
-.w--50 {
-  width: 50%;
-}
-.w--25 {
-  width: 25%;
-}
-.w--xl--100 {
-  @include xl {
-    width: 100%;
-  }
-}
-.w--xl--75 {
-  @include xl {
-    width: 75%;
-  }
-}
-.w--xl--50 {
-  @include xl {
-    width: 50%;
-  }
-}
-.w--xl--25 {
-  @include xl {
-    width: 25%;
-  }
-}
-.w--xl--0 {
-  @include xl {
-    width: 0%;
-  }
-}
-.w--lg--100 {
-  @include lg {
-    width: 100%;
-  }
-}
-.w--lg--75 {
-  @include lg {
-    width: 75%;
-  }
-}
-.w--lg--50 {
-  @include lg {
-    width: 50%;
-  }
-}
-.w--lg--25 {
-  @include lg {
-    width: 25%;
-  }
-}
-.w--lg--0 {
-  @include lg {
-    width: 0%;
-  }
-}
-.w--md--100 {
-  @include md {
-    width: 100%;
-  }
-}
-.w--md--75 {
-  @include md {
-    width: 75%;
-  }
-}
-.w--md--50 {
-  @include md {
-    width: 50%;
-  }
-}
-.w--md--25 {
-  @include md {
-    width: 25%;
-  }
-}
-.w--md--0 {
-  @include md {
-    width: 0%;
-  }
-}
-.w--sm--100 {
-  @include sm {
-    width: 100%;
-  }
-}
-.w--sm--75 {
-  @include sm {
-    width: 75%;
-  }
-}
-.w--sm--50 {
-  @include sm {
-    width: 50%;
-  }
-}
-.w--sm--25 {
-  @include sm {
-    width: 25%;
-  }
-}
-.w--sm--0 {
-  @include sm {
-    width: 0%;
   }
 }
 
@@ -956,3 +751,5 @@
     }
   }
 }
+// .applyDocument{
+// }

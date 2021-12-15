@@ -41,7 +41,7 @@
             >{{ jobItem.title }}</router-link
           >
           <router-link
-            class="page__link subTxt mb-2 me-7"
+            class="txtLink subTxt mb-2 me-7"
             :to="`/products-list/company/${jobItem.options.company.companyLink}`"
             >{{ jobItem.options.company.companyName }}</router-link
           >
@@ -51,7 +51,7 @@
             {{ jobItem.price }} / 月薪
           </p>
           <p class="text-dark" v-if="jobItem.options.job.salaryInterView">薪資面議</p>
-          <p class="subTxt text-secondary">
+          <p class="subTxt--foil">
             {{ $filters.date(jobItem.options.job.create) }}
           </p>
         </div>

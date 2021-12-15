@@ -13,14 +13,15 @@
 @import './setting/mixins-me';
 @import './setting/main';
 @import './setting/tools';
+@import './tools/width';
 
 
 //自訂義元件
-@import './components/header';
 @import './components/btn';
 @import './components/popModal';
 @import './components/subNav';
 @import './components/contentBox';
+@import './components/filter';
 @import './components/innerNav';
 @import './components/talentCard';
 @import './components/infoList';
@@ -29,13 +30,24 @@
 @import './components/fonts';
 @import './components/tableList';
 @import './components/flexTable';
+@import './components/calendar';
+@import './components/sideJobContainer';
 @import './setting/spinner';
+
+// 頭尾放最後
+@import './components/header';
+@import './components/footer';
 
 //套件自訂
 @import './helpers/swiper';
 
 //頁面
+
 @import './pages/front';
+@import './pages/frontHome';
+@import './pages/frontCompanies';
+@import './pages/jobPage';
+@import './pages/companyPage';
 @import './pages/admin';
 @import './pages/company';
 @import './pages/cv';

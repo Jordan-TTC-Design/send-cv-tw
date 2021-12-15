@@ -1,8 +1,8 @@
 <template>
-  <div class="adminPage--py jobPage" v-if="dataReady">
+  <div class="adminPage--py" v-if="dataReady">
     <Form v-slot="{ errors }" @submit="saveJobData">
-      <div class="adminSubNav adminSubNav--edit mb-6 box--shadow">
-        <div class="container adminSubNav__innerList justify-content-between align-items-center">
+      <div class="adminSubNav adminSubNav--rwdNomal adminSubNav--company container-fluid">
+        <div class="container-xl adminSubNav__innerList align-items-center">
           <div class="d-flex align-items-center">
             <button
               type="button"
@@ -12,92 +12,88 @@
               <i class="jobIcon bi bi-chevron-left"></i>
             </button>
             <h2 class="adminSubNav__innerList__title me-0" v-once>{{ jobForm.jobName }}</h2>
-            <p class="ms-2">- {{ pagePreview ? '預覽狀態' : '編輯狀態' }}</p>
           </div>
-          <div>
-            <button
-              type="button"
-              class="btn--preview btn btn-outline-gray-line me-2"
-              @click="lookPagePreview"
-              :class="{ active: pagePreview }"
-            >
-              <i class="jobIcon--sm bi bi-eye me-1"></i>{{ pagePreview ? '繼續編輯' : '預覽職位' }}
-            </button>
-            <button type="submit" class="btn btn-companyColor text-light">儲存職位</button>
+          <div class="adminSubNav__bottomBtnList flex-grow-1 justify-content-between">
+            <p class="ms-2">{{ pagePreview ? '預覽狀態' : '編輯狀態' }}</p>
+            <div class="d-flex">
+              <button
+                type="button"
+                class="btn--preview btn btn-outline-gray-line me-2"
+                @click="lookPagePreview"
+                :class="{ active: pagePreview }"
+              >
+                <i class="jobIcon--sm bi bi-eye me-1"></i
+                >{{ pagePreview ? '繼續編輯' : '預覽職位' }}
+              </button>
+              <button type="submit" class="btn btn-companyColor text-light">儲存職位</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="container" v-if="pagePreview">
+      <div class="container-xl" v-if="pagePreview">
         <div class="row">
-          <div class="col-lg-9 col-12">
-            <div class="jobInfoBox box--shadow position-relative mb-4">
-              <div class="d-flex flex-lg-row flex-column">
-                <div class="jobInfoBox__imgBox mb-md-0 mb-4">
+          <div class="col-lg-9">
+            <div class="jobContentBox jobInfoBox box--shadow mb-4">
+              <div class="jobInfoBox__imgBox mb-lg-0 mb-4">
+                <img
+                  class="jobImg putPointer"
+                  :src="jobForm.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
+                  :alt="`${jobForm.jobName}職位圖片`"
+                  @click="
+                    openImgModal(jobForm.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png')
+                  "
+                />
+                <div class="jobInfoBox__logoImgBox">
                   <img
-                    class="jobImg putPointer"
-                    :src="jobForm.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
-                    :alt="`${jobForm.jobName}職位圖片`"
-                    @click="
-                      openImgModal(jobForm.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png')
-                    "
+                    class="logoImg"
+                    :src="jobForm.companyInfo.companyLogoUrl"
+                    :alt="`${jobForm.companyInfo.companyName}logo`"
                   />
-                  <div class="jobInfoBox__logoImgBox">
-                    <img
-                      class="logoImg"
-                      :src="jobForm.companyInfo.companyLogoUrl"
-                      :alt="`${jobForm.companyInfo.companyName}logo`"
-                    />
-                  </div>
                 </div>
-                <div class="jobInfoBox__txtBox d-flex flex-column justify-content-between">
-                  <div class="mb-1">
-                    <p class="jobTag">拍照申請職位</p>
-                  </div>
-                  <div class="pt-3 d-md-block d-flex flex-column align-items-center">
-                    <h2 class="page__title">{{ jobForm.jobName || '未命名職位' }}</h2>
-                    <p class="page__link subTxt mb-4 d-block">
-                      {{ jobForm.companyInfo.companyName }}
+              </div>
+              <div class="jobInfoBox__txtBox">
+                <div class="mb-1">
+                  <p class="jobTag text-dark">拍照申請職位</p>
+                </div>
+                <div class="pt-3 d-md-block d-flex flex-column align-items-center">
+                  <h2 class="pageTitle mb-3">{{ jobForm.jobName || '未命名職位' }}</h2>
+                  <p class="txtLink subTxt mb-4 d-block">
+                    {{ jobForm.companyInfo.companyName }}
+                  </p>
+                </div>
+                <div class="d-flex justify-content-between align-items-end">
+                  <div>
+                    <p class="mb-3">
+                      <i class="jobIcon--sm me-1 bi bi-geo-alt"></i
+                      >{{ jobForm.jobAddress.companyAddress || '尚未填寫' }}
+                    </p>
+                    <p class="text-dark fw-bold" v-if="!jobForm.jobSalaryRange.salaryInterView">
+                      {{ jobForm.jobSalaryRange.salaryLow }}
+                      <span
+                        class="text-dark fw-bold"
+                        v-if="
+                          jobForm.jobSalaryRange.salaryHeight &&
+                          jobForm.jobSalaryRange.salaryHeight !== 0
+                        "
+                      >
+                        - {{ jobForm.jobSalaryRange.salaryHeight }}</span
+                      >
+                      NTD / {{ jobForm.jobSalaryRange.salaryType }}
+                    </p>
+                    <p class="text-dark fw-bold" v-if="jobForm.jobSalaryRange.salaryInterView">
+                      薪資面議
                     </p>
                   </div>
-                  <div class="d-flex justify-content-between align-items-end mb-lg-0 mb-4">
-                    <div>
-                      <p class="mb-3">
-                        <i class="jobIcon--sm me-1 bi bi-geo-alt"></i
-                        >{{ jobForm.jobAddress.companyAddress || '尚未填寫' }}
-                      </p>
-                      <p class="text-dark fw-bold" v-if="!jobForm.jobSalaryRange.salaryInterView">
-                        {{ jobForm.jobSalaryRange.salaryLow }}
-                        <span
-                          class="text-dark fw-bold"
-                          v-if="
-                            jobForm.jobSalaryRange.salaryHeight &&
-                            jobForm.jobSalaryRange.salaryHeight !== 0
-                          "
-                        >
-                          - {{ jobForm.jobSalaryRange.salaryHeight }}</span
-                        >
-                        NTD / {{ jobForm.jobSalaryRange.salaryType }}
-                      </p>
-                      <p class="text-dark fw-bold" v-if="jobForm.jobSalaryRange.salaryInterView">
-                        薪資面議
-                      </p>
-                    </div>
-                    <p class="subTxt text-secondary text-end">2021.12.12 12:10</p>
-                  </div>
+                  <p class="subTxt--foil text-end">2021.12.12 12:10</p>
                 </div>
-                <button type="button" class="btn btn-lg btn-primary w-100 d-lg-none d-block mb-3">
-                  申請職位
-                </button>
-                <button type="button" class="btn btn-lg btn-gray-light w-100 d-lg-none d-block">
-                  收藏職位
-                </button>
               </div>
             </div>
             <!-- 職位內容 -->
-            <div class="jobContentSection box--shadow mb-4">
-              <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>職位內容
-              </h3>
+            <div class="jobContentBox box--shadow mb-4">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                職位內容
+              </h4>
               <ul class="jobDataList pb-3">
                 <!-- 職位類 -->
                 <li class="jobDataList__item">
@@ -163,10 +159,11 @@
                 </div>
               </swiper>
             </div>
-            <div class="jobContentSection box--shadow mb-4">
-              <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>申請方法
-              </h3>
+            <div class="jobContentBox box--shadow mb-4">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                申請方法
+              </h4>
               <ul class="jobDataList pb-3">
                 <li class="jobDataList__item">
                   <p class="jobDataList__item__title">
@@ -235,50 +232,47 @@
               </swiper>
             </div>
           </div>
-          <div class="col-lg-3 col-12">
-            <div class="jobSubBox box--shadow mb-lg-3 p-3 d-lg-block d-none">
-              <button type="button" class="btn btn-lg btn-primary w-100">申請職位</button>
+          <div class="col-lg-3">
+            <div class="jobPage__btnBox mb-lg-4 mb-0 d-lg-flex d-none">
+              <button type="button" class="btn btn-primary mb-lg-3 mb-0">申請職位</button>
+              <button type="button" class="btn btn-gray-light me-lg-0 me-2">收藏職位</button>
             </div>
             <div
               v-if="company.companyInfo.companyImgsUrl.length > 0"
-              class="jobSubBox jobPage__companyImage box--shadow mb-3"
+              class="jobSideBox box--shadow"
             >
-              <h5 class="jobSubBox__title">公司照片</h5>
+              <h5 class="jobSideBox__title">公司照片</h5>
               <div class="companyImgBox">
                 <img
                   class="mb-2 putPointer"
                   :src="company.companyInfo.companyImgsUrl[0].url"
                   :alt="`${company.companyInfo.companyName}公司圖片1`"
-                  @click="openImgModal(company.companyInfo.companyImgsUrl[0].url)"
                 />
-                <div class="d-flex justify-content-between">
-                  <img
-                    v-if="company.companyInfo.companyImgsUrl[1].url !== ''"
-                    class="companyImage--sub putPointer"
-                    :src="company.companyInfo.companyImgsUrl[1].url"
-                    :alt="`${company.companyInfo.companyName}公司圖片2`"
-                    @click="openImgModal(company.companyInfo.companyImgsUrl[1].url)"
-                  />
-                  <img
-                    v-if="company.companyInfo.companyImgsUrl[2].url !== ''"
-                    :src="company.companyInfo.companyImgsUrl[2].url"
-                    :alt="`${company.companyInfo.companyName}公司圖片3`"
-                    class="companyImage--sub putPointer"
-                    @click="openImgModal(company.companyInfo.companyImgsUrl[2].url)"
-                  />
-                </div>
+                <img
+                  v-if="company.companyInfo.companyImgsUrl[1].url !== ''"
+                  class="companyImage--sub putPointer"
+                  :src="company.companyInfo.companyImgsUrl[1].url"
+                  :alt="`${company.companyInfo.companyName}公司圖片2`"
+                />
+                <img
+                  v-if="company.companyInfo.companyImgsUrl[2].url !== ''"
+                  :src="company.companyInfo.companyImgsUrl[2].url"
+                  :alt="`${company.companyInfo.companyName}公司圖片3`"
+                  class="companyImage--sub putPointer"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="container" v-if="!pagePreview">
+      <div class="container-xl" v-if="!pagePreview">
         <div class="row">
-          <div class="col-lg-9 col-12">
-            <div class="jobContentSection box--shadow mb-4">
-              <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>職位內容
-              </h3>
+          <div class="col-lg-9">
+            <div class="jobContentBox box--shadow mb-4">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                職位內容
+              </h4>
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="sendFormInfoJobName" class="labelBox__label form-label"
@@ -411,12 +405,13 @@
                 </button>
               </div>
             </div>
-            <div class="jobContentSection box--shadow mb-4">
-              <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>申請方法
-              </h3>
+            <div class="jobContentBox box--shadow mb-4">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                申請方法
+              </h4>
               <div class="row">
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="sendFormInfoCompanyName" class="labelBox__label form-label"
@@ -440,7 +435,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="sendFormInfoCompanyEmail" class="labelBox__label form-label"
@@ -457,7 +452,7 @@
                     />
                   </div>
                 </div>
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-6">
                   <div class="form__input">
                     <div class="form__labelBox">
                       <label for="sendFormInfoCompanyPhone" class="labelBox__label form-label"
@@ -480,7 +475,7 @@
                 v-for="(item, index) in jobForm.applyImgUrl"
                 :key="`sendFormInfoImgs${index}`"
               >
-                <div class="col-lg-4 col-12">
+                <div class="col-lg-4">
                   <ImgInputBoxCompany
                     :imgNumber="index"
                     :mustUpload="index < 1"
@@ -490,7 +485,7 @@
                     @send-img-to-page="getImgData"
                   />
                 </div>
-                <div class="col-lg-8 col-12 d-flex flex-column justify-content-between">
+                <div class="col-lg-8 d-flex flex-column justify-content-between">
                   <div class="form__input form__infoEditBox">
                     <div class="form__labelBox">
                       <label for="sendFormInfoJobContent" class="labelBox__label form-label me-2">{{
@@ -516,11 +511,12 @@
                 </div>
               </div>
             </div>
-            <div class="jobContentSection box--shadow">
-              <h3 class="section__title--sub">
-                <span class="titleTag--doubleCircle me-2"></span>工作地點
-              </h3>
-              <div class="d-flex align-items-end mb-4">
+            <div class="jobContentBox box--shadow">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                工作地點
+              </h4>
+              <div class="d-flex align-items-end">
                 <div class="form__input me-2">
                   <div class="form__labelBox">
                     <label for="jobFormCompanyCity" class="labelBox__label form-label">縣市</label>
@@ -564,7 +560,7 @@
                   </Field>
                   <ErrorMessage name="區域鄉鎮" class="invalid-feedback"></ErrorMessage>
                 </div>
-                <div class="form-check">
+                <div class="form-check form__input">
                   <input
                     class="form-check-input"
                     type="checkbox"

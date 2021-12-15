@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container-lg pageSubNavContainer--sticky mb-5">
+    <div class="container-xl pageSubNavContainer--sticky mb-5">
       <div class="pageSubNav">
         <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
@@ -21,7 +21,7 @@
         </ul>
       </div>
     </div>
-    <div class="container-lg">
+    <div class="container-xl">
       <div class="bg-light rounded p-4 mb-5 d-flex" v-if="pageSubNavState === '影片' && dataReady">
         <div class="bg-gray-line d-flex flex-column justify-content-center px-8">
           <h4 class="mb-4">
@@ -43,12 +43,12 @@
           </div>
         </li>
         <li class="col" v-for="(item, index) in user.docData.videoList" :key="index">
-          <div class="scvCard">
+          <div class="scvCard scvCard--video">
             <img class="scvCard__img--top" :src="item.imgUrl" alt="影片封面" />
             <div class="scvCard__body">
               <p class="scvCard__title mb-1">{{ item.title }}</p>
               <p class="scvCard__subTxt mb-4">更新時間:{{ $filters.date(item.time) }}</p>
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-lg-between justify-content-end">
                 <button
                   type="button"
                   class="btn text-dark"
@@ -84,8 +84,8 @@
               <img class="scvCard__img m-3 me-0" :src="item.imgUrl" alt="作品封面" />
               <div class="scvCard__body flex-grow-1">
                 <p class="scvCard__title mb-2">{{ item.title }}</p>
-                <p class="subTxt text-secondary mb-1">更新時間:{{ $filters.date(item.time) }}</p>
-                <p class="subTxt text-secondary">檔案格式：jpg</p>
+                <p class="subTxt--foil mb-1">更新時間:{{ $filters.date(item.time) }}</p>
+                <p class="subTxt--foil">檔案格式：jpg</p>
               </div>
               <div class="scvCard__btnBox">
                 <button type="button" class="btn">

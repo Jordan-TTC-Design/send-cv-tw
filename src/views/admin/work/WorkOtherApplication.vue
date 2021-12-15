@@ -1,33 +1,31 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container-lg pageSubNavContainer--sticky mb-5">
+    <div class="container-xl pageSubNavContainer--sticky mb-5">
       <div class="pageSubNav">
         <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
-            ref="pageSubNav__item--shotList"
             class="innerNav__item w--50"
             :class="{ active: pageSubNavState === 'shotList' }"
-            @click="changeSubNav('shotList')"
+            @click="this.pageSubNavState = 'shotList'"
           >
-            <p  class="text-nowrap">拍照求職</p>
+            <p>拍照求職</p>
           </li>
-           <li
-            ref="pageSubNav__item--mailList"
-            class="innerNav__item w--50"
+          <li
+            class="innerNav__item w--lg--75 w--md--50 text-nowrap"
             :class="{ active: pageSubNavState === 'mailList' }"
-            @click="changeSubNav('mailList')"
+            @click="this.pageSubNavState = 'mailList'"
           >
-            <p class="text-nowrap">寫郵件 Send CV</p>
+            <p>寫郵件 Send CV</p>
           </li>
         </ul>
       </div>
     </div>
-    <div ref="jobsListContainer" class="jobsListContainer container">
+    <div class="container-xl">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
-      <div class="row row-col-lg-2">
+      <div class="row row-cols-lg-2">
         <div class="col" v-if="pageSubNavState === 'shotList'">
           <div class="jobListBox">
             <div class="ps-3 mb-3 bg-light rounded p-2">
@@ -157,7 +155,7 @@
           </div>
         </div>
         <div class="col d-lg-block d-none" v-if="jobItem.key !== ''">
-          <div ref="jobSelectBox" class="sideJobBox sideJobBox--sticky box--shadow">
+          <div ref="sideJobContainer" class="sideJobContainer sideJobContainer--sticky box--shadow">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div class="mb-3">
                 <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
@@ -172,7 +170,7 @@
             </div>
             <div class="pb-5">
               <div class="d-flex mb-3">
-                <div class="sideJobBox__imgBox">
+                <div class="sideJobContainer__imgBox">
                   <img
                     class="jobImage mt-3"
                     :src="'https://i.imgur.com/I2erb3u.png'"
@@ -186,22 +184,22 @@
                     />
                   </div>
                 </div>
-                <div class="sideJobBox__txtBox">
+                <div class="sideJobContainer__txtBox">
                   <div>
-                    <p class="sideJobBox__title mb-3 d-block">{{ jobItem.data.jobName }}</p>
-                    <p class="page__txt page__link subTxt mb-4 d-block" type="button">
+                    <p class="sideJobContainer__title mb-3 d-block">{{ jobItem.data.jobName }}</p>
+                    <p class="txtLink subTxt mb-4 d-block" type="button">
                       {{ jobItem.data.companyName }}
                     </p>
                   </div>
-                  <p class="page__txt me-5 subTxt">
+                  <p class="me-5 subTxt">
                     <span><i class="jobIcon--sm me-1 bi bi-geo-alt"></i></span
                     >{{ jobItem.data.addressCity }}，{{ jobItem.data.addressDist }}
                   </p>
-                  <p class="page__txt subTxt" v-if="!jobItem.data.salaryInterView">
+                  <p class="subTxt" v-if="!jobItem.data.salaryInterView">
                     <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
                     {{ jobItem.data.salaryInterLow }} / 月薪
                   </p>
-                  <p class="page__txt subTxt" v-if="jobItem.data.salaryInterView">
+                  <p class="subTxt" v-if="jobItem.data.salaryInterView">
                     <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
                     薪資面議
                   </p>
@@ -398,16 +396,19 @@
               </ul>
             </div>
             <div v-if="boxSubNav === '職位內容'">
-              <div class="sideJobBox__section">
-                <h3 class="section__title--sub"><span class="title__icon"></span>職位內容</h3>
+              <div class="sideJobContainer__section">
+                <h4 class="sectionTitle--withTag mb-4">
+                  <span class="sectionTitleTag--double me-2"></span>
+                  職位內容
+                </h4>
                 <div v-if="pageSubNavState === 'shotList'">
                   <div
-                    class="sideJobBox__jobInfoImgBox"
+                    class="sideJobContainer__jobInfoImgBox"
                     v-for="(itemUrl, number) in jobItem.data.jobImgUrl"
                     :key="number"
                   >
                     <img
-                      class="sideJobBox__jobInfoImgBox__img"
+                      class="sideJobContainer__jobInfoImgBox__img"
                       :src="itemUrl.url"
                       :alt="`${jobItem.data.jobName}職位圖片`"
                     />
@@ -416,15 +417,18 @@
                 </div>
                 <p v-if="pageSubNavState === 'mailList'">{{ jobItem.data.jobContent }}</p>
               </div>
-              <div class="sideJobBox__section" v-if="pageSubNavState === 'shotList'">
-                <h3 class="section__title--sub"><span class="title__icon"></span>申請方法</h3>
+              <div class="sideJobContainer__section" v-if="pageSubNavState === 'shotList'">
+                <h4 class="sectionTitle--withTag mb-4">
+                  <span class="sectionTitleTag--double me-2"></span>
+                  申請方法
+                </h4>
                 <div
-                  class="sideJobBox__jobInfoImgBox"
+                  class="sideJobContainer__jobInfoImgBox"
                   v-for="(itemUrl, number) in jobItem.data.companyImgUrl"
                   :key="number"
                 >
                   <img
-                    class="sideJobBox__jobInfoImgBox__img"
+                    class="sideJobContainer__jobInfoImgBox__img"
                     :src="itemUrl.url"
                     :alt="`${jobItem.data.jobName}職位圖片`"
                   />
@@ -574,7 +578,7 @@ export default {
             this.$refs[`list__item--${item.key}`].classList.remove('active');
           }
         });
-        this.$refs.jobSelectBox.scrollTop = 0;
+        this.$refs.sideJobContainer.scrollTop = 0;
       } else {
         // this.$router.push(`/products-list/product/${id}`);
       }

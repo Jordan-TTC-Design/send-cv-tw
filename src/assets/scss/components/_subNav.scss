@@ -5,8 +5,8 @@
   top: 60px;
   margin-bottom: 2rem;
   @include shadow-normal;
-  @include lg{
-  padding: 0 0.25rem 0 1rem;
+  @include lg {
+    padding: 0 0.25rem 0 1rem;
   }
   @include md {
     display: flex;
@@ -29,12 +29,28 @@
       position: fixed;
       bottom: 6rem;
       right: 1rem;
-      z-index: 998;
+      z-index: 1030;
       transform: translateY(0);
       flex-direction: column;
     }
     @include sm {
       bottom: 5rem;
+    }
+  }
+  &__bottomBtnList {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    @include md {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1020;
+      background-color: $light;
+      justify-content: flex-end;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid $gray-line;
     }
   }
   .sideBtn {
@@ -202,7 +218,9 @@
   z-index: 999;
   background-color: $light;
   @include md {
-    padding: 0 0 0 0.5rem ;
+    padding: 0 0 0 0.5rem;
+    @include shadow-normal;
+    opacity: 0.95;
   }
   @include sm {
     top: 3rem;
@@ -274,7 +292,7 @@
       background-color: rgba($color: $light, $alpha: 0.95);
       display: flex;
       flex-direction: row;
-      justify-content: start;
+      justify-content: flex-start;
     }
   }
   @include md {

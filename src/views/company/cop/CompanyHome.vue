@@ -117,7 +117,7 @@
                       >/月</span
                     >
                   </h3>
-                  <p class="subTxt text-secondary mb-3 invisible">免費使用</p>
+                  <p class="subTxt--foil mb-3 invisible">免費使用</p>
                   <button
                     type="button"
                     class="btn btn-companyColor text-light"
@@ -163,7 +163,7 @@
                       >/月</span
                     >
                   </h3>
-                  <p class="subTxt text-secondary mb-3">
+                  <p class="subTxt--foil mb-3">
                     單月方案，每月為您省<span class="mx-1 text-companyColor">150</span>元
                   </p>
                   <button
@@ -211,7 +211,7 @@
                       >/月</span
                     >
                   </h3>
-                  <p class="subTxt text-secondary mb-3">
+                  <p class="subTxt--foil mb-3">
                     3個月方案，每月為您省<span class="mx-1 text-companyColor">500</span>元
                   </p>
                   <button

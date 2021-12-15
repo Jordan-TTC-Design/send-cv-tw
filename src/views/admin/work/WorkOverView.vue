@@ -1,9 +1,9 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container" v-if="dataReady">
-      <div class="row mb-5">
-        <div class="col-6">
+    <div class="container-xl" v-if="dataReady">
+      <div class="row row-cols-lg-2 row-cols-1 gy-5 mb-5">
+        <div class="col">
           <div class="rounded bg-white box--shadow p-5 h-100 d-flex">
             <div class="setting__personImgBox me-5">
               <img class="personImgBox__img" src="https://i.imgur.com/ZWHoRPi.png" alt="" />
@@ -23,9 +23,9 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
-          <div class="row notificationList">
-            <div class="col-6 mb-4">
+        <div class="col">
+          <div class="row row-cols-2 g-lg-5 g-3 notificationList">
+            <div class="col">
               <div class="notificationList__item p-3">
                 <div>
                   <p class="text-dark mb-2">面試邀請</p>
@@ -38,7 +38,7 @@
                 />
               </div>
             </div>
-            <div class="col-6 mb-4">
+            <div class="col">
               <div class="notificationList__item p-3">
                 <div>
                   <p class="text-dark mb-2">企業來訪</p>
@@ -163,17 +163,15 @@
       </div>
     </div>
   </div>
-  <UpTopBtn />
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
 import AdminNav from '@/components/admin/AdminNav.vue';
-import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
-  components: { UpTopBtn, AdminNav },
+  components: { AdminNav },
   data() {
     return {
       nowPage: '總覽',

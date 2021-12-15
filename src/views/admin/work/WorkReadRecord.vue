@@ -1,108 +1,81 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div ref="jobsListContainer" class="jobsListContainer container">
+    <div class="container-xl">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
-      <div class="row">
-        <div class="col-12" v-if="jobsList.length > 0">
-          <div class="jobListBox">
-            <div
-              class="
-                d-flex
-                justify-content-between
-                align-items-center
-                ps-3
-                mb-3
-                bg-light
-                rounded
-                p-2
-              "
-            >
-              <p class="text-secondary fw-normal text-nowrap">
-                目前瀏覽過共 {{ jobsList.length }} 個職位
-              </p>
-            </div>
-            <ul ref="jobList" class="readRecordList">
-              <template v-for="jobItem in nowPageJobs" :key="jobItem.id">
-                <li
-                  v-if="nowPageJobs.length > 0"
-                  @click="selectJob"
-                  :data-id="jobItem.id"
-                  :ref="`list__item${jobItem.id}`"
-                  class="
-                    list__item
-                    d-flex
-                    box--shadow
-                    flex-md-row flex-column
-                    align-items-center
-                    justify-content-between
-                    card--application
-                  "
+      <div class="d-flex justify-content-between align-items-center ps-3 mb-3 bg-light rounded p-2">
+        <p class="text-secondary fw-normal text-nowrap">
+          目前瀏覽過共 {{ jobsList.length }} 個職位
+        </p>
+      </div>
+      <ul class="readRecordList" v-if="jobsList.length > 0">
+        <template v-for="jobItem in nowPageJobs" :key="jobItem.id">
+          <li
+            v-if="nowPageJobs.length > 0"
+            @click="selectJob"
+            :data-id="jobItem.id"
+            :ref="`list__item${jobItem.id}`"
+            class="readRecordList__item"
+          >
+            <div class="readRecordList__item__body">
+              <div class="readRecordList__item__logoImgBox me-3">
+                <img
+                  class="logoImg"
+                  :src="jobItem.options.company.companyLogoUrl"
+                  :alt="`${jobItem.options.company.companyName}logo`"
+                />
+              </div>
+              <div class="readRecordList__item__txtBox d-flex flex-column justify-content-between">
+                <div class="d-flex mb-2 flex-wrap">
+                  <router-link
+                    class="readRecordList__item__title me-2"
+                    :to="`/products-list/product/${jobItem.id}`"
+                    >{{ jobItem.title }}</router-link
+                  >
+                  <p class="jobTag bg-primary me-2">
+                    <i class="jobIcon-sm bi bi-star-fill"></i>
+                  </p>
+                  <p class="jobTag">100%</p>
+                </div>
+                <router-link
+                  class="txtLink subTxt mb-2"
+                  :to="`/products-list/company/${jobItem.options.company.companyLink}`"
+                  >{{ jobItem.options.company.companyName }}</router-link
                 >
-                  <div class="list__item__jobContent">
-                    <div class="list__item__logoImgBox me-3">
-                      <img
-                        class="logoImg"
-                        :src="jobItem.options.company.companyLogoUrl"
-                        :alt="`${jobItem.options.company.companyName}logo`"
-                      />
-                    </div>
-                    <div class="list__item__txtBox d-flex flex-column justify-content-between">
-                      <div class="d-flex mb-2">
-                        <router-link
-                          class="list__item__title me-2"
-                          :to="`/products-list/product/${jobItem.id}`"
-                          >{{ jobItem.title }}</router-link
-                        >
-                        <p class="jobTag bg-primary me-2">
-                          <i class="jobIcon-sm bi bi-star-fill"></i>
-                        </p>
-                        <p class="jobTag">匹配度100%</p>
-                      </div>
-                      <router-link
-                        class="page__link subTxt mb-2"
-                        :to="`/products-list/company/${jobItem.options.company.companyLink}`"
-                        >{{ jobItem.options.company.companyName }}</router-link
-                      >
-                      <p class="subTxt text-secondary">
-                        申請時間：{{ $filters.date(jobItem.options.job.create) }}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="list__item__salaryBox">
-                    <p v-if="!jobItem.options.job.salaryInterView">{{ jobItem.price }} / 月薪</p>
-                    <p v-if="jobItem.options.job.salaryInterView">薪資面議</p>
-                  </div>
-                  <div class="list__item__btnBox">
-                    <button type="button" class="btn btn-gray-light me-2">相似職位</button>
-                    <button type="button" class="btn btn-primary me-2">申請職位</button>
-                    <button type="button" class="btn me-2">
-                      <i class="jobIcon bi bi-bookmark-fill"></i>
-                    </button>
-                    <button type="button" class="btn me-2">
-                      <i class="jobIcon bi bi-three-dots"></i>
-                    </button>
-                  </div>
-                </li>
-              </template>
-            </ul>
-          </div>
-        </div>
-        <div class="col-12 d-flex justify-content-center" v-if="jobsList.length === 0">
-          <img
-            class="img--searchNoJob"
-            src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385211015.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=F0Wk9lSjiNEPR9Oc2yUH%2FsytXi9oZAK9mQfxq5pEsNm%2FkYws1ORyXtgI3GxhfKA144%2F70tZX5321YS22Ta%2B9sdNPTtUUUIdWY1fQgSf95yMxikEYSVSpb%2FtKGlZvlcJy6kFokL6Ktv3CYncDq%2B1AVDPtZf7avLr8bdcDYoxsDgeSNoKESY%2BZIQDcLI6c3t%2BfROBH3NZkBTBrTa98P%2FeCywVqtNkfMfZpoewZyqptrn0rptafi6iQurKFCpTbOTvUAdiM0dnsHiEyzVwigDrN%2FNtaxR%2BwdTPDnAE2fS6QMx%2B2kjNa32GEjbkQ7fCcbYTPiQ0%2FQMDTpX8lfSwhG5knbA%3D%3D"
-            alt="找不到職位"
-          />
-        </div>
+                <p class="subTxt--foil mb-2" v-if="!jobItem.options.job.salaryInterView">
+                  {{ jobItem.price }} / 月薪
+                </p>
+                <p class="subTxt--foil mb-2" v-if="jobItem.options.job.salaryInterView">
+                  薪資面議
+                </p>
+                <p class="subTxt--foil">
+                申請時間：{{ $filters.date(jobItem.options.job.create) }}
+              </p>
+              </div>
+            </div>
+            <div class="readRecordList__item__footer justify-content-end">
+              <div class="readRecordList__item__btnBox">
+                <button type="button" class="btn btn-gray-light me-2">相似職位</button>
+                <button type="button" class="btn btn-primary me-2">申請</button>
+                <button type="button" class="collectBtn btn btn-outline-gray-line me-lg-2 me-0">
+                  <i class="jobIcon bi bi-bookmark-fill"></i>
+                </button>
+              </div>
+            </div>
+          </li>
+        </template>
+      </ul>
+      <div class="d-flex justify-content-center" v-if="jobsList.length === 0">
+        <img
+          class="img--searchNoJob"
+          src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385211015.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=F0Wk9lSjiNEPR9Oc2yUH%2FsytXi9oZAK9mQfxq5pEsNm%2FkYws1ORyXtgI3GxhfKA144%2F70tZX5321YS22Ta%2B9sdNPTtUUUIdWY1fQgSf95yMxikEYSVSpb%2FtKGlZvlcJy6kFokL6Ktv3CYncDq%2B1AVDPtZf7avLr8bdcDYoxsDgeSNoKESY%2BZIQDcLI6c3t%2BfROBH3NZkBTBrTa98P%2FeCywVqtNkfMfZpoewZyqptrn0rptafi6iQurKFCpTbOTvUAdiM0dnsHiEyzVwigDrN%2FNtaxR%2BwdTPDnAE2fS6QMx%2B2kjNa32GEjbkQ7fCcbYTPiQ0%2FQMDTpX8lfSwhG5knbA%3D%3D"
+          alt="找不到職位"
+        />
       </div>
     </div>
-    <PagenationModal
-      :jobs-list="jobsList"
-      @change-page="changePage"
-    />
+    <PagenationModal :jobs-list="jobsList" @change-page="changePage" />
   </div>
   <div class="sideBtnBox">
     <UpTopBtn />

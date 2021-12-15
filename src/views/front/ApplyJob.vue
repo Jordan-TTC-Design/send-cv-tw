@@ -98,7 +98,7 @@
                       }}
                     </p>
                     <p class="mb-3">工作內容：</p>
-                    <div class="page__txt" v-html="jobItem.content"></div>
+                    <div class="bodyTxt" v-html="jobItem.content"></div>
                   </div>
                 </div>
                 <div class="applySideBox__section" @click="openApplySideSection('應徵條件')">
@@ -122,7 +122,7 @@
                       }}
                     </p>
                     <p class="mb-3">其他條件：</p>
-                    <div class="page__txt" v-html="jobItem.options.job.otherRequirement"></div>
+                    <div class="bodyTxt" v-html="jobItem.options.job.otherRequirement"></div>
                   </div>
                 </div>
                 <div class="applySideBox__section" @click="openApplySideSection('申請方法')">

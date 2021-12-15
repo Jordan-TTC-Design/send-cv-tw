@@ -1,0 +1,52 @@
+// 後台日曆
+.calendar {
+  background-color: $light;
+  border-radius: 0.5rem;
+  table {
+    width: 100%;
+    td {
+      border-right: 1px solid $gray-line;
+      border-bottom: 1px solid $gray-line;
+      &:last-child {
+        border-right: 0;
+      }
+    }
+  }
+  &__header {
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $gray-line;
+  }
+  &__weekBox {
+    display: flex;
+    border-bottom: 1px solid $gray-line;
+    &__day {
+      flex-grow: 1;
+      width: calc(100% / 7);
+      padding: 0.75rem 0;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: $fw--rg;
+      &:hover {
+        background-color: $gray-light;
+      }
+    }
+  }
+  &__dayBox {
+    display: flex;
+    &__date {
+      flex-grow: 1;
+      width: calc(100% / 7);
+      padding: 0.75rem;
+      min-height: 120px;
+      &.nextMonth {
+        background-color: rgba($color: $gray-line, $alpha: 0.5);
+      }
+      &:hover {
+        background-color: $gray-light;
+      }
+    }
+  }
+}

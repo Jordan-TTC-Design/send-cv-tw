@@ -82,20 +82,13 @@
                 </div>
               </li>
               <li class="infoList__item list--last">
-                <div
-                  class="
-                    d-flex
-                    flex-lg-row flex-column
-                    justify-content-between
-                    align-items-lg-center align-items-start
-                  "
-                >
-                  <div class="mb-lg-0 mb-3">
-                    <p class="infoList__item__title">刪除帳號</p>
-                    <p class="infoList__item__content">
-                      點擊刪除帳號後帳號依舊會保留7 天，於此期間內隨時可以選擇取消刪除。
-                    </p>
-                  </div>
+                <div class="mb-lg-0 mb-3">
+                  <p class="infoList__item__title">刪除帳號</p>
+                  <p class="infoList__item__content">
+                    點擊刪除帳號後帳號依舊會保留7 天，於此期間內隨時可以選擇取消刪除。
+                  </p>
+                </div>
+                <div class="infoList__btnBox">
                   <button type="button" class="btn btn-outline-danger text-nowrap">刪除帳號</button>
                 </div>
               </li>

@@ -83,7 +83,7 @@
           <div v-if="modalAction === '變更目標職務'">
             <div class="popModal__header popModal__header--left">
               <h5 class="popModal__title">目標職務</h5>
-              <p class="subTxt text-secondary">最多選擇10項</p>
+              <p class="subTxt--foil">最多選擇10項</p>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <div class="popModal__body px-0">
@@ -167,7 +167,7 @@
           <div v-if="modalAction === '變更目標行業'">
             <div class="popModal__header popModal__header--left">
               <h5 class="popModal__title">目標行業</h5>
-              <p class="subTxt text-secondary">最多選擇10項</p>
+              <p class="subTxt--foil">最多選擇10項</p>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <div class="popModal__body px-0">
@@ -204,7 +204,7 @@
           <div v-if="modalAction === '變更求職地區'">
             <div class="popModal__header popModal__header--left">
               <h5 class="popModal__title">求職地區</h5>
-              <p class="subTxt text-secondary">最多選擇10項</p>
+              <p class="subTxt--foil">最多選擇10項</p>
               <button type="button" class="btn-close" @click="closeModal"></button>
             </div>
             <div class="popModal__body px-0">

@@ -1,0 +1,105 @@
+// 公司頁面
+.companyPage {
+  .jobContent__imgBox {
+    width: auto;
+    margin-right: 12px;
+  }
+  .companyJobList {
+    .jobList__item {
+      width: calc(50% - 8px);
+      position: relative;
+      border: 1px solid $gray-line;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s;
+      &:hover {
+        border: 1px solid $primary;
+      }
+      @include md {
+        width: 100%;
+      }
+      .collectBtn {
+        border: 1px solid $gray-line;
+      }
+      &__imgBox {
+        width: 30%;
+        position: relative;
+        margin-right: 1.5rem;
+        .jobImg {
+          max-width: 100%;
+          border-radius: 0.25rem;
+        }
+      }
+      &__txtBox {
+        text-decoration: none;
+        font-weight: 500;
+      }
+    }
+  }
+  .collectBtn--company {
+    border-radius: 0.5rem;
+    color: $dark;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    transition: all 0.3s;
+    min-width: 110px;
+    .jobIcon {
+      font-size: 1rem;
+    }
+    &.active {
+      background-color: $primary-light;
+      border: 1px solid $primary-light;
+      color: $primary;
+      .jobIcon {
+        color: $primary;
+      }
+    }
+  }
+  .collectBtn--company--phone {
+    border-radius: 0.5rem;
+    color: $dark;
+    transition: all 0.3s;
+    min-width: 110px;
+    .jobIcon {
+      font-size: 1rem;
+    }
+    &.active {
+      background-color: $primary-light;
+      border: 1px solid $primary-light;
+      color: $primary;
+      .jobIcon {
+        color: $primary;
+      }
+    }
+  }
+}
+.companyInfoBox {
+  padding: 1.5rem;
+  background-color: $light;
+  border-radius: 0.5rem;
+  &__logoImgBox {
+    padding: 0.25rem;
+    width: 240px;
+    border-radius: 0.5rem;
+    background-color: $light;
+    border: 1px solid $gray-line;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logoImg {
+      width: 100%;
+    }
+    @include md {
+      width: 180px;
+      border-radius: 0.25rem;
+    }
+  }
+  &__txtBox {
+    width: 100%;
+  }
+}
+.collectBtn.pageState {
+  top: 24px;
+  right: 24px;
+}

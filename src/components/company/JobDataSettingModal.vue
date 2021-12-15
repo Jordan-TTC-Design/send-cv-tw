@@ -16,7 +16,7 @@
         <div v-if="modalAction === '職務類別'">
           <div class="popModal__body">
             <div class="popModal__body__subNav justify-content-end">
-              <p class="subTxt text-secondary">最多選擇3項</p>
+              <p class="subTxt--foil">最多選擇3項</p>
             </div>
             <div class="dataForm border-top border-gray-line">
               <div class="dataForm__leftList">
@@ -93,7 +93,7 @@
         <div v-if="modalAction === '駕照需求'">
           <div class="popModal__body">
             <div class="popModal__body__subNav justify-content-end">
-              <p class="subTxt text-secondary">最多選擇3項</p>
+              <p class="subTxt--foil">最多選擇3項</p>
             </div>
             <div class="dataForm border-top border-gray-line">
               <div class="dataForm__contentBox w-100">

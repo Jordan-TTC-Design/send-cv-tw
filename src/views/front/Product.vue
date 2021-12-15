@@ -3,8 +3,8 @@
     <div class="container-fuild">
       <div class="container jobPage" v-if="isExist">
         <div class="row">
-          <div class="col-lg-9 col-12">
-            <div class="jobInfoBox box--shadow mb-3 position-relative">
+          <div class="col-lg-9">
+            <div class="jobContentBox jobInfoBox box--shadow mb-3">
               <button
                 class="collectBtn btn btn-outline-gray-line position-absolute pageState"
                 type="button"
@@ -30,11 +30,11 @@
                     />
                   </div>
                 </div>
-                <div class="jobInfoBox__txtBox d-flex flex-column justify-content-between">
+                <div class="jobInfoBox__txtBox">
                   <div class="pt-3 d-md-block d-flex flex-column align-items-center">
-                    <h2 class="page__title">{{ jobItem.title }}</h2>
+                    <h2 class="pageTitle mb-3">{{ jobItem.title }}</h2>
                     <router-link
-                      class="page__link subTxt mb-4 d-block"
+                      class="txtLink subTxt mb-4 d-block"
                       :to="`/products-list/company/${temCompany.id}`"
                       >{{ jobItem.options.company.companyName }}</router-link
                     >
@@ -64,7 +64,7 @@
                       >
                         薪資面議
                       </p>
-                      <p class="subTxt text-secondary text-end">
+                      <p class="subTxt--foil text-end">
                         {{ $filters.date(jobItem.options.job.create) }}
                       </p>
                     </div>
@@ -85,7 +85,7 @@
                 </button>
               </div>
             </div>
-            <div class="jobContentSection box--shadow mb-3">
+            <div class="jobContentBox box--shadow mb-3">
               <h3 class="section__title--sub"><span class="title__icon"></span>職位內容</h3>
               <p class="mb-2">
                 <i class="jobIcon--sm me-1 bi bi-journal"></i>工作性質：{{
@@ -108,7 +108,7 @@
               <p class="mb-2">工作內容：</p>
               <div v-html="jobItem.content"></div>
             </div>
-            <div class="jobContentSection box--shadow mb-3">
+            <div class="jobContentBox box--shadow mb-3">
               <h3 class="section__title--sub"><span class="title__icon"></span>應徵條件</h3>
               <p class="mb-2">
                 <i class="jobIcon--sm me-1 bi bi-book"> </i>學歷要求：{{
@@ -123,7 +123,7 @@
               <p class="mb-2">其他條件：</p>
               <div v-html="jobItem.options.job.otherRequirement"></div>
             </div>
-            <div class="jobContentSection box--shadow mb-lg-0 mb-3">
+            <div class="jobContentBox box--shadow mb-lg-0 mb-3">
               <h3 class="section__title--sub"><span class="title__icon"></span>申請方法</h3>
               <p class="mb-2">
                 <i class="jobIcon--sm me-1 bi bi-person"></i>職位聯絡人：{{
@@ -144,8 +144,8 @@
               <div v-html="jobItem.options.job.otherApplyInfo"></div>
             </div>
           </div>
-          <div class="col-lg-3 col-12">
-            <div class="jobSubBox box--shadow mb-lg-3 p-3 d-lg-block d-none">
+          <div class="col-lg-3">
+            <div class="jobSideBox box--shadow mb-lg-3 p-3 d-lg-block d-none">
               <img class="applyImg" src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385277862.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=BRxSUwMJosEUEVSuPcucwYvuPW1QLTLPBJ0U%2BQxlXJ9RGEdRrsAt4dB9K4nAZk8iOBRsfxUxGfPF40zX0rV1TU6tP5LbQZbySQV3Oy7hErt9B0F2I4OR7PDK8WiOc7tiue5xZK7q6%2FvCRaf5KyuHYTr8yYD4WsArtfdjd9r9K%2Fk9a974eMZEM6yII8PRciNDDpK6rPQPyHi1NflqCEoJsxh4UdW3Q%2BXp4avtMAhA2ZqOB3RRT%2FY%2BJ%2F7h1k6rB8buzuwyQWXBXrFR9xWP8G5sIuQEnGy59oBqdBH5kpiWzt2NA5OijLDOoX2DN%2Fpr2OFWwNcfSbP5bdOUtwBLLF8N3A%3D%3D" alt="申請職位在這裡" />
               <router-link
                 class="btn btn-lg btn-primary w-100"
@@ -156,9 +156,9 @@
             </div>
             <div
               v-if="jobItem.options.company.companyImagesUrl.length > 0"
-              class="jobSubBox jobPage__companyImage box--shadow mb-3"
+              class="jobSideBox jobPage__companyImage box--shadow mb-3"
             >
-              <h5 class="jobSubBox__title">公司照片</h5>
+              <h5 class="jobSideBox__title">公司照片</h5>
               <div class="companyImgBox">
                 <img
                   class="mb-2 putPointer"

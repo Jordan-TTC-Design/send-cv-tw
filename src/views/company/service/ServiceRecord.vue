@@ -67,7 +67,7 @@
                   <span class="tag--doubleCircle--company me-2"></span>{{ mainContentList }}
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.adTokens }}</p>
-                <p class="subTxt text-secondary">
+                <p class="subTxt--foil">
                   剩餘的額度不夠使用嗎？您可以點擊購買額度，可立即加入購物車！
                 </p>
               </div>
@@ -251,7 +251,7 @@
                   <span class="tag--doubleCircle--company me-2"></span>粉絲專頁廣告
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.bannerTokens }}</p>
-                <p class="subTxt text-secondary">
+                <p class="subTxt--foil">
                   剩餘的額度不夠使用嗎？您可以點擊購買額度，可立即加入購物車！
                 </p>
               </div>
@@ -415,7 +415,7 @@
                   <span class="tag--doubleCircle--company me-2"></span>推廣職位
                 </h3>
                 <p class="mb-2">剩餘額度：{{ company.payService.jobPromoteTokens }}</p>
-                <p class="subTxt text-secondary">
+                <p class="subTxt--foil">
                   剩餘的額度不夠使用嗎？您可以點擊購買額度，可立即加入購物車！
                 </p>
               </div>

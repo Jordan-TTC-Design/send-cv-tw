@@ -1,7 +1,7 @@
 <template>
   <div class="page--py">
     <div ref="recommedJobs" class="section">
-      <div class="container">
+      <div class="container-xl">
         <h3 class="section__title ps-3">推薦職位</h3>
         <swiper
           v-if="hotJobs.length > 0"
@@ -27,13 +27,13 @@
         </swiper>
       </div>
     </div>
-    <div ref="jobsListContainer" class="jobsListContainer container">
+    <div ref="jobsListContainer" class="jobsListContainer container-xl">
       <h3 class="section__title ps-3">全部職位</h3>
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
-      <div class="row">
-        <div class="col-lg-6 col-12" v-if="jobsList.length > 0">
+      <div class="row row-cols-lg-2 row-cols-1">
+        <div class="col" v-if="jobsList.length > 0">
           <div class="jobListBox">
             <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
               <p class="text-secondary fw-normal  text-nowrap">
@@ -62,7 +62,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-6 col-12 d-lg-block d-none" v-if="jobsList.length > 0">
+        <div class="col d-lg-block d-none" v-if="jobsList.length > 0">
           <JobListSideJobBox
             ref="jobSelectBox"
             :select-job-item="jobItem"

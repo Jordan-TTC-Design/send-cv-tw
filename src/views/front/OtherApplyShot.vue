@@ -8,7 +8,7 @@
               class="d-flex flex-column align-items-center border-bottom border-gray-line mb-5"
               v-if="formStep < 5"
             >
-              <div class="titleBox">
+              <div class="titleBox mb-5">
                 <div class="tag--doubleCircle me-2"></div>
                 <h2 class="titleBox__title">拍照求職</h2>
               </div>
@@ -159,7 +159,7 @@
                     <div class="form__labelBox">
                       <label for="jobFormPeopleNeed" class="labelBox__label">職務類別</label>
                       <p class="formTag--must">必填</p>
-                      <p class="subTxt ms-2 text-secondary">(最多選3項)</p>
+                      <p class="subTxt--foil ms-2">(最多選3項)</p>
                     </div>
                     <div class="fakeInput" @click="openJobDataSettingModal('職務類別')">
                       <div class="fakeInput__txtList">
@@ -701,7 +701,7 @@
               </div>
             </Form>
             <div class="d-flex flex-column align-items-center" v-if="formStep === 5">
-              <div class="titleBox">
+              <div class="titleBox mb-5">
                 <h5 class="titleBox__title">已成功送出申請</h5>
               </div>
               <p class="mx-5 text-center mb-4">

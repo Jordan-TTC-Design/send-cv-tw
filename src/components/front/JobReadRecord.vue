@@ -1,6 +1,6 @@
 <template>
-  <div class="jobSubBox box--shadow mb-3">
-    <h5 class="jobSubBox__title">瀏覽紀錄</h5>
+  <div class="jobSideBox box--shadow mb-3">
+    <h5 class="jobSideBox__title">瀏覽紀錄</h5>
     <ul>
       <template v-for="(jobRead, index) in jobReadListReverse" :key="jobRead.id">
         <li class="list__item" v-if="index < 6">

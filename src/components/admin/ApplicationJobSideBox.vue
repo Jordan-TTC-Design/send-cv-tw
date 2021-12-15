@@ -1,5 +1,5 @@
 <template>
-  <div ref="sideJobBox" class="sideJobBox sideJobBox--sticky box--shadow">
+  <div ref="sideJobContainer" class="sideJobContainer sideJobContainer--sticky box--shadow">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="mb-3">
         <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
@@ -24,7 +24,7 @@
     </div>
     <div class="pb-5">
       <div class="d-flex mb-3">
-        <div class="sideJobBox__imgBox">
+        <div class="sideJobContainer__imgBox">
           <img class="jobImage mt-3" :src="jobItem.imageUrl" :alt="`${jobItem.title}職位圖片`" />
           <div class="logoImageBox">
             <img
@@ -34,30 +34,30 @@
             />
           </div>
         </div>
-        <div class="sideJobBox__txtBox">
+        <div class="sideJobContainer__txtBox">
           <div>
             <router-link
-              class="sideJobBox__title mb-3 d-block"
+              class="sideJobContainer__title mb-3 d-block"
               type="button"
               :to="`/products-list/product/${jobItem.id}`"
               >{{ jobItem.title }}</router-link
             >
             <router-link
-              class="page__txt page__link subTxt mb-4 d-block"
+              class="txtLink subTxt mb-4 d-block"
               type="button"
               :to="`/products-list/company/${jobItem.options.company.companyLink}`"
               >{{ jobItem.options.company.companyName }}</router-link
             >
           </div>
-          <p class="page__txt me-5 subTxt">
+          <p class="subTxt me-5">
             <span><i class="jobIcon--sm me-1 bi bi-geo-alt"></i></span
             >{{ jobItem.options.company.companyAddressCity }}
           </p>
-          <p class="page__txt subTxt" v-if="!jobItem.options.job.salaryInterView">
+          <p class="subTxt" v-if="!jobItem.options.job.salaryInterView">
             <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
             {{ jobItem.price }} / 月薪
           </p>
-          <p class="page__txt subTxt" v-if="jobItem.options.job.salaryInterView">
+          <p class="subTxt" v-if="jobItem.options.job.salaryInterView">
             <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
             薪資面議
           </p>
@@ -244,7 +244,7 @@
       </ul>
     </div>
     <div v-if="boxSubNav === '職位內容'">
-      <div class="sideJobBox__section">
+      <div class="sideJobContainer__section">
         <h3 class="section__title--sub"><span class="title__icon"></span>職位內容</h3>
         <p class="mb-3">
           <i class="jobIcon--sm me-1 bi bi-journal"></i>工作性質：{{ jobItem.options.job.workType }}
@@ -265,9 +265,9 @@
           }}
         </p>
         <p class="mb-3">工作內容：</p>
-        <div class="page__txt" v-html="jobItem.content"></div>
+        <div class="bodyTxt" v-html="jobItem.content"></div>
       </div>
-      <div class="sideJobBox__section">
+      <div class="sideJobContainer__section">
         <h3 class="section__title--sub"><span class="title__icon"> </span>應徵條件</h3>
         <p class="mb-3">
           <span><i class="jobIcon--sm me-1 bi bi-book"></i></span>學歷要求：{{
@@ -280,9 +280,9 @@
           }}
         </p>
         <p class="mb-3">其他條件：</p>
-        <div class="page__txt" v-html="jobItem.options.job.otherRequirement"></div>
+        <div class="bodyTxt" v-html="jobItem.options.job.otherRequirement"></div>
       </div>
-      <div class="sideJobBox__section">
+      <div class="sideJobContainer__section">
         <h3 class="section__title--sub"><span class="title__icon"></span>申請方法</h3>
         <p class="mb-3">
           <span><i class="jobIcon--sm me-1 bi bi-person"></i></span>職位聯絡人：{{
@@ -300,7 +300,7 @@
           }}
         </a>
         <p class="mb-3">申請備註：</p>
-        <div class="page__txt" v-html="jobItem.options.job.otherApplyInfo"></div>
+        <div class="bodyTxt" v-html="jobItem.options.job.otherApplyInfo"></div>
       </div>
     </div>
   </div>
@@ -342,7 +342,7 @@ export default {
       emitter.emit('open-collect-modal', item);
     },
     toTop() {
-      this.$refs.sideJobBox.scrollTop = 0;
+      this.$refs.sideJobContainer.scrollTop = 0;
     },
   },
   created() {

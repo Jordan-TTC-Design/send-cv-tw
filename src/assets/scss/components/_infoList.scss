@@ -25,6 +25,7 @@
       padding: 0.75rem 1.5rem;
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       &:hover {
         .socialMediaBox__title {
           color: $primary-dark;
@@ -112,7 +113,7 @@
       align-items: stretch;
       .infoList__btnBox{
         display: flex;
-        align-self: end;
+        align-self: flex-end;
         padding-top: 0.75rem;
         .btn{
           flex-grow: 1;
@@ -128,7 +129,7 @@
 }
 
 // 多項值組成的橫向列表
-.infoList__item {
+.infoList {
   .infoList__innerList {
     display: flex;
     flex-wrap: wrap;
@@ -175,59 +176,18 @@
     .btn--edit {
       min-width: 78px;
     }
-    .infoList__item__skillList {
-      display: flex;
-      flex-wrap: wrap;
-      &__skill {
-        position: relative;
-        margin-right: 0.5rem;
-        padding-right: 0.5rem;
-        &::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          right: 0;
-          border-right: 1px solid $gray-line;
-        }
-        &:last-child {
-          &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            border-right: 0;
-          }
-        }
-      }
-    }
   }
-  &.show--normal {
-    border-bottom: 0px;
-    .infoList__item__titleBox {
-      border-radius: 0.5rem;
-      background-color: $gray-light;
-      padding: 0.25rem 0.75rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.75rem;
-      p {
-        color: $dark;
-        font-weight: $fw--md;
-      }
-    }
-    .infoList__item__skillList {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      &__skill {
-        position: relative;
-        width: calc(50% - 10px);
-        padding: 0.75rem 0;
-        border-bottom: 1px solid $gray-line;
-      }
-    }
+}
+// 針對按鈕換行部分修改
+.infoList.infoList--withBtn.infoList--row{
+  .infoList__item{
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .infoList__btnBox{
+    padding-top: 0;
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: 0.75rem;
   }
 }

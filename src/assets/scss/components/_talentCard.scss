@@ -1,7 +1,7 @@
 .talentCard {
   background-color: $white;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   position: relative;
   &__body {
     flex-grow: 1;
@@ -9,7 +9,7 @@
   }
   &__btnBox {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: flex-end;
     padding: 1rem;
     align-self: stretch;
@@ -62,7 +62,7 @@
     }
     &__userImgBox {
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
       padding: 0;
     }
     &__personalImg {

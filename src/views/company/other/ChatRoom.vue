@@ -44,7 +44,7 @@
                 <p class="jobTag me-2">100%</p>
                 <p class="jobTag">{{ item.applyState }}</p>
               </div>
-              <p class="subTxt text-secondary">2021/10/12</p>
+              <p class="subTxt--foil">2021/10/12</p>
             </div>
           </li>
         </template>
@@ -165,7 +165,7 @@
             >
               <i
                 class="jobIcon bi bi-chat-left-quote-fill"
-                :class="{ 'text-primary-dark': rightContainer === 'messageTemplate' }"
+                :class="{ 'text-primary-dark': openInfoArea === 'messageTemplate' }"
               ></i>
             </button>
           </div>
@@ -213,7 +213,7 @@
             </p>
             <p>{{ user.account.gender }} | {{ `28歲` }}</p>
           </div>
-          <p class="subTxt text-secondary">最後活動日期：2021/12/12</p>
+          <p class="subTxt--foil">最後活動日期：2021/12/12</p>
         </div>
       </div>
       <div ref="sideJobBox" class="sideJobBox pt-0">
@@ -221,9 +221,9 @@
           <ul class="infoList infoList--company">
             <li class="infoList__item show--compressed">
               <p class="infoList__item__title">求職意向</p>
-              <ul class="infoList__item__skillList">
-                <li class="infoList__item__skillList__skill">ui設計師</li>
-                <li class="infoList__item__skillList__skill">前端工程師</li>
+              <ul class="infoList__innerList">
+                <li class="infoList__innerList__item">ui設計師</li>
+                <li class="infoList__innerList__item">前端工程師</li>
               </ul>
             </li>
             <li class="infoList__item infoList__item--job">
@@ -277,9 +277,9 @@
             </li>
             <li class="infoList__item show--compressed">
               <p class="infoList__item__title">具備駕照</p>
-              <ul class="infoList__item__skillList">
+              <ul class="infoList__innerList">
                 <template v-for="(item, index) in user.others.driverLicenses" :key="index">
-                  <li v-if="item.select" class="infoList__item__skillList__skill">
+                  <li v-if="item.select" class="infoList__innerList__item">
                     {{ item.name }}
                   </li>
                 </template>
@@ -287,9 +287,9 @@
             </li>
             <li class="infoList__item show--compressed" v-if="user.others.identities.length !== 0">
               <p class="infoList__item__title">特殊身份</p>
-              <ul class="infoList__item__skillList">
+              <ul class="infoList__innerList">
                 <template v-for="(item, index) in user.others.identities" :key="index">
-                  <li v-if="item.select" class="infoList__item__skillList__skill">
+                  <li v-if="item.select" class="infoList__innerList__item">
                     {{ item.name }}
                   </li>
                 </template>

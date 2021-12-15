@@ -2,7 +2,7 @@
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl position-relative companyPage">
-      <div class="row justify-content-center">
+      <div class="row">
         <!-- 企業資料 -->
         <div class="col-lg-9">
           <div class="companyInfoBox box--shadow mb-3">
@@ -15,16 +15,16 @@
                 />
               </div>
               <div class="companyInfoBox__txtBox d-flex flex-column justify-content-center">
-                <h2 class="page__title mb-3">{{ company.companyInfo.companyName }}</h2>
-                <p class="page__txt mb-2">
+                <h2 class="pageTitle mb-3">{{ company.companyInfo.companyName }}</h2>
+                <p class="bodyTxt mb-2">
                   <span><i class="jobIcon--sm me-1 bi bi-geo-alt"></i></span
                   >{{ company.companyInfo.companyAddress }}
                 </p>
-                <p class="page__txt mb-2">
+                <p class="bodyTxt mb-2">
                   <span><i class="jobIcon--sm me-1 bi bi-building"></i></span>
                   {{ company.companyInfo.companyIndustry }}
                 </p>
-                <p class="page__txt">
+                <p class="bodyTxt">
                   <span><i class="jobIcon--sm me-1 bi bi-building"></i></span>
                   {{ company.companyInfo.companySize }}
                 </p>
@@ -32,10 +32,11 @@
             </div>
           </div>
           <div class="companyInfoBox box--shadow mb-3">
-            <div class="d-flex mb-3 justify-content-between">
-              <h3 class="section__title--sub">
-                <span class="tag--doubleCircle me-2"></span>工作照片
-              </h3>
+            <div class="d-flex justify-content-between mb-4">
+              <h4 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
+                公司照片
+              </h4>
               <button
                 type="button"
                 class="btn btn-outline-gray-line btn--text--dark"
@@ -53,35 +54,33 @@
                 新增照片
               </button>
             </div>
-            <div v-if="editDataSection !== 'companyImgsUrl'">
               <div
-                class="d-flex justify-content-between flex-md-row flex-column"
-                v-if="company.companyInfo.companyImgsUrl"
+                class="companyImgBox--companyPage"
+                v-if="company.companyInfo.companyImgsUrl && editDataSection !== 'companyImgsUrl'"
               >
                 <template v-for="(item, index) in company.companyInfo.companyImgsUrl" :key="index">
                   <img
                     v-if="item.url !== ''"
-                    class="companyPage__companyImage mb-md-0 mb-2 putPointer"
+                    class="companyImage putPointer"
                     :src="item.url"
                     :alt="`${company.companyInfo.companyName}公司圖片${index}`"
                     @click="openImgModal(item.url)"
                   />
-                  <div class="emptyCompanyImgBox" v-if="item.url === ''">
+                  <div class="emptyCompanyImgBox companyImage" v-if="item.url === ''">
                     <img
-                      class="emptyCompanyImg"
+                      class="emptyCompanyImg w--100"
                       src="https://i.imgur.com/I2erb3u.png"
                       alt="尚未建立公司照片"
                     />
                   </div>
                 </template>
               </div>
-            </div>
             <div v-if="editDataSection === 'companyImgsUrl'">
-              <div class="d-flex w-100 justify-content-between">
+              <div class="companyImgBox--companyPage">
                 <template
                   v-for="(item, index) in company.companyInfo.companyImgsUrl"
                   :key="`companyImgsUrl${index}`"
-                  ><div class="width--33">
+                  ><div class="companyImage">
                     <ImgInputBoxCompany
                       :imgNumber="index"
                       :mustUpload="index < 1"
@@ -108,10 +107,11 @@
             </div>
           </div>
           <div class="companyInfoBox box--shadow mb-3">
-            <div class="d-flex mb-3 justify-content-between">
-              <h3 class="section__title--sub">
-                <span class="tag--doubleCircle me-2"></span>公司簡介
-              </h3>
+            <div class="d-flex justify-content-between mb-4">
+              <h4 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
+                公司簡介
+              </h4>
               <button
                 type="button"
                 class="btn btn-outline-gray-line btn--text--dark"
@@ -122,7 +122,7 @@
               </button>
             </div>
             <div v-if="editDataSection !== 'companyIntro'">
-              <div class="page__txt" v-html="company.companyInfo.companyIntro"></div>
+              <div class="bodyTxt" v-html="company.companyInfo.companyIntro"></div>
               <div
                 class="py-5"
                 v-if="!company.companyInfo.companyIntro || company.companyInfo.companyIntro === ''"
@@ -158,10 +158,11 @@
           </div>
           <div class="companyInfoBox box--shadow mb-3">
             <div class="pb-5 mb-5 border-bottom border-gray-line">
-              <div class="d-flex mb-3 justify-content-between">
-                <h3 class="section__title--sub">
-                  <span class="tag--doubleCircle me-2"></span>福利制度
-                </h3>
+              <div class="d-flex justify-content-between mb-4">
+                <h4 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
+                福利制度
+              </h4>
                 <button
                   type="button"
                   class="btn btn-outline-gray-line btn--text--dark"
@@ -172,7 +173,7 @@
                 </button>
               </div>
               <div v-if="editDataSection !== 'welfareContent'">
-                <div class="page__txt" v-html="company.companyInfo.welfareContent"></div>
+                <div class="bodyTxt" v-html="company.companyInfo.welfareContent"></div>
                 <div
                   class="py-5"
                   v-if="
@@ -213,10 +214,11 @@
               </div>
             </div>
             <div>
-              <div class="d-flex mb-3 justify-content-between">
-                <h3 class="section__title--sub">
-                  <span class="tag--doubleCircle me-2"></span>服務項目
-                </h3>
+              <div class="d-flex justify-content-between mb-4">
+                <h4 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
+                服務項目
+              </h4>
                 <button
                   type="button"
                   class="btn btn-outline-gray-line btn--text--dark"
@@ -227,7 +229,7 @@
                 </button>
               </div>
               <div v-if="editDataSection !== 'servicesContent'">
-                <div class="page__txt" v-html="company.companyInfo.servicesContent"></div>
+                <div class="bodyTxt" v-html="company.companyInfo.servicesContent"></div>
                 <div
                   class="py-5"
                   v-if="
@@ -271,11 +273,9 @@
           </div>
         </div>
         <div class="col-lg-3">
-          <div class="sideContentBox sticky--pageTop">
+          <div class="jobSideBox sideContentBox sticky--pageTop pb-3">
+            <p class="jobSideBox__title">公司頁面資料完成度</p>
             <ul class="innerList innerList--checkList innerList--company">
-              <li class="p-3 border-bottom border-gray-line">
-                <p class="strongTxt">公司頁面資料完成度</p>
-              </li>
               <li class="innerList__item">
                 <p class="item__title">公司照片</p>
                 <i

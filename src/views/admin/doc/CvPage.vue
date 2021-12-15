@@ -321,9 +321,9 @@
                 <div class="d-flex justify-content-between align-items-start">
                   <div>
                     <p class="infoList__item__title">語言</p>
-                    <ul class="infoList__item__skillList">
+                    <ul class="infoList__innerList">
                       <template v-for="(item, index) in tempCvData.userData.languages" :key="index">
-                        <li class="infoList__item__skillList__skill">
+                        <li class="infoList__innerList__item">
                           <p>{{ item.name }} - {{ item.languageLevel }}</p>
                         </li>
                       </template>
@@ -373,9 +373,9 @@
                 <div class="d-flex justify-content-between align-items-start">
                   <div>
                     <p class="infoList__item__title">證照</p>
-                    <ul class="infoList__item__skillList">
+                    <ul class="infoList__innerList">
                       <template v-for="(item, index) in tempCvData.userData.licenses" :key="index">
-                        <li class="infoList__item__skillList__skill">
+                        <li class="infoList__innerList__item">
                           <p>{{ item.name }}</p>
                         </li>
                       </template>
@@ -429,9 +429,9 @@
                   <div class="d-flex justify-content-between align-items-start">
                     <div>
                       <p class="infoList__item__title">{{ skill.groupName }}</p>
-                      <ul class="infoList__item__skillList">
+                      <ul class="infoList__innerList">
                         <template v-for="item in skill.skillList" :key="item.name">
-                          <li class="infoList__item__skillList__skill">
+                          <li class="infoList__innerList__item">
                             <p>{{ item.name }}</p>
                           </li>
                         </template>
@@ -627,12 +627,12 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">駕照</p>
-                    <ul class="infoList__item__skillList">
+                    <ul class="infoList__innerList">
                       <template
                         v-for="(item, index) in tempCvData.userData.others.driverLicenses"
                         :key="index"
                       >
-                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                        <li v-if="item.select" class="infoList__innerList__item">
                           <p>{{ item.name }}</p>
                         </li>
                       </template>
@@ -644,12 +644,12 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">特殊身份</p>
-                    <ul class="infoList__item__skillList">
+                    <ul class="infoList__innerList">
                       <template
                         v-for="(item, index) in tempCvData.userData.others.identities"
                         :key="index"
                       >
-                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                        <li v-if="item.select" class="infoList__innerList__item">
                           <p>{{ item.name }}</p>
                         </li>
                       </template>
@@ -661,12 +661,12 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">兵役</p>
-                    <ul class="infoList__item__skillList">
+                    <ul class="infoList__innerList">
                       <template
                         v-for="(item, index) in tempCvData.userData.others.militaryServices"
                         :key="index"
                       >
-                        <li v-if="item.select" class="infoList__item__skillList__skill">
+                        <li v-if="item.select" class="infoList__innerList__item">
                           <p>{{ item.name }}</p>
                         </li>
                       </template>

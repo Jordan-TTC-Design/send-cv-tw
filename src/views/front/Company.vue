@@ -1,9 +1,9 @@
 <template>
   <div class="page--py">
     <div class="container-fuild">
-      <div v-if="isExist" class="container companyPage">
+      <div v-if="isExist" class="container-xl companyPage">
         <div class="row">
-          <div class="col-lg-9 col-12">
+          <div class="col-lg-9">
             <div class="companyInfoBox box--shadow mb-3 position-relative">
               <button
                 class="collectBtn--company btn btn-outline-gray-line d-md-flex
@@ -27,25 +27,25 @@
                   class="companyInfoBox__txtBox d-flex flex-column justify-content-between
               align-items-md-start align-items-center pt-3"
                 >
-                  <h2 class="page__title mb-3">{{ companyItem.title }}</h2>
+                  <h2 class="pageTitle mb-3">{{ companyItem.title }}</h2>
                   <div
                     class="d-flex flex-md-row flex-column justify-content-between
                 align-items-end w-100"
                   >
                     <div class="align-self-md-stretch align-self-center">
-                      <p class="page__txt mb-3">
+                      <p class="bodyTxt mb-3">
                         <span><i class="jobIcon--sm me-1 bi bi-geo-alt"></i></span
                         >{{ companyItem.options.companyAddressCity }}，{{
                           companyItem.options.companyAddressDetail
                         }}
                       </p>
-                      <p class="page__txt">
+                      <p class="bodyTxt">
                         <span><i class="jobIcon--sm me-1 bi bi-building"></i></span>
                         {{ companyItem.category }}
                       </p>
                     </div>
                     <div>
-                      <p class="subTxt text-secondary">
+                      <p class="subTxt--foil">
                         {{ $filters.date(companyItem.options.create) }}
                       </p>
                     </div>
@@ -64,11 +64,14 @@
               </div>
             </div>
             <div class="companyInfoBox box--shadow mb-3">
-              <h3 class="section__title--sub"><span class="title__icon"></span>公司照片</h3>
-              <div class="d-flex justify-content-between flex-md-row flex-column">
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                公司照片
+              </h4>
+              <div class="companyImgBox--companyPage">
                 <img
                   v-for="(item, index) in companyItem.imagesUrl"
-                  class="companyPage__companyImage mb-md-0 mb-2 putPointer"
+                  class="companyImage mb-md-0 mb-2 putPointer"
                   :src="item"
                   :alt="`${companyItem.title}公司圖片${index}`"
                   :key="index"
@@ -77,11 +80,17 @@
               </div>
             </div>
             <div class="companyInfoBox box--shadow mb-3">
-              <h3 class="section__title--sub"><span class="title__icon"></span>公司簡介</h3>
-              <div class="page__txt" v-html="companyItem.content"></div>
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                公司簡介
+              </h4>
+              <div class="bodyTxt" v-html="companyItem.content"></div>
             </div>
             <div class="companyInfoBox box--shadow mb-lg-0 mb-3">
-              <h3 class="section__title--sub"><span class="title__icon"></span>公司職位</h3>
+              <h4 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>
+                公司職位
+              </h4>
               <ul class="companyJobList d-flex flex-wrap justify-content-between">
                 <li
                   :data-id="item.id"
@@ -120,7 +129,7 @@
                           :to="`/products-list/product/${item.id}`"
                           >{{ item.title }}</router-link
                         >
-                        <p class="page__txt subTxt mb-2 me-7">
+                        <p class="bodyTxt subTxt mb-2 me-7">
                           {{ item.options.company.companyName }}
                         </p>
                       </div>
@@ -131,7 +140,7 @@
                         <p class="text-primary" v-if="item.options.job.salaryInterView">
                           薪資面議
                         </p>
-                        <p class="subTxt text-secondary">
+                        <p class="subTxt--foil">
                           {{ $filters.date(item.options.job.create) }}
                         </p>
                       </div>
@@ -141,7 +150,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-3 col-12">
+          <div class="col-lg-3">
             <JobReadRecord />
           </div>
         </div>

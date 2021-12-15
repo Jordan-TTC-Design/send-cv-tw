@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container-lg">
+    <div class="container-xl">
       <ul class="row row-cols-xl-3 row-cols-lg-2 row-cols-1 gy-5" v-if="dataReady">
         <li class="col">
           <div class="newScvCard putPointer h-100" @click="openDocModal('newCoverLetter')">

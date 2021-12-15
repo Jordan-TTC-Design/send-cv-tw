@@ -34,7 +34,7 @@ const routes = [
       {
         // 收藏夾
         path: 'collection-folder/:id',
-        component: () => import('../views/front/CollectionFolder.vue'),
+        component: () => import('../views/admin/work/WorkCollectionFolder.vue'),
       },
       {
         // 獨立產品頁面

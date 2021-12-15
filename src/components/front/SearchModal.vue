@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 col-12">
-        <div class="bg-white rounded box--shadow--lg p-md-6 p-3">
+        <div class="bg-white rounded box--shadow--lg py-md-4 px-md-5 p-3">
           <form class="banner__searchBar d-flex align-items-center" @submit="toSearchJob">
             <div
               class="
@@ -27,7 +27,7 @@
                   v-model="filterData.keyword"
                 />
               </div>
-              <div class="form__input flex-grow-1 me-md-4 mb-md-0 mb-3">
+              <div class="form__input flex-grow-1 me-md-4">
                 <div class="form__labelBox">
                   <label for="searchFilterTop-city" class="labelBox__label form-label">地區</label>
                 </div>
@@ -48,7 +48,9 @@
                   </option>
                 </select>
               </div>
-              <button type="submit" class="btn btn-primary">搜尋職位</button>
+              <div class="form__input">
+                <button type="submit" class="btn btn-primary">搜尋職位</button>
+              </div>
             </div>
           </form>
         </div>

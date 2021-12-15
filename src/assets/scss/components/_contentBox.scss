@@ -176,6 +176,9 @@
   @include md {
     top: 4rem;
   }
+  @include sm {
+    min-width: 75%;
+  }
 }
 //主要的板塊設計
 // 後台主要區塊的板塊設計：分為有無padding、固定高
@@ -217,8 +220,8 @@
   &__header__innerBtnList {
     display: flex;
     flex-grow: 1;
-    align-self: end;
-    align-items: end;
+    align-self: flex-end;
+    align-items: flex-end;
     @include sm {
       background-color: $light;
       position: fixed;
@@ -228,7 +231,7 @@
       z-index: 999;
       padding: 0.75rem 1rem;
       box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16);
-      justify-content: end;
+      justify-content: flex-end;
     }
   }
   .jobImgBox {
@@ -259,5 +262,10 @@
 .sideContentBox.payBillBox{
   @include md{
     min-height:auto;
+  }
+}
+.sideContentBox.jobSideBox{
+  @include md{
+  min-height: auto;
   }
 }

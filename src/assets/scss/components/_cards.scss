@@ -116,6 +116,23 @@
     overflow: hidden;
   }
 }
+.scvCard.scvCard--video {
+  @include md {
+    padding: 0.75rem;
+    flex-direction: row;
+    .scvCard__body {
+      width: 100%;
+    }
+    .scvCard__img--top {
+      position: static;
+      max-height: 120px;
+      max-width: 160px;
+      object-fit: cover;
+      width: auto;
+      border-radius: 0.25rem;
+    }
+  }
+}
 // 後台新增項目用，屬於按鈕類型
 .newScvCard {
   border: 1px dashed $secondary;
@@ -137,7 +154,7 @@
   display: flex;
   border-bottom: 1px solid $gray-line;
   @include bg--hover;
-  &__header{
+  &__header {
     padding: 0.75rem;
     width: 24%;
   }
@@ -146,13 +163,13 @@
     object-fit: cover;
     width: 100%;
   }
-  &__body{
+  &__body {
     flex-grow: 1;
     padding: 0.75rem;
   }
   &__btnBox {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: flex-end;
     align-self: stretch;
     padding: 0.75rem;
@@ -171,9 +188,9 @@
       margin-right: 0.75rem;
     }
   }
-  @include md{
+  @include md {
     flex-direction: column;
-    &__header{
+    &__header {
       width: 100%;
     }
     &__img {
@@ -181,6 +198,45 @@
     }
     &__btnBox {
       display: none;
+    }
+  }
+}
+
+.companyCardList {
+  .companyCard {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    @include border-bottom;
+    background-color: $light;
+    border-radius: 0.5rem;
+    &__header {
+      padding: 0.75rem;
+      display: flex;
+      align-items: center;
+    }
+    &__body {
+      padding: 0.75rem;
+    }
+    &__salaryBox {
+      width: 10%;
+    }
+    &__btnBox {
+      display: flex;
+      justify-content: flex-end;
+      position: absolute;
+      right: 0.75rem;
+      top: 0.75rem;
+    }
+    &__logoImgBox {
+      padding: 0.25rem;
+      border: 1px solid $gray-line;
+      border-radius: 0.25rem;
+      height: 78px;
+      .logoImg {
+        border: 0;
+        height: 100%;
+      }
     }
   }
 }

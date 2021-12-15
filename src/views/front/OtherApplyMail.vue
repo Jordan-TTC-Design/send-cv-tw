@@ -8,7 +8,7 @@
               class="d-flex flex-column align-items-center border-bottom border-gray-line mb-5"
               v-if="formStep < 4"
             >
-              <div class="titleBox">
+              <div class="titleBox mb-5">
                 <div class="tag--doubleCircle me-2"></div>
                 <h2 class="titleBox__title">寫郵件 SendCV</h2>
               </div>
@@ -463,7 +463,7 @@
               <!-- 表單操作按鈕 -->
             </Form>
             <div class="d-flex flex-column align-items-center" v-if="formStep === 4">
-              <div class="titleBox">
+              <div class="titleBox mb-5">
                 <h5 class="titleBox__title">已成功送出申請</h5>
               </div>
               <p class="mx-5 text-center mb-4">

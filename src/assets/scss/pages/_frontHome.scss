@@ -1,0 +1,333 @@
+// 首頁的
+.mainBanner {
+  position: relative;
+  z-index: 1;
+  &__logo {
+    max-width: 5.5rem;
+  }
+  &__title {
+    font-size: 1.25rem;
+    @include md {
+      font-size: 2.5rem;
+    }
+    @include sm {
+      font-size: 2rem;
+    }
+  }
+  &__innerBox {
+    margin: 5rem 0;
+    padding: 1.5rem;
+    @include md {
+      padding-top: 2.75rem;
+    }
+  }
+  &__txtBox {
+    @include md {
+      text-align: center;
+      padding-top: 0.75rem;
+      padding-bottom: 7.5rem;
+    }
+    @include sm {
+      padding-bottom: 7rem;
+    }
+  }
+  &__bgBox {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    &__bg {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      &--left {
+        width: 20%;
+        left: 0;
+      }
+      &--right {
+        width: 80%;
+        right: 0;
+      }
+    }
+  }
+  &__img {
+    position: absolute;
+    object-fit: cover;
+    height: 100%;
+    max-width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    @include md {
+    }
+    @include sm {
+    }
+  }
+  &__searchBar__tagList {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: -0.75rem;
+    .jobTag {
+      margin-right: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+}
+//首頁熱門職位
+.sectionHotJob {
+  @include md {
+    padding-bottom: 2rem;
+  }
+}
+.card--hotJob {
+  padding: 1rem;
+  position: relative;
+  min-height: 200px;
+  width: 100%;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.36);
+  background-blend-mode: multiply;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 1;
+  .btn--circle {
+    z-index: 10;
+  }
+  .card__title {
+    color: $light;
+    transition: all 0.3s;
+    &:hover {
+      color: darken($light, 16%);
+    }
+  }
+  .card__txt {
+    color: $light;
+    transition: all 0.3s;
+    &:hover {
+      color: darken($light, 16%);
+    }
+  }
+  .card__subTxt {
+    color: $light;
+    font-size: 0.875rem;
+  }
+  @include md {
+    min-height: 240px;
+  }
+  &.card--lg {
+    height: 100%;
+    .card__title {
+      font-size: 1.25rem;
+    }
+  }
+  &.card--sm {
+    .card__title {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .card__txt {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .jobTag {
+    font-size: 0.875rem;
+  }
+  .card__btnBox {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  .collectBtn {
+    width: 44px;
+    border:1px solid $light;
+    .jobIcon {
+      color: $light;
+    }
+    &:hover {
+      .jobIcon {
+        color: $gray-dark;
+      }
+    }
+    &.collected {
+      background-color: $primary;
+      border: 1px solid $primary;
+      .jobIcon {
+        color: $dark;
+      }
+      &:hover {
+        .jobIcon {
+          color: $light;
+        }
+      }
+    }
+  }
+}
+.card--hotJob.card--sm {
+  .card__title {
+    font-size: 16px;
+  }
+  .jobTag {
+    padding: 2px 4px;
+    font-size: 12px;
+  }
+}
+.card--howTo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  transition: all 0.3s;
+  &:hover {
+    background-color: $gray-light;
+  }
+  img {
+    max-width: 80%;
+    margin-bottom: 1.5rem;
+  }
+  .card__txtBox {
+    width: 100%;
+    position: relative;
+    padding-left: 1rem;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 30px;
+      width: 0.25rem;
+      background-color: $primary;
+      border-radius: 0.25rem;
+    }
+  }
+  &--email {
+    padding: 1.5rem;
+    background-color: $light;
+    height: 100%;
+    @include shadow-normal;
+    img {
+      max-width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    &:hover {
+      background-color: $light;
+      @include shadow-md;
+    }
+  }
+}
+// 熱門職位類別
+.hotCategoryBox {
+  position: relative;
+  border-radius: 0.5rem;
+  background-color: $gray-light;
+  min-height: 160px;
+  height: 100%;
+  display: flex;
+  padding: 1rem 1rem 0.5rem 1rem;
+  &:hover {
+    background-color: $primary;
+    p {
+      color: $dark;
+    }
+    .seeMoreBtn {
+      color: $dark;
+      .jobIcon {
+        color: $dark;
+      }
+    }
+  }
+  &:first-child {
+    img {
+      position: absolute;
+      object-fit: contain;
+      top: 0;
+      right: 0;
+      max-height: 100%;
+    }
+  }
+  .seeMoreBtn {
+    cursor: pointer;
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+  }
+}
+.goodJobCard {
+  @include shadow-normal;
+  border: none;
+  .card__link {
+    color: $light;
+    &:hover {
+      color: darken($light, 16%);
+    }
+  }
+  &:hover {
+    @include shadow-md;
+  }
+  .goodJobCard__imgBox {
+    max-height: 180px;
+    position: relative;
+  }
+  .goodJobCard__img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  .img-cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  .goodJobCard__jobInfoBox {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 0.5rem 0.75rem;
+    overflow: hidden;
+    z-index: 1;
+    .goodJobCard__img {
+      position: absolute;
+      // top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      object-fit: cover;
+      object-position: left bottom;
+      filter: blur(10px);
+      z-index: -1;
+    }
+  }
+  .goodJobCard__logo {
+    width: 24%;
+    max-width: 80px;
+    border-radius: 0.25rem;
+    z-index: 99;
+  }
+}
+.goodCardList.swipper--custom {
+  margin-right: calc(var(--bs-gutter-x) / -2);
+  margin-left: calc(var(--bs-gutter-x) / -2);
+  // padding: 0;
+  .goodCard.swipper--custom {
+    padding-right: calc(var(--bs-gutter-x) / 2);
+    padding-left: calc(var(--bs-gutter-x) / 2);
+  }
+}

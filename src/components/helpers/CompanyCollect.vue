@@ -11,9 +11,10 @@
       <div class="modal-content">
         <div class="popModal__body--p">
           <div class="d-flex justify-content-between mb-4">
-            <div>
-              <h3 class="section__title--sub mb-2"><span class="title__icon"></span>取消收藏</h3>
-            </div>
+            <h4 class="sectionTitle--withTag">
+              <span class="sectionTitleTag--double me-2"></span>
+              取消收藏
+            </h4>
             <button type="button" class="btn-close" @click="closeModal"></button>
           </div>
           <p class="text-center mb-4">請問您確定要取消收藏?</p>

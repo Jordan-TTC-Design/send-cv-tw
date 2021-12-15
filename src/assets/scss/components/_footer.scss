@@ -1,0 +1,83 @@
+.footer--front {
+  background-color: $dark;
+  z-index: 1;
+}
+.footer__nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+  // height: 100%;
+  &__item {
+    // border: 1px solid $light;
+    min-width: 30%;
+    max-width: 100%;
+    @include sm {
+      width: 100%;
+      border-bottom: 1px solid $white;
+      &:first-child {
+        border-radius: 0.5rem 0.5rem 0 0;
+      }
+      &:last-child {
+        border: 0;
+        border-radius: 0 0 0.5rem 0.5rem;
+        margin-right: 0;
+      }
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+    &__link {
+      max-width: 100%;
+      transition: all 0.3s;
+      @include sm {
+        width: 100%;
+      }
+      .nav__title {
+        color: $light;
+        margin-right: 0.5rem;
+        transition: all 0.3s;
+      }
+      &:hover {
+        padding-left: 1.5rem;
+      }
+    }
+  }
+}
+.footer__followUsList {
+  display: flex;
+  align-items: center;
+  li {
+    margin-right: 0.5rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .btn--circle {
+    height: 44px;
+    width: 44px;
+    transition: all 0.3s;
+    .jobIcon {
+      color: $light;
+      line-height: 1rem;
+    }
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
+  }
+}
+.footer__appleDownLoadList {
+  display: flex;
+  align-items: center;
+  li {
+    margin-right: 0.5rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .btn {
+    padding: 0;
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
+  }
+}

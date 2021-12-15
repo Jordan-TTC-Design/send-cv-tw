@@ -1,9 +1,9 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container position-relative">
+    <div class="container-xl position-relative">
       <div class="row justify-content-center">
-        <div class="col-lg-9 col-12">
+        <div class="col-xl-10 col-12">
           <div class="admin__mainContent">
             <h3 class="pageSubTitle mb-5">求職意向</h3>
             <div class="remind mb-4">
@@ -13,173 +13,173 @@
               </p>
             </div>
             <div>
-              <ul class="infoList infoList--jobSeeker">
+              <ul class="infoList infoList--jobSeeker infoList--withBtn infoList--row">
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">工作性質</p>
-                      <ul class="infoList__item__skillList">
-                        <template v-for="(item, index) in user.career.workType" :key="index">
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.title }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+                  <div>
+                    <p class="infoList__item__title">工作性質</p>
+                    <ul class="infoList__innerList">
+                      <template v-for="(item, index) in user.career.workType" :key="index">
+                        <li v-if="item.select" class="infoList__innerList__item">
+                          <p>{{ item.title }}</p>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button
                       type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
+                      class="btn text-dark"
                       @click="openSettingModal('變更工作性質')"
                     >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      <i class="jobIcon--sm bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">上班時段</p>
-                      <ul class="infoList__item__skillList">
-                        <template v-for="(item, index) in user.career.workTime" :key="index">
-                          <li v-if="item.select" class="infoList__item__skillList__skill">
-                            <p>{{ item.title }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+                  <div>
+                    <p class="infoList__item__title">上班時段</p>
+                    <ul class="infoList__innerList">
+                      <template v-for="(item, index) in user.career.workTime" :key="index">
+                        <li v-if="item.select" class="infoList__innerList__item">
+                          <p>{{ item.title }}</p>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button
                       type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
+                      class="btn text-dark"
                       @click="openSettingModal('變更上班時段')"
                     >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      <i class="jobIcon--sm bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">目標職務</p>
-                      <ul class="infoList__innerList">
-                        <template v-for="(item, index) in user.career.jobCategories" :key="index">
-                          <template
-                            v-for="(cate, number) in item.categories"
-                            :key="`cate--${number}`"
-                          >
-                            <li v-if="cate.selectAll" class="infoList__innerList__item">
-                              <p>{{ cate.categoryName }}全區</p>
+                  <div>
+                    <p class="infoList__item__title">目標職務</p>
+                    <ul class="infoList__innerList">
+                      <template v-for="(item, index) in user.career.jobCategories" :key="index">
+                        <template
+                          v-for="(cate, number) in item.categories"
+                          :key="`cate--${number}`"
+                        >
+                          <li v-if="cate.selectAll" class="infoList__innerList__item">
+                            <p>{{ cate.categoryName }}全區</p>
+                          </li>
+                          <template v-for="(job, num) in cate.categories" :key="`job--${num}`">
+                            <li v-if="job.select" class="infoList__innerList__item">
+                              <p>{{ job.name }}</p>
                             </li>
-                            <template v-for="(job, num) in cate.categories" :key="`job--${num}`">
-                              <li v-if="job.select" class="infoList__innerList__item">
-                                <p>{{ job.name }}</p>
-                              </li>
-                            </template>
                           </template>
                         </template>
-                      </ul>
-                    </div>
+                      </template>
+                    </ul>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button
                       type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
+                      class="btn text-dark"
                       @click="openSettingModal('變更目標職務')"
                     >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      <i class="jobIcon--sm bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">目標行業</p>
-                      <ul class="infoList__innerList">
-                        <template
-                          v-for="(item, index) in user.career.industryCategories"
-                          :key="index"
-                        >
-                          <li v-if="item.select" class="infoList__innerList__item">
-                            <p>{{ item.industryName }}</p>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+                  <div>
+                    <p class="infoList__item__title">目標行業</p>
+                    <ul class="infoList__innerList">
+                      <template
+                        v-for="(item, index) in user.career.industryCategories"
+                        :key="index"
+                      >
+                        <li v-if="item.select" class="infoList__innerList__item">
+                          <p>{{ item.industryName }}</p>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button
                       type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
+                      class="btn text-dark"
                       @click="openSettingModal('變更目標行業')"
                     >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      <i class="jobIcon--sm bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">求職地區</p>
-                      <ul class="infoList__innerList">
-                        <template v-for="(city, index) in user.career.workPlace" :key="index">
-                          <li v-if="city.selectAll" class="infoList__innerList__item">
-                            <p>{{ city.cityName }}全區</p>
+                  <div>
+                    <p class="infoList__item__title">求職地區</p>
+                    <ul class="infoList__innerList">
+                      <template v-for="(city, index) in user.career.workPlace" :key="index">
+                        <li v-if="city.selectAll" class="infoList__innerList__item">
+                          <p>{{ city.cityName }}全區</p>
+                        </li>
+                        <template v-for="dist in city.district" :key="dist.code">
+                          <li v-if="dist.select" class="infoList__innerList__item">
+                            <p>{{ city.cityName }}，{{ dist.distName }}</p>
                           </li>
-                          <template v-for="dist in city.district" :key="dist.code">
-                            <li v-if="dist.select" class="infoList__innerList__item">
-                              <p>{{ city.cityName }}，{{ dist.distName }}</p>
-                            </li>
-                          </template>
                         </template>
-                      </ul>
-                    </div>
+                      </template>
+                    </ul>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button
                       type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
+                      class="btn text-dark"
                       @click="openSettingModal('變更求職地區')"
                     >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      <i class="jobIcon--sm bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </li>
                 <li class="infoList__item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">外派意願</p>
-                      <ul class="infoList__item__skillList">
-                        <li class="infoList__item__skillList__skill">
-                          <p>
-                            {{ user.career.expat ? '可接受企業外派' : '不接受企業外派' }}
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
+                  <div>
+                    <p class="infoList__item__title">外派意願</p>
+                    <ul class="infoList__innerList">
+                      <li class="infoList__innerList__item">
+                        <p>
+                          {{ user.career.expat ? '可接受企業外派' : '不接受企業外派' }}
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button
                       type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
+                      class="btn text-dark"
                       @click="openSettingModal('變更外派意願')"
                     >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      <i class="jobIcon--sm bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </li>
                 <li class="infoList__item listLast">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <p class="infoList__item__title">薪資範圍</p>
-                      <ul class="infoList__item__skillList">
-                        <li class="infoList__item__skillList__skill">
-                          <p>
-                            {{ user.career.salaryRange.salaryLow }}元 -
-                            {{ user.career.salaryRange.salaryHeight }}元 ，
-                            {{
-                              user.career.salaryRange.salaryInterView ? '可接受面議' : '不接受面議'
-                            }}
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
+                  <div>
+                    <p class="infoList__item__title">薪資範圍</p>
+                    <ul class="infoList__innerList">
+                      <li class="infoList__innerList__item">
+                        <p>
+                          {{ user.career.salaryRange.salaryLow }}元 -
+                          {{ user.career.salaryRange.salaryHeight }}元 ，
+                          {{
+                            user.career.salaryRange.salaryInterView ? '可接受面議' : '不接受面議'
+                          }}
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="infoList__btnBox">
                     <button
                       type="button"
-                      class="btn--edit btn text-dark btn-gray-light"
+                      class="btn text-dark"
                       @click="openSettingModal('變更薪資範圍')"
                     >
-                      <i class="jobIcon--sm bi bi-pencil-square me-1"></i>編輯
+                      <i class="jobIcon--sm bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </li>

@@ -28,7 +28,7 @@
             >{{ jobItem.title }}</router-link
           >
           <router-link
-            class="page__link subTxt mb-2 me-7"
+            class="txtLink subTxt mb-2 me-7"
             :to="`/products-list/company/${jobItem.options.company.companyLink}`"
             >{{ jobItem.options.company.companyName }}</router-link
           >

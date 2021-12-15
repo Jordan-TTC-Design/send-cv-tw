@@ -232,9 +232,9 @@
                   <div>
                     <p class="infoList__item__title">權限設定</p>
                     <p v-if="tempUser.is_admin" class="infoList__item__content">管理員</p>
-                    <ul v-if="!tempUser.is_admin" class="infoList__item__skillList">
+                    <ul v-if="!tempUser.is_admin" class="infoList__innerList">
                       <template v-for="(item, index) in authority" :key="index">
-                        <li class="infoList__item__skillList__skill">
+                        <li class="infoList__innerList__item">
                           <p>{{ item }}</p>
                         </li>
                       </template>

@@ -1,12 +1,9 @@
 // header main set
+
 .header {
   width: 100%;
   position: sticky;
   top: 0;
-  z-index: 888;
-}
-
-.header {
   padding: 0.125rem 1rem;
   border-bottom: 1px solid $light;
   display: flex;
@@ -170,7 +167,51 @@
 .header.header--jobSeeker{
   background-color: $primary;
 }
-//前台header
+.frontStageSubNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary;
+  @include sm {
+    border-bottom: 1px solid $light;
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+  }
+}
+.frontStageSubNav__item {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: $dark;
+    height: 0rem;
+    border-radius: 0.25rem;
+    width: calc(75% - 1rem);
+    bottom: 0rem;
+    left: 50%;
+    transform: translateX(-50%);
+    @include sm {
+      width: calc(100% - 0.25rem);
+      border-radius: 0.25rem 0.25rem 0 0;
+    }
+  }
+  &.active::after {
+    height: 0.25rem;
+  }
+}
+.frontStageSubNav__item__link {
+  color: $dark;
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  @include sm {
+    font-size: 14px;
+  }
+}
 .header.header--company {
   background-color: $companyColor;
   // .menuCover {

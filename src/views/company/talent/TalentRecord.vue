@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <CompanyAdminNav :nowPage="nowPage" />
-    <div class="container-xl position-relative companyPage">
+    <div class="container-xl position-relative">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-3">
           <form
@@ -155,6 +155,11 @@
           </div>
         </div>
       </div>
+      <div class="sideBtnBox d-xl-none">
+      <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
+        <i class="jobIcon bi bi-funnel-fill"></i>
+      </button>
+    </div>
     </div>
   </div>
   <PersonPopModal />

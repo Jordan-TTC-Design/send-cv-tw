@@ -1,0 +1,182 @@
+//職位頁面
+.jobInfoBox {
+  position: relative;
+  display: flex;
+  @include md{
+    flex-direction: column;
+  }
+  &__imgBox {
+    width: 48%;
+    position: relative;
+    margin-right: 3rem;
+    .jobImg {
+      max-width: 100%;
+      border-radius: 0.5rem;
+    }
+    @include md {
+      top: 0;
+      width: 100%;
+      left: 0;
+      height: 16rem;
+      .jobImg {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  &__logoImgBox {
+    position: absolute;
+    max-width: 7.5rem;
+    top: -0.25rem;
+    right: -2.25rem;
+    padding: 6px;
+    background-color: $light;
+    border-radius: 0 0 0 0.25rem;
+    .logoImg {
+      width: 100%;
+      border: 1px solid $gray-line;
+      border-radius: 2px;
+    }
+    @include md {
+      max-width: 4.5rem;
+      padding: 4px;
+      top: 50%;
+      left: 50%;
+      border-radius: 0.25rem;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
+  &__txtBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+.jobContentBox {
+  padding: 1.5rem;
+  background-color: $light;
+  border-radius: 0.5rem;
+  @include md{
+    padding: 1rem;
+  }
+}
+.companyImgBox {
+  padding: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  img {
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+  .companyImage--sub {
+    width: calc(50% - 6px);
+  }
+}
+.companyImgBox--companyPage {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .companyImage {
+    width: calc(33.33333% - 0.5rem);
+    border-radius: 0.5rem;
+  }
+  @include sm{
+    .companyImage {
+      width: calc(50% - 0.5rem);
+    }
+    .companyImage:first-child {
+      width: 100%;
+      margin-bottom: 0.75rem;
+    }
+  }
+}
+.emptyCompanyImgBox {
+  position: relative;
+  border-radius: 0.5rem;
+  .emptyCompanyImg {
+    border-radius: 8px;
+    width: 100%;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba($color: $dark, $alpha: 0.5);
+      border-radius: 0.5rem;
+    }
+  }
+}
+.jobPage__btnBox{
+  background-color: $light;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  @include shadow-normal;
+  border-radius: 0.5rem;
+  @include md{
+    position: fixed;
+    border-radius: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    flex-direction: row-reverse;
+    @include shadow-none;
+    border-top: 1px solid $gray-line;
+  }
+}
+.jobPage--edit{
+  .jobInfoBox__imgBox{
+    height: auto;
+  }
+}
+.jobSideBox {
+  border-radius: 0.5rem;
+  background-color: $light;
+  .applyImg {
+    width: 100%;
+    background-color: $gray-light;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  &__title {
+    color: $dark;
+    font-weight: $fw--md;
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+  }
+  .list__item {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    &:hover {
+      background-color: $gray-light;
+    }
+    &:last-child {
+      border-bottom: 0;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+    &__link,
+    &__link--sub {
+      font-size: 1rem;
+      display: block;
+      cursor: pointer;
+      color: $gray-dark;
+      &:hover {
+        color: $primary;
+      }
+    }
+    &__link--sub {
+      font-size: 14px;
+    }
+    &__time {
+      font-size: 14px;
+      text-align: end;
+      color: $secondary;
+    }
+  }
+}

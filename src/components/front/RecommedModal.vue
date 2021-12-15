@@ -630,7 +630,7 @@
               >
                 <i class="jobIcon bi bi-chevron-left me-2 text-dark"></i>設定目標職務
               </p>
-              <p class="subTxt text-secondary">最多選擇10項</p>
+              <p class="subTxt--foil">最多選擇10項</p>
             </div>
             <div class="dataForm border-top border-gray-line">
               <div class="dataForm__leftList">
@@ -713,7 +713,7 @@
               >
                 <i class="jobIcon bi bi-chevron-left me-2 text-dark"></i>設定目標行業
               </p>
-              <p class="subTxt text-secondary">最多選擇10項</p>
+              <p class="subTxt--foil">最多選擇10項</p>
             </div>
             <div class="dataForm border-top border-gray-line">
               <div class="dataForm__contentBox w-100">
@@ -749,7 +749,7 @@
             >
               <i class="jobIcon bi bi-chevron-left me-2 text-dark"></i>設定求職地區
             </p>
-            <p class="subTxt text-secondary">最多選擇10項</p>
+            <p class="subTxt--foil">最多選擇10項</p>
           </div>
           <div class="popModal__body">
             <div class="dataForm border-top border-gray-line">

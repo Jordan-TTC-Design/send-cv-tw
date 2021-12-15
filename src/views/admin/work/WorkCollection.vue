@@ -1,7 +1,7 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container-lg pageSubNavContainer--sticky mb-5">
+    <div class="container-xl pageSubNavContainer--sticky mb-5">
       <div class="pageSubNav">
         <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
           <li
@@ -21,14 +21,14 @@
         </ul>
       </div>
     </div>
-    <div class="container">
+    <div class="container-xl">
       <div
         ref="collectionBoxList--job"
-        class="bg-light p-6 rounded"
+        class="bg-light p-xl-6 p-4 rounded"
         v-if="pageSubNavState === 'job'"
       >
-        <div class="row">
-          <div class="col-xl-4 col-md-6 col-12">
+        <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
+          <div class="col">
             <div class="collectionBox collectionBox--new" @click="newCollectionFolder">
               <div class="collectionBox__imgBox">
                 <div class="collectionBox__imgBox__item item--fri"></div>
@@ -50,9 +50,9 @@
           </div>
           <template v-for="(folder, index) in jobCollectionList" :key="index">
             <router-link
-              class="col-xl-4 col-md-6 col-12"
+              class="col"
               v-if="jobCollectionList.length > 0"
-              :to="`/collection-folder/${folder.id}`"
+              :to="`/admin/work-collection/${folder.id}`"
             >
               <div class="collectionBox">
                 <div class="collectionBox__imgBox">
@@ -103,7 +103,7 @@
         class="collectionBoxList--company"
         v-if="pageSubNavState === 'company'"
       >
-        <div class="row">
+        <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
           <div class="col-12">
             <p
               class="text-center text-secondary mt-md-6 mt-2"
@@ -113,7 +113,7 @@
             </p>
           </div>
           <template v-for="(company, index) in companyCollectionList" :key="index">
-            <div class="col-xl-4 col-md-6 col-12" v-if="companyCollectionList.length > 0">
+            <div class="col" v-if="companyCollectionList.length > 0">
               <div class="collectionCompanyCard card">
                 <img
                   :src="company.imagesUrl[0]"

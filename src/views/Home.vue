@@ -115,10 +115,10 @@
           </div>
         </div>
       </div>
-      <div class="container">
+      <div class="container-xl">
         <!-- 熱門職位 -->
         <div ref="sectionHotJob" class="sectionHotJob section--py border-bottom border-gray-line">
-          <div class="titleBox">
+          <div class="titleBox mb-5">
             <h3 class="titleBox__title">熱門職位</h3>
             <p class="titleBox__tag titleBox__tag--jobSeeker">推薦</p>
           </div>
@@ -231,7 +231,7 @@
         <!-- 最新職位 -->
         <div class="section--newJob section--py">
           <div class="d-flex align-items-center mb-4">
-            <div class="titleBox mb-0">
+            <div class="titleBox">
               <h3 class="titleBox__title">最新職位</h3>
             </div>
             <button type="button" class="btn btn-primary">
@@ -264,12 +264,12 @@
         </div>
       </div>
       <div class="bg-white">
-        <div class="container">
+        <div class="container-xl">
           <div class="section--py border-bottom border-gray-line">
             <div class="titleBox justify-content-center">
               <h3 class="titleBox__title">如何使用拍照申請功能？</h3>
             </div>
-            <div class="row mb-5 row-cols-lg-3 row-cols-1">
+            <div class="row mb-5 row-cols-md-3 row-cols-1">
               <div class="col">
                 <div class="card--howTo">
                   <img src="@/assets/images/howto/snapJob-howto-1.png" alt="拍照申請說明圖" />
@@ -306,7 +306,7 @@
           </div>
           <div class="recommendCardList section--py" v-if="dataReady">
             <div class="d-flex flex-lg-row flex-column d-flex align-items-center mb-5">
-              <div class="titleBox mb-lg-0">
+              <div class="titleBox mb-lg-0 mb-5">
                 <h3 class="titleBox__title">興趣職位推薦</h3>
               </div>
               <div class="recommendTagList flex-wrap">
@@ -388,7 +388,7 @@
                             >{{ jobItem.title }}</router-link
                           >
                           <router-link
-                            class="page__link subTxt mb-2 me-7"
+                            class="txtLink subTxt mb-2 me-7"
                             :to="`/products-list/company/${jobItem.options.company.companyLink}`"
                             >{{ jobItem.options.company.companyName }}</router-link
                           >
@@ -400,7 +400,7 @@
                           <p class="text-dark" v-if="jobItem.options.job.salaryInterView">
                             薪資面議
                           </p>
-                          <p class="subTxt text-secondary">
+                          <p class="subTxt--foil">
                             {{ $filters.date(jobItem.options.job.create) }}
                           </p>
                         </div>
@@ -423,12 +423,12 @@
           </div>
         </div>
       </div>
-      <div class="container">
+      <div class="container-xl">
         <div class="section--py">
-          <div class="titleBox justify-content-center">
+          <div class="titleBox justify-content-center mb-5">
             <h3 class="titleBox__title">如何使用寫郵件sendCV功能？</h3>
           </div>
-          <div class="row row-cols-lg-3 row-cols-1 mb-5 gy-5">
+          <div class="row row-cols-md-3 row-cols-1 mb-5 gy-5">
             <div class="col">
               <div class="card--howTo card--howTo--email">
                 <img
@@ -474,13 +474,13 @@
         </div>
       </div>
       <div class="bg-white">
-        <div class="container">
+        <div class="container-xl">
           <!-- 熱門職位類別 -->
-          <div class="hotCategory section--py">
-            <div class="titleBox">
+          <div class="section--py">
+            <div class="titleBox justify-content-xl-start justify-content-center mb-5">
               <h3 class="titleBox__title">熱門職位類別</h3>
             </div>
-            <ul class="row hotCategoryList">
+            <ul class="row gy-md-5 gy-4">
               <template
                 v-for="(categoryItem, index) in sortJobCategory"
                 :key="categoryItem.categoryName"
@@ -491,23 +491,21 @@
                   :class="{
                     'col-lg-6 col-12': index === 0,
                     'col-lg-3 col-6': index > 0,
-                    'mb-4': index < 3,
-                    'mb-lg-0 mb-4': index >= 3,
                   }"
                   @click="searchByJobCategory(categoryItem.categoryName)"
                 >
-                  <div class="hotCategoryBox p-md-5 p-3 d-flex">
+                  <div class="hotCategoryBox">
                     <div class="d-flex flex-column justify-content-between">
-                      <p class="mb-3">
+                      <p class="strongTxt text-dark">
                         {{ categoryItem.categoryName }}
                       </p>
-                      <p class="subTxt mb-md-6 mb-3">目前共： {{ categoryItem.jobNum }} 職位</p>
+                      <p class="subTxt mb-md-6 mb-4">目前共： {{ categoryItem.jobNum }} 職位</p>
                       <p class="seeMoreBtn">
-                        查看更多職位 <i class="jobIcon ms-2 bi bi-arrow-right-circle"></i>
+                        查看更多職位 <i class="jobIcon ms-2 bi bi-arrow-right-circle text-dark"></i>
                       </p>
                     </div>
                     <img
-                      :class="{ 'd-none': index > 0 }"
+                      v-if="index === 0"
                       src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385120434.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=c%2BJjXYSstri27f1pLSo%2F7FIdCUatiOT64v9CwBWVyU5QlZao84N9H7BqaSSndTcZQGfiOuqXF9oCQPQhEsGzYCium4PqHPN%2BMU4mAluTcDrpmutUsnwHtg4b%2ByyhltEQsNHmoLAQqjP84IJ%2FNi66BuqmjJ%2BPm8kpng%2B8U60gXQRcW6RVxNqXi4m%2FJBsbAO5wQRaIx1Ndb%2Bh2C2IPAgcwmsPftOqR8%2BKCKAHBwmzQbUXRKe4gmX1kinU1VoqSW0hj1Ae2NRPz1j2PllGf%2B3YZ4dgG62QlSGLSXcU%2BMJSeMfOJSP7M2UxMAdoHHT6Ux6FEK5MfdOEr2G%2F8vrilTG39wg%3D%3D"
                       alt="圖片-根據職位類別搜尋"
                     />
