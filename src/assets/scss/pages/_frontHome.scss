@@ -2,6 +2,12 @@
 .mainBanner {
   position: relative;
   z-index: 1;
+  @include md{
+    margin-bottom: 8rem;
+  }
+  @include sm{
+    margin-bottom: 16rem;
+  }
   &__logo {
     max-width: 5.5rem;
   }
@@ -17,8 +23,14 @@
   &__innerBox {
     margin: 5rem 0;
     padding: 1.5rem;
+    @include shadow-normal;
     @include md {
-      padding-top: 2.75rem;
+      margin:6rem 0 4rem 0;
+      transform: translateY(12rem);
+    }
+    @include sm {
+      margin:8rem 0 0rem 0;
+      transform: translateY(16rem);
     }
   }
   &__txtBox {
@@ -41,6 +53,7 @@
       height: 100%;
       width: 100%;
       z-index: -1;
+      top: 0;
       &--left {
         width: 20%;
         left: 0;
@@ -59,9 +72,8 @@
     top: 0;
     left: 0;
     z-index: -1;
-    @include md {
-    }
-    @include sm {
+    @include md{
+      object-position: 80% 0%;
     }
   }
   &__searchBar__tagList {
@@ -88,7 +100,7 @@
   width: 100%;
   border-radius: 0.5rem;
   transition: all 0.3s;
-  background-color: rgba(0, 0, 0, 0.36);
+  background-color: rgba($color: $black, $alpha: 0.36);
   background-blend-mode: multiply;
   background-size: cover;
   background-position: center center;
@@ -138,7 +150,7 @@
     }
   }
   &:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba($color: $black, $alpha: 0.6);
   }
   .jobTag {
     font-size: 0.875rem;
@@ -292,7 +304,7 @@
     bottom: 0;
     right: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba($color: $black, $alpha: 0.3);
     border-radius: 0.5rem 0.5rem 0 0;
   }
   .goodJobCard__jobInfoBox {

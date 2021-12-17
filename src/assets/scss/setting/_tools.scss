@@ -4,7 +4,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba($color: $black, $alpha: 0.5);
   transition: all 0.3s;
 }
 // 特殊樣式工具區
@@ -27,7 +27,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba($color: $black, $alpha: 0.3);
   .alertMessageBox {
     background-color: $light;
     border-radius: 0.5rem;
@@ -40,7 +40,6 @@
     transform: translateX(-50%);
   }
 }
-
 .userBox {
   height: 44px;
   width: 44px;
@@ -297,7 +296,6 @@
   }
 }
 
-
 .docVideo__contentBox {
   background-color: $gray-light;
   border-radius: 0.5rem;
@@ -457,38 +455,6 @@
     }
   }
 }
-// icon 雙圈
-.tag--doubleCircle {
-  background-color: $primary-light;
-  width: 1.25rem;
-  height: 0.75rem;
-  border-radius: 0.5rem;
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    background-color: $primary;
-    border-radius: 50%;
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-}
-.tag--doubleCircle--company {
-  background-color: $companyColor-light;
-  width: 1.25rem;
-  height: 0.75rem;
-  border-radius: 0.5rem;
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    background-color: $companyColor;
-    border-radius: 50%;
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-}
-
 .mapBox {
   width: 100%;
   &__map {
@@ -496,36 +462,6 @@
     border-radius: 0.5rem;
   }
 }
-// 聊天室右側
-.sideContainerTitleBox {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid $gray-line;
-  min-height: 50px;
-}
-.toolList {
-  padding-left: 0.75rem;
-  &__title {
-    padding: 0.75rem;
-    border-bottom: 1px solid $gray-line;
-    font-weight: $fw--md;
-    color: $dark;
-  }
-  &__item {
-    margin-left: 0.75rem;
-    padding: 0.75rem;
-    border-bottom: 1px solid $gray-line;
-    &:hover {
-      background-color: rgba($color: $gray-light, $alpha: 0.5);
-    }
-  }
-}
-.btnBox--positionAb--topRight {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-}
-
 // 職位資訊列表
 .jobDataList {
   &__item {
@@ -599,21 +535,7 @@
   }
 }
 
-.backToPageBtn {
-  &__title {
-    position: relative;
-    &::before {
-      content: '';
-      width: 1px;
-      height: 20px;
-      background-color: $gray-line;
-      border-radius: 50%;
-      left: -0.5rem;
-      top: 0;
-      position: absolute;
-    }
-  }
-}
+
 
 // 折疊列表
 .collapseList {
@@ -751,5 +673,3 @@
     }
   }
 }
-// .applyDocument{
-// }

@@ -13,7 +13,7 @@
           class="modal-content"
           v-if="modalAction === 'newCoverLetter' || modalAction === 'editCoverLetter'"
         >
-          <div class="popModal__header popModal__header--left">
+          <div class="popModal__header popModal__header--left  popModal__header--borderBottom">
             <h5 class="popModal__title">
               {{ `${modalAction === 'newCoverLetter' ? '新增求職信' : '編輯求職信'}` }}
             </h5>
@@ -28,7 +28,7 @@
             ></button>
           </div>
           <Form ref="editCoverLetterForm" v-slot="{ errors }" @submit="saveCoverLetterData">
-            <div class="popModal__body">
+            <div class="popModal__body--p">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="coverLetterTitle" class="labelBox__label form-label"
@@ -96,7 +96,7 @@
           </Form>
         </div>
         <div class="modal-content" v-if="modalAction === 'readCoverLetter'">
-          <div class="popModal__header popModal__header--left">
+          <div class="popModal__header popModal__header--left  popModal__header--borderBottom">
             <h5 class="popModal__title">{{ coverLetter.title }}</h5>
             <p class="popModal__header__subTxt">更新時間：2021/09/18</p>
             <button
@@ -106,7 +106,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="popModal__body">
+          <div class="popModal__body--p">
             <div class="inputReader">
               <label class="inputReader__title">求職信內容</label>
               <div
@@ -136,7 +136,7 @@
           class="modal-content"
           v-if="modalAction === 'newMessageTemplate' || modalAction === 'editMessageTemplate'"
         >
-          <div class="popModal__header popModal__header--left">
+          <div class="popModal__header popModal__header--left  popModal__header--borderBottom">
             <h5 class="popModal__title">
               {{ `${modalAction === 'newMessageTemplate' ? '新增文字模板' : '編輯文字模板'}` }}
             </h5>
@@ -151,7 +151,7 @@
             ></button>
           </div>
           <Form ref="editMessageTemplateForm" v-slot="{ errors }" @submit="saveMessageTemplateData">
-            <div class="popModal__body">
+            <div class="popModal__body--p">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="messageTemplateTitle" class="labelBox__label form-label"
@@ -219,7 +219,7 @@
           </Form>
         </div>
         <div class="modal-content" v-if="modalAction === 'readMessageTemplate'">
-          <div class="popModal__header popModal__header--left">
+          <div class="popModal__header popModal__header--left  popModal__header--borderBottom">
             <h5 class="popModal__title">{{ messageTemplate.title }}</h5>
             <p class="popModal__header__subTxt">更新時間：2021/09/18</p>
             <button
@@ -229,7 +229,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="popModal__body">
+          <div class="popModal__body--p">
             <div class="inputReader">
               <label class="inputReader__title">文字模板內容</label>
               <div
@@ -256,7 +256,7 @@
           </div>
         </div>
         <div class="modal-content" v-if="modalAction === 'sendMessageTemplate'">
-          <div class="popModal__header popModal__header--left">
+          <div class="popModal__header popModal__header--left  popModal__header--borderBottom">
             <h5 class="popModal__title">
               {{ messageTemplate.title }}
             </h5>
@@ -271,7 +271,7 @@
             ></button>
           </div>
           <Form ref="sendMessageTemplateForm" v-slot="{ errors }" @submit="sendMessageTemplateData">
-            <div class="popModal__body">
+            <div class="popModal__body--p">
               <div class="form__input form__infoEditBox mb-0">
                 <div class="form__labelBox">
                   <label for="messageTemplateContent" class="labelBox__label form-label"
@@ -369,7 +369,7 @@
           </Form>
         </div>
         <div class="modal-content" v-if="modalAction === 'newVideo' || modalAction === 'editVideo'">
-          <div class="popModal__header popModal__header--left">
+          <div class="popModal__header popModal__header--left  popModal__header--borderBottom">
             <h5 class="popModal__title">
               {{ `${modalAction === 'newVideo' ? '新增影片' : '編輯影片'}` }}
             </h5>
@@ -384,7 +384,7 @@
             ></button>
           </div>
           <Form ref="editAccountEmail" v-slot="{ errors }" @submit="saveVideoData">
-            <div class="popModal__body">
+            <div class="popModal__body--p">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="videoTitle" class="labelBox__label form-label">影片名稱</label>
@@ -525,7 +525,7 @@
           class="modal-content"
           v-if="modalAction === 'newProduct' || modalAction === 'editProduct'"
         >
-          <div class="popModal__header popModal__header--left">
+          <div class="popModal__header popModal__header--left  popModal__header--borderBottom">
             <h5 class="popModal__title">
               {{ `${modalAction === 'newProduct' ? '新增作品' : '編輯作品'}` }}
             </h5>
@@ -540,7 +540,7 @@
             ></button>
           </div>
           <Form ref="editProductData" v-slot="{ errors }" @submit="saveProductData">
-            <div class="popModal__body">
+            <div class="popModal__body--p">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="productTitle" class="labelBox__label form-label">作品名稱</label>

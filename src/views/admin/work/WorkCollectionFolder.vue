@@ -19,38 +19,36 @@
     <div class="container-xl">
       <div class="row" v-if="nowPageJobs.length">
         <div class="col-lg-6">
-          <div class="jobListBox">
-            <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
-              <div class="d-flex flex-wrap">
-                <p class="text-primary me-2" v-if="filterTxt !== ''">
-                  <span class="text-secondary">搜尋條件：</span>{{ filterTxt }}
-                </p>
-                <p class="text-secondary fw-normal text-nowrap">
-                  共 {{ jobFolderDetail.length }} 個職位
-                </p>
-              </div>
-              <select
-                class="form-select form-select-lg w-auto border-0 text-gray-dark"
-                @change="changeJobSort($event)"
-                v-model="sortWay"
-              >
-                <option selected value="time">最新至最舊</option>
-                <option value="money">薪水高至低</option>
-              </select>
+          <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
+            <div class="d-flex flex-wrap">
+              <p class="text-primary me-2" v-if="filterTxt !== ''">
+                <span class="text-secondary">搜尋條件：</span>{{ filterTxt }}
+              </p>
+              <p class="text-secondary fw-normal text-nowrap">
+                共 {{ jobFolderDetail.length }} 個職位
+              </p>
             </div>
-            <ul ref="jobList" class="allJobList">
-              <template v-for="item in nowPageJobs" :key="item.id">
-                <li v-if="nowPageJobs.length > 0">
-                  <JobListCard
-                    :ref="`jobList__item--${item.id}`"
-                    :job-list-item="item"
-                    @select-job="selectJob"
-                    @search-by-job-category="searchByJobCategory"
-                  />
-                </li>
-              </template>
-            </ul>
+            <select
+              class="form-select form-select-lg w-auto border-0 text-gray-dark"
+              @change="changeJobSort($event)"
+              v-model="sortWay"
+            >
+              <option selected value="time">最新至最舊</option>
+              <option value="money">薪水高至低</option>
+            </select>
           </div>
+          <ul ref="jobList">
+            <template v-for="item in nowPageJobs" :key="item.id">
+              <li v-if="nowPageJobs.length > 0">
+                <JobListCard
+                  :ref="`jobList__item--${item.id}`"
+                  :job-list-item="item"
+                  @select-job="selectJob"
+                  @search-by-job-category="searchByJobCategory"
+                />
+              </li>
+            </template>
+          </ul>
         </div>
         <div class="col-lg-6 d-lg-block d-none">
           <JobListSideJobBox ref="jobSelectBox" :select-job-item="jobItem" />

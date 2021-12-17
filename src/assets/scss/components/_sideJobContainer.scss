@@ -1,8 +1,9 @@
+$containerPadding:1.5rem;
 // 右側的職位資訊欄
 .sideJobContainer {
   background-color: #fff;
   border-radius: 0.5rem;
-  padding: 1.5rem;
+  // padding: 1.5rem;
   &__imgBox {
     width: 32%;
     position: relative;
@@ -37,6 +38,76 @@
     &:last-child {
       padding: 1.5rem 0 0 0;
       border-bottom: 0;
+    }
+  }
+  &__jobInfoImgBox {
+    border-radius: 0.5rem;
+    background-color: $gray-light;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &__img {
+      border-radius: 0.25rem;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
+.sideJobContainer--sticky {
+  position: sticky;
+  top: 6rem;
+  height: calc(100vh - 132px);
+  overflow-y: auto;
+}
+.sideJobContainer {
+  background-color: $light;
+  border-radius: 0.5rem;
+  &__header{
+    padding: $containerPadding;
+    border-bottom: 1px solid $gray-line;
+  }
+  &__body{
+    padding: $containerPadding;
+  }
+  &__imgBox {
+    width: 32%;
+    position: relative;
+    margin-right: 3rem;
+    .jobImg {
+      max-width: 100%;
+      border-radius: 0.5rem;
+    }
+    .logoImageBox {
+      position: absolute;
+      top: -0.25rem;
+      right: -1.5rem;
+      width: 6rem;
+      .logoImg {
+        width: 100%;
+        border: 1px solid $gray-line;
+        border-radius: 2px;
+      }
+    }
+  }
+  &__txtBox {
+    max-width: 100%;
+  }
+  &__title {
+    font-weight: $fw--md;
+    color: $dark;
+    font-size: 1.25rem;
+  }
+  &__section {
+    padding:$containerPadding 0;
+    border-bottom: 1px solid $gray-line;
+    &:last-child {
+      padding: $containerPadding 0 0 0;
+      border-bottom: 0;
+    }
+    &:first-child{
+      padding:0 0 $containerPadding 0;
     }
   }
   &__jobInfoImgBox {

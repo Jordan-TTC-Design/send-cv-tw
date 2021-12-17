@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py" v-if="dataReady">
-    <div class="container">
+    <div class="container-xl">
       <div class="row">
         <div class="col-xl-8">
           <div class="cvSubNav">
@@ -16,10 +16,10 @@
               </button>
             </div>
           </div>
-          <div class="cvSection position-relative">
+          <div class="cvSection cvSection--personInfo">
             <div class="cvSection__titleBox mb-5">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle--company me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double--company me-2"></span>
                 個人資訊
               </h3>
             </div>
@@ -51,8 +51,8 @@
               {{ cvData.userData.account.addressCity }}，{{ cvData.userData.account.addressDist }}
             </p>
             <div class="cvSection__titleBox mb-4">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle--company me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double--company me-2"></span>
                 自我介紹
               </h3>
             </div>
@@ -67,8 +67,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle--company me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double--company me-2"></span>
                 工作經驗
               </h3>
             </div>
@@ -111,8 +111,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle--company me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double--company me-2"></span>
                 學歷
               </h3>
             </div>
@@ -154,8 +154,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle--company me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double--company me-2"></span>
                 專業技能
               </h3>
             </div>
@@ -217,8 +217,8 @@
           <template v-for="(listItem, listIndex) in cvData.cvSectionList" :key="listIndex">
             <div class="cvSection">
               <div class="cvSection__titleBox">
-                <h3 class="cvSection__title" :ref="`expDataTitle--${listIndex}`">
-                  <div class="tag--doubleCircle--company me-2"></div>
+                <h3 class="sectionTitle--withTag" :ref="`expDataTitle--${listIndex}`">
+                  <span class="sectionTitleTag--double--company me-2"></span>
                   {{ listItem.sectionTitle }}
                 </h3>
               </div>
@@ -233,8 +233,8 @@
           </template>
           <div class="cvSection" v-if="cvData.userData.docData">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle--company me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double--company me-2"></span>
                 我的作品
               </h3>
             </div>
@@ -285,8 +285,8 @@
           <!-- 其他資訊 -->
           <div class="cvSection" v-if="cvData.userData.docData">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle--company me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double--company me-2"></span>
                 其他資訊
               </h3>
             </div>

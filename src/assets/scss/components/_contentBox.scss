@@ -2,6 +2,8 @@
 .sideContentBox {
   border-radius: 0.5rem;
   background-color: $white;
+  display: flex;
+  flex-direction: column;
   @include shadow-normal;
   @include md {
     min-height: 480px;

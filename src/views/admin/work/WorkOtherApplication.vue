@@ -27,149 +27,115 @@
       </p>
       <div class="row row-cols-lg-2">
         <div class="col" v-if="pageSubNavState === 'shotList'">
-          <div class="jobListBox">
-            <div class="ps-3 mb-3 bg-light rounded p-2">
-              <p class="text-secondary fw-normal text-nowrap">
-                目前共 {{ nowPageItems.length }} 筆拍照求職紀錄
-              </p>
-            </div>
-            <ul class="allJobList" v-if="nowPageItems.length > 0">
-              <template v-for="item in nowPageItems" :key="item.key">
-                <li
-                  @click="selectJob(item.key)"
-                  :data-id="item.key"
-                  :ref="`list__item--${item.key}`"
-                  class="
-                    list__item
-                    box--shadow
-                    d-flex
-                    flex-column
-                    align-items-start
-                    card--application
-                  "
-                >
-                  <div class="tag--new">
-                    <p class="tag--new__txt">NEW</p>
-                  </div>
-                  <div class="d-flex w-100 flex-md-row flex-column">
-                    <div class="list__item__imgBox">
-                      <img
-                        class="jobImage mt-2"
-                        :src="item.data.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
-                        :alt="`${item.data.jobName}職位圖片`"
-                      />
-                      <div class="img-cover d-md-none d-block"></div>
-                      <div class="list__item__logoImgBox">
-                        <img
-                          class="logoImg"
-                          src="https://i.imgur.com/nQacvyB.png"
-                          :alt="`${item.data.companyName}logo`"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        list__item__txtBox
-                        flex-grow-1
-                        d-flex
-                        flex-column
-                        justify-content-between
-                      "
-                    >
-                      <div class="d-flex flex-column align-items-start">
-                        <p class="list__item__title mb-3 me-7">{{ item.data.jobName }}</p>
-                        <p class="subTxt mb-2 me-7">{{ item.data.companyName }}</p>
-                      </div>
-                      <p class="text-secondary">申請時間：{{ $filters.date(item.data.time) }}</p>
-                      <div class="d-flex justify-content-end">
-                        <p class="jobTag">審核中</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </template>
-            </ul>
+          <div class="ps-3 mb-3 bg-light rounded p-2">
+            <p class="text-secondary fw-normal text-nowrap">
+              目前共 {{ nowPageItems.length }} 筆拍照求職紀錄
+            </p>
           </div>
+          <ul v-if="nowPageItems.length > 0">
+            <template v-for="item in nowPageItems" :key="item.key">
+              <li
+                @click="selectJob(item.key)"
+                :data-id="item.key"
+                :ref="`jobCard--${item.key}`"
+                class="jobCard box--shadow jobCard--apply"
+              >
+                <div class="tag--new">
+                  <p class="tag--new__txt">NEW</p>
+                </div>
+                <div class="d-flex w-100 flex-md-row flex-column p-md-3">
+                  <div class="jobCard__imgBox">
+                    <img
+                      class="jobImage mt-2"
+                      :src="item.data.jobImgUrl[0].url || 'https://i.imgur.com/I2erb3u.png'"
+                      :alt="`${item.data.jobName}職位圖片`"
+                    />
+                    <div class="img-cover d-md-none d-block"></div>
+                    <div class="jobCard__logoImgBox">
+                      <img
+                        class="logoImg"
+                        src="https://i.imgur.com/nQacvyB.png"
+                        :alt="`${item.data.companyName}logo`"
+                      />
+                    </div>
+                  </div>
+                  <div class="jobCard__body p-md-0">
+                    <div class="jobCard__txtBox">
+                      <p class="strongTxt mb-3 me-md-7">{{ item.data.jobName }}</p>
+                      <p class="subTxt mb-3 me-md-7">{{ item.data.companyName }}</p>
+                      <p class="subTxt--foil">申請時間：{{ $filters.date(item.data.time) }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="jobCard__footer pt-md-0 justify-content-end">
+                  <p class="jobTag">審核中</p>
+                </div>
+              </li>
+            </template>
+          </ul>
         </div>
         <div class="col" v-if="pageSubNavState === 'mailList'">
-          <div class="jobListBox">
-            <div class="ps-3 mb-3 bg-light rounded p-2">
-              <p class="text-secondary fw-normal text-nowrap">目前共 3 筆寫郵件SendCV紀錄</p>
-            </div>
-            <ul class="allJobList" v-if="nowPageItems.length > 0">
-              <template v-for="item in nowPageItems" :key="item.key">
-                <li
-                  @click="selectJob(item.key)"
-                  :data-id="item.key"
-                  :ref="`list__item--${item.key}`"
-                  class="
-                    list__item
-                    box--shadow
-                    d-flex
-                    flex-column
-                    align-items-start
-                    card--application
-                  "
-                >
-                  <div class="tag--new">
-                    <p class="tag--new__txt">NEW</p>
-                  </div>
-                  <div class="d-flex w-100 flex-md-row flex-column">
-                    <div class="list__item__imgBox">
-                      <img
-                        class="jobImage mt-2"
-                        :src="'https://i.imgur.com/I2erb3u.png'"
-                        :alt="`${item.data.jobName}職位圖片`"
-                      />
-                      <div class="img-cover d-md-none d-block"></div>
-                      <div class="list__item__logoImgBox">
-                        <img
-                          class="logoImg"
-                          src="https://i.imgur.com/nQacvyB.png"
-                          :alt="`${item.data.companyName}logo`"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        list__item__txtBox
-                        flex-grow-1
-                        d-flex
-                        flex-column
-                        justify-content-between
-                      "
-                    >
-                      <div class="d-flex flex-column align-items-start">
-                        <p class="list__item__title mb-3 me-7">{{ item.data.jobName }}</p>
-                        <p class="subTxt mb-2 me-7">{{ item.data.companyName }}</p>
-                      </div>
-                      <p class="text-secondary">申請時間：{{ $filters.date(item.data.time) }}</p>
-                      <div class="d-flex justify-content-end">
-                        <p class="jobTag">審核中</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </template>
-            </ul>
+          <div class="ps-3 mb-3 bg-light rounded p-2">
+            <p class="text-secondary fw-normal text-nowrap">目前共 3 筆寫郵件SendCV紀錄</p>
           </div>
+          <ul v-if="nowPageItems.length > 0">
+            <template v-for="item in nowPageItems" :key="item.key">
+              <li
+                @click="selectJob(item.key)"
+                :data-id="item.key"
+                :ref="`jobCard--${item.key}`"
+                class="jobCard box--shadow jobCard--apply"
+              >
+                <div class="tag--new">
+                  <p class="tag--new__txt">NEW</p>
+                </div>
+                <div class="d-flex w-100 flex-md-row flex-column p-md-3">
+                  <div class="jobCard__imgBox">
+                    <img
+                      class="jobImage mt-2"
+                      :src="'https://i.imgur.com/I2erb3u.png'"
+                      :alt="`${item.data.jobName}職位圖片`"
+                    />
+                    <div class="img-cover d-md-none d-block"></div>
+                    <div class="jobCard__logoImgBox">
+                      <img
+                        class="logoImg"
+                        src="https://i.imgur.com/nQacvyB.png"
+                        :alt="`${item.data.companyName}logo`"
+                      />
+                    </div>
+                  </div>
+                  <div class="jobCard__body p-md-0">
+                    <div class="jobCard__txtBox">
+                      <p class="strongTxt mb-3 me-md-7">{{ item.data.jobName }}</p>
+                      <p class="subTxt mb-3 me-md-7">{{ item.data.companyName }}</p>
+                      <p class="subTxt--foil">申請時間：{{ $filters.date(item.data.time) }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="jobCard__footer pt-md-0 justify-content-end">
+                  <p class="jobTag">審核中</p>
+                </div>
+              </li>
+            </template>
+          </ul>
         </div>
         <div class="col d-lg-block d-none" v-if="jobItem.key !== ''">
           <div ref="sideJobContainer" class="sideJobContainer sideJobContainer--sticky box--shadow">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div class="mb-3">
-                <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
-                <button type="button" class="jobTag btn">100%匹配度</button>
+            <div class="sideJobContainer__header">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex">
+                  <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
+                  <button type="button" class="jobTag btn me-2">100%</button>
+                </div>
+                <button
+                  class="btn btn-outline-gray-line btn-bg text-dark d-flex align-items-center me-2"
+                  type="button"
+                >
+                  聯絡
+                </button>
               </div>
-              <button
-                class="btn btn-outline-gray-line btn-bg text-dark d-flex align-items-center me-2"
-                type="button"
-              >
-                聯絡
-              </button>
-            </div>
-            <div class="pb-5">
-              <div class="d-flex mb-3">
+              <div class="d-flex">
                 <div class="sideJobContainer__imgBox">
                   <img
                     class="jobImage mt-3"
@@ -184,13 +150,11 @@
                     />
                   </div>
                 </div>
-                <div class="sideJobContainer__txtBox">
-                  <div>
-                    <p class="sideJobContainer__title mb-3 d-block">{{ jobItem.data.jobName }}</p>
-                    <p class="txtLink subTxt mb-4 d-block" type="button">
-                      {{ jobItem.data.companyName }}
-                    </p>
-                  </div>
+                <div class="flex-grow-1">
+                  <p class="strongTxt mb-3 d-block">{{ jobItem.data.jobName }}</p>
+                  <p class="txtLink subTxt mb-4 d-block" type="button">
+                    {{ jobItem.data.companyName }}
+                  </p>
                   <p class="me-5 subTxt">
                     <span><i class="jobIcon--sm me-1 bi bi-geo-alt"></i></span
                     >{{ jobItem.data.addressCity }}，{{ jobItem.data.addressDist }}
@@ -206,29 +170,29 @@
                 </div>
               </div>
             </div>
-            <ul class="boxSubNav">
+            <ul class="innerNav innerNav--fill innerNav--jobSeeker">
               <li
-                class="boxSubNav__item boxSubNav--50"
-                :class="{ active: boxSubNav === '申請資料' }"
-                @click="boxSubNav = '申請資料'"
+                class="innerNav__item w--50"
+                :class="{ active: innerNav === '申請資料' }"
+                @click="changeNav('innerNav', '申請資料')"
               >
                 <p>申請資料</p>
               </li>
               <li
-                class="boxSubNav__item boxSubNav--50"
-                :class="{ active: boxSubNav === '職位內容' }"
-                @click="boxSubNav = '職位內容'"
+                class="innerNav__item w--50"
+                :class="{ active: innerNav === '職位內容' }"
+                @click="changeNav('innerNav', '職位內容')"
               >
                 <p>職位內容</p>
               </li>
             </ul>
-            <div v-if="boxSubNav === '申請資料'">
+            <div v-if="innerNav === '申請資料'">
               <ul>
-                <li class="infoList__item">
+                <li class="infojobCard">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <p class="infoList__item__title">應徵狀態</p>
-                      <p class="infoList__item__content">面試邀請</p>
+                      <p class="infojobCard__title">應徵狀態</p>
+                      <p class="infojobCard__content">面試邀請</p>
                     </div>
                     <div class="d-flex">
                       <button type="button" class="btn btn-outline-gray-line text-dark me-2">
@@ -239,46 +203,46 @@
                     </div>
                   </div>
                 </li>
-                <li class="infoList__item">
+                <li class="infojobCard">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <p class="infoList__item__title">面試時間</p>
-                      <p class="infoList__item__content">2020.01.13 19:38</p>
+                      <p class="infojobCard__title">面試時間</p>
+                      <p class="infojobCard__content">2020.01.13 19:38</p>
                     </div>
                   </div>
                 </li>
-                <li class="infoList__item">
+                <li class="infojobCard">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <p class="infoList__item__title">面試地點</p>
-                      <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
+                      <p class="infojobCard__title">面試地點</p>
+                      <p class="infojobCard__content">台北市中山區南京東路二段150號10樓</p>
                     </div>
                     <button type="button" class="btn btn-outline-gray-line text-dark me-2">
                       打開地圖
                     </button>
                   </div>
                 </li>
-                <li class="infoList__item">
+                <li class="infojobCard">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <p class="infoList__item__title">應徵方式</p>
-                      <p class="infoList__item__content">sendCV 申請職位</p>
+                      <p class="infojobCard__title">應徵方式</p>
+                      <p class="infojobCard__content">sendCV 申請職位</p>
                     </div>
                   </div>
                 </li>
-                <li class="infoList__item">
+                <li class="infojobCard">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <p class="infoList__item__title">應徵時間</p>
-                      <p class="infoList__item__content">2020.01.13 19:38</p>
+                      <p class="infojobCard__title">應徵時間</p>
+                      <p class="infojobCard__content">2020.01.13 19:38</p>
                     </div>
                   </div>
                 </li>
-                <li class="infoList__item list--last mb-5">
+                <li class="infojobCard list--last mb-5">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <p class="infoList__item__title">應徵紀錄</p>
-                      <p class="infoList__item__content">
+                      <p class="infojobCard__title">應徵紀錄</p>
+                      <p class="infojobCard__content">
                         面試邀請<span class="subTxt">2020.01.13 19:38</span>
                       </p>
                     </div>
@@ -395,16 +359,37 @@
                 </li>
               </ul>
             </div>
-            <div v-if="boxSubNav === '職位內容'">
-              <div class="sideJobContainer__section">
-                <h4 class="sectionTitle--withTag mb-4">
-                  <span class="sectionTitleTag--double me-2"></span>
-                  職位內容
-                </h4>
-                <div v-if="pageSubNavState === 'shotList'">
+            <div v-if="innerNav === '職位內容'">
+              <div class="sideJobContainer__body">
+                <div class="sideJobContainer__section">
+                  <h4 class="sectionTitle--withTag mb-4">
+                    <span class="sectionTitleTag--double me-2"></span>
+                    職位內容
+                  </h4>
+                  <div v-if="pageSubNavState === 'shotList'">
+                    <div
+                      class="sideJobContainer__jobInfoImgBox"
+                      v-for="(itemUrl, number) in jobItem.data.jobImgUrl"
+                      :key="number"
+                    >
+                      <img
+                        class="sideJobContainer__jobInfoImgBox__img"
+                        :src="itemUrl.url"
+                        :alt="`${jobItem.data.jobName}職位圖片`"
+                      />
+                      <p v-if="itemUrl.content" class="mt-2">{{ itemUrl.content }}</p>
+                    </div>
+                  </div>
+                  <p v-if="pageSubNavState === 'mailList'">{{ jobItem.data.jobContent }}</p>
+                </div>
+                <div class="sideJobContainer__section" v-if="pageSubNavState === 'shotList'">
+                  <h4 class="sectionTitle--withTag mb-4">
+                    <span class="sectionTitleTag--double me-2"></span>
+                    申請方法
+                  </h4>
                   <div
                     class="sideJobContainer__jobInfoImgBox"
-                    v-for="(itemUrl, number) in jobItem.data.jobImgUrl"
+                    v-for="(itemUrl, number) in jobItem.data.companyImgUrl"
                     :key="number"
                   >
                     <img
@@ -414,25 +399,6 @@
                     />
                     <p v-if="itemUrl.content" class="mt-2">{{ itemUrl.content }}</p>
                   </div>
-                </div>
-                <p v-if="pageSubNavState === 'mailList'">{{ jobItem.data.jobContent }}</p>
-              </div>
-              <div class="sideJobContainer__section" v-if="pageSubNavState === 'shotList'">
-                <h4 class="sectionTitle--withTag mb-4">
-                  <span class="sectionTitleTag--double me-2"></span>
-                  申請方法
-                </h4>
-                <div
-                  class="sideJobContainer__jobInfoImgBox"
-                  v-for="(itemUrl, number) in jobItem.data.companyImgUrl"
-                  :key="number"
-                >
-                  <img
-                    class="sideJobContainer__jobInfoImgBox__img"
-                    :src="itemUrl.url"
-                    :alt="`${jobItem.data.jobName}職位圖片`"
-                  />
-                  <p v-if="itemUrl.content" class="mt-2">{{ itemUrl.content }}</p>
                 </div>
               </div>
             </div>
@@ -474,7 +440,7 @@ export default {
       fullHeight: 0,
       nowPage: '自我推薦',
       pageSubNavState: 'shotList',
-      boxSubNav: '申請資料',
+      innerNav: '申請資料',
       jobsList: [],
       jobItem: {
         key: '',
@@ -573,9 +539,9 @@ export default {
         this.nowPageItems.forEach((item) => {
           if (item.key === id) {
             this.jobItem = item;
-            this.$refs[`list__item--${item.key}`].classList.add('active');
+            this.$refs[`jobCard--${item.key}`].classList.add('active');
           } else if (item.key !== id) {
-            this.$refs[`list__item--${item.key}`].classList.remove('active');
+            this.$refs[`jobCard--${item.key}`].classList.remove('active');
           }
         });
         this.$refs.sideJobContainer.scrollTop = 0;
@@ -589,9 +555,9 @@ export default {
           console.log(item.key);
           if (item.key === id) {
             this.jobItem = item;
-            this.$refs[`list__item--${item.key}`].classList.add('active');
+            this.$refs[`jobCard--${item.key}`].classList.add('active');
           } else if (item.key !== id) {
-            this.$refs[`list__item--${item.key}`].classList.remove('active');
+            this.$refs[`jobCard--${item.key}`].classList.remove('active');
           }
         });
       }

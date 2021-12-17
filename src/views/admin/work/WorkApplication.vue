@@ -41,35 +41,22 @@
       </p>
       <div class="row">
         <div class="col-lg-6" v-if="jobsList.length > 0">
-          <div class="jobListBox">
-            <div
-              class="
-                d-flex
-                justify-content-between
-                align-items-center
-                ps-3
-                mb-3
-                bg-light
-                rounded
-                p-2
-              "
-            >
-              <p class="text-secondary fw-normal text-nowrap">
-                目前共 {{ jobsList.length }} 個職位
-              </p>
-            </div>
-            <ul ref="jobList" class="allJobList">
-              <template v-for="item in nowPageJobs" :key="item.id">
-                <li v-if="nowPageJobs.length > 0">
-                  <ApplicationJobCard
-                    :ref="`jobList__item--${item.id}`"
-                    :job-list-item="item"
-                    @select-job="selectJob"
-                  />
-                </li>
-              </template>
-            </ul>
+          <div
+            class="d-flex justify-content-between align-items-center ps-3 mb-3 bg-light rounded p-2"
+          >
+            <p class="text-secondary fw-normal text-nowrap">目前共 {{ jobsList.length }} 個職位</p>
           </div>
+          <ul ref="jobList">
+            <template v-for="item in nowPageJobs" :key="item.id">
+              <li v-if="nowPageJobs.length > 0">
+                <ApplicationJobCard
+                  :ref="`jobList__item--${item.id}`"
+                  :job-list-item="item"
+                  @select-job="selectJob"
+                />
+              </li>
+            </template>
+          </ul>
         </div>
         <div class="col-lg-6 d-lg-block d-none" v-if="jobsList.length > 0">
           <ApplicationJobSideBox ref="jobSelectBox" :select-job-item="jobItem" />

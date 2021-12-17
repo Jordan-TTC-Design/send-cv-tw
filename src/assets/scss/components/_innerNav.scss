@@ -98,12 +98,23 @@
   }
 }
 // 列表需要背景
-.innerNav.innerNav--bgColor {
+.innerNav.innerNav--company.innerNav--bgColor {
   .innerNav__item:last-child::after {
     display: none;
   }
   .innerNav__item.active {
     background-color: $companyColor-light;
+    &::before {
+      display: block;
+    }
+  }
+}
+.innerNav.innerNav--jobSeeker.innerNav--bgColor {
+  .innerNav__item:last-child::after {
+    display: none;
+  }
+  .innerNav__item.active {
+    background-color: $primary-light;
     &::before {
       display: block;
     }
@@ -115,4 +126,9 @@
   padding: 0 0.75rem;
   border-radius: 0.5rem;
   border-bottom: 0 ;
+}
+.innerNav.innerNav--nonRound.innerNav{
+  .innerNav__item {
+    border-radius: 0;
+  }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <div class="container" v-if="dataReady">
+    <div class="container-xl" v-if="dataReady">
       <div class="row">
         <div class="col-xl-8">
           <div class="cvSubNav">
@@ -29,7 +29,7 @@
               <button type="button" class="btn btn-light text-dark me-2">
                 <i class="jobIcon bi bi-eyeglasses"></i>
               </button>
-              <button type="button" class="btn btn-light text-dark">
+              <button type="button" class="btn btn-light text-dark me-2">
                 <i class="jobIcon bi bi-gear-fill"></i>
               </button>
               <button type="button" class="btn btn-primary" @click="uploadCvToCvList">
@@ -37,10 +37,10 @@
               </button>
             </div>
           </div>
-          <div class="cvSection position-relative">
+          <div class="cvSection cvSection--personInfo">
             <div class="cvSection__titleBox mb-5">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 個人資訊
               </h3>
             </div>
@@ -85,8 +85,8 @@
               }}
             </p>
             <div class="cvSection__titleBox mb-4">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 自我介紹
               </h3>
             </div>
@@ -101,8 +101,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 工作經驗
               </h3>
               <button
@@ -202,8 +202,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 學歷
               </h3>
               <button
@@ -302,8 +302,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 專業技能
               </h3>
               <button
@@ -500,7 +500,7 @@
             <div class="cvSection">
               <div class="cvSection__titleBox">
                 <h3 class="cvSection__title" :ref="`expDataTitle--${listIndex}`">
-                  <div class="tag--doubleCircle me-2"></div>
+                  <span class="sectionTitleTag--double me-2"></span>
                   {{ listItem.sectionTitle }}
                   <button
                     type="button"
@@ -550,8 +550,8 @@
           </template>
           <div class="cvSection" v-if="tempCvData.userData.docData">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 我的作品
               </h3>
               <button
@@ -620,8 +620,8 @@
           <!-- 其他資訊 -->
           <div class="cvSection" v-if="tempCvData.userData.docData">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 其他資訊
               </h3>
             </div>

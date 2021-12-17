@@ -1,29 +1,27 @@
 <template>
   <div ref="sideJobContainer" class="sideJobContainer sideJobContainer--sticky box--shadow">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="mb-3">
-        <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
-        <button type="button" class="jobTag btn">100%匹配度</button>
+    <div class="sideJobContainer__header">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex">
+          <p class="jobTag bg-primary me-2"><i class="jobIcon-sm bi bi-star-fill"></i></p>
+          <button type="button" class="jobTag btn me-2">100%</button>
+          <button type="button" class="jobTag btn">
+            {{ jobItem.category }}
+          </button>
+        </div>
+        <div class="d-flex">
+          <button class="btn btn-outline-gray-line text-dark me-2" type="button">聯絡</button>
+          <button
+            class="btn btn-outline-gray-line text-dark"
+            type="button"
+            :class="{ collected: jobItem.jobCollectCheck }"
+            @click="collectJob(jobItem)"
+          >
+            收藏職位
+          </button>
+        </div>
       </div>
       <div class="d-flex">
-        <button
-          class="btn btn-outline-gray-line btn-bg text-dark d-flex align-items-center me-2"
-          type="button"
-        >
-          聯絡
-        </button>
-        <button
-          class="btn btn-outline-gray-line btn-bg text-dark d-flex align-items-center me-2"
-          type="button"
-          :class="{ collected: jobItem.jobCollectCheck }"
-          @click="collectJob(jobItem)"
-        >
-          收藏職位
-        </button>
-      </div>
-    </div>
-    <div class="pb-5">
-      <div class="d-flex mb-3">
         <div class="sideJobContainer__imgBox">
           <img class="jobImage mt-3" :src="jobItem.imageUrl" :alt="`${jobItem.title}職位圖片`" />
           <div class="logoImageBox">
@@ -34,108 +32,100 @@
             />
           </div>
         </div>
-        <div class="sideJobContainer__txtBox">
-          <div>
-            <router-link
-              class="sideJobContainer__title mb-3 d-block"
-              type="button"
-              :to="`/products-list/product/${jobItem.id}`"
-              >{{ jobItem.title }}</router-link
-            >
-            <router-link
-              class="txtLink subTxt mb-4 d-block"
-              type="button"
-              :to="`/products-list/company/${jobItem.options.company.companyLink}`"
-              >{{ jobItem.options.company.companyName }}</router-link
-            >
+        <div class="flex-grow-1">
+          <router-link
+            class="sideJobContainer__title mb-3 d-block"
+            type="button"
+            :to="`/products-list/product/${jobItem.id}`"
+            >{{ jobItem.title }}</router-link
+          >
+          <router-link
+            class="txtLink subTxt mb-4 d-block"
+            type="button"
+            :to="`/products-list/company/${jobItem.options.company.companyLink}`"
+            >{{ jobItem.options.company.companyName }}</router-link
+          >
+          <div class="d-flex">
+            <p class="subTxt me-5">
+              <i class="jobIcon--sm me-1 bi bi-geo-alt"></i
+              >{{ jobItem.options.company.companyAddressCity }}
+            </p>
+            <p class="subTxt" v-if="!jobItem.options.job.salaryInterView">
+              <i class="jobIcon--sm me-1 bi bi-currency-dollar"></i>
+              {{ jobItem.price }} / 月薪
+            </p>
+            <p class="subTxt" v-if="jobItem.options.job.salaryInterView">
+              <i class="jobIcon--sm me-1 bi bi-currency-dollar"></i>
+              薪資面議
+            </p>
           </div>
-          <p class="subTxt me-5">
-            <span><i class="jobIcon--sm me-1 bi bi-geo-alt"></i></span
-            >{{ jobItem.options.company.companyAddressCity }}
-          </p>
-          <p class="subTxt" v-if="!jobItem.options.job.salaryInterView">
-            <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
-            {{ jobItem.price }} / 月薪
-          </p>
-          <p class="subTxt" v-if="jobItem.options.job.salaryInterView">
-            <span><i class="jobIcon--sm me-1 bi bi-currency-dollar"></i></span>
-            薪資面議
-          </p>
         </div>
       </div>
     </div>
-    <ul class="boxSubNav">
+    <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--nonRound">
       <li
-        class="boxSubNav__item boxSubNav--50"
-        :class="{ active: boxSubNav === '申請資料' }"
-        @click="changeNav('boxSubNav', '申請資料')"
+        class="innerNav__item w--50"
+        :class="{ active: innerNav === '申請資料' }"
+        @click="changeNav('innerNav', '申請資料')"
       >
         <p>申請資料</p>
       </li>
       <li
-        class="boxSubNav__item boxSubNav--50"
-        :class="{ active: boxSubNav === '職位內容' }"
-        @click="changeNav('boxSubNav', '職位內容')"
+        class="innerNav__item w--50"
+        :class="{ active: innerNav === '職位內容' }"
+        @click="changeNav('innerNav', '職位內容')"
       >
         <p>職位內容</p>
       </li>
     </ul>
-    <div v-if="boxSubNav === '申請資料'">
-      <ul class="infoList">
+    <div class="sideJobContainer__body" v-if="innerNav === '申請資料'">
+      <ul class="infoList infoList--jobSeeker infoList--withBtn infoList--row">
         <li class="infoList__item">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <p class="infoList__item__title">應徵狀態</p>
-              <p class="infoList__item__content">面試邀請</p>
-            </div>
-            <div class="d-flex">
-              <button type="button" class="btn btn-outline-gray-line text-dark me-2">改時間</button>
-              <button type="button" class="btn btn-gray-light text-dark me-2">婉拒</button>
-              <button type="button" class="btn btn-primary text-dark">同意</button>
-            </div>
+          <div>
+            <p class="infoList__item__title">應徵狀態</p>
+            <p class="infoList__item__content">面試邀請</p>
+          </div>
+          <div class="infoList__btnBox">
+            <button type="button" class="btn btn-outline-gray-line text-dark me-2">改時間</button>
+            <button type="button" class="btn btn-gray-light text-dark me-2">婉拒</button>
+            <button type="button" class="btn btn-primary text-dark">同意</button>
           </div>
         </li>
         <li class="infoList__item">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <p class="infoList__item__title">面試時間</p>
-              <p class="infoList__item__content">2020.01.13 19:38</p>
-            </div>
+          <div>
+            <p class="infoList__item__title">面試時間</p>
+            <p class="infoList__item__content">2020.01.13 19:38</p>
           </div>
         </li>
         <li class="infoList__item">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <p class="infoList__item__title">面試地點</p>
-              <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
-            </div>
+          <div>
+            <p class="infoList__item__title">面試地點</p>
+            <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
+          </div>
+          <div class="infoList__btnBox">
             <button type="button" class="btn btn-outline-gray-line text-dark me-2">打開地圖</button>
           </div>
         </li>
         <li class="infoList__item">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <p class="infoList__item__title">應徵方式</p>
-              <p class="infoList__item__content">sendCV 申請職位</p>
-            </div>
+          <div>
+            <p class="infoList__item__title">應徵方式</p>
+            <p class="infoList__item__content">sendCV 申請職位</p>
           </div>
         </li>
         <li class="infoList__item">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <p class="infoList__item__title">應徵時間</p>
-              <p class="infoList__item__content">2020.01.13 19:38</p>
-            </div>
+          <div>
+            <p class="infoList__item__title">應徵時間</p>
+            <p class="infoList__item__content">2020.01.13 19:38</p>
           </div>
         </li>
         <li class="infoList__item list--last mb-5">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <p class="infoList__item__title">應徵紀錄</p>
-              <p class="infoList__item__content">
-                面試邀請<span class="subTxt">2020.01.13 19:38</span>
-              </p>
-            </div>
+          <div>
+            <p class="infoList__item__title">應徵紀錄</p>
+            <p class="infoList__item__content">
+              面試邀請<span class="subTxt">2020.01.13 19:38</span>
+            </p>
+          </div>
+          <div class="infoList__btnBox">
             <button type="button" class="btn btn-outline-gray-line text-dark me-2">查看全部</button>
           </div>
         </li>
@@ -243,64 +233,131 @@
         </li>
       </ul>
     </div>
-    <div v-if="boxSubNav === '職位內容'">
+    <div class="sideJobContainer__body" v-if="innerNav === '職位內容'">
       <div class="sideJobContainer__section">
-        <h3 class="section__title--sub"><span class="title__icon"></span>職位內容</h3>
-        <p class="mb-3">
-          <i class="jobIcon--sm me-1 bi bi-journal"></i>工作性質：{{ jobItem.options.job.workType }}
-        </p>
-        <p class="mb-3">
-          <span><i class="jobIcon--sm me-1 bi bi-clock"></i></span>工作時間：{{
-            jobItem.options.job.workTime
-          }}
-        </p>
-        <p class="mb-3">
-          <span><i class="jobIcon--sm me-1 bi bi-building"></i></span>產業類別：{{
-            jobItem.options.company.industryCategory
-          }}
-        </p>
-        <p class="mb-3">
-          <span><i class="jobIcon--sm me-1 bi bi-card-list"></i></span>工作類別：{{
-            jobItem.category
-          }}
-        </p>
-        <p class="mb-3">工作內容：</p>
-        <div class="bodyTxt" v-html="jobItem.content"></div>
+        <h3 class="sectionTitle--withTag mb-4">
+          <span class="sectionTitleTag--double me-2"></span>職位內容
+        </h3>
+        <ul class="jobDataList">
+          <li class="jobDataList__item flex-column align-items-start">
+            <div v-html="jobItem.content" v-if="jobItem.content !== ''"></div>
+            <p class="jobDataList__item__txt noContent" v-if="jobItem.content === ''">尚未填寫</p>
+          </li>
+        </ul>
       </div>
       <div class="sideJobContainer__section">
-        <h3 class="section__title--sub"><span class="title__icon"> </span>應徵條件</h3>
-        <p class="mb-3">
-          <span><i class="jobIcon--sm me-1 bi bi-book"></i></span>學歷要求：{{
-            jobItem.options.job.education
-          }}
-        </p>
-        <p class="mb-3">
-          <span><i class="jobIcon--sm me-1 bi bi-briefcase"></i></span>工作經驗：{{
-            jobItem.options.job.workExp
-          }}
-        </p>
-        <p class="mb-3">其他條件：</p>
-        <div class="bodyTxt" v-html="jobItem.options.job.otherRequirement"></div>
+        <h3 class="sectionTitle--withTag mb-4">
+          <span class="sectionTitleTag--double me-2"> </span>應徵條件
+        </h3>
+        <ul class="jobDataList">
+          <li class="jobDataList__item">
+            <p class="jobDataList__item__title">
+              <i class="jobIcon--sm me-1 bi bi-journal"></i>學歷要求：{{
+                jobItem.options.job.education
+              }}
+            </p>
+          </li>
+          <li class="jobDataList__item">
+            <p class="jobDataList__item__title">
+              <i class="jobIcon--sm me-1 bi bi-clock"></i>工作經驗：{{
+                jobItem.options.job.workExp
+              }}
+            </p>
+          </li>
+          <li class="jobDataList__item col-12 flex-column align-items-start">
+            <p class="jobDataList__item__title mb-1">其他條件：</p>
+            <div
+              v-html="jobItem.options.job.otherRequirement"
+              v-if="jobItem.options.job.otherRequirement !== ''"
+            ></div>
+            <p
+              class="jobDataList__item__txt noContent"
+              v-if="jobItem.options.job.otherRequirement === ''"
+            >
+              尚未填寫
+            </p>
+          </li>
+        </ul>
       </div>
       <div class="sideJobContainer__section">
-        <h3 class="section__title--sub"><span class="title__icon"></span>申請方法</h3>
-        <p class="mb-3">
-          <span><i class="jobIcon--sm me-1 bi bi-person"></i></span>職位聯絡人：{{
-            jobItem.options.company.companyContact
-          }}
-        </p>
-        <a class="mb-3 d-block" :href="`mailto:${jobItem.options.company.companyEmail}`">
-          <span><i class="jobIcon--sm me-1 bi bi-envelope"></i></span>聯絡信箱：{{
-            jobItem.options.company.companyEmail
-          }}
-        </a>
-        <a class="mb-3 d-block" :href="`tel:${jobItem.options.company.companyTel}`">
-          <span><i class="jobIcon--sm me-1 bi bi-phone"></i></span>聯絡電話：{{
-            jobItem.options.company.companyTel
-          }}
-        </a>
-        <p class="mb-3">申請備註：</p>
-        <div class="bodyTxt" v-html="jobItem.options.job.otherApplyInfo"></div>
+        <h3 class="sectionTitle--withTag mb-4">
+          <span class="sectionTitleTag--double me-2"></span>其他職位資訊
+        </h3>
+        <ul class="jobDataList">
+          <li class="jobDataList__item">
+            <p class="jobDataList__item__title">
+              <i class="jobIcon--sm me-1 bi bi-journal"></i>工作性質：{{
+                jobItem.options.job.workType
+              }}
+            </p>
+          </li>
+          <li class="jobDataList__item">
+            <p class="jobDataList__item__title">
+              <i class="jobIcon--sm me-1 bi bi-clock"></i>工作時間：{{
+                jobItem.options.job.workTime
+              }}
+            </p>
+          </li>
+          <li class="jobDataList__item">
+            <p class="jobDataList__item__title">
+              <i class="jobIcon--sm me-1 bi bi-building"></i>產業類別：{{
+                jobItem.options.company.industryCategory
+              }}
+            </p>
+          </li>
+          <li class="jobDataList__item">
+            <p class="jobDataList__item__title">
+              <i class="jobIcon--sm me-1 bi bi-card-list"></i>工作類別：{{ jobItem.category }}
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="sideJobContainer__section">
+        <h3 class="sectionTitle--withTag mb-4">
+          <span class="sectionTitleTag--double me-2"></span>申請方法
+        </h3>
+        <ul class="jobDataList">
+          <li class="jobDataList__item">
+            <p class="jobDataList__item__title">
+              <i class="jobIcon--sm me-1 bi bi-person"></i>職位聯絡人：{{
+                jobItem.options.company.companyContact
+              }}
+            </p>
+          </li>
+          <li class="jobDataList__item">
+            <a
+              class="jobDataList__item__title d-block"
+              :href="`mailto:${jobItem.options.company.companyEmail}`"
+            >
+              <i class="jobIcon--sm me-1 bi bi-envelope"></i>聯絡信箱：{{
+                jobItem.options.company.companyEmail
+              }}
+            </a>
+          </li>
+          <li class="jobDataList__item">
+            <a
+              class="jobDataList__item__title d-block"
+              :href="`tel:${jobItem.options.company.companyTel}`"
+            >
+              <i class="jobIcon--sm me-1 bi bi-phone"></i>聯絡電話：{{
+                jobItem.options.company.companyTel
+              }}
+            </a>
+          </li>
+          <li class="jobDataList__item flex-column align-items-start">
+            <p class="jobDataList__item__title">申請備註：</p>
+            <div
+              v-html="jobItem.options.job.otherApplyInfo"
+              v-if="jobItem.options.job.otherApplyInfo !== ''"
+            ></div>
+            <p
+              class="jobDataList__item__txt noContent"
+              v-if="jobItem.options.job.otherApplyInfo === ''"
+            >
+              尚未填寫
+            </p>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -315,7 +372,7 @@ export default {
   emits: ['search-by-job-category'],
   data() {
     return {
-      boxSubNav: '申請資料',
+      innerNav: '申請資料',
       jobItem: {},
       collapse: '',
     };

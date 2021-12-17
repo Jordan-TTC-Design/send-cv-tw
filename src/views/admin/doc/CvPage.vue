@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <div class="container" v-if="dataReady">
+    <div class="container-xl" v-if="dataReady">
       <div class="row">
         <div class="col-xl-8">
           <div class="cvSubNav">
@@ -34,10 +34,10 @@
               </button>
             </div>
           </div>
-          <div class="cvSection position-relative">
+          <div class="cvSection cvSection--personInfo">
             <div class="cvSection__titleBox mb-5">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 個人資訊
               </h3>
             </div>
@@ -82,8 +82,8 @@
               }}
             </p>
             <div class="cvSection__titleBox mb-4">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 自我介紹
               </h3>
             </div>
@@ -98,8 +98,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 工作經驗
               </h3>
               <button
@@ -199,8 +199,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="ectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 學歷
               </h3>
               <button
@@ -299,8 +299,8 @@
           </div>
           <div class="cvSection">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 專業技能
               </h3>
               <button
@@ -315,7 +315,7 @@
               <!-- 語言 -->
               <li
                 ref="languageData"
-                class="infoList__item show--compressed"
+                class="infoList__item"
                 :class="{ 'd-none': editTemplate === 'editLanguage' }"
               >
                 <div class="d-flex justify-content-between align-items-start">
@@ -367,7 +367,7 @@
               </li>
               <!-- 證照 -->
               <li
-                class="infoList__item show--compressed"
+                class="infoList__item"
                 :class="{ 'd-none': editTemplate === 'editLicense' }"
               >
                 <div class="d-flex justify-content-between align-items-start">
@@ -420,7 +420,7 @@
               <!-- 技能 -->
               <template v-for="(skill, index) in tempCvData.userData.skills" :key="index">
                 <li
-                  class="infoList__item show--compressed"
+                  class="infoList__item"
                   :class="{
                     'd-none': editTemplate === `editSkill--${index}`,
                     'list--last': index === tempCvData.userData.skills.length - 1,
@@ -496,8 +496,8 @@
           <template v-for="(listItem, listIndex) in tempCvData.cvSectionList" :key="listIndex">
             <div class="cvSection">
               <div class="cvSection__titleBox">
-                <h3 class="cvSection__title" :ref="`expDataTitle--${listIndex}`">
-                  <div class="tag--doubleCircle me-2"></div>
+                <h3 class="sectionTitle--withTag" :ref="`expDataTitle--${listIndex}`">
+                  <span class="sectionTitleTag--double me-2"></span>
                   {{ listItem.sectionTitle }}
                   <button
                     type="button"
@@ -547,8 +547,8 @@
           </template>
           <div class="cvSection" v-if="tempCvData.userData.docData">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 我的作品
               </h3>
               <button
@@ -617,13 +617,13 @@
           <!-- 其他資訊 -->
           <div class="cvSection" v-if="tempCvData.userData.docData">
             <div class="cvSection__titleBox">
-              <h3 class="cvSection__title">
-                <div class="tag--doubleCircle me-2"></div>
+              <h3 class="sectionTitle--withTag">
+                <span class="sectionTitleTag--double me-2"></span>
                 其他資訊
               </h3>
             </div>
             <ul class="infoList">
-              <li class="infoList__item show--compressed">
+              <li class="infoList__item">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">駕照</p>
@@ -640,7 +640,7 @@
                   </div>
                 </div>
               </li>
-              <li class="infoList__item show--compressed">
+              <li class="infoList__item">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">特殊身份</p>
@@ -657,7 +657,7 @@
                   </div>
                 </div>
               </li>
-              <li class="infoList__item show--compressed">
+              <li class="infoList__item">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <p class="infoList__item__title">兵役</p>

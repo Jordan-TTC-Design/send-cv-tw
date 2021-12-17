@@ -102,15 +102,15 @@ export default {
   align-items: center;
   z-index: 800;
   .img-cover {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba($color: #000, $alpha: 0.75);
   }
   .iconBtnBox {
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba($color: #fff, $alpha: 0);
     .actionIcon {
       color: #fff;
     }
     &:hover {
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: rgba($color: #fff, $alpha: 0.15);
     }
   }
 }
@@ -147,7 +147,7 @@ export default {
     display: flex;
     justify-content: space-between;
     .iconBtnBox {
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba($color: #fff, $alpha: 0.5);
     }
   }
 }

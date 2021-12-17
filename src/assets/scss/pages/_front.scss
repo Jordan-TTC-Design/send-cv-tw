@@ -26,138 +26,7 @@
     }
   }
 }
-// 搜尋列表＆全部職位列表
-// 職位列表
-.allJobList {
-  .list__item {
-    cursor: pointer;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    background-color: $light;
-    margin-bottom: 0.75rem;
-    position: relative;
-    &::before {
-      content: '';
-      width: 0.5rem;
-      // height: 100%;
-      border-radius: 0.5rem 0 0 0.5rem;
-      background-color: $primary;
-      position: absolute;
-      left: 0px;
-      top: 0;
-      bottom: 0;
-      display: none;
-    }
-    @include sm {
-      padding: 0;
-    }
-    &.active {
-      &::before {
-        display: block;
-      }
-      &::after {
-        content: '';
-        width: 0;
-        height: 0;
-        position: absolute;
-        top: 50%;
-        left: 100%;
-        border-right: 0;
-        border-left: 12px solid $primary;
-        border-top: 22px solid transparent;
-        border-bottom: 22px solid transparent;
-        z-index: 2;
-        margin-top: -22px;
-      }
-      @include md {
-        &::before {
-          display: none;
-        }
-        &::after {
-          display: none;
-        }
-      }
-    }
-    &:hover {
-      background-color: rgba($color: $light, $alpha: 0.5);
-    }
-    &__imgBox {
-      max-width: 24%;
-      position: relative;
-      margin-right: 1.75rem;
-      .jobImage {
-        max-width: 100%;
-        border-radius: 0.25rem;
-      }
-      @include sm {
-        top: 0;
-        left: 0;
-        right: 0;
-        max-width: 100%;
-        margin-right: 0;
-        margin-bottom: 1.5rem;
-        .jobImage {
-          width: 100%;
-          max-height: 10rem;
-          object-fit: cover;
-          border-radius: 0.5rem 0.5rem 0 0;
-        }
-        .img-cover {
-          border-radius: 0.5rem 0.5rem 0 0;
-        }
-      }
-    }
-    &__tagBox {
-      @include sm {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        z-index: 100;
-      }
-    }
-    &__logoImgBox {
-      position: absolute;
-      top: -0.25rem;
-      right: -1rem;
-      padding: 0.25rem;
-      width: 4.5rem;
-      background-color: $light;
-      border-radius: 0 0 0 0.25rem;
-      .logoImg {
-        max-width: 100%;
-        border: 1px solid $gray-line;
-        border-radius: 0.125rem;
-      }
-      @include sm {
-        width: 5rem;
-        border-radius: 0.25rem;
-        top: 90%;
-        left: 0.5rem;
-      }
-    }
-    &__txtBox {
-      text-decoration: none;
-      @include sm {
-        padding: 1rem;
-      }
-    }
-    &__title {
-      color: $dark;
-      font-weight: $fw--md;
-      &:hover {
-        color: $primary;
-      }
-    }
-    .collectBtn {
-      z-index: 100;
-      @include sm {
-        top: 1rem;
-        right: 1rem;
-        background-color: $light;
-      }
-    }
-  }
-}
+
 
 // 收藏頁面
 //收藏夾
@@ -364,7 +233,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba($color: $light, $alpha: 0.75);
   .actionIcon {
     font-size: 24px;
     font-weight: bold;
@@ -381,7 +250,7 @@
   height: 44px;
   width: 44px;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.16);
+    background-color: rgba($color: $light, $alpha: 0.16);
   }
   .jobIcon {
     color: $white;

@@ -2,27 +2,22 @@
   <div
     @click="selectJob"
     :data-id="jobItem.id"
-    :ref="`list__item${jobItem.id}`"
-    class="list__item d-flex box--shadow flex-column align-items-start"
+    :ref="`jobCard${jobItem.id}`"
+    class="jobCard box--shadow"
   >
     <button
       class="collectBtn btn btn-outline-gray-line position-absolute"
-      :class="{'collected':jobItem.jobCollectCheck}"
+      :class="{ collected: jobItem.jobCollectCheck }"
       type="button"
       @click.stop="collectJob(jobItem)"
     >
       <i class="jobIcon bi bi-bookmark-fill"></i>
     </button>
-    <div class="list__item__tagBox mb-3">
-      <button type="button" class="jobTag btn" @click="searchByJobCategory">
-        {{ jobItem.category }}
-      </button>
-    </div>
-    <div class="d-flex w-100 flex-md-row flex-column">
-      <div class="list__item__imgBox">
+    <div class="d-flex w-100 flex-md-row flex-column p-md-3">
+      <div class="jobCard__imgBox">
         <img class="jobImage" :src="jobItem.imageUrl" :alt="`${jobItem.title}職位圖片`" />
         <div class="img-cover d-md-none d-block"></div>
-        <div class="list__item__logoImgBox">
+        <div class="jobCard__logoImgBox">
           <img
             class="logoImg"
             :src="jobItem.options.company.companyLogoUrl"
@@ -30,32 +25,35 @@
           />
         </div>
       </div>
-      <div
-        class="list__item__txtBox flex-grow-1 d-flex flex-column
-        justify-content-between"
-      >
-        <div class="mb-3 d-flex flex-column align-items-start">
+      <div class="jobCard__body p-md-0">
+        <div class="jobCard__tagBox mb-3">
+          <p class="jobTag me-2">匹配度100%</p>
+          <button type="button" class="jobTag btn" @click="searchByJobCategory">
+            {{ jobItem.category }}
+          </button>
+        </div>
+        <div class="jobCard__txtBox">
           <router-link
-            class="list__item__title mb-3 me-7"
+            class="strongTxt mb-3 me-md-7"
             :to="`/products-list/product/${jobItem.id}`"
             >{{ jobItem.title }}</router-link
           >
           <router-link
-            class="txtLink subTxt mb-2 me-7"
+            class="txtLink subTxt me-md-7"
             :to="`/products-list/company/${jobItem.options.company.companyLink}`"
             >{{ jobItem.options.company.companyName }}</router-link
           >
         </div>
-        <div class="d-flex justify-content-between align-items-center">
-          <p class="text-dark" v-if="!jobItem.options.job.salaryInterView">
-            {{ jobItem.price }} / 月薪
-          </p>
-          <p class="text-dark" v-if="jobItem.options.job.salaryInterView">薪資面議</p>
-          <p class="subTxt--foil">
-            {{ $filters.date(jobItem.options.job.create) }}
-          </p>
-        </div>
       </div>
+    </div>
+    <div class="jobCard__footer pt-md-0 align-items-end">
+      <p class="text-dark" v-if="!jobItem.options.job.salaryInterView">
+        {{ jobItem.price }} / 月薪
+      </p>
+      <p class="text-dark" v-if="jobItem.options.job.salaryInterView">薪資面議</p>
+      <p class="subTxt--foil">
+        {{ $filters.date(jobItem.options.job.create) }}
+      </p>
     </div>
   </div>
 </template>
@@ -91,10 +89,10 @@ export default {
       this.$emit('search-by-job-category', this.jobItem.category);
     },
     openSelectEffect() {
-      this.$refs[`list__item${this.jobItem.id}`].classList.add('active');
+      this.$refs[`jobCard${this.jobItem.id}`].classList.add('active');
     },
     closeSelectEffect() {
-      this.$refs[`list__item${this.jobItem.id}`].classList.remove('active');
+      this.$refs[`jobCard${this.jobItem.id}`].classList.remove('active');
     },
   },
   created() {

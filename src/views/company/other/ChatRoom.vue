@@ -180,295 +180,294 @@
       class="chatRoom__infoArea chatRoom__infoArea--company"
       :class="{ active: openInfoArea === 'userInfo' }"
     >
-      <button type="button" class="btn d-xl-none" @click="openInfoArea = ''">
-        <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
-      </button>
-      <ul class="boxSubNav boxSubNav--company">
+      <div class="border-bottom border-gray-line d-xl-none">
+        <button type="button" class="btn" @click="openInfoArea = ''">
+          <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
+        </button>
+      </div>
+      <ul class="innerNav innerNav--fill innerNav--company innerNav--nonRound innerNav--bgColor">
         <li
-          class="boxSubNav__item w--50"
-          :class="{ active: boxSubNav === '個人資料' }"
-          @click="changeNav('boxSubNav', '個人資料')"
+          class="innerNav__item w--50"
+          :class="{ active: innerNav === '個人資料' }"
+          @click="changeNav('innerNav', '個人資料')"
         >
           <p>個人資料</p>
         </li>
         <li
-          class="boxSubNav__item w--50"
-          :class="{ active: boxSubNav === '應徵資料' }"
-          @click="changeNav('boxSubNav', '應徵資料')"
+          class="innerNav__item w--50"
+          :class="{ active: innerNav === '應徵資料' }"
+          @click="changeNav('innerNav', '應徵資料')"
         >
           <p>應徵資料</p>
         </li>
       </ul>
-      <div class="personPop__personInfoBox__innerBox border-bottom border-gray-line p-4">
-        <img
-          style="width: 80px"
-          class="personInfoBox__personalImg me-4 rounded"
-          :src="user.account.userImgUrl"
-          :alt="`${user.account.chineseName}個人求職照片`"
-        />
-        <div>
-          <div class="d-flex align-items-center mb-2">
-            <p class="personInfoBox__name text-dark mb-0 me-2">
-              {{ user.account.chineseName }}
-            </p>
-            <p>{{ user.account.gender }} | {{ `28歲` }}</p>
+      <div class="sideJobContainer">
+        <div class="personPop__personInfoBox__innerBox border-bottom border-gray-line p-4">
+          <img
+            style="width: 80px"
+            class="personInfoBox__personalImg me-4 rounded"
+            :src="user.account.userImgUrl"
+            :alt="`${user.account.chineseName}個人求職照片`"
+          />
+          <div>
+            <div class="d-flex align-items-center mb-2">
+              <p class="personInfoBox__name text-dark mb-0 me-2">
+                {{ user.account.chineseName }}
+              </p>
+              <p>{{ user.account.gender }} | {{ `28歲` }}</p>
+            </div>
+            <p class="subTxt--foil">最後活動日期：2021/12/12</p>
           </div>
-          <p class="subTxt--foil">最後活動日期：2021/12/12</p>
         </div>
-      </div>
-      <div ref="sideJobBox" class="sideJobBox pt-0">
-        <div v-if="boxSubNav === '個人資料'">
-          <ul class="infoList infoList--company">
-            <li class="infoList__item show--compressed">
-              <p class="infoList__item__title">求職意向</p>
-              <ul class="infoList__innerList">
-                <li class="infoList__innerList__item">ui設計師</li>
-                <li class="infoList__innerList__item">前端工程師</li>
-              </ul>
-            </li>
-            <li class="infoList__item infoList__item--job">
-              <p class="infoList__item__title">教育程度</p>
-              <template v-for="(item, index) in user.educationExp.educations" :key="index">
-                <div :class="{ 'mb-2': index < user.educationExp.educations.length - 1 }">
-                  <p class="infoList__item__content mb-1">
-                    {{ item.schoolName }} -
-                    {{ item.majorName }}
-                  </p>
-                  <p class="infoList__item__subTitle">
-                    {{
-                      `${item.startYear}.
+        <div class="sideJobContainer__body pt-0">
+          <div v-if="innerNav === '個人資料'">
+            <ul class="infoList infoList--company">
+              <li class="infoList__item">
+                <p class="infoList__item__title">求職意向</p>
+                <ul class="infoList__innerList">
+                  <li class="infoList__innerList__item">ui設計師</li>
+                  <li class="infoList__innerList__item">前端工程師</li>
+                </ul>
+              </li>
+              <li class="infoList__item infoList__item--job">
+                <p class="infoList__item__title">教育程度</p>
+                <template v-for="(item, index) in user.educationExp.educations" :key="index">
+                  <div :class="{ 'mb-2': index < user.educationExp.educations.length - 1 }">
+                    <p class="infoList__item__content mb-1">
+                      {{ item.schoolName }} -
+                      {{ item.majorName }}
+                    </p>
+                    <p class="infoList__item__subTitle">
+                      {{
+                        `${item.startYear}.
                           ${item.startMonth}`
-                    }}
-                    ~
-                    {{
-                      item.isStillAtSchool
-                        ? '仍在學'
-                        : `${item.endYear}.
+                      }}
+                      ~
+                      {{
+                        item.isStillAtSchool
+                          ? '仍在學'
+                          : `${item.endYear}.
                             ${item.endMonth}`
-                    }}
-                    <span class="ms-2 text-secondary">{{ item.educationLevel }}</span>
-                  </p>
-                </div>
-              </template>
-            </li>
-            <li class="infoList__item infoList__item--job">
-              <p class="infoList__item__title">工作經驗</p>
-              <template v-for="(item, index) in user.workExp.works" :key="index">
-                <div :class="{ 'mb-2': index < user.workExp.works.length - 1 }">
-                  <p class="infoList__item__content mb-1">
-                    {{ item.companyName }} -
-                    {{ item.jobName }}
-                  </p>
-                  <p class="infoList__item__subTitle">
-                    {{
-                      `${item.startYear}.
+                      }}
+                      <span class="ms-2 text-secondary">{{ item.educationLevel }}</span>
+                    </p>
+                  </div>
+                </template>
+              </li>
+              <li class="infoList__item infoList__item--job">
+                <p class="infoList__item__title">工作經驗</p>
+                <template v-for="(item, index) in user.workExp.works" :key="index">
+                  <div :class="{ 'mb-2': index < user.workExp.works.length - 1 }">
+                    <p class="infoList__item__content mb-1">
+                      {{ item.companyName }} -
+                      {{ item.jobName }}
+                    </p>
+                    <p class="infoList__item__subTitle">
+                      {{
+                        `${item.startYear}.
                           ${item.startMonth}`
-                    }}
-                    ~
-                    {{
-                      item.isStillWork
-                        ? '仍在職'
-                        : `${item.endYear}.
+                      }}
+                      ~
+                      {{
+                        item.isStillWork
+                          ? '仍在職'
+                          : `${item.endYear}.
                             ${item.endMonth}`
-                    }}
-                  </p>
-                </div>
-              </template>
-            </li>
-            <li class="infoList__item show--compressed">
-              <p class="infoList__item__title">具備駕照</p>
-              <ul class="infoList__innerList">
-                <template v-for="(item, index) in user.others.driverLicenses" :key="index">
-                  <li v-if="item.select" class="infoList__innerList__item">
-                    {{ item.name }}
-                  </li>
+                      }}
+                    </p>
+                  </div>
                 </template>
-              </ul>
-            </li>
-            <li class="infoList__item show--compressed" v-if="user.others.identities.length !== 0">
-              <p class="infoList__item__title">特殊身份</p>
-              <ul class="infoList__innerList">
-                <template v-for="(item, index) in user.others.identities" :key="index">
-                  <li v-if="item.select" class="infoList__innerList__item">
-                    {{ item.name }}
-                  </li>
-                </template>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div v-if="boxSubNav === '應徵資料'">
-          <ul class="infoList infoList--company">
-            <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
+              </li>
+              <li class="infoList__item">
+                <p class="infoList__item__title">具備駕照</p>
+                <ul class="infoList__innerList">
+                  <template v-for="(item, index) in user.others.driverLicenses" :key="index">
+                    <li v-if="item.select" class="infoList__innerList__item">
+                      {{ item.name }}
+                    </li>
+                  </template>
+                </ul>
+              </li>
+              <li
+                class="infoList__item"
+                v-if="user.others.identities.length !== 0"
+              >
+                <p class="infoList__item__title">特殊身份</p>
+                <ul class="infoList__innerList">
+                  <template v-for="(item, index) in user.others.identities" :key="index">
+                    <li v-if="item.select" class="infoList__innerList__item">
+                      {{ item.name }}
+                    </li>
+                  </template>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div v-if="innerNav === '應徵資料'">
+            <ul class="infoList infoList--company infoList--withBtn">
+              <li class="infoList__item">
                 <div>
                   <p class="infoList__item__title">應徵狀態</p>
                   <p class="infoList__item__content">面試邀請</p>
                 </div>
-                <div class="d-flex">
+                <div class="infoList__btnBox">
                   <button type="button" class="btn btn-outline-gray-line text-dark me-2">
                     改時間
                   </button>
                   <button type="button" class="btn btn-gray-light text-dark me-2">婉拒</button>
-                  <button type="button" class="btn btn-primary text-dark">同意</button>
+                  <button type="button" class="btn btn-companyColor text-light">同意</button>
                 </div>
-              </div>
-            </li>
-            <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
+              </li>
+              <li class="infoList__item">
                 <div>
                   <p class="infoList__item__title">面試時間</p>
                   <p class="infoList__item__content">2020.01.13 19:38</p>
                 </div>
-              </div>
-            </li>
-            <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
+              </li>
+              <li class="infoList__item">
                 <div>
                   <p class="infoList__item__title">面試地點</p>
                   <p class="infoList__item__content">台北市中山區南京東路二段150號10樓</p>
                 </div>
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                  打開地圖
-                </button>
-              </div>
-            </li>
-            <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
+                <div class="infoList__btnBox">
+                  <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                    打開地圖
+                  </button>
+                </div>
+              </li>
+              <li class="infoList__item">
                 <div>
                   <p class="infoList__item__title">應徵方式</p>
                   <p class="infoList__item__content">sendCV 申請職位</p>
                 </div>
-              </div>
-            </li>
-            <li class="infoList__item">
-              <div class="d-flex justify-content-between align-items-center">
+              </li>
+              <li class="infoList__item">
                 <div>
                   <p class="infoList__item__title">應徵時間</p>
                   <p class="infoList__item__content">2020.01.13 19:38</p>
                 </div>
-              </div>
-            </li>
-            <li class="infoList__item list--last mb-5">
-              <div class="d-flex justify-content-between align-items-center">
+              </li>
+              <li class="infoList__item list--last mb-5">
                 <div>
                   <p class="infoList__item__title">應徵紀錄</p>
                   <p class="infoList__item__content">
                     面試邀請<span class="subTxt">2020.01.13 19:38</span>
                   </p>
                 </div>
-                <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                  查看全部
-                </button>
-              </div>
-            </li>
-          </ul>
-          <ul ref="collapse" class="accordion">
-            <!-- 應徵文件 -->
-            <li class="accordion-item bg-gray-light py-2">
-              <p class="text-dark text-center">應徵文件</p>
-            </li>
-            <li class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#applyDocument-cv"
-                  aria-expanded="false"
-                  aria-controls="applyDocument-cv"
-                >
-                  履歷
-                </button>
-              </h2>
-              <div id="applyDocument-cv" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                  <strong>This is the first item's accordion body.</strong> It is shown by default,
-                  until the collapse plugin adds the appropriate classes that we use to style each
-                  element. These classes control the overall appearance, as well as the showing and
-                  hiding via CSS transitions. You can modify any of this with custom CSS or
-                  overriding our default variables. It's also worth noting that just about any HTML
-                  can go within the <code>.accordion-body</code>, though the transition does limit
-                  overflow.
+                <div class="infoList__btnBox">
+                  <button type="button" class="btn btn-outline-gray-line text-dark me-2">
+                    查看全部
+                  </button>
                 </div>
-              </div>
-            </li>
-            <li class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#applyDocument-coverLetter"
-                  aria-expanded="false"
-                  aria-controls="applyDocument-coverLetter"
-                >
-                  求職信
-                </button>
-              </h2>
-              <div id="applyDocument-coverLetter" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                  <strong>This is the second item's accordion body.</strong> It is hidden by
-                  default, until the collapse plugin adds the appropriate classes that we use to
-                  style each element. These classes control the overall appearance, as well as the
-                  showing and hiding via CSS transitions. You can modify any of this with custom CSS
-                  or overriding our default variables. It's also worth noting that just about any
-                  HTML can go within the <code>.accordion-body</code>, though the transition does
-                  limit overflow.
+              </li>
+            </ul>
+            <ul ref="collapse" class="accordion">
+              <!-- 應徵文件 -->
+              <li class="accordion-item bg-gray-light py-2">
+                <p class="text-dark text-center">應徵文件</p>
+              </li>
+              <li class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#applyDocument-cv"
+                    aria-expanded="false"
+                    aria-controls="applyDocument-cv"
+                  >
+                    履歷
+                  </button>
+                </h2>
+                <div id="applyDocument-cv" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <strong>This is the first item's accordion body.</strong> It is shown by
+                    default, until the collapse plugin adds the appropriate classes that we use to
+                    style each element. These classes control the overall appearance, as well as the
+                    showing and hiding via CSS transitions. You can modify any of this with custom
+                    CSS or overriding our default variables. It's also worth noting that just about
+                    any HTML can go within the <code>.accordion-body</code>, though the transition
+                    does limit overflow.
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#applyDocument-selfIntro"
-                  aria-expanded="false"
-                  aria-controls="applyDocument-selfIntro"
-                >
-                  自我介紹影片
-                </button>
-              </h2>
-              <div id="applyDocument-selfIntro" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                  <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                  until the collapse plugin adds the appropriate classes that we use to style each
-                  element. These classes control the overall appearance, as well as the showing and
-                  hiding via CSS transitions. You can modify any of this with custom CSS or
-                  overriding our default variables. It's also worth noting that just about any HTML
-                  can go within the <code>.accordion-body</code>, though the transition does limit
-                  overflow.
+              </li>
+              <li class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#applyDocument-coverLetter"
+                    aria-expanded="false"
+                    aria-controls="applyDocument-coverLetter"
+                  >
+                    求職信
+                  </button>
+                </h2>
+                <div id="applyDocument-coverLetter" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by
+                    default, until the collapse plugin adds the appropriate classes that we use to
+                    style each element. These classes control the overall appearance, as well as the
+                    showing and hiding via CSS transitions. You can modify any of this with custom
+                    CSS or overriding our default variables. It's also worth noting that just about
+                    any HTML can go within the <code>.accordion-body</code>, though the transition
+                    does limit overflow.
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#applyDocument-companyAsk"
-                  aria-expanded="false"
-                  aria-controls="applyDocument-companyAsk"
-                >
-                  公司提問
-                </button>
-              </h2>
-              <div id="applyDocument-companyAsk" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                  <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                  until the collapse plugin adds the appropriate classes that we use to style each
-                  element. These classes control the overall appearance, as well as the showing and
-                  hiding via CSS transitions. You can modify any of this with custom CSS or
-                  overriding our default variables. It's also worth noting that just about any HTML
-                  can go within the <code>.accordion-body</code>, though the transition does limit
-                  overflow.
+              </li>
+              <li class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#applyDocument-selfIntro"
+                    aria-expanded="false"
+                    aria-controls="applyDocument-selfIntro"
+                  >
+                    自我介紹影片
+                  </button>
+                </h2>
+                <div id="applyDocument-selfIntro" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by
+                    default, until the collapse plugin adds the appropriate classes that we use to
+                    style each element. These classes control the overall appearance, as well as the
+                    showing and hiding via CSS transitions. You can modify any of this with custom
+                    CSS or overriding our default variables. It's also worth noting that just about
+                    any HTML can go within the <code>.accordion-body</code>, though the transition
+                    does limit overflow.
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+              <li class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#applyDocument-companyAsk"
+                    aria-expanded="false"
+                    aria-controls="applyDocument-companyAsk"
+                  >
+                    公司提問
+                  </button>
+                </h2>
+                <div id="applyDocument-companyAsk" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by
+                    default, until the collapse plugin adds the appropriate classes that we use to
+                    style each element. These classes control the overall appearance, as well as the
+                    showing and hiding via CSS transitions. You can modify any of this with custom
+                    CSS or overriding our default variables. It's also worth noting that just about
+                    any HTML can go within the <code>.accordion-body</code>, though the transition
+                    does limit overflow.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -482,10 +481,13 @@
           <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
         </button>
       </div>
-      <ul class="toolList">
-        <li class="toolList__title">純文字模板</li>
+      <ul class="chatToolList">
+        <li class="chatToolList__title">純文字模板</li>
         <template v-for="(item, index) in user.messageTemplateList" :key="index">
-          <li class="toolList__item putPointer" @click="openDocModal('sendMessageTemplate', index)">
+          <li
+            class="chatToolList__item putPointer"
+            @click="openDocModal('sendMessageTemplate', index)"
+          >
             {{ item.title }}
           </li>
         </template>
@@ -533,7 +535,7 @@ export default {
   data() {
     return {
       dataReady: false,
-      boxSubNav: '個人資料',
+      innerNav: '個人資料',
       rightContainer: 'userInfo',
       products: [],
       jobsList: [],

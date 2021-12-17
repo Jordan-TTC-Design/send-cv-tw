@@ -1,519 +1,485 @@
 <template>
-  <div class="page--pt pt-0">
-    <div class="container-fuild">
-      <!-- 搜尋banner -->
-      <div class="mainBanner position-relative">
-        <div class="mainBanner__bgBox">
-          <div class="mainBanner__bgBox__bg bg-dark mainBanner__bgBox__bg--left"></div>
-          <div class="mainBanner__bgBox__bg bg-primary mainBanner__bgBox__bg--right"></div>
-        </div>
-        <img class="mainBanner__img" src="https://i.imgur.com/FP1Aa4K.png" alt="找工作在這裡" />
-        <div class="container">
-          <div class="row justify-content-end">
-            <div class="col-lg-5">
-              <div class="mainBanner__innerBox bg-white rounded">
-                <h2 class="mainBanner__title text-dark mb-4">搜尋職位</h2>
-                <form class="mainBanner__searchBar" @submit="toSearchJob">
-                  <div class="form__input mb-3">
-                    <div class="form__labelBox">
-                      <label for="searchFilterTop-keyword" class="labelBox__label form-label"
-                        >關鍵字</label
-                      >
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="searchFilterTop-keyword"
-                      placeholder="職位關鍵字"
-                      aria-describedby="關鍵字"
-                      v-model="filterData.keyword"
-                    />
-                  </div>
-                  <div
-                    class="
-                      d-flex
-                      justify-content-between
-                      align-items-md-end align-items-stretch
-                      flex-grow-1 flex-md-row flex-column
-                    "
-                  >
-                    <div class="form__input flex-grow-1 me-md-4 mb-3">
-                      <div class="form__labelBox">
-                        <label for="searchFilterTop-city" class="labelBox__label form-label"
-                          >地區</label
-                        >
-                      </div>
-                      <select
-                        class="form-select"
-                        aria-label="地區"
-                        id="searchFilterTop-city"
-                        v-model="filterData.city"
-                      >
-                        <option disabled>請選擇地區</option>
-                        <option selected value="不限">不限</option>
-                        <option
-                          v-for="(item, index) in formData.city"
-                          :value="item"
-                          :key="`地區${index}`"
-                        >
-                          {{ item }}
-                        </option>
-                      </select>
-                    </div>
-                    <div class="form__input flex-grow-1 mb-3">
-                      <div class="form__labelBox">
-                        <label for="searchFilterTop-jobCategory" class="labelBox__label form-label"
-                          >職位類別</label
-                        >
-                      </div>
-                      <select
-                        class="form-select"
-                        aria-label="地區"
-                        id="searchFilterTop-jobCategory"
-                        v-model="filterData.jobCategory"
-                      >
-                        <option disabled>請選擇職位類別</option>
-                        <option selected value="不限">不限</option>
-                        <option
-                          v-for="(item, index) in formData.jobCategory"
-                          :value="item"
-                          :key="`職位類別${index}`"
-                        >
-                          {{ item }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="d-flex mb-4">
-                    <p class="subTxt text-nowrap me-2 mt-1">推薦關鍵字：</p>
-                    <ul class="mainBanner__searchBar__tagList">
-                      <li class="jobTag">UIDesigner</li>
-                      <li class="jobTag">前端工程師</li>
-                      <li class="jobTag">營銷經理</li>
-                      <li class="jobTag">店長</li>
-                      <li class="jobTag">土木技師</li>
-                      <li class="jobTag">機構工程</li>
-                      <li class="jobTag">食品管理</li>
-                    </ul>
-                  </div>
-                  <div
-                    class="
-                      d-flex
-                      justify-content-between
-                      align-items-md-end align-items-stretch
-                      flex-grow-1 flex-md-row flex-column
-                    "
-                  >
-                    <button class="btn btn-outline-gray-line text-dark" type="button">
-                      近期搜尋
-                    </button>
-                    <button class="btn btn-primary" type="submit">搜尋職位</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="container-fuild">
+    <!-- 搜尋banner -->
+    <div class="mainBanner position-relative">
+      <div class="mainBanner__bgBox">
+        <div class="mainBanner__bgBox__bg bg-dark mainBanner__bgBox__bg--left"></div>
+        <div class="mainBanner__bgBox__bg bg-primary mainBanner__bgBox__bg--right"></div>
       </div>
+      <img class="mainBanner__img" src="https://i.imgur.com/FP1Aa4K.png" alt="找工作在這裡" />
       <div class="container-xl">
-        <!-- 熱門職位 -->
-        <div ref="sectionHotJob" class="sectionHotJob section--py border-bottom border-gray-line">
-          <div class="titleBox mb-5">
-            <h3 class="titleBox__title">熱門職位</h3>
-            <p class="titleBox__tag titleBox__tag--jobSeeker">推薦</p>
-          </div>
-          <div class="row flex-wrap row-cols-lg-2 row-cols-1 gy-5">
-            <div class="col">
-              <router-link
-                class="card--hotJob card--lg putPointer"
-                v-if="this.sortHotJobs[0]"
-                :style="{ 'background-image': `url(${sortHotJobs[0]['imageUrl']} )` }"
-                :to="`/products-list/product/${sortHotJobs[0].id}`"
-              >
-                <div class="card__btnBox">
-                  <button
-                    class="collectBtn btn btn-outline-light"
-                    :class="{ collected: sortHotJobs[0].jobCollectCheck }"
-                    type="button"
-                    @click.prevent="collectJob(sortHotJobs[0])"
-                  >
-                    <i class="jobIcon bi bi-bookmark-fill"></i>
+        <div class="row justify-content-end">
+          <div class="col-lg-5">
+            <div class="mainBanner__innerBox bg-white rounded">
+              <h2 class="pageTitle mb-4">搜尋職位</h2>
+              <form class="mainBanner__searchBar" @submit="toSearchJob">
+                <div class="form__input">
+                  <div class="form__labelBox">
+                    <label for="searchFilterTop-keyword" class="labelBox__label form-label"
+                      >關鍵字</label
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="searchFilterTop-keyword"
+                    placeholder="職位關鍵字"
+                    aria-describedby="關鍵字"
+                    v-model="filterData.keyword"
+                  />
+                </div>
+                <div class="d-flex flex-md-row flex-column">
+                  <div class="form__input flex-grow-1 me-md-4">
+                    <div class="form__labelBox">
+                      <label for="searchFilterTop-city" class="labelBox__label form-label"
+                        >地區</label
+                      >
+                    </div>
+                    <select
+                      class="form-select"
+                      aria-label="地區"
+                      id="searchFilterTop-city"
+                      v-model="filterData.city"
+                    >
+                      <option disabled>請選擇地區</option>
+                      <option selected value="不限">不限</option>
+                      <option
+                        v-for="(item, index) in formData.city"
+                        :value="item"
+                        :key="`地區${index}`"
+                      >
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form__input flex-grow-1">
+                    <div class="form__labelBox">
+                      <label for="searchFilterTop-jobCategory" class="labelBox__label form-label"
+                        >職位類別</label
+                      >
+                    </div>
+                    <select
+                      class="form-select"
+                      aria-label="地區"
+                      id="searchFilterTop-jobCategory"
+                      v-model="filterData.jobCategory"
+                    >
+                      <option disabled>請選擇職位類別</option>
+                      <option selected value="不限">不限</option>
+                      <option
+                        v-for="(item, index) in formData.jobCategory"
+                        :value="item"
+                        :key="`職位類別${index}`"
+                      >
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="d-flex mb-4">
+                  <p class="subTxt text-nowrap me-2 mt-1">推薦關鍵字：</p>
+                  <ul class="mainBanner__searchBar__tagList">
+                    <li class="jobTag">UIDesigner</li>
+                    <li class="jobTag">前端工程師</li>
+                    <li class="jobTag">營銷經理</li>
+                    <li class="jobTag">店長</li>
+                    <li class="jobTag">土木技師</li>
+                    <li class="jobTag">機構工程</li>
+                    <li class="jobTag">食品管理</li>
+                  </ul>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="btn btn-outline-gray-line text-dark" type="button">
+                    近期搜尋
                   </button>
+                  <button class="btn btn-primary" type="submit">搜尋職位</button>
                 </div>
-                <div class="txtBox">
-                  <router-link
-                    class="card__title mb-3 d-block putPointer"
-                    :to="`/products-list/product/${sortHotJobs[0].id}`"
-                    >{{ sortHotJobs[0].title }}</router-link
-                  >
-                  <router-link
-                    class="card__txt mb-3 d-block putPointer"
-                    :to="`/products-list/company/${sortHotJobs[0].options.company.companyLink}`"
-                    >{{ sortHotJobs[0].options.company.companyName }}</router-link
-                  >
-                  <div class="d-flex align-items-center">
-                    <p class="jobTag me-2">100%</p>
-                    <p
-                      class="card__subTxt text-light"
-                      v-if="!sortHotJobs[0].options.job.salaryInterView"
-                    >
-                      {{ sortHotJobs[0].price }} / 月薪
-                    </p>
-                    <p
-                      class="card__subTxt text-light"
-                      v-if="sortHotJobs[0].options.job.salaryInterView"
-                    >
-                      薪資面議
-                    </p>
-                  </div>
-                </div>
-              </router-link>
-            </div>
-            <div class="col">
-              <div class="row row-cols-md-2 row-cols-1 gy-5">
-                <template v-for="(item, index) in sortHotJobs" :key="item.id">
-                  <div
-                    class="col"
-                    :class="{ 'mb-lg-0': index > 2 }"
-                    v-if="index >= 1 && index <= 4"
-                  >
-                    <router-link
-                      class="card--hotJob card--sm"
-                      v-if="sortHotJobs[index]"
-                      :style="{ 'background-image': `url(${sortHotJobs[index]['imageUrl']} )` }"
-                      :to="`/products-list/product/${sortHotJobs[index].id}`"
-                    >
-                      <div class="card__btnBox">
-                        <button
-                          class="collectBtn btn btn-outline-light"
-                          :class="{ collected: sortHotJobs[index].jobCollectCheck }"
-                          type="button"
-                          @click.prevent="collectJob(item)"
-                        >
-                          <i class="jobIcon bi bi-bookmark-fill"></i>
-                        </button>
-                      </div>
-                      <div class="txtBox">
-                        <router-link
-                          class="card__title d-block putPointer"
-                          :to="`/products-list/product/${sortHotJobs[index].id}`"
-                          >{{ sortHotJobs[index].title }}</router-link
-                        >
-                        <router-link
-                          class="card__txt d-block putPointer"
-                          :to="`/products-list/company/
-                            ${sortHotJobs[index].options.company.companyLink}`"
-                          >{{ sortHotJobs[index].options.company.companyName }}</router-link
-                        >
-                        <div class="d-flex align-items-center">
-                          <p class="jobTag me-2">100%</p>
-                          <p
-                            class="card__subTxt text-light"
-                            v-if="!sortHotJobs[index].options.job.salaryInterView"
-                          >
-                            {{ sortHotJobs[index].price }} / 月薪
-                          </p>
-                          <p
-                            class="card__subTxt text-light"
-                            v-if="sortHotJobs[index].options.job.salaryInterView"
-                          >
-                            薪資面議
-                          </p>
-                        </div>
-                      </div>
-                    </router-link>
-                  </div>
-                </template>
-              </div>
+              </form>
             </div>
           </div>
-        </div>
-        <!-- 最新職位 -->
-        <div class="section--newJob section--py">
-          <div class="d-flex align-items-center mb-4">
-            <div class="titleBox">
-              <h3 class="titleBox__title">最新職位</h3>
-            </div>
-            <button type="button" class="btn btn-primary">
-              <i class="jobIcon text-dark bi bi-camera"></i>
-              立即拍照上傳您身邊職位，我們就幫您聯繫求職！
-            </button>
-          </div>
-          <swiper
-            :slides-per-view="swiperNum"
-            :space-between="20"
-            :autoplay="swiperDetail.autoPlay"
-            :pagination="swiperDetail.pagination"
-            :navigation="swiperDetail.navigation"
-            v-if="dataOk"
-          >
-            <swiper-slide v-for="item in sortNewJobs" :key="item.id">
-              <GoodJobCard :good-job="item"></GoodJobCard>
-            </swiper-slide>
-            <div class="swiper-button-prev swiper-custom">
-              <button type="button" class="btn btn-lg rounded-circle iconBtnBox">
-                <i class="bi bi-arrow-left actionIcon"></i>
-              </button>
-            </div>
-            <div class="swiper-button-next swiper-custom">
-              <button type="button" class="btn btn-lg rounded-circle iconBtnBox">
-                <i class="bi bi-arrow-right actionIcon"></i>
-              </button>
-            </div>
-          </swiper>
         </div>
       </div>
-      <div class="bg-white">
-        <div class="container-xl">
-          <div class="section--py border-bottom border-gray-line">
-            <div class="titleBox justify-content-center">
-              <h3 class="titleBox__title">如何使用拍照申請功能？</h3>
-            </div>
-            <div class="row mb-5 row-cols-md-3 row-cols-1">
-              <div class="col">
-                <div class="card--howTo">
-                  <img src="@/assets/images/howto/snapJob-howto-1.png" alt="拍照申請說明圖" />
-                  <div class="card__txtBox">
-                    <h5 class="text-dark">路過看到好工作</h5>
-                    <p>上班途中經過看到心愛的咖啡店在徵人，先拍下來！</p>
-                  </div>
+    </div>
+    <div class="container-xl">
+      <!-- 熱門職位 -->
+      <div ref="sectionHotJob" class="sectionHotJob section--py border-bottom border-gray-line">
+        <div class="titleBox mb-5">
+          <h3 class="titleBox__title">熱門職位</h3>
+          <p class="titleBox__tag titleBox__tag--jobSeeker">推薦</p>
+        </div>
+        <div class="row flex-wrap row-cols-lg-2 row-cols-1 gy-5">
+          <div class="col">
+            <router-link
+              class="card--hotJob card--lg putPointer"
+              v-if="this.sortHotJobs[0]"
+              :style="{ 'background-image': `url(${sortHotJobs[0]['imageUrl']} )` }"
+              :to="`/products-list/product/${sortHotJobs[0].id}`"
+            >
+              <div class="card__btnBox">
+                <button
+                  class="collectBtn btn btn-outline-light"
+                  :class="{ collected: sortHotJobs[0].jobCollectCheck }"
+                  type="button"
+                  @click.prevent="collectJob(sortHotJobs[0])"
+                >
+                  <i class="jobIcon bi bi-bookmark-fill"></i>
+                </button>
+              </div>
+              <div class="txtBox">
+                <router-link
+                  class="card__title mb-3 d-block putPointer"
+                  :to="`/products-list/product/${sortHotJobs[0].id}`"
+                  >{{ sortHotJobs[0].title }}</router-link
+                >
+                <router-link
+                  class="card__txt mb-3 d-block putPointer"
+                  :to="`/products-list/company/${sortHotJobs[0].options.company.companyLink}`"
+                  >{{ sortHotJobs[0].options.company.companyName }}</router-link
+                >
+                <div class="d-flex align-items-center">
+                  <p class="jobTag me-2">100%</p>
+                  <p
+                    class="card__subTxt text-light"
+                    v-if="!sortHotJobs[0].options.job.salaryInterView"
+                  >
+                    {{ sortHotJobs[0].price }} / 月薪
+                  </p>
+                  <p
+                    class="card__subTxt text-light"
+                    v-if="sortHotJobs[0].options.job.salaryInterView"
+                  >
+                    薪資面議
+                  </p>
                 </div>
               </div>
-              <div class="col">
-                <div class="card--howTo">
-                  <img src="@/assets/images/howto/snapJob-howto-2.png" alt="拍照申請說明圖" />
-                  <div class="card__txtBox">
-                    <h5 class="text-dark">上傳 sendCV</h5>
-                    <p>選擇搭配已經建立好的 sendCV 履歷，環保省時。</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card--howTo">
-                  <img src="@/assets/images/howto/snapJob-howto-3.png" alt="拍照申請說明圖" />
-                  <div class="card__txtBox">
-                    <h5 class="text-dark">幫你投遞履歷</h5>
-                    <p>經過 sendCV 審核，讓企業接受度 up up！</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row d-flex justify-content-center">
-              <div class="col-lg-4 col-8">
-                <button type="button" class="btn btn-primary w-100">立即使用拍照申請功能</button>
-              </div>
-            </div>
+            </router-link>
           </div>
-          <div class="recommendCardList section--py" v-if="dataReady">
-            <div class="d-flex flex-lg-row flex-column d-flex align-items-center mb-5">
-              <div class="titleBox mb-lg-0 mb-5">
-                <h3 class="titleBox__title">興趣職位推薦</h3>
-              </div>
-              <div class="recommendTagList flex-wrap">
-                <button
-                  type="button"
-                  class="recommendTagList__btn btn btn-outline-gray-line active"
-                >
-                  根據個人興趣
-                </button>
-                <template v-for="(item, index) in user.recommedJobList" :key="index">
-                  <button type="button" class="recommendTagList__btn btn btn-outline-gray-line">
-                    {{ item.title }}
-                    <i
-                      class="ms-1 jobIcon-sm bi bi-pencil-square"
-                      @click="openRecommedModal('編輯興趣推薦條件', index)"
-                    ></i>
-                  </button>
-                </template>
-                <button
-                  type="button"
-                  class="
-                    recommendTagList__btn recommendTagList__btn--new
-                    btn btn-outline-companyColor
-                  "
-                  @click="openRecommedModal('新增興趣推薦條件')"
-                >
-                  <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增
-                </button>
-              </div>
-            </div>
-            <ul class="row row-cols-lg-2 row-cols-1" v-if="sortHotJobs.length > 0">
-              <template v-for="(jobItem, index) in sortHotJobs" :key="jobItem.id">
-                <li class="col" v-if="index < recommendCardList">
-                  <div :ref="`list__item--${jobItem.id}`" class="list__item">
-                    <button
-                      class="collectBtn btn btn-outline-gray-line position-absolute"
-                      :class="{ collected: jobItem.jobCollectCheck }"
-                      type="button"
-                      @click.stop="collectJob(jobItem)"
-                    >
-                      <i class="jobIcon bi bi-bookmark-fill"></i>
-                    </button>
-                    <div class="list__item__tagBox mb-3">
-                      <button type="button" class="jobTag btn me-2">100%</button>
-                      <button type="button" class="jobTag btn" @click="searchByJobCategory">
-                        {{ jobItem.category }}
+          <div class="col">
+            <div class="row row-cols-md-2 row-cols-1 gy-5">
+              <template v-for="(item, index) in sortHotJobs" :key="item.id">
+                <div class="col" :class="{ 'mb-lg-0': index > 2 }" v-if="index >= 1 && index <= 4">
+                  <router-link
+                    class="card--hotJob card--sm"
+                    v-if="sortHotJobs[index]"
+                    :style="{ 'background-image': `url(${sortHotJobs[index]['imageUrl']} )` }"
+                    :to="`/products-list/product/${sortHotJobs[index].id}`"
+                  >
+                    <div class="card__btnBox">
+                      <button
+                        class="collectBtn btn btn-outline-light"
+                        :class="{ collected: sortHotJobs[index].jobCollectCheck }"
+                        type="button"
+                        @click.prevent="collectJob(item)"
+                      >
+                        <i class="jobIcon bi bi-bookmark-fill"></i>
                       </button>
                     </div>
-                    <div class="d-flex w-100 flex-md-row flex-column">
-                      <div class="list__item__imgBox">
-                        <img
-                          class="jobImage"
-                          :src="jobItem.imageUrl"
-                          :alt="`${jobItem.title}職位圖片`"
-                        />
-                        <div class="img-cover d-md-none d-block"></div>
-                        <div class="list__item__logoImgBox">
-                          <img
-                            class="logoImg"
-                            :src="jobItem.options.company.companyLogoUrl"
-                            :alt="`${jobItem.options.company.companyName}logo`"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="
-                          list__item__txtBox
-                          mb-0
-                          flex-grow-1
-                          d-flex
-                          flex-column
-                          justify-content-between
-                        "
+                    <div class="txtBox">
+                      <router-link
+                        class="card__title d-block putPointer"
+                        :to="`/products-list/product/${sortHotJobs[index].id}`"
+                        >{{ sortHotJobs[index].title }}</router-link
                       >
-                        <div class="mb-3 d-flex flex-column align-items-start">
-                          <router-link
-                            class="list__item__title mb-3 me-7"
-                            :to="`/products-list/product/${jobItem.id}`"
-                            >{{ jobItem.title }}</router-link
-                          >
-                          <router-link
-                            class="txtLink subTxt mb-2 me-7"
-                            :to="`/products-list/company/${jobItem.options.company.companyLink}`"
-                            >{{ jobItem.options.company.companyName }}</router-link
-                          >
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <p class="text-dark" v-if="!jobItem.options.job.salaryInterView">
-                            {{ jobItem.price }} / 月薪
-                          </p>
-                          <p class="text-dark" v-if="jobItem.options.job.salaryInterView">
-                            薪資面議
-                          </p>
-                          <p class="subTxt--foil">
-                            {{ $filters.date(jobItem.options.job.create) }}
-                          </p>
-                        </div>
+                      <router-link
+                        class="card__txt d-block putPointer"
+                        :to="`/products-list/company/
+                            ${sortHotJobs[index].options.company.companyLink}`"
+                        >{{ sortHotJobs[index].options.company.companyName }}</router-link
+                      >
+                      <div class="d-flex align-items-center">
+                        <p class="jobTag me-2">100%</p>
+                        <p
+                          class="card__subTxt text-light"
+                          v-if="!sortHotJobs[index].options.job.salaryInterView"
+                        >
+                          {{ sortHotJobs[index].price }} / 月薪
+                        </p>
+                        <p
+                          class="card__subTxt text-light"
+                          v-if="sortHotJobs[index].options.job.salaryInterView"
+                        >
+                          薪資面議
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </li>
+                  </router-link>
+                </div>
               </template>
-            </ul>
-            <div class="d-flex justify-content-center mt-3">
-              <button
-                type="button"
-                class="btn btn-gray-light"
-                @click="showMore('recommendCardList')"
-                v-if="recommendCardList < 12"
-              >
-                顯示更多
-              </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="container-xl">
-        <div class="section--py">
-          <div class="titleBox justify-content-center mb-5">
-            <h3 class="titleBox__title">如何使用寫郵件sendCV功能？</h3>
+      <!-- 最新職位 -->
+      <div class="section--newJob section--py">
+        <div class="d-flex align-items-center mb-4">
+          <div class="titleBox">
+            <h3 class="titleBox__title">最新職位</h3>
           </div>
-          <div class="row row-cols-md-3 row-cols-1 mb-5 gy-5">
+          <button type="button" class="btn btn-primary">
+            <i class="jobIcon text-dark bi bi-camera"></i>
+            立即拍照上傳您身邊職位，我們就幫您聯繫求職！
+          </button>
+        </div>
+        <swiper
+          :slides-per-view="swiperNum"
+          :space-between="20"
+          :autoplay="swiperDetail.autoPlay"
+          :pagination="swiperDetail.pagination"
+          :navigation="swiperDetail.navigation"
+          v-if="dataOk"
+        >
+          <swiper-slide v-for="item in sortNewJobs" :key="item.id">
+            <GoodJobCard :good-job="item"></GoodJobCard>
+          </swiper-slide>
+          <div class="swiper-button-prev swiper-custom">
+            <button type="button" class="btn btn-lg rounded-circle iconBtnBox">
+              <i class="bi bi-arrow-left actionIcon"></i>
+            </button>
+          </div>
+          <div class="swiper-button-next swiper-custom">
+            <button type="button" class="btn btn-lg rounded-circle iconBtnBox">
+              <i class="bi bi-arrow-right actionIcon"></i>
+            </button>
+          </div>
+        </swiper>
+      </div>
+    </div>
+    <div class="bg-white">
+      <div class="container-xl">
+        <div class="section--py border-bottom border-gray-line">
+          <div class="titleBox justify-content-center">
+            <h3 class="titleBox__title">如何使用拍照申請功能？</h3>
+          </div>
+          <div class="row mb-5 row-cols-md-3 row-cols-1">
             <div class="col">
-              <div class="card--howTo card--howTo--email">
-                <img
-                  src="@/assets/images/howto/write-email-send-cv-1.jpg"
-                  alt="寫郵件SendCV說明圖"
-                />
+              <div class="card--howTo">
+                <img src="@/assets/images/howto/snapJob-howto-1.png" alt="拍照申請說明圖" />
                 <div class="card__txtBox">
                   <h5 class="text-dark">路過看到好工作</h5>
-                  <p>好想去好公司，不知道有沒有職缺？</p>
+                  <p>上班途中經過看到心愛的咖啡店在徵人，先拍下來！</p>
                 </div>
               </div>
             </div>
             <div class="col">
-              <div class="card--howTo card--howTo--email">
-                <img
-                  src="@/assets/images/howto/write-email-send-cv-2.jpg"
-                  alt="寫郵件SendCV說明圖"
-                />
+              <div class="card--howTo">
+                <img src="@/assets/images/howto/snapJob-howto-2.png" alt="拍照申請說明圖" />
                 <div class="card__txtBox">
                   <h5 class="text-dark">上傳 sendCV</h5>
-                  <p>使用sendCV 統整好自己的履歷與經歷! 找到心儀公司的信箱！</p>
+                  <p>選擇搭配已經建立好的 sendCV 履歷，環保省時。</p>
                 </div>
               </div>
             </div>
             <div class="col">
-              <div class="card--howTo card--howTo--email">
-                <img
-                  src="@/assets/images/howto/write-email-send-cv-3.jpg"
-                  alt="寫郵件SendCV說明圖"
-                />
+              <div class="card--howTo">
+                <img src="@/assets/images/howto/snapJob-howto-3.png" alt="拍照申請說明圖" />
                 <div class="card__txtBox">
                   <h5 class="text-dark">幫你投遞履歷</h5>
-                  <p>不論有沒有職位， 我們都幫你投履歷，不放過任何機會！</p>
+                  <p>經過 sendCV 審核，讓企業接受度 up up！</p>
                 </div>
               </div>
             </div>
           </div>
           <div class="row d-flex justify-content-center">
             <div class="col-lg-4 col-8">
-              <button type="button" class="btn btn-primary w-100">立即使用寫郵件SendCV</button>
+              <button type="button" class="btn btn-primary w-100">立即使用拍照申請功能</button>
             </div>
           </div>
         </div>
-      </div>
-      <div class="bg-white">
-        <div class="container-xl">
-          <!-- 熱門職位類別 -->
-          <div class="section--py">
-            <div class="titleBox justify-content-xl-start justify-content-center mb-5">
-              <h3 class="titleBox__title">熱門職位類別</h3>
+        <div class="recommendCardList section--py" v-if="dataReady">
+          <div class="d-flex flex-lg-row flex-column d-flex align-items-center mb-5">
+            <div class="titleBox mb-lg-0 mb-5">
+              <h3 class="titleBox__title">興趣職位推薦</h3>
             </div>
-            <ul class="row gy-md-5 gy-4">
-              <template
-                v-for="(categoryItem, index) in sortJobCategory"
-                :key="categoryItem.categoryName"
-              >
-                <li
-                  class="list__item putPointer"
-                  v-if="index < 7"
-                  :class="{
-                    'col-lg-6 col-12': index === 0,
-                    'col-lg-3 col-6': index > 0,
-                  }"
-                  @click="searchByJobCategory(categoryItem.categoryName)"
-                >
-                  <div class="hotCategoryBox">
-                    <div class="d-flex flex-column justify-content-between">
-                      <p class="strongTxt text-dark">
-                        {{ categoryItem.categoryName }}
-                      </p>
-                      <p class="subTxt mb-md-6 mb-4">目前共： {{ categoryItem.jobNum }} 職位</p>
-                      <p class="seeMoreBtn">
-                        查看更多職位 <i class="jobIcon ms-2 bi bi-arrow-right-circle text-dark"></i>
-                      </p>
-                    </div>
-                    <img
-                      v-if="index === 0"
-                      src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385120434.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=c%2BJjXYSstri27f1pLSo%2F7FIdCUatiOT64v9CwBWVyU5QlZao84N9H7BqaSSndTcZQGfiOuqXF9oCQPQhEsGzYCium4PqHPN%2BMU4mAluTcDrpmutUsnwHtg4b%2ByyhltEQsNHmoLAQqjP84IJ%2FNi66BuqmjJ%2BPm8kpng%2B8U60gXQRcW6RVxNqXi4m%2FJBsbAO5wQRaIx1Ndb%2Bh2C2IPAgcwmsPftOqR8%2BKCKAHBwmzQbUXRKe4gmX1kinU1VoqSW0hj1Ae2NRPz1j2PllGf%2B3YZ4dgG62QlSGLSXcU%2BMJSeMfOJSP7M2UxMAdoHHT6Ux6FEK5MfdOEr2G%2F8vrilTG39wg%3D%3D"
-                      alt="圖片-根據職位類別搜尋"
-                    />
-                  </div>
-                </li>
+            <div class="recommendTagList flex-wrap">
+              <button type="button" class="recommendTagList__btn btn btn-outline-gray-line active">
+                根據個人興趣
+              </button>
+              <template v-for="(item, index) in user.recommedJobList" :key="index">
+                <button type="button" class="recommendTagList__btn btn btn-outline-gray-line">
+                  {{ item.title }}
+                  <i
+                    class="ms-1 jobIcon-sm bi bi-pencil-square"
+                    @click="openRecommedModal('編輯興趣推薦條件', index)"
+                  ></i>
+                </button>
               </template>
-            </ul>
+              <button
+                type="button"
+                class="
+                  recommendTagList__btn recommendTagList__btn--new
+                  btn btn-outline-companyColor
+                "
+                @click="openRecommedModal('新增興趣推薦條件')"
+              >
+                <i class="jobIcon--sm bi bi-plus-lg me-1"></i>新增
+              </button>
+            </div>
           </div>
+          <ul class="row row-cols-lg-2 row-cols-1" v-if="sortHotJobs.length > 0">
+            <template v-for="(jobItem, index) in sortHotJobs" :key="jobItem.id">
+              <li class="col" v-if="index < recommendCardList">
+                <div :ref="`list__item--${jobItem.id}`" class="list__item">
+                  <button
+                    class="collectBtn btn btn-outline-gray-line position-absolute"
+                    :class="{ collected: jobItem.jobCollectCheck }"
+                    type="button"
+                    @click.stop="collectJob(jobItem)"
+                  >
+                    <i class="jobIcon bi bi-bookmark-fill"></i>
+                  </button>
+                  <div class="list__item__tagBox mb-3">
+                    <button type="button" class="jobTag btn me-2">100%</button>
+                    <button type="button" class="jobTag btn" @click="searchByJobCategory">
+                      {{ jobItem.category }}
+                    </button>
+                  </div>
+                  <div class="d-flex w-100 flex-md-row flex-column">
+                    <div class="list__item__imgBox">
+                      <img
+                        class="jobImage"
+                        :src="jobItem.imageUrl"
+                        :alt="`${jobItem.title}職位圖片`"
+                      />
+                      <div class="img-cover d-md-none d-block"></div>
+                      <div class="list__item__logoImgBox">
+                        <img
+                          class="logoImg"
+                          :src="jobItem.options.company.companyLogoUrl"
+                          :alt="`${jobItem.options.company.companyName}logo`"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="
+                        list__item__txtBox
+                        mb-0
+                        flex-grow-1
+                        d-flex
+                        flex-column
+                        justify-content-between
+                      "
+                    >
+                      <div class="mb-3 d-flex flex-column align-items-start">
+                        <router-link
+                          class="list__item__title mb-3 me-7"
+                          :to="`/products-list/product/${jobItem.id}`"
+                          >{{ jobItem.title }}</router-link
+                        >
+                        <router-link
+                          class="txtLink subTxt mb-2 me-7"
+                          :to="`/products-list/company/${jobItem.options.company.companyLink}`"
+                          >{{ jobItem.options.company.companyName }}</router-link
+                        >
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-dark" v-if="!jobItem.options.job.salaryInterView">
+                          {{ jobItem.price }} / 月薪
+                        </p>
+                        <p class="text-dark" v-if="jobItem.options.job.salaryInterView">薪資面議</p>
+                        <p class="subTxt--foil">
+                          {{ $filters.date(jobItem.options.job.create) }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </template>
+          </ul>
+          <div class="d-flex justify-content-center mt-3">
+            <button
+              type="button"
+              class="btn btn-gray-light"
+              @click="showMore('recommendCardList')"
+              v-if="recommendCardList < 12"
+            >
+              顯示更多
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-xl">
+      <div class="section--py">
+        <div class="titleBox justify-content-center mb-5">
+          <h3 class="titleBox__title">如何使用寫郵件sendCV功能？</h3>
+        </div>
+        <div class="row row-cols-md-3 row-cols-1 mb-5 gy-5">
+          <div class="col">
+            <div class="card--howTo card--howTo--email">
+              <img src="@/assets/images/howto/write-email-send-cv-1.jpg" alt="寫郵件SendCV說明圖" />
+              <div class="card__txtBox">
+                <h5 class="text-dark">路過看到好工作</h5>
+                <p>好想去好公司，不知道有沒有職缺？</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card--howTo card--howTo--email">
+              <img src="@/assets/images/howto/write-email-send-cv-2.jpg" alt="寫郵件SendCV說明圖" />
+              <div class="card__txtBox">
+                <h5 class="text-dark">上傳 sendCV</h5>
+                <p>使用sendCV 統整好自己的履歷與經歷! 找到心儀公司的信箱！</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card--howTo card--howTo--email">
+              <img src="@/assets/images/howto/write-email-send-cv-3.jpg" alt="寫郵件SendCV說明圖" />
+              <div class="card__txtBox">
+                <h5 class="text-dark">幫你投遞履歷</h5>
+                <p>不論有沒有職位， 我們都幫你投履歷，不放過任何機會！</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-4 col-8">
+            <button type="button" class="btn btn-primary w-100">立即使用寫郵件SendCV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white">
+      <div class="container-xl">
+        <!-- 熱門職位類別 -->
+        <div class="section--py">
+          <div class="titleBox justify-content-xl-start justify-content-center mb-5">
+            <h3 class="titleBox__title">熱門職位類別</h3>
+          </div>
+          <ul class="row gy-md-5 gy-4">
+            <template
+              v-for="(categoryItem, index) in sortJobCategory"
+              :key="categoryItem.categoryName"
+            >
+              <li
+                class="list__item putPointer"
+                v-if="index < 7"
+                :class="{
+                  'col-lg-6 col-12': index === 0,
+                  'col-lg-3 col-6': index > 0,
+                }"
+                @click="searchByJobCategory(categoryItem.categoryName)"
+              >
+                <div class="hotCategoryBox">
+                  <div class="d-flex flex-column justify-content-between">
+                    <p class="strongTxt text-dark">
+                      {{ categoryItem.categoryName }}
+                    </p>
+                    <p class="subTxt mb-md-6 mb-4">目前共： {{ categoryItem.jobNum }} 職位</p>
+                    <p class="seeMoreBtn">
+                      查看更多職位 <i class="jobIcon ms-2 bi bi-arrow-right-circle text-dark"></i>
+                    </p>
+                  </div>
+                  <img
+                    v-if="index === 0"
+                    src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385120434.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=c%2BJjXYSstri27f1pLSo%2F7FIdCUatiOT64v9CwBWVyU5QlZao84N9H7BqaSSndTcZQGfiOuqXF9oCQPQhEsGzYCium4PqHPN%2BMU4mAluTcDrpmutUsnwHtg4b%2ByyhltEQsNHmoLAQqjP84IJ%2FNi66BuqmjJ%2BPm8kpng%2B8U60gXQRcW6RVxNqXi4m%2FJBsbAO5wQRaIx1Ndb%2Bh2C2IPAgcwmsPftOqR8%2BKCKAHBwmzQbUXRKe4gmX1kinU1VoqSW0hj1Ae2NRPz1j2PllGf%2B3YZ4dgG62QlSGLSXcU%2BMJSeMfOJSP7M2UxMAdoHHT6Ux6FEK5MfdOEr2G%2F8vrilTG39wg%3D%3D"
+                    alt="圖片-根據職位類別搜尋"
+                  />
+                </div>
+              </li>
+            </template>
+          </ul>
         </div>
       </div>
     </div>

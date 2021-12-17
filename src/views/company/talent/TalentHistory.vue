@@ -156,10 +156,10 @@
         </div>
       </div>
       <div class="sideBtnBox d-xl-none">
-      <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
-        <i class="jobIcon bi bi-funnel-fill"></i>
-      </button>
-    </div>
+        <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
+          <i class="jobIcon bi bi-funnel-fill"></i>
+        </button>
+      </div>
     </div>
   </div>
   <PersonPopModal />

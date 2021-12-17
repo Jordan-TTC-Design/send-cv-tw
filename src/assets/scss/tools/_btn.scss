@@ -1,5 +1,3 @@
-// 所有按鈕
-
 // 圓形按鈕
 .btn--circle {
   display: flex;
@@ -62,7 +60,7 @@
   @include sm {
     .bg-cover--dark {
       position: fixed;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba($color: $black, $alpha: 0.3);
       top: 0;
       bottom: 0;
       left: 0;
@@ -279,4 +277,24 @@
       color: $light;
     }
   }
+}
+.backToPageBtn {
+  &__title {
+    position: relative;
+    &::before {
+      content: '';
+      width: 1px;
+      height: 20px;
+      background-color: $gray-line;
+      border-radius: 50%;
+      left: -0.5rem;
+      top: 0;
+      position: absolute;
+    }
+  }
+}
+.btnBox--positionAb--topRight {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
 }

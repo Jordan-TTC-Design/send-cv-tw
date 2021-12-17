@@ -34,33 +34,29 @@
       </p>
       <div class="row row-cols-lg-2 row-cols-1">
         <div class="col" v-if="jobsList.length > 0">
-          <div class="jobListBox">
-            <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
-              <p class="text-secondary fw-normal  text-nowrap">
-                目前共 {{ jobsList.length }} 個職位
-              </p>
-              <select
-                class="form-select form-select-lg w-auto border-0 text-gray-dark"
-                @change="changeJobSort($event)"
-                v-model="sortWay"
-              >
-                <option selected value="time">最新至最舊</option>
-                <option value="money">薪水高至低</option>
-              </select>
-            </div>
-            <ul ref="jobList" class="allJobList">
-              <template v-for="item in nowPageJobs" :key="item.id">
-                <li v-if="nowPageJobs.length > 0">
-                  <JobListCard
-                    :ref="`jobList__item--${item.id}`"
-                    :job-list-item="item"
-                    @select-job="selectJob"
-                    @search-by-job-category="searchByJobCategory"
-                  />
-                </li>
-              </template>
-            </ul>
+          <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
+            <p class="text-secondary fw-normal text-nowrap">目前共 {{ jobsList.length }} 個職位</p>
+            <select
+              class="form-select form-select-lg w-auto border-0 text-gray-dark"
+              @change="changeJobSort($event)"
+              v-model="sortWay"
+            >
+              <option selected value="time">最新至最舊</option>
+              <option value="money">薪水高至低</option>
+            </select>
           </div>
+          <ul ref="jobList">
+            <template v-for="item in nowPageJobs" :key="item.id">
+              <li v-if="nowPageJobs.length > 0">
+                <JobListCard
+                  :ref="`jobList__item--${item.id}`"
+                  :job-list-item="item"
+                  @select-job="selectJob"
+                  @search-by-job-category="searchByJobCategory"
+                />
+              </li>
+            </template>
+          </ul>
         </div>
         <div class="col d-lg-block d-none" v-if="jobsList.length > 0">
           <JobListSideJobBox
@@ -70,7 +66,11 @@
           />
         </div>
         <div class="col-12 d-flex justify-content-center" v-if="jobsList.length === 0">
-          <img class="img--searchNoJob" src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385211015.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=F0Wk9lSjiNEPR9Oc2yUH%2FsytXi9oZAK9mQfxq5pEsNm%2FkYws1ORyXtgI3GxhfKA144%2F70tZX5321YS22Ta%2B9sdNPTtUUUIdWY1fQgSf95yMxikEYSVSpb%2FtKGlZvlcJy6kFokL6Ktv3CYncDq%2B1AVDPtZf7avLr8bdcDYoxsDgeSNoKESY%2BZIQDcLI6c3t%2BfROBH3NZkBTBrTa98P%2FeCywVqtNkfMfZpoewZyqptrn0rptafi6iQurKFCpTbOTvUAdiM0dnsHiEyzVwigDrN%2FNtaxR%2BwdTPDnAE2fS6QMx%2B2kjNa32GEjbkQ7fCcbYTPiQ0%2FQMDTpX8lfSwhG5knbA%3D%3D" alt="找不到職位" />
+          <img
+            class="img--searchNoJob"
+            src="https://storage.googleapis.com/vue-course-api.appspot.com/jordanttcdesign/1629385211015.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=F0Wk9lSjiNEPR9Oc2yUH%2FsytXi9oZAK9mQfxq5pEsNm%2FkYws1ORyXtgI3GxhfKA144%2F70tZX5321YS22Ta%2B9sdNPTtUUUIdWY1fQgSf95yMxikEYSVSpb%2FtKGlZvlcJy6kFokL6Ktv3CYncDq%2B1AVDPtZf7avLr8bdcDYoxsDgeSNoKESY%2BZIQDcLI6c3t%2BfROBH3NZkBTBrTa98P%2FeCywVqtNkfMfZpoewZyqptrn0rptafi6iQurKFCpTbOTvUAdiM0dnsHiEyzVwigDrN%2FNtaxR%2BwdTPDnAE2fS6QMx%2B2kjNa32GEjbkQ7fCcbYTPiQ0%2FQMDTpX8lfSwhG5knbA%3D%3D"
+            alt="找不到職位"
+          />
         </div>
       </div>
     </div>

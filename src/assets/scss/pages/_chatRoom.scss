@@ -42,7 +42,6 @@
   &__chatListArea {
     width: 24%;
     height: 100%;
-    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     border-right: 1px solid $gray-line;
@@ -115,6 +114,9 @@
   &__title {
     font-weight: $fw--md;
     color: $dark;
+  }
+  &:last-child{
+    border-bottom: 0;
   }
   &:hover {
     background-color: rgba($color: $gray-light, $alpha: 0.5);
@@ -195,13 +197,12 @@
   position: relative;
   border-left: 1px solid $gray-line;
   background-color: $light;
-  .boxSubNav {
+  .innerNav {
     position: sticky;
     top: 0;
-    z-index: 200;
-  }
-  .boxSubNav__item.active {
-    background-color: $primary-light;
+    .innerNav__item{
+      background-color: $light;
+    }
   }
   .companyImageContainer {
     height: 10rem;
@@ -282,5 +283,30 @@
   }
   @include sm {
     top: 3rem;
+  }
+}
+
+// 聊天室右側
+.sideContainerTitleBox {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $gray-line;
+  min-height: 50px;
+}
+.chatToolList {
+  padding-left: 0.75rem;
+  &__title {
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    font-weight: $fw--md;
+    color: $dark;
+  }
+  &__item {
+    margin-left: 0.75rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid $gray-line;
+    &:hover {
+      background-color: rgba($color: $gray-light, $alpha: 0.5);
+    }
   }
 }

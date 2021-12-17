@@ -14,10 +14,11 @@
 @import './setting/main';
 @import './setting/tools';
 @import './tools/width';
+@import './tools/btn';
 
 
 //自訂義元件
-@import './components/btn';
+@import './components/jobCard';
 @import './components/popModal';
 @import './components/subNav';
 @import './components/contentBox';

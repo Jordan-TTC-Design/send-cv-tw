@@ -3,13 +3,13 @@
     <div class="container-xl d-md-block d-none">
       <div class="filterBox bg-white mb-6">
         <div class="filterBox__section">
-          <div class="row">
+          <div class="row w-100">
             <div class="col-lg-2 d-flex align-items-center">
               <h4 class="sectionTitle--withTag mb-4">
                 <span class="sectionTitleTag--double me-2"></span>篩選條件
               </h4>
             </div>
-            <div class="col-lg-3 col-6 mb-lg-0 mb-3">
+            <div class="col-lg-3 col-md-6">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="searchFilterForm-keyword" class="labelBox__label form-label"
@@ -26,7 +26,7 @@
                 />
               </div>
             </div>
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-md-6">
               <div class="form__input">
                 <div class="form__labelBox">
                   <label for="searchFilterForm-city" class="labelBox__label form-label">地區</label>
@@ -49,50 +49,42 @@
                 </select>
               </div>
             </div>
-            <div class="col-lg-4">
-              <div class="d-flex align-items-end">
-                <div class="form__input">
-                  <button
-                    type="button"
-                    class="btn btn-primary me-2 text-nowrap"
-                    @click="filterJobs"
-                  >
-                    搜尋職位
-                  </button>
-                </div>
-                <div class="form__input">
-                  <button
-                    type="button"
-                    class="btn btn-gray-light me-2 text-nowrap"
-                    @click="cleanFilter"
-                  >
-                    清除全部
-                  </button>
-                </div>
-                <div class="form__input">
-                  <button
-                    type="button"
-                    class="btn btn-outline-gray-line text-dark text-nowrap"
-                    @click="openMoreFilter"
-                  >
-                    更多條件
-                    <i
-                      v-if="openMoreFilterState === true"
-                      class="jobIcon--sm ms-1 text-dark bi bi-chevron-up"
-                    ></i>
-                    <i
-                      v-if="openMoreFilterState === false"
-                      class="jobIcon--sm ms-1 text-dark bi bi-chevron-down"
-                    ></i>
-                  </button>
-                </div>
-              </div>
+            <div class="col-lg-4 d-flex align-items-center justify-content-end">
+              <button
+                type="button"
+                class="btn btn-primary me-2 text-nowrap flex-grow-1"
+                @click="filterJobs"
+              >
+                搜尋職位
+              </button>
+              <button
+                type="button"
+                class="btn btn-gray-light me-2 text-nowrap"
+                @click="cleanFilter"
+              >
+                清除全部
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-gray-line text-dark text-nowrap"
+                @click="openMoreFilter"
+              >
+                更多條件
+                <i
+                  v-if="openMoreFilterState === true"
+                  class="jobIcon--sm ms-1 text-dark bi bi-chevron-up"
+                ></i>
+                <i
+                  v-if="openMoreFilterState === false"
+                  class="jobIcon--sm ms-1 text-dark bi bi-chevron-down"
+                ></i>
+              </button>
             </div>
           </div>
         </div>
         <div class="filterBox__section" v-if="openMoreFilterState === true">
           <p class="filterBox__section__tag">薪資條件</p>
-          <div class="filterBox__section__content row flex-grow-1">
+          <div class="row w-100">
             <div class="col-xl-6 col-lg-8 col-12">
               <div class="form__input">
                 <div class="form__labelBox">
@@ -309,33 +301,29 @@
       </p>
       <div class="row row-cols-lg-2 row-cols-1">
         <div class="col" v-if="jobsList.length > 0">
-          <div class="jobListBox">
-            <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
-              <p class="text-secondary fw-normal text-nowrap">
-                目前共 {{ jobsList.length }} 個職位
-              </p>
-              <select
-                class="form-select form-select-lg w-auto border-0 text-gray-dark"
-                @change="changeJobSort($event)"
-                v-model="sortWay"
-              >
-                <option selected value="time">最新至最舊</option>
-                <option value="money">薪水高至低</option>
-              </select>
-            </div>
-            <ul ref="jobList" class="allJobList">
-              <template v-for="item in nowPageJobs" :key="item.id">
-                <li v-if="nowPageJobs.length > 0">
-                  <JobListCard
-                    :ref="`jobList__item--${item.id}`"
-                    :job-list-item="item"
-                    @select-job="selectJob"
-                    @search-by-job-category="searchByJobCategory"
-                  />
-                </li>
-              </template>
-            </ul>
+          <div class="d-flex justify-content-between align-items-center ps-3 mb-3">
+            <p class="text-secondary fw-normal text-nowrap">目前共 {{ jobsList.length }} 個職位</p>
+            <select
+              class="form-select form-select-lg w-auto border-0 text-gray-dark"
+              @change="changeJobSort($event)"
+              v-model="sortWay"
+            >
+              <option selected value="time">最新至最舊</option>
+              <option value="money">薪水高至低</option>
+            </select>
           </div>
+          <ul ref="jobList">
+            <template v-for="item in nowPageJobs" :key="item.id">
+              <li v-if="nowPageJobs.length > 0">
+                <JobListCard
+                  :ref="`jobList__item--${item.id}`"
+                  :job-list-item="item"
+                  @select-job="selectJob"
+                  @search-by-job-category="searchByJobCategory"
+                />
+              </li>
+            </template>
+          </ul>
         </div>
         <div class="col d-lg-block d-none" v-if="jobsList.length > 0">
           <JobListSideJobBox
