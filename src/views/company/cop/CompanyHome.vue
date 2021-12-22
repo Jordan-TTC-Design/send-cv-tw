@@ -1,10 +1,10 @@
 <template>
   <div class="page--py bg-light">
-    <div class="container">
+    <div class="container-md">
       <div class="row justify-content-lg-between justify-content-center mb-lg-8 pt-lg-7 mb-8 pt-6">
-        <div class="col-lg-5 col-10 mb-lg-0 mb-5">
+        <div class="col-xl-6 col-lg-7 col-10 mb-lg-0 mb-5">
           <div class="h-100 d-flex flex-column justify-content-center">
-            <h3 class="pageTitle mb-5 text-lg-start text-center">
+            <h3 class="displayTitle mb-5 text-lg-start text-center">
               成為 SendCV 的付費用戶，取得完整的服務及支援!
             </h3>
             <p class="mb-lg-8 mb-6 text-lg-start text-center">
@@ -57,203 +57,187 @@
           </div>
         </div>
       </div>
-      <div class="row mb-lg-8 pt-lg-7 mb-8 pt-6 justify-content-lg-start justify-content-center">
-        <div class="col-lg-6 mb-lg-8 mb-6">
-          <h3 class="pageTitle text-lg-start text-center">比較不同方案</h3>
+    </div>
+    <div class="bg-gray-mid py-8">
+      <div class="container-md">
+        <div class="col-lg-6 mb-6">
+          <h3 class="pageTitle text-lg-start text-center mb-4">比較不同方案</h3>
           <p class="mb-5 text-lg-start text-center">
             除了免費會員外，我們提供兩種不同的會員方案，除了基本的刊登職位、搜尋人才履歷外，另外增加方便企業招募的服務，以及推薦給求職人的功能。
           </p>
         </div>
-        <div class="col-12">
-          <div class="memberShipList flexTable d-flex">
-            <div class="flexTable__header flex-column p-0 border-0">
-              <div class="flexTable__cell flexTable__cell--4 border-top-0 ps-3">
-                <p>方案費用</p>
+        <div class="row mt-5 gy-5 flex-lg-row flex-column-reverse">
+          <div class="col-lg-4">
+            <div class="membershipCard h-100 box--shadow">
+              <div class="membershipCard__header border-gray-line">
+                <div class="d-flex justify-content-between mb-3 flex-wrap">
+                  <h5 class="pageSubTitle">免費方案</h5>
+                  <p class="strongTxt">Free</p>
+                </div>
+                <p class="subTxt--foil">不限期免費使用</p>
               </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">刊登職位數量</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">搜尋人才</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">推廣新職位</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">首頁廣告</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">粉絲專頁廣告</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">設定推廣職位</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">成為推薦企業</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">每週推薦郵件</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
-              </div>
-              <div class="flexTable__cell flexTable__cell--1">
-                <p class="me-2">美化企業頁面</p>
-                <i class="btn jobIcon bi bi-info-circle"></i>
+              <div class="membershipCard__body">
+                <ul class="flex-grow-1">
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>無限刊登職位</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>人才資料庫</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>刷新職位</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>廣告刊登</p>
+                    <p class="ms-1 subTxt--foil">(需單獨購買)</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>職位招聘廣告設計</p>
+                    <p class="ms-1 subTxt--foil">(需單獨購買)</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>網站推廣職位</p>
+                    <p class="ms-1 subTxt--foil">(需單獨購買)</p>
+                  </li>
+                </ul>
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line w-100 text-dark"
+                  @click="goToPageLink('/company-admin/add-company/freeLevel')"
+                >
+                  選擇此方案
+                </button>
               </div>
             </div>
-            <div class="flexTable__body d-flex flex-row p-0">
-              <div class="flexTable__item flexTable__cell--1 border-0">
-                <div class="flexTable__cell flexTable__cell--4 memberShipList__itemHeader">
-                  <h5 class="my-4">免費方案</h5>
-                  <h3 class="text-dark fw-bold mb-2">
-                    <span class="me-2 subTxt text-dark">$</span>免費<span
-                      class="ms-2 subTxt text-dark"
-                      >/月</span
-                    >
-                  </h3>
-                  <p class="subTxt--foil mb-3 invisible">免費使用</p>
-                  <button
-                    type="button"
-                    class="btn btn-companyColor text-light"
-                    @click="goToPageLink('/company-admin/add-company/freeLevel')"
-                  >
-                    立即註冊
-                  </button>
+          </div>
+          <div class="col-lg-4">
+            <div class="membershipCard h-100 box--shadow">
+              <div class="membershipCard__header border-gray-line">
+                <div class="d-flex justify-content-between mb-3 flex-wrap">
+                  <h5 class="pageSubTitle d-flex align-items-center">
+                    基本方案<span class="jobTag ms-2 bg-primary text-dark">最熱門</span>
+                  </h5>
+                  <p class="strongTxt">800 NTD / 月</p>
                 </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p class="me-2">無限制</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>可加購額度</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>可加購額度</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>可加購額度</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-gray-light"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-gray-light"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-gray-light"></i>
-                </div>
+                <p class="subTxt--foil">2 個月付費會員服務(每月省250)</p>
               </div>
-              <div class="flexTable__item flexTable__cell--1 border-0 memberShipList__hotItem">
-                <div class="flexTable__cell flexTable__cell--4 memberShipList__itemHeader">
-                  <h5 class="my-4">基本方案</h5>
-                  <h3 class="text-dark fw-bold mb-2">
-                    <span class="me-2 subTxt text-dark">$</span>800<span
-                      class="ms-2 subTxt text-dark"
-                      >/月</span
-                    >
-                  </h3>
-                  <p class="subTxt--foil mb-3">
-                    單月方案，每月為您省<span class="mx-1 text-companyColor">150</span>元
-                  </p>
-                  <button
-                    type="button"
-                    class="btn btn-companyColor text-light"
-                    @click="goToPageLink('/company-admin/add-company/normalLevel')"
-                  >
-                    立即註冊
-                  </button>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p class="me-2">無限制</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>小版面廣告 x1</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>美化社群廣告次數 x1</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>設定推廣職位 x3</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
+              <div class="membershipCard__body">
+                <ul class="flex-grow-1 mb-5">
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>無限刊登職位</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>人才資料庫</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>刷新職位</p>
+                  </li>
+                  <li class="border-top border-gray-line pt-3 mb-4">
+                    <p class="subTxt--foil text-companyColor text-center">
+                      方案贈送每月額度，每30日自動更新
+                    </p>
+                  </li>
+                  <li class="mb-4">
+                    <p class="checkItem">
+                      <i class="jobIcon bi bi-check-circle-fill me-2"></i> 廣告刊登 x1
+                    </p>
+                    <p class="subTxt--foil">網站首頁小版面廣告</p>
+                  </li>
+                  <li class="mb-4">
+                    <p class="checkItem">
+                      <i class="jobIcon bi bi-check-circle-fill me-2"></i> 職位招聘廣告設計 x1
+                    </p>
+                    <p class="subTxt--foil">
+                      為您設計兼具視覺與資訊的招聘廣告，不再為如何吸引求職者所煩惱~
+                    </p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>網站推廣職位 x2</p>
+                  </li>
+                </ul>
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line w-100 text-dark"
+                  @click="goToPageLink('/company-admin/add-company/normalLevel')"
+                >
+                  選擇此方案
+                </button>
               </div>
-              <div class="flexTable__item flexTable__cell--1 border-0 memberShipList__bestItem">
-                <div class="flexTable__cell flexTable__cell--4 memberShipList__itemHeader">
-                  <h5 class="my-4">精選方案</h5>
-                  <h3 class="text-dark fw-bold mb-2">
-                    <span class="me-2 subTxt text-dark">$</span>1,400<span
-                      class="ms-2 subTxt text-dark"
-                      >/月</span
-                    >
-                  </h3>
-                  <p class="subTxt--foil mb-3">
-                    3個月方案，每月為您省<span class="mx-1 text-companyColor">500</span>元
-                  </p>
-                  <button
-                    type="button"
-                    class="btn btn-companyColor text-light"
-                    @click="goToPageLink('/company-admin/add-company/featuredLevel')"
-                  >
-                    立即註冊
-                  </button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="membershipCard h-100 box--shadow">
+              <div class="membershipCard__header bg-companyColor-light">
+                <div class="d-flex justify-content-between mb-3 flex-wrap">
+                  <h5 class="pageSubTitle d-flex align-items-center text-companyColor">
+                    精選方案<span class="jobTag ms-2 bg-companyColor text-light">最優惠</span>
+                  </h5>
+                  <p class="strongTxt text-companyColor">1,400 NTD / 月</p>
                 </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p class="me-2">無限制</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>大版面廣告 x1 + 一般版面廣告 x1</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>美化社群廣告次數 x2</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <p>設定推廣職位 x5</p>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
-                <div class="flexTable__cell flexTable__cell--1 flexTable__cell--center">
-                  <i class="jobIcon bi-check-circle-fill text-companyColor"></i>
-                </div>
+                <p class="subTxt--foil text-companyColor">3 個月付費會員服務(每月省500)</p>
+              </div>
+              <div class="membershipCard__body">
+                <ul class="flex-grow-1 mb-5">
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>無限刊登職位</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>人才資料庫</p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>刷新職位</p>
+                  </li>
+                  <li class="border-top border-gray-line pt-3 mb-4">
+                    <p class="subTxt--foil text-companyColor text-center">
+                      方案贈送每月額度，每30日自動更新
+                    </p>
+                  </li>
+                  <li class="mb-4">
+                    <p class="checkItem">
+                      <i class="jobIcon bi bi-check-circle-fill me-2"></i> 廣告刊登 x2
+                    </p>
+                    <p class="subTxt--foil">網站首頁大版面廣告 x1 + 一般版面廣告 x1</p>
+                  </li>
+                  <li class="mb-4">
+                    <p class="checkItem">
+                      <i class="jobIcon bi bi-check-circle-fill me-2"></i> 職位招聘廣告設計 x1
+                    </p>
+                    <p class="subTxt--foil">
+                      為您設計兼具視覺與資訊的招聘廣告，不再為如何吸引求職者所煩惱~
+                    </p>
+                  </li>
+                  <li class="checkItem mb-4">
+                    <i class="jobIcon bi bi-check-circle-fill me-2"></i>
+                    <p>網站推廣職位 x3</p>
+                  </li>
+                </ul>
+                <button
+                  type="button"
+                  class="btn btn-outline-gray-line w-100 text-dark"
+                  @click="goToPageLink('/company-admin/add-company/featuredLevel')"
+                >
+                  選擇此方案
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="container-md">
       <div class="row mb-lg-8 pt-lg-7 mb-8 pt-6">
         <div class="col-12">
           <h3 class="pageTitle mb-5 text-lg-start text-center">為您提供多元的服務</h3>
