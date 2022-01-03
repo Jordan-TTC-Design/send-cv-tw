@@ -10,6 +10,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import { dropdown } from 'bootstrap/js/dist/dropdown';
 import date from '@/methods/filters';
+// import db from '@/methods/firebase';
 import App from './App.vue';
 import router from './router';
 
@@ -30,6 +31,7 @@ app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);
 app.use(router);
 app.use(dropdown);
+// app.use(db);
 app.use(VueAxios, axios);
 
 router.afterEach(() => {

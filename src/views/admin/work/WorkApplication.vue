@@ -2,38 +2,7 @@
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
     <div class="container-xl pageSubNavContainer--sticky mb-5">
-      <div class="pageSubNav">
-        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
-          <li
-            class="innerNav__item"
-            :class="{ active: pageSubNavState === '已申請' }"
-            @click="this.pageSubNavState = '已申請'"
-          >
-            <p>已申請</p>
-          </li>
-          <li
-            class="innerNav__item"
-            :class="{ active: pageSubNavState === '面試' }"
-            @click="this.pageSubNavState = '面試'"
-          >
-            <p>面試</p>
-          </li>
-          <li
-            class="innerNav__item"
-            :class="{ active: pageSubNavState === '已錄取' }"
-            @click="this.pageSubNavState = '已錄取'"
-          >
-            <p>已錄取</p>
-          </li>
-          <li
-            class="innerNav__item"
-            :class="{ active: pageSubNavState === '已婉拒' }"
-            @click="this.pageSubNavState = '已婉拒'"
-          >
-            <p>已婉拒</p>
-          </li>
-        </ul>
-      </div>
+      <NavPageSubNav :nav-list="pageSubNavList" v-model:page-sub-nav-state="pageSubNavState" />
     </div>
     <div ref="jobsListContainer" class="container-xl">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
@@ -95,6 +64,7 @@ import AdminNav from '@/components/admin/AdminNav.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import FilterBtn from '@/components/helpers/FilterBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
+import NavPageSubNav from '@/components/helpers/NavPageSubNav.vue';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -107,6 +77,8 @@ export default {
     ApplicationJobSideBox,
     AdminNav,
     JobCollect,
+    // eslint-disable-next-line vue/no-unused-components
+    NavPageSubNav,
   },
   data() {
     return {
@@ -114,6 +86,7 @@ export default {
       fullHeight: 0,
       nowPage: '職位申請',
       pageSubNavState: '已申請',
+      pageSubNavList: ['已申請', '面試', '已錄取', '已婉拒'],
       products: [],
       jobsList: [],
       nowPageJobs: [],

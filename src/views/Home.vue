@@ -516,6 +516,7 @@ import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import database from '@/methods/firebaseinit';
+// import memberMethod from '@/methods/member';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -797,6 +798,8 @@ export default {
     this.getFbData();
     emitter.emit('spinner-open-bg', 1500);
     emitter.emit('get-nav-state', '首頁');
+    // console.log(memberMethod);
+    // memberMethod.data();
   },
   mounted() {
     const vm = this;
