@@ -1,10 +1,26 @@
+// const axios = require('axios');
+// let firebase_api_key = 'AIzaSyDL4uCdMaofRKTjyE-ZqyU3keMWzLaxh2w';
 // const Member = function (data) {
 //   this.version = 'v1.0'; // this 宣告的變數或物件會曝露出去
 //   const new_data = data; // 接收傳進來的參數
-
-//   this.add = async (add_data) => {
+//   this.add = async (add_data) =>{
 //     const data = new_data || add_data;
 //     let uid = '';
+//     try {
+//       const userRecord = await admin.auth().createUser({
+//         email: data.email,
+//         phoneNumber: data.phoneNumber,
+//         password: data.password,
+//         displayName: data.displayName,
+//         photoURL: data.photoURL,
+//       });
+//       uid = userRecord.uid; // 回傳 uid
+//     } catch (err) {
+//       return { err: err.errorInfo.code }; // 回傳 code (https://firebase.google.com/docs/auth/admin/errors)
+//     }
+//     if (!uid) return { err: '新增失敗' };
+//   }
+//   this.add = async (add_data) => {
 //     // 新增用戶 https://firebase.google.com/docs/auth/admin/manage-users#create_a_user
 //     try {
 //       const userRecord = await admin.auth().createUser({

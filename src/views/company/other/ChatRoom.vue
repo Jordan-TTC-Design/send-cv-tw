@@ -185,22 +185,11 @@
           <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
         </button>
       </div>
-      <ul class="innerNav innerNav--fill innerNav--company innerNav--nonRound innerNav--bgColor">
-        <li
-          class="innerNav__item w--50"
-          :class="{ active: innerNav === '個人資料' }"
-          @click="changeNav('innerNav', '個人資料')"
-        >
-          <p>個人資料</p>
-        </li>
-        <li
-          class="innerNav__item w--50"
-          :class="{ active: innerNav === '應徵資料' }"
-          @click="changeNav('innerNav', '應徵資料')"
-        >
-          <p>應徵資料</p>
-        </li>
-      </ul>
+      <NavBoxNav
+              :nav-list="boxNavList"
+              :nav-setting="boxNavSetting"
+              v-model:box-nav-state="boxNavState"
+            />
       <div class="sideJobContainer">
         <div class="personPop__personInfoBox__innerBox border-bottom border-gray-line p-4">
           <img
@@ -220,7 +209,7 @@
           </div>
         </div>
         <div class="sideJobContainer__body pt-0">
-          <div v-if="innerNav === '個人資料'">
+          <div v-if="boxNavState === 1">
             <ul class="infoList infoList--company">
               <li class="infoList__item">
                 <p class="infoList__item__title">求職意向</p>
@@ -303,7 +292,7 @@
               </li>
             </ul>
           </div>
-          <div v-if="innerNav === '應徵資料'">
+          <div v-if="boxNavState === 2">
             <ul class="infoList infoList--company infoList--withBtn">
               <li class="infoList__item">
                 <div>
@@ -527,16 +516,27 @@
 import database from '@/methods/firebaseinit';
 import emitter from '@/methods/emitter';
 import DocModal from '@/components/admin/DocModal.vue';
+import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 export default {
   components: {
     DocModal,
+    NavBoxNav,
   },
   data() {
     return {
       dataReady: false,
-      innerNav: '個人資料',
-      rightContainer: 'userInfo',
+      boxNavState: 1,
+      boxNavList: [
+        { title: '個人資料', value: 1 },
+        { title: '應徵資料', value: 2 },
+      ],
+      boxNavSetting: {
+        full: 1,
+        style: 1,
+        bg: 1,
+        rounded: 0,
+      },
       products: [],
       jobsList: [],
       nowPageJobs: [],

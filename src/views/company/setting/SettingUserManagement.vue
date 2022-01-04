@@ -113,8 +113,8 @@
           </div>
         </div>
         <div class="col-lg-9 col-12">
-          <div class="admin__mainContent">
-            <ul class="infoList--company">
+          <div class="adminContentBox adminContentBox--p">
+            <ul class="infoList infoList--company">
               <li class="infoList__item">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>

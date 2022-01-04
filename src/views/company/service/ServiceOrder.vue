@@ -170,9 +170,9 @@
           </button>
         </div>
         <div class="col-lg-9">
-          <div class="contentBox orderInfoBox p-4 mb-5">
+          <div class="adminContentBox adminContentBox--p mb-5">
             <h5 class="subTitle text-dark mb-2 ms-1">訂單資訊</h5>
-            <ul class="tableList">
+            <ul class="tableList row row-cols-xl-4 row-cols-md-2 row-cols-1">
               <li class="tableList__item">
                 <p class="tableList__item__title">訂單編號</p>
                 <p class="tableList__item__txt">{{ selectOrder.key }}</p>

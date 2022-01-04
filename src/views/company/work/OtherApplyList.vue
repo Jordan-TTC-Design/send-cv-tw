@@ -5,43 +5,11 @@
       <div class="row justify-content-center" v-if="dataReady === true">
         <div class="col-lg-10">
           <div class="adminContentBox pb-3">
-            <ul class="innerNav innerNav--fill innerNav--company innerNav--bgColor">
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '新申請' }"
-                @click="subNav = '新申請'"
-              >
-                <p>新申請<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '正在聯絡' }"
-                @click="subNav = '正在聯絡'"
-              >
-                <p>正在聯絡<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '邀請面試' }"
-                @click="subNav = '邀請面試'"
-              >
-                <p>邀請面試<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '已瀏覽' }"
-                @click="subNav = '已瀏覽'"
-              >
-                <p>已瀏覽<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '已拒絕' }"
-                @click="subNav = '已拒絕'"
-              >
-                <p>已拒絕<span class="ms-1">5</span></p>
-              </li>
-            </ul>
+            <NavBoxNav
+              :nav-list="boxNavList"
+              :nav-setting="boxNavSetting"
+              v-model:box-nav-state="boxNavState"
+            />
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
                 <li class="talentCard talentCard--inner">
@@ -129,15 +97,30 @@
 import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
+import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 export default {
   components: {
     CompanyAdminNav,
+    NavBoxNav,
   },
   data() {
     return {
       nowPage: '自我推薦',
-      subNav: '新申請',
+      boxNavState: 1,
+      boxNavList: [
+        { title: '新申請', value: 1 },
+        { title: '正在聯絡', value: 2 },
+        { title: '邀請面試', value: 3 },
+        { title: '已瀏覽', value: 4 },
+        { title: '已拒絕', value: 5 },
+      ],
+      boxNavSetting: {
+        full: 1,
+        style: 1, // jobSeeker 1 company 2
+        bg: 1,
+        rounded: 1,
+      },
       dataReady: false,
       fullWidth: 0,
       fullHeight: 0,

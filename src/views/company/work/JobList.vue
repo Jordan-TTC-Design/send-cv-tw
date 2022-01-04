@@ -15,22 +15,11 @@
       <div class="row">
         <div class="col-xl-3 col-lg-4" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox rwdSelectBox pb-3">
-            <ul class="innerNav innerNav--fill innerNav--company">
-              <li
-                class="innerNav__item w--50"
-                :class="{ active: sideListNav === '刊登中' }"
-                @click="this.sideListNav = '刊登中'"
-              >
-                <p>刊登中</p>
-              </li>
-              <li
-                class="innerNav__item w--50"
-                :class="{ active: sideListNav === '已關閉' }"
-                @click="this.sideListNav = '已關閉'"
-              >
-                <p>已關閉</p>
-              </li>
-            </ul>
+            <NavBoxNav
+              :nav-list="boxNavList"
+              :nav-setting="boxNavSetting"
+              v-model:box-nav-state="boxNavState"
+            />
             <div class="sideContentBox__header">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
               <div class="sideContentBox__header__btnBox">
@@ -202,16 +191,28 @@
 <script>
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
+import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 export default {
   components: {
     CompanyAdminNav,
+    NavBoxNav,
   },
   data() {
     return {
       dataReady: false,
       nowPage: '公司職位',
-      sideListNav: '刊登中',
+      boxNavState: 1,
+      boxNavList: [
+        { title: '刊登中', value: 1 },
+        { title: '已關閉', value: 2 },
+      ],
+      boxNavSetting: {
+        full: 1,
+        style: 1, // jobSeeker 1 company 2
+        bg: 0,
+        rounded: 1,
+      },
       mainContentList: '',
       editMode: false,
       formData: {},
@@ -229,7 +230,7 @@ export default {
     nowJobList() {
       const temArray = [];
       let nowState = true;
-      if (this.sideListNav === '已關閉') {
+      if (this.boxNavState === 2) {
         nowState = false;
       }
       this.companyJobList.forEach((job) => {

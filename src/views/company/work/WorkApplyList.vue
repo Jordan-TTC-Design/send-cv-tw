@@ -15,22 +15,11 @@
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-4" :class="{ 'rwdClose--md': rwdSelect !== '' }">
           <div class="sideContentBox pb-3">
-            <ul class="innerNav innerNav--fill innerNav--company">
-              <li
-                class="innerNav__item w--50"
-                :class="{ active: sideListNav === '公司職位' }"
-                @click="this.sideListNav = '公司職位'"
-              >
-                <p>公司職位</p>
-              </li>
-              <li
-                class="innerNav__item w--50"
-                :class="{ active: sideListNav === '拍照申請職位' }"
-                @click="this.sideListNav = '拍照申請職位'"
-              >
-                <p>拍照申請職位</p>
-              </li>
-            </ul>
+            <NavBoxNav
+              :nav-list="boxNavList"
+              :nav-setting="boxNavSetting"
+              v-model:box-nav-state="boxNavState"
+            />
             <div class="sideContentBox__header">
               <p class="subTxt">目前共 {{ nowJobList.length }} 個職位</p>
               <div class="sideContentBox__header__btnBox">
@@ -56,43 +45,11 @@
         </div>
         <div class="col-lg-8" :class="{ 'rwdClose--md': rwdSelect === '' }">
           <div class="adminContentBox pb-3">
-            <ul class="innerNav innerNav--fill innerNav--company innerNav--bgColor">
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '新申請' }"
-                @click="subNav = '新申請'"
-              >
-                <p>新申請<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '正在聯絡' }"
-                @click="subNav = '正在聯絡'"
-              >
-                <p>正在聯絡<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '邀請面試' }"
-                @click="subNav = '邀請面試'"
-              >
-                <p>邀請面試<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '已瀏覽' }"
-                @click="subNav = '已瀏覽'"
-              >
-                <p>已瀏覽<span class="ms-1">5</span></p>
-              </li>
-              <li
-                class="innerNav__item"
-                :class="{ active: subNav === '已拒絕' }"
-                @click="subNav = '已拒絕'"
-              >
-                <p>已拒絕<span class="ms-1">5</span></p>
-              </li>
-            </ul>
+            <NavBoxNav
+              :nav-list="mainBoxNavList"
+              :nav-setting="mainBoxNavSetting"
+              v-model:box-nav-state="mainBoxNavState"
+            />
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
                 <li class="talentCard talentCard--inner">
@@ -184,19 +141,43 @@ import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import PersonPopModal from '@/components/company/PersonPopModal.vue';
 import PersonActionModal from '@/components/company/PersonActionModal.vue';
 import database from '@/methods/firebaseinit';
+import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 export default {
   components: {
     CompanyAdminNav,
     PersonPopModal,
     PersonActionModal,
+    NavBoxNav,
   },
   data() {
     return {
       dataReady: false,
       nowPage: '應徵管理',
-      sideListNav: '公司職位',
-      subNav: '新申請',
+      boxNavState: 1,
+      boxNavList: [
+        { title: '公司職位', value: 1 },
+        { title: '拍照申請職位', value: 2 },
+      ],
+      boxNavSetting: {
+        full: 1,
+        style: 1, // jobSeeker 1 company 2
+        bg: 0,
+      },
+      mainBoxNavState: 1,
+      mainBoxNavList: [
+        { title: '新申請', value: 1 },
+        { title: '正在聯絡', value: 2 },
+        { title: '邀請面試', value: 3 },
+        { title: '已瀏覽', value: 4 },
+        { title: '已拒絕', value: 5 },
+      ],
+      mainBoxNavSetting: {
+        full: 1,
+        style: 1, // jobSeeker 1 company 2
+        bg: 1,
+        rounded: 1,
+      },
       mainContentList: '',
       fullWidth: 0,
       fullHeight: 0,
@@ -215,13 +196,13 @@ export default {
   computed: {
     nowJobList() {
       const temArray = [];
-      if (this.sideListNav === '公司職位') {
+      if (this.boxNavState === 1) {
         this.companyJobList.forEach((job) => {
           if (job.is_enabled === true) {
             temArray.push(job);
           }
         });
-      } else if (this.sideListNav === '拍照申請職位') {
+      } else if (this.boxNavState === 2) {
         this.shotJobList.forEach((job) => {
           if (job.is_enabled === true) {
             temArray.push(job);
@@ -262,7 +243,7 @@ export default {
       emitter.emit('open-person-pop-modal', obj);
     },
     selectJobFormJobList(itemId) {
-      if (this.sideListNav === '公司職位') {
+      if (this.boxNavState === 1) {
         this.companyJobList.forEach((item) => {
           if (item.key === itemId) {
             this.selectItem = {};
@@ -271,7 +252,7 @@ export default {
             this.selectJobKey = item.key;
           }
         });
-      } else if (this.sideListNav === '拍照申請職位') {
+      } else if (this.boxNavState === 2) {
         this.shotJobList.forEach((item) => {
           if (item.key === itemId) {
             this.selectItem = {};

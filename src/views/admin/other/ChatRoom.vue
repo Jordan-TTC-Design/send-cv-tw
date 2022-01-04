@@ -193,22 +193,11 @@
           <i class="jobIcon-sm bi bi-chevron-left me-2"></i>返回
         </button>
       </div>
-      <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--nonRound innerNav--bgColor">
-        <li
-          class="innerNav__item w--50"
-          :class="{ active: innerNav === '申請資料' }"
-          @click="changeNav('innerNav', '申請資料')"
-        >
-          <p>申請資料</p>
-        </li>
-        <li
-          class="innerNav__item w--50"
-          :class="{ active: innerNav === '職位內容' }"
-          @click="changeNav('innerNav', '職位內容')"
-        >
-          <p>職位內容</p>
-        </li>
-      </ul>
+      <NavBoxNav
+              :nav-list="boxNavList"
+              :nav-setting="boxNavSetting"
+              v-model:box-nav-state="boxNavState"
+            />
       <swiper
         :slides-per-view="swiperNum"
         :space-between="20"
@@ -246,7 +235,7 @@
             </p>
           </div>
         </div>
-        <div class="sideJobContainer__body p-3" v-if="innerNav === '申請資料'">
+        <div class="sideJobContainer__body p-3" v-if="boxNavState === 1">
           <ul class="infoList infoList--jobSeeker infoList--withBtn">
             <li class="infoList__item">
               <div>
@@ -411,7 +400,7 @@
             </li>
           </ul>
         </div>
-        <div class="sideJobContainer__body p-3" v-if="innerNav === '職位內容'">
+        <div class="sideJobContainer__body p-3" v-if="boxNavState === 2">
           <div class="sideJobContainer__section">
             <h3 class="sectionTitle--withTag mb-4">
               <span class="sectionTitleTag--double me-2"></span>職位內容
@@ -603,6 +592,7 @@ import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 import DocModal from '@/components/admin/DocModal.vue';
+import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -612,11 +602,23 @@ export default {
     DocModal,
     Swiper,
     SwiperSlide,
+    NavBoxNav,
+
   },
   data() {
     return {
       dataReady: false,
-      innerNav: '申請資料',
+      boxNavState: 1,
+      boxNavList: [
+        { title: '個人資料', value: 1 },
+        { title: '應徵資料', value: 2 },
+      ],
+      boxNavSetting: {
+        full: 1,
+        style: 0,
+        bg: 1,
+        rounded: 0,
+      },
       fullWidth: 0,
       fullHeight: 0,
       products: [],

@@ -5,14 +5,11 @@
       <div class="row gy-5">
         <div class="col-lg-6 col-12">
           <div class="sideContentBox pb-3">
-            <ul class="innerNav innerNav--company">
-              <li class="innerNav__item">
-                <p>職位</p>
-              </li>
-              <li class="innerNav__item">
-                <p>邀請面試</p>
-              </li>
-            </ul>
+            <NavBoxNav
+              :nav-list="boxNavList"
+              :nav-setting="boxNavSetting"
+              v-model:box-nav-state="boxNavState"
+            />
             <ul class="innerList innerList--company">
               <li class="innerList__item putPointer">
                 <p class="text-dark mb-2">產品設計師</p>
@@ -101,25 +98,23 @@
               </div>
             </div>
             <ul class="chatRoom__chatList border-bottom border-gray-line">
-                <li
-                  class="list__item chatCard"
-                >
-                  <div class="chatCard__top d-flex mb-2">
-                    <img class="chatCard__img me-2"  />
-                    <div class="flex-grow-1">
-                      <p class="chatCard__title mb-1">123</p>
-                      <p class="subTxt mb-1">招募職位：444</p>
-                      <p class="subTxt">您好，我們最近看到你在找工作...</p>
-                    </div>
+              <li class="list__item chatCard">
+                <div class="chatCard__top d-flex mb-2">
+                  <img class="chatCard__img me-2" />
+                  <div class="flex-grow-1">
+                    <p class="chatCard__title mb-1">123</p>
+                    <p class="subTxt mb-1">招募職位：444</p>
+                    <p class="subTxt">您好，我們最近看到你在找工作...</p>
                   </div>
-                  <div class="chatCard__footer">
-                    <div class="chatCard__tagList">
-                      <p class="jobTag me-2">100%</p>
-                      <p class="jobTag">已申請</p>
-                    </div>
-                    <p class="subTxt text-secondary">2021/10/12</p>
+                </div>
+                <div class="chatCard__footer">
+                  <div class="chatCard__tagList">
+                    <p class="jobTag me-2">100%</p>
+                    <p class="jobTag">已申請</p>
                   </div>
-                </li>
+                  <p class="subTxt text-secondary">2021/10/12</p>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -215,14 +210,26 @@
 import emitter from '@/methods/emitter';
 import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
+import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 export default {
-  components: { CompanyAdminNav },
+  components: { CompanyAdminNav, NavBoxNav },
   data() {
     return {
       nowPage: '總覽',
       user: {},
       dataReady: false,
+      boxNavState: 1,
+      boxNavList: [
+        { title: '職位', value: 1 },
+        { title: '邀請面試', value: 2 },
+      ],
+      boxNavSetting: {
+        full: 0,
+        style: 1, // jobSeeker 1 company 2
+        bg: 0,
+        rounded: 1,
+      },
     };
   },
   methods: {
