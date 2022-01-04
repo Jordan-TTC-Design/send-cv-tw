@@ -77,7 +77,6 @@ export default {
     ApplicationJobSideBox,
     AdminNav,
     JobCollect,
-    // eslint-disable-next-line vue/no-unused-components
     NavPageSubNav,
   },
   data() {
@@ -85,8 +84,13 @@ export default {
       fullWidth: 0,
       fullHeight: 0,
       nowPage: '職位申請',
-      pageSubNavState: '已申請',
-      pageSubNavList: ['已申請', '面試', '已錄取', '已婉拒'],
+      pageSubNavState: 1,
+      pageSubNavList: [
+        { title: '已申請', value: 1 },
+        { title: '面試', value: 2 },
+        { title: '已錄取', value: 3 },
+        { title: '已婉拒', value: 4 },
+      ],
       products: [],
       jobsList: [],
       nowPageJobs: [],

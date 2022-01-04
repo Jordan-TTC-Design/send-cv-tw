@@ -5,10 +5,10 @@
         v-for="listItem in navList"
         :key="listItem"
         class="innerNav__item"
-        :class="{ active: this.navListState === listItem }"
-        @click="changeNavState(listItem)"
+        :class="{ active: this.navListState === listItem.value }"
+        @click="changeNavState(listItem.value)"
       >
-        <p>{{ listItem }}</p>
+        <p>{{ listItem.title }}</p>
       </li>
     </ul>
   </div>

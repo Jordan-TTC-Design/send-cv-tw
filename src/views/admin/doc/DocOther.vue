@@ -2,27 +2,10 @@
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
     <div class="container-xl pageSubNavContainer--sticky mb-5">
-      <div class="pageSubNav">
-        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
-          <li
-            class="innerNav__item w--50"
-            :class="{ active: pageSubNavState === '影片' }"
-            @click="this.pageSubNavState = '影片'"
-          >
-            <p>影片</p>
-          </li>
-          <li
-            class="innerNav__item w--50"
-            :class="{ active: pageSubNavState === '作品' }"
-            @click="this.pageSubNavState = '作品'"
-          >
-            <p>作品</p>
-          </li>
-        </ul>
-      </div>
+      <NavPageSubNav :nav-list="pageSubNavList" v-model:page-sub-nav-state="pageSubNavState" />
     </div>
     <div class="container-xl">
-      <div class="bg-light rounded p-4 mb-5 d-flex" v-if="pageSubNavState === '影片' && dataReady">
+      <div class="bg-light rounded p-4 mb-5 d-flex" v-if="pageSubNavState === 1 && dataReady">
         <div class="bg-gray-line d-flex flex-column justify-content-center px-8">
           <h4 class="mb-4">
             立即上傳
@@ -36,7 +19,7 @@
         </div>
         <img class="w-50" src="https://i.imgur.com/tOFpDha.png" alt="" />
       </div>
-      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="pageSubNavState === '影片' && dataReady">
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="pageSubNavState === 1 && dataReady">
         <li class="col">
           <div class="newScvCard putPointer h-100" @click="openDocModal('newVideo')">
             <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增影片</p>
@@ -72,7 +55,7 @@
           </div>
         </li>
       </ul>
-      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="pageSubNavState === '作品' && dataReady">
+      <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="pageSubNavState === 2 && dataReady">
         <li class="col">
           <div class="newScvCard putPointer h-100" @click="openDocModal('newProduct')">
             <p class="newScvCard__txt"><i class="jobIcon-sm bi bi-plus-lg me-1"></i>新增作品</p>
@@ -110,18 +93,24 @@ import AdminNav from '@/components/admin/AdminNav.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import DocModal from '@/components/admin/DocModal.vue';
 import database from '@/methods/firebaseinit';
+import NavPageSubNav from '@/components/helpers/NavPageSubNav.vue';
 
 export default {
   components: {
     UpTopBtn,
     AdminNav,
     DocModal,
+    NavPageSubNav,
   },
   data() {
     return {
       dataReady: false,
       nowPage: '其他文件',
-      pageSubNavState: '影片',
+      pageSubNavState: 1,
+      pageSubNavList: [
+        { title: '影片', value: 1 },
+        { title: '作品', value: 2 },
+      ],
       user: {},
     };
   },

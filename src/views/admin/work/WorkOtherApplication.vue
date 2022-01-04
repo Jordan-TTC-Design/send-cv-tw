@@ -1,32 +1,15 @@
 <template>
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
-    <div class="container-xl pageSubNavContainer--sticky mb-5">
-      <div class="pageSubNav">
-        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
-          <li
-            class="innerNav__item w--50"
-            :class="{ active: pageSubNavState === 'shotList' }"
-            @click="this.pageSubNavState = 'shotList'"
-          >
-            <p>拍照求職</p>
-          </li>
-          <li
-            class="innerNav__item w--lg--75 w--md--50 text-nowrap"
-            :class="{ active: pageSubNavState === 'mailList' }"
-            @click="this.pageSubNavState = 'mailList'"
-          >
-            <p>寫郵件 Send CV</p>
-          </li>
-        </ul>
-      </div>
+     <div class="container-xl pageSubNavContainer--sticky mb-5">
+      <NavPageSubNav :nav-list="pageSubNavList" v-model:page-sub-nav-state="pageSubNavState" />
     </div>
     <div class="container-xl">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>
       <div class="row row-cols-lg-2">
-        <div class="col" v-if="pageSubNavState === 'shotList'">
+        <div class="col" v-if="pageSubNavState === 1">
           <div class="ps-3 mb-3 bg-light rounded p-2">
             <p class="text-secondary fw-normal text-nowrap">
               目前共 {{ nowPageItems.length }} 筆拍照求職紀錄
@@ -74,7 +57,7 @@
             </template>
           </ul>
         </div>
-        <div class="col" v-if="pageSubNavState === 'mailList'">
+        <div class="col" v-if="pageSubNavState === 2">
           <div class="ps-3 mb-3 bg-light rounded p-2">
             <p class="text-secondary fw-normal text-nowrap">目前共 3 筆寫郵件SendCV紀錄</p>
           </div>
@@ -425,6 +408,7 @@ import webData from '@/methods/webData';
 import AdminNav from '@/components/admin/AdminNav.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import database from '@/methods/firebaseinit';
+import NavPageSubNav from '@/components/helpers/NavPageSubNav.vue';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -433,13 +417,18 @@ export default {
     // PagenationModal,
     UpTopBtn,
     AdminNav,
+    NavPageSubNav,
   },
   data() {
     return {
       fullWidth: 0,
       fullHeight: 0,
       nowPage: '自我推薦',
-      pageSubNavState: 'shotList',
+      pageSubNavState: 1,
+      pageSubNavList: [
+        { title: '拍照申請', value: 1 },
+        { title: '寫郵件 SendCV', value: 2 },
+      ],
       innerNav: '申請資料',
       jobsList: [],
       jobItem: {

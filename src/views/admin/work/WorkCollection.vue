@@ -2,30 +2,13 @@
   <div class="adminPage--py">
     <AdminNav :nowPage="nowPage" />
     <div class="container-xl pageSubNavContainer--sticky mb-5">
-      <div class="pageSubNav">
-        <ul class="innerNav innerNav--fill innerNav--jobSeeker innerNav--single">
-          <li
-            class="innerNav__item w--50"
-            :class="{ active: pageSubNavState === 'job' }"
-            @click="this.pageSubNavState = 'job'"
-          >
-            <p>職位收藏</p>
-          </li>
-          <li
-            class="innerNav__item w--50"
-            :class="{ active: pageSubNavState === 'company' }"
-            @click="this.pageSubNavState = 'company'"
-          >
-            <p>企業收藏</p>
-          </li>
-        </ul>
-      </div>
+      <NavPageSubNav :nav-list="pageSubNavList" v-model:page-sub-nav-state="pageSubNavState" />
     </div>
     <div class="container-xl">
       <div
         ref="collectionBoxList--job"
         class="bg-light p-xl-6 p-4 rounded"
-        v-if="pageSubNavState === 'job'"
+        v-if="pageSubNavState === 1"
       >
         <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
           <div class="col">
@@ -101,7 +84,7 @@
       <div
         ref="collectionBoxList--company"
         class="collectionBoxList--company"
-        v-if="pageSubNavState === 'company'"
+        v-if="pageSubNavState === 2"
       >
         <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
           <div class="col-12">
@@ -193,6 +176,7 @@ import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 import CompanyCollect from '@/components/helpers/CompanyCollect.vue';
 import AdminNav from '@/components/admin/AdminNav.vue';
+import NavPageSubNav from '@/components/helpers/NavPageSubNav.vue';
 
 export default {
   components: {
@@ -200,13 +184,18 @@ export default {
     JobCollect,
     CompanyCollect,
     AdminNav,
+    NavPageSubNav,
   },
   data() {
     return {
       allData: [],
       jobsList: [],
       nowPage: '收藏',
-      pageSubNavState: 'job',
+      pageSubNavState: 1,
+      pageSubNavList: [
+        { title: '職位收藏', value: 1 },
+        { title: '企業收藏', value: 2 },
+      ],
       jobItem: {
         options: {
           company: {
