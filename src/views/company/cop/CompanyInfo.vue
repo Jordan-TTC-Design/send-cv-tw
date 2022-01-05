@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-lg pageSubNavContainer--sticky d-lg-none mb-5">
       <div class="pageSubNav">
         <ul class="innerNav innerNav--fill innerNav--company innerNav--single">
@@ -487,13 +487,13 @@
 <script>
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
   },
   data() {
     return {

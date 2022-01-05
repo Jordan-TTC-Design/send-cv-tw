@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div
       class="container-lg pageSubNavContainer--sticky mb-5 d-md-none"
       :class="{ 'rwdClose--sm': rwdSelect === '' }"
@@ -940,7 +940,7 @@
 <script>
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 import UserPhotoEdit from '@/components/admin/UserPhotoEdit.vue';
 import WorkExpTemplate from '@/components/admin/WorkExpTemplate.vue';
 import EducationExpTemplate from '@/components/admin/EducationExpTemplate.vue';
@@ -952,7 +952,7 @@ import database from '@/methods/firebaseinit';
 
 export default {
   components: {
-    AdminNav,
+    NavAdminNav,
     WorkExpTemplate,
     UserPhotoEdit,
     EducationExpTemplate,

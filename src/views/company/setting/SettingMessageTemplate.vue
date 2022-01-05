@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl">
       <ul class="row row-cols-lg-3 row-cols-1 gy-5" v-if="dataReady">
         <li class="col">
@@ -32,7 +32,7 @@
 import emitter from '@/methods/emitter';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import DocModal from '@/components/admin/DocModal.vue';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import SecondAskModal from '@/components/helpers/SecondAskModal.vue';
 import database from '@/methods/firebaseinit';
 
@@ -40,7 +40,7 @@ export default {
   components: {
     UpTopBtn,
     DocModal,
-    CompanyAdminNav,
+    NavCompanyAdminNav,
     SecondAskModal,
   },
   data() {

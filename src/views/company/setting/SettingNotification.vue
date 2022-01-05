@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div
       class="container-xl pageSubNavContainer--sticky mb-5 d-lg-none"
       :class="{ 'rwdClose--md': rwdSelect === '' }"
@@ -950,12 +950,12 @@
 </template>
 
 <script>
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
   },
   data() {
     return {

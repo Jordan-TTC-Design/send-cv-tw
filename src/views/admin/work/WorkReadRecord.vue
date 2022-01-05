@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl">
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
@@ -86,7 +86,7 @@
 <script>
 import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 import emitter from '@/methods/emitter';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 import searchFilter from '@/methods/searchFilter';
 import webData from '@/methods/webData';
 import PagenationModal from '@/components/helpers/Pagenation.vue';
@@ -100,7 +100,7 @@ export default {
     PagenationModal,
     UpTopBtn,
     JobCollect,
-    AdminNav,
+    NavAdminNav,
   },
   data() {
     return {

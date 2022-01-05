@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl position-relative">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-9">
@@ -499,12 +499,12 @@
 
 <script>
 import webData from '@/methods/webData';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
   },
   data() {
     return {

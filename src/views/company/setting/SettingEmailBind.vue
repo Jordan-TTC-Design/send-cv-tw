@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl">
       <div class="row justify-content-center">
         <div class="col-xl-9 col-12">
@@ -70,13 +70,13 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import SettingUserModal from '@/components/company/SettingUserModal.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
     SettingUserModal,
   },
   data() {

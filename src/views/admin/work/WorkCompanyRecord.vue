@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl position-relative">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-3">
@@ -133,7 +133,7 @@ import webData from '@/methods/webData';
 import PagenationModal from '@/components/helpers/Pagenation.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -142,7 +142,7 @@ export default {
     PagenationModal,
     UpTopBtn,
     JobCollect,
-    AdminNav,
+    NavAdminNav,
   },
   data() {
     return {

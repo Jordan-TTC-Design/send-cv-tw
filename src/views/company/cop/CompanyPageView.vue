@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl position-relative companyPage">
       <div class="row">
         <!-- 企業資料 -->
@@ -317,7 +317,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import emitter from '@/methods/emitter';
 import webData from '@/methods/webData';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import CompanyPhotoEdit from '@/components/company/CompanyPhotoEdit.vue';
 import ImgInputBoxCompany from '@/components/helpers/ImgInputBoxCompany.vue';
 
@@ -325,7 +325,7 @@ import database from '@/methods/firebaseinit';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
     CompanyPhotoEdit,
     ImgInputBoxCompany,
   },

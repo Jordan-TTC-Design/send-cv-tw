@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl position-relative">
       <div class="row justify-content-center">
         <div class="col-xl-10 col-12">
@@ -161,11 +161,11 @@
 <script>
 import emitter from '@/methods/emitter';
 import SettingAccountModal from '@/components/admin/SettingAccountModal.vue';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
-  components: { SettingAccountModal, AdminNav },
+  components: { SettingAccountModal, NavAdminNav },
   data() {
     return {
       nowPage: '帳號設定',

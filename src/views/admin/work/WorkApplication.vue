@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl pageSubNavContainer--sticky mb-5">
       <NavPageSubNav :nav-list="pageSubNavList" v-model:page-sub-nav-state="pageSubNavState" />
     </div>
@@ -60,7 +60,7 @@ import webData from '@/methods/webData';
 import PagenationModal from '@/components/helpers/Pagenation.vue';
 import ApplicationJobCard from '@/components/admin/ApplicationJobCard.vue';
 import ApplicationJobSideBox from '@/components/admin/ApplicationJobSideBox.vue';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import FilterBtn from '@/components/helpers/FilterBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
@@ -75,7 +75,7 @@ export default {
     UpTopBtn,
     FilterBtn,
     ApplicationJobSideBox,
-    AdminNav,
+    NavAdminNav,
     JobCollect,
     NavPageSubNav,
   },

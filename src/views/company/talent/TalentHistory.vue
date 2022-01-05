@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl position-relative companyPage">
       <div class="row" v-if="dataReady === true">
         <div class="col-lg-3">
@@ -168,14 +168,14 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import PersonPopModal from '@/components/company/PersonPopModal.vue';
 import PersonActionModal from '@/components/company/PersonActionModal.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
     PersonPopModal,
     PersonActionModal,
   },

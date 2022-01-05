@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl">
       <div class="row justify-content-center" v-if="!editMode">
         <div class="col-xl-10 col-12">
@@ -265,7 +265,7 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import UserPhotoEdit from '@/components/admin/UserPhotoEdit.vue';
 import SettingAccountModal from '@/components/company/SettingAccountModal.vue';
 import SettingUserModal from '@/components/company/SettingUserModal.vue';
@@ -274,7 +274,7 @@ import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
     UserPhotoEdit,
     SettingUserModal,
     SettingAccountModal,

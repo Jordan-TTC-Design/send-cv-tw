@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl pageSubNavContainer--sticky mb-5">
       <NavPageSubNav :nav-list="pageSubNavList" v-model:page-sub-nav-state="pageSubNavState" />
     </div>
@@ -89,7 +89,7 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import DocModal from '@/components/admin/DocModal.vue';
 import database from '@/methods/firebaseinit';
@@ -98,7 +98,7 @@ import NavPageSubNav from '@/components/helpers/NavPageSubNav.vue';
 export default {
   components: {
     UpTopBtn,
-    AdminNav,
+    NavAdminNav,
     DocModal,
     NavPageSubNav,
   },

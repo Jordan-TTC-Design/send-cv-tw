@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div
       class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
       :class="{ 'rwdClose--md': rwdSelect === '' }"
@@ -106,78 +106,7 @@
             </div>
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <li class="talentCard talentCard--inner">
-                  <div class="talentCard__userImgBox">
-                    <div class="talentCard__introVideo">
-                      <p class="subTxt text-secondary">尚未設定</p>
-                    </div>
-                    <img
-                      class="talentCard__personalImg"
-                      :src="user.account.userImgUrl"
-                      :alt="`${user.account.chineseName}個人求職照片`"
-                    />
-                  </div>
-                  <div class="talentCard__body">
-                    <div class="talentNameInfo mb-3">
-                      <p
-                        class="talentNameInfo__name me-2 putPointer"
-                        @click="openPersonPopModal('瀏覽人才')"
-                      >
-                        {{ user.account.chineseName }}
-                      </p>
-                      <p>{{ user.account.gender }} | {{ `28歲` }}</p>
-                    </div>
-                    <ul class="talentInfo">
-                      <li class="talentInfo__item">
-                        <p class="talentInfo__item__title">投遞職位</p>
-                        <p>{{ item.jobName }}</p>
-                      </li>
-                      <li class="talentInfo__item">
-                        <p class="talentInfo__item__title">最高學歷</p>
-                        <p>
-                          {{
-                            user.educationExp.educations[user.educationExp.educations.length - 1]
-                              .educationLevel || '尚未填寫'
-                          }}
-                        </p>
-                      </li>
-                      <li class="talentInfo__item">
-                        <p class="talentInfo__item__title">工作經驗</p>
-                        <p>
-                          {{
-                            user.workExp.works[user.workExp.works.length - 1].jobName ||
-                            '無工作經驗'
-                          }}
-                        </p>
-                      </li>
-                      <li class="talentInfo__item">
-                        <p class="talentInfo__item__title">最後登入</p>
-                        <p>{{ $filters.date(item.time) }}</p>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="talentCard__btnBox">
-                    <button
-                      type="button"
-                      class="btn btn-outline-companyColor me-2"
-                      @click="selectAction('選擇動作')"
-                    >
-                      選擇動作
-                    </button>
-                    <button type="button" class="btn btn-outline-gray-line text-dark me-2">
-                      聯絡
-                    </button>
-                    <button type="button" class="btn text-dark">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                  </div>
-                  <button
-                    class="collectBtn btn btn-outline-gray-line position-absolute bg-light"
-                    type="button"
-                  >
-                    <i class="jobIcon bi bi-bookmark-fill"></i>
-                  </button>
-                </li>
+                <TalentCard :user="user" :job-data="item"/>
               </template>
             </ul>
           </div>
@@ -196,16 +125,18 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import PersonPopModal from '@/components/company/PersonPopModal.vue';
 import PersonActionModal from '@/components/company/PersonActionModal.vue';
 import database from '@/methods/firebaseinit';
+import TalentCard from '@/components/company/TalentCard.vue';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
     PersonPopModal,
     PersonActionModal,
+    TalentCard,
   },
   data() {
     return {
@@ -214,7 +145,6 @@ export default {
       mainContentLisr: '',
       mailApplyList: [],
       user: {},
-      selectJobKey: '',
       filterData: {
         keyword: '',
         matchJob: '',
@@ -235,22 +165,6 @@ export default {
     };
   },
   methods: {
-    selectAction(action) {
-      const obj = {
-        action,
-        user: this.user,
-        key: this.selectJobKey,
-      };
-      emitter.emit('open-person-action-modal', obj);
-    },
-    openPersonPopModal(action) {
-      const obj = {
-        action,
-        user: this.user,
-        key: this.selectJobKey,
-      };
-      emitter.emit('open-person-pop-modal', obj);
-    },
     getUserData() {
       const userRef = database.ref('user');
       userRef.once('value', (snapshot) => {
@@ -304,9 +218,9 @@ export default {
     },
   },
   created() {
+    this.getUserData();
     this.getSelfRecommendList();
     this.getJobListData();
-    this.getUserData();
     emitter.emit('spinner-open-bg', 800);
   },
 };

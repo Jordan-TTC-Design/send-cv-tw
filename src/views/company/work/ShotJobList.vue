@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div
       class="container-lg pageSubNavContainer--sticky mb-5 d-lg-none"
       :class="{ 'rwdClose--md': rwdSelect === '' }"
@@ -142,13 +142,13 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
 import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 export default {
   components: {
-    CompanyAdminNav,
+    NavCompanyAdminNav,
     NavBoxNav,
   },
   data() {

@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl position-relative">
       <div class="row justify-content-center">
         <div class="col-xl-10 col-12">
@@ -197,10 +197,10 @@
 import emitter from '@/methods/emitter';
 import SettingCareerModal from '@/components/admin/SettingCareerModal.vue';
 import database from '@/methods/firebaseinit';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 
 export default {
-  components: { SettingCareerModal, AdminNav },
+  components: { SettingCareerModal, NavAdminNav },
   data() {
     return {
       nowPage: '求職意向',

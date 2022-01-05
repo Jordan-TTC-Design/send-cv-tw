@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl pageSubNavContainer--sticky mb-5">
       <NavPageSubNav :nav-list="pageSubNavList" v-model:page-sub-nav-state="pageSubNavState" />
     </div>
@@ -175,7 +175,7 @@ import emitter from '@/methods/emitter';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 import CompanyCollect from '@/components/helpers/CompanyCollect.vue';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 import NavPageSubNav from '@/components/helpers/NavPageSubNav.vue';
 
 export default {
@@ -183,7 +183,7 @@ export default {
     UpTopBtn,
     JobCollect,
     CompanyCollect,
-    AdminNav,
+    NavAdminNav,
     NavPageSubNav,
   },
   data() {

@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <CompanyAdminNav :nowPage="nowPage" />
+    <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl" v-if="dataReady">
       <div class="row gy-5">
         <div class="col-lg-6 col-12">
@@ -208,12 +208,12 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import CompanyAdminNav from '@/components/company/CompanyAdminNav.vue';
+import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
 import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 
 export default {
-  components: { CompanyAdminNav, NavBoxNav },
+  components: { NavCompanyAdminNav, NavBoxNav },
   data() {
     return {
       nowPage: '總覽',

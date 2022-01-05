@@ -1,6 +1,6 @@
 <template>
   <div class="adminPage--py">
-    <AdminNav :nowPage="nowPage" />
+    <NavAdminNav :nowPage="nowPage" />
     <div class="container-xl">
       <ul class="row row-cols-xl-3 row-cols-lg-2 row-cols-1 gy-5">
         <li class="col">
@@ -58,14 +58,14 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import AdminNav from '@/components/admin/AdminNav.vue';
+import NavAdminNav from '@/components/admin/NavAdminNav.vue';
 import UpTopBtn from '@/components/helpers/UpTopBtn.vue';
 import database from '@/methods/firebaseinit';
 
 export default {
   components: {
     UpTopBtn,
-    AdminNav,
+    NavAdminNav,
   },
   data() {
     return {
