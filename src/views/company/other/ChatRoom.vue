@@ -26,27 +26,7 @@
       <!-- 聊天列表 -->
       <ul class="chatRoom__chatList">
         <template v-for="item in jobApplyData" :key="item.key">
-          <li
-            :ref="`chatRoom__card--${item.key}`"
-            class="list__item chatCard"
-            @click="selectListItem(item.key)"
-          >
-            <div class="chatCard__body mb-2">
-              <img class="chatCard__img me-2" :src="user.account.userImgUrl" />
-              <div class="flex-grow-1">
-                <p class="chatCard__title mb-1">{{ user.account.chineseName }}</p>
-                <p class="subTxt mb-1">招募職位：{{ item.jobInfo.jobName }}</p>
-                <p class="subTxt">您好，我們最近看到你在找工作...</p>
-              </div>
-            </div>
-            <div class="chatCard__footer">
-              <div class="chatCard__tagList">
-                <p class="jobTag me-2">100%</p>
-                <p class="jobTag">{{ item.applyState }}</p>
-              </div>
-              <p class="subTxt--foil">2021/10/12</p>
-            </div>
-          </li>
+          <ChatCard :user="item" @click="selectListItem(item.key)"/>
         </template>
       </ul>
     </div>
@@ -413,12 +393,14 @@ import emitter from '@/methods/emitter';
 import DocModal from '@/components/admin/DocModal.vue';
 import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
 import ApplyDocFoldList from '@/components/helpers/ApplyDocFoldList.vue';
+import ChatCard from '@/components/helpers/ChatCard.vue';
 
 export default {
   components: {
     DocModal,
     NavBoxNav,
     ApplyDocFoldList,
+    ChatCard,
   },
   data() {
     return {

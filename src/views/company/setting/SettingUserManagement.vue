@@ -87,8 +87,8 @@
           >
             <i class="jobIcon bi bi-chevron-left me-2"></i>返回用戶列表
           </button>
-          <div class="setting__sideList">
-            <div class="setting__sideList__top">
+          <div class="sideContentBox sideContentBox--normalHeight mb-lg-0 mb-5">
+            <div class="sideContentBox__header personSetting">
               <div class="userImgBox mb-4 bg-gray-light">
                 <img class="userImgBox__img" :src="tempUser.userImgUrl" alt="用戶照片" />
                 <div class="userImgBox__editBtn">

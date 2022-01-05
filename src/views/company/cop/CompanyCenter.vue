@@ -98,23 +98,7 @@
               </div>
             </div>
             <ul class="chatRoom__chatList border-bottom border-gray-line">
-              <li class="list__item chatCard">
-                <div class="chatCard__top d-flex mb-2">
-                  <img class="chatCard__img me-2" />
-                  <div class="flex-grow-1">
-                    <p class="chatCard__title mb-1">123</p>
-                    <p class="subTxt mb-1">招募職位：444</p>
-                    <p class="subTxt">您好，我們最近看到你在找工作...</p>
-                  </div>
-                </div>
-                <div class="chatCard__footer">
-                  <div class="chatCard__tagList">
-                    <p class="jobTag me-2">100%</p>
-                    <p class="jobTag">已申請</p>
-                  </div>
-                  <p class="subTxt text-secondary">2021/10/12</p>
-                </div>
-              </li>
+              <ChatCard :user="item" @click="selectListItem(item.key)"/>
             </ul>
           </div>
         </div>
@@ -211,9 +195,10 @@ import emitter from '@/methods/emitter';
 import NavCompanyAdminNav from '@/components/company/NavCompanyAdminNav.vue';
 import database from '@/methods/firebaseinit';
 import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
+import ChatCard from '@/components/helpers/ChatCard.vue';
 
 export default {
-  components: { NavCompanyAdminNav, NavBoxNav },
+  components: { NavCompanyAdminNav, NavBoxNav, ChatCard },
   data() {
     return {
       nowPage: '總覽',

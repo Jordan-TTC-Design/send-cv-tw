@@ -92,21 +92,12 @@
         </div>
         <div class="col-lg-9" :class="{ 'rwdClose--md': rwdSelect === '' }">
           <div class="adminContentBox pb-3">
-            <div
-              class="
-                border-bottom border-gray-line
-                px-3
-                py-1
-                d-flex
-                justify-content-between
-                align-items-center
-              "
-            >
+            <div class="adminContentBox__header--sm">
               <p class="subTxt">收藏夾：{{ mailApplyList.length }} 位人才</p>
             </div>
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <TalentCard :user="user" :job-data="item"/>
+                <TalentCard :user="user" :job-data="item" />
               </template>
             </ul>
           </div>

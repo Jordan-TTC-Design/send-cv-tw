@@ -4,7 +4,7 @@
     <div class="container-xl position-relative">
       <div class="row justify-content-center">
         <div class="col-xl-10 col-12">
-          <div class="admin__mainContent">
+          <div class="adminContentBox adminContentBox--p">
             <h3 class="pageSubTitle mb-5">求職意向</h3>
             <div class="remind mb-4">
               <p class="remind__title">小提醒：</p>

@@ -17,20 +17,22 @@
             @click="selectJob"
             :data-id="jobItem.id"
             :ref="`list__item${jobItem.id}`"
-            class="readRecordList__item"
+            class="jobCard jobCard--row"
           >
-            <div class="readRecordList__item__body">
-              <div class="readRecordList__item__logoImgBox me-3">
+            <div class="jobCard__header justify-content-start d-flex">
+              <div class="jobCard--row__logoImgBox">
                 <img
                   class="logoImg"
                   :src="jobItem.options.company.companyLogoUrl"
                   :alt="`${jobItem.options.company.companyName}logo`"
                 />
               </div>
-              <div class="readRecordList__item__txtBox d-flex flex-column justify-content-between">
+            </div>
+            <div class="jobCard__body">
+              <div class="d-flex flex-column justify-content-between">
                 <div class="d-flex mb-2 flex-wrap">
                   <router-link
-                    class="readRecordList__item__title me-2"
+                    class="strongTxt me-2"
                     :to="`/products-list/product/${jobItem.id}`"
                     >{{ jobItem.title }}</router-link
                   >
@@ -47,20 +49,18 @@
                 <p class="subTxt--foil mb-2" v-if="!jobItem.options.job.salaryInterView">
                   {{ jobItem.price }} / 月薪
                 </p>
-                <p class="subTxt--foil mb-2" v-if="jobItem.options.job.salaryInterView">
-                  薪資面議
-                </p>
+                <p class="subTxt--foil mb-2" v-if="jobItem.options.job.salaryInterView">薪資面議</p>
                 <p class="subTxt--foil">
-                申請時間：{{ $filters.date(jobItem.options.job.create) }}
-              </p>
+                  申請時間：{{ $filters.date(jobItem.options.job.create) }}
+                </p>
               </div>
             </div>
-            <div class="readRecordList__item__footer justify-content-end">
-              <div class="readRecordList__item__btnBox">
+            <div class="jobCard__footer justify-content-end">
+              <div class="d-flex">
                 <button type="button" class="btn btn-gray-light me-2">相似職位</button>
                 <button type="button" class="btn btn-primary me-2">申請</button>
-                <button type="button" class="collectBtn btn btn-outline-gray-line me-lg-2 me-0">
-                  <i class="jobIcon bi bi-bookmark-fill"></i>
+                <button type="button" class="btn btn-outline-gray-line text-dark">
+                收藏
                 </button>
               </div>
             </div>

@@ -5,8 +5,8 @@
       <div class="row row-cols-lg-2 row-cols-1 gy-5 mb-5">
         <div class="col">
           <div class="rounded bg-white box--shadow p-5 h-100 d-flex">
-            <div class="setting__personImgBox me-5">
-              <img class="personImgBox__img" src="https://i.imgur.com/ZWHoRPi.png" alt="" />
+            <div class="userImgBox me-5 border border-gray-line">
+              <img class="userImgBox__img" src="https://i.imgur.com/ZWHoRPi.png" alt="" />
             </div>
             <div class="flex-grow-1 d-flex justify-content-between flex-column">
               <div>

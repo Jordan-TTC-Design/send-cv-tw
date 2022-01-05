@@ -24,28 +24,8 @@
         </div>
       </div>
       <ul class="chatRoom__chatList">
-        <template v-for="temItem in nowPageJobs" :key="temItem.id">
-          <li
-            :ref="`chatRoom__card--${temItem.id}`"
-            class="list__item chatCard"
-            @click="selectListItem(temItem.id)"
-          >
-            <div class="chatCard__top d-flex mb-2">
-              <img class="chatCard__img me-2" :src="temItem.options.company.companyLogoUrl" />
-              <div class="flex-grow-1">
-                <p class="chatCard__title mb-1">{{ temItem.options.company.companyName }}</p>
-                <p class="subTxt mb-1">招募職位：{{ temItem.title }}</p>
-                <p class="subTxt">您好，我們最近看到你在找工作...</p>
-              </div>
-            </div>
-            <div class="chatCard__footer">
-              <div class="chatCard__tagList">
-                <p class="jobTag me-2">100%</p>
-                <p class="jobTag">已申請</p>
-              </div>
-              <p class="subTxt text-secondary">2021/10/12</p>
-            </div>
-          </li>
+        <template v-for="item in nowPageJobs" :key="item.id">
+          <ChatCard :user="item" @click="selectListItem(item.id)"/>
         </template>
       </ul>
     </div>
@@ -593,6 +573,7 @@ import webData from '@/methods/webData';
 import JobCollect from '@/components/helpers/JobCollect.vue';
 import DocModal from '@/components/admin/DocModal.vue';
 import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
+import ChatCard from '@/components/helpers/ChatCard.vue';
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -603,15 +584,15 @@ export default {
     Swiper,
     SwiperSlide,
     NavBoxNav,
-
+    ChatCard,
   },
   data() {
     return {
       dataReady: false,
       boxNavState: 1,
       boxNavList: [
-        { title: '個人資料', value: 1 },
-        { title: '應徵資料', value: 2 },
+        { title: '應徵資料', value: 1 },
+        { title: '職位資料', value: 2 },
       ],
       boxNavSetting: {
         full: 1,

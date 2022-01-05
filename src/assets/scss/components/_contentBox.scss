@@ -105,6 +105,11 @@
     }
   }
 }
+.sideContentBox.sideContentBox--normalHeight{
+  @include md{
+    min-height: auto;
+  }
+}
 .sideContentBox.rwdSelectBox {
   @include md {
     .collapseList__item.active {

@@ -4,8 +4,8 @@
     <div class="container-xl position-relative">
       <div class="row justify-content-center">
         <div class="col-xl-10 col-12">
-          <div class="admin__mainContent">
-            <h3 class="admin__mainContent__title">{{ nowPage }}</h3>
+          <div class="adminContentBox adminContentBox--p">
+            <h3 class="pageSubTitle mb-4">{{ nowPage }}</h3>
             <ul class="infoList infoList--company">
               <li class="infoList__item">
                 <div class="d-flex justify-content-between align-items-center">
