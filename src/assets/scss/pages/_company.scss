@@ -180,18 +180,6 @@
     margin: 0 auto;
   }
 }
-// 針對企業後台的 orderList table 設定
-.payService__orderList {
-  .tableList__item {
-    width: 25%;
-    @include md {
-      width: 50%;
-    }
-    @include sm {
-      width: 100%;
-    }
-  }
-}
 .signFlowImgBox {
   position: absolute;
   bottom: 0;

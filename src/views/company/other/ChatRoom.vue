@@ -350,112 +350,7 @@
                 </div>
               </li>
             </ul>
-            <ul ref="collapse" class="accordion">
-              <!-- 應徵文件 -->
-              <li class="accordion-item bg-gray-light py-2">
-                <p class="text-dark text-center">應徵文件</p>
-              </li>
-              <li class="accordion-item">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#applyDocument-cv"
-                    aria-expanded="false"
-                    aria-controls="applyDocument-cv"
-                  >
-                    履歷
-                  </button>
-                </h2>
-                <div id="applyDocument-cv" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <strong>This is the first item's accordion body.</strong> It is shown by
-                    default, until the collapse plugin adds the appropriate classes that we use to
-                    style each element. These classes control the overall appearance, as well as the
-                    showing and hiding via CSS transitions. You can modify any of this with custom
-                    CSS or overriding our default variables. It's also worth noting that just about
-                    any HTML can go within the <code>.accordion-body</code>, though the transition
-                    does limit overflow.
-                  </div>
-                </div>
-              </li>
-              <li class="accordion-item">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#applyDocument-coverLetter"
-                    aria-expanded="false"
-                    aria-controls="applyDocument-coverLetter"
-                  >
-                    求職信
-                  </button>
-                </h2>
-                <div id="applyDocument-coverLetter" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <strong>This is the second item's accordion body.</strong> It is hidden by
-                    default, until the collapse plugin adds the appropriate classes that we use to
-                    style each element. These classes control the overall appearance, as well as the
-                    showing and hiding via CSS transitions. You can modify any of this with custom
-                    CSS or overriding our default variables. It's also worth noting that just about
-                    any HTML can go within the <code>.accordion-body</code>, though the transition
-                    does limit overflow.
-                  </div>
-                </div>
-              </li>
-              <li class="accordion-item">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#applyDocument-selfIntro"
-                    aria-expanded="false"
-                    aria-controls="applyDocument-selfIntro"
-                  >
-                    自我介紹影片
-                  </button>
-                </h2>
-                <div id="applyDocument-selfIntro" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <strong>This is the third item's accordion body.</strong> It is hidden by
-                    default, until the collapse plugin adds the appropriate classes that we use to
-                    style each element. These classes control the overall appearance, as well as the
-                    showing and hiding via CSS transitions. You can modify any of this with custom
-                    CSS or overriding our default variables. It's also worth noting that just about
-                    any HTML can go within the <code>.accordion-body</code>, though the transition
-                    does limit overflow.
-                  </div>
-                </div>
-              </li>
-              <li class="accordion-item">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#applyDocument-companyAsk"
-                    aria-expanded="false"
-                    aria-controls="applyDocument-companyAsk"
-                  >
-                    公司提問
-                  </button>
-                </h2>
-                <div id="applyDocument-companyAsk" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <strong>This is the third item's accordion body.</strong> It is hidden by
-                    default, until the collapse plugin adds the appropriate classes that we use to
-                    style each element. These classes control the overall appearance, as well as the
-                    showing and hiding via CSS transitions. You can modify any of this with custom
-                    CSS or overriding our default variables. It's also worth noting that just about
-                    any HTML can go within the <code>.accordion-body</code>, though the transition
-                    does limit overflow.
-                  </div>
-                </div>
-              </li>
-            </ul>
+            <ApplyDocFoldList />
           </div>
         </div>
       </div>
@@ -517,11 +412,13 @@ import database from '@/methods/firebaseinit';
 import emitter from '@/methods/emitter';
 import DocModal from '@/components/admin/DocModal.vue';
 import NavBoxNav from '@/components/helpers/NavBoxNav.vue';
+import ApplyDocFoldList from '@/components/helpers/ApplyDocFoldList.vue';
 
 export default {
   components: {
     DocModal,
     NavBoxNav,
+    ApplyDocFoldList,
   },
   data() {
     return {

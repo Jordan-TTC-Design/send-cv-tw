@@ -3,10 +3,10 @@
     <NavCompanyAdminNav :nowPage="nowPage" />
     <div class="container-xl">
       <div class="row justify-content-center">
-        <div class="col-xl-9 col-12">
+        <div class="col-xl-9">
           <div class="p-5 mb-5 rounded bg-light box--shadow">
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="subTitle">綁定其他信箱</h2>
+              <h2 class="pageSubTitle">綁定其他信箱</h2>
               <button
                 type="btn"
                 class="btn btn-outline-companyColor"
@@ -34,22 +34,22 @@
               </div>
             </div>
           </div>
-          <ul class="adminList adminList--card">
-            <li class="adminList__item adminList__titleItem">
+          <div class="adminContentBox">
+            <div class="adminContentBox__header--sm">
               <p class="text-secondary fw-normal text-nowrap">
                 目前共 {{ otherEmailList.length }} 個信箱
               </p>
-            </li>
-            <template v-for="(item, index) in otherEmailList" :key="item.key">
-              <li class="adminList__item">
-                <div class="adminList__item__body">
-                  <p class="itemTitle text-dark d-flex align-items-center mb-1">
+            </div>
+            <ul v-for="(item, index) in otherEmailList" :key="item.key">
+              <li class="adminCard">
+                <div class="adminCard__body">
+                  <p class="strongTxt d-flex align-items-center mb-1">
                     {{ item.email }}
                     <span class="jobTag ms-2">{{ item.is_enabled ? '驗證成功' : '尚未驗證' }}</span>
                   </p>
                   <p class="subTxt text-secondary">登陸時間：2021-12-20 12:30</p>
                 </div>
-                <div class="adminList__item__footer--line btnBox">
+                <div class="adminCard__footer">
                   <button
                     type="button"
                     class="btn btn-gray-light text-dark"
@@ -59,8 +59,8 @@
                   </button>
                 </div>
               </li>
-            </template>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -190,7 +190,7 @@ export default {
     return {
       allData: [],
       jobsList: [],
-      nowPage: '收藏',
+      nowPage: '我的收藏',
       pageSubNavState: 1,
       pageSubNavList: [
         { title: '職位收藏', value: 1 },

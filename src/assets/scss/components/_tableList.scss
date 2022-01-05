@@ -28,10 +28,4 @@
       }
     }
   }
-  @include md{
-    align-items: stretch;
-    &__item{
-      width: 100%;
-    }
-  }
 }

@@ -164,9 +164,9 @@
           <ul v-if="sideBoxList === 'sendCV Web通知'">
             <li ref="sendCV Web通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
               <div class="border-bottom border-gray-line ps-4">
-                <h3 class="section__title--sub pt-5 pb-2">
-                  <span class="tag--doubleCircle--company me-2"></span>sendCV Web通知
-                </h3>
+                <h3 class="sectionTitle--withTag pt-5 pb-2">
+                <span class="sectionTitleTag--double--company me-2"></span>sendCV Web通知
+              </h3>
               </div>
               <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">
@@ -363,9 +363,9 @@
           <ul v-if="sideBoxList === '信箱通知'">
             <li ref="信箱通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
               <div class="border-bottom border-gray-line ps-4">
-                <h3 class="section__title--sub pt-5 pb-2">
-                  <span class="tag--doubleCircle--company me-2"></span>信箱通知
-                </h3>
+                <h3 class="sectionTitle--withTag pt-5 pb-2">
+                <span class="sectionTitleTag--double--company me-2"></span>信箱通知
+              </h3>
               </div>
               <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">
@@ -653,9 +653,9 @@
           <ul v-if="sideBoxList === '手機APP通知'">
             <li ref="手機APP通知 - 應徵通知" class="mb-5 rounded bg-light box--shadow">
               <div class="border-bottom border-gray-line ps-4">
-                <h3 class="section__title--sub pt-5 pb-2">
-                  <span class="tag--doubleCircle--company me-2"></span>手機APP通知
-                </h3>
+                <h3 class="sectionTitle--withTag pt-5 pb-2">
+                <span class="sectionTitleTag--double--company me-2"></span>手機APP通知
+              </h3>
               </div>
               <ul class="infoList--lg infoList--bgHover">
                 <li class="infoList__item">

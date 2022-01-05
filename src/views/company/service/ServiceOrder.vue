@@ -87,7 +87,7 @@
           </form>
         </div>
         <div class="col-lg-9">
-          <div class="adminContentBox adminContentBox--full payService__orderList">
+          <div class="adminContentBox adminContentBox--full">
             <ul class="innerNav innerNav--company innerNav--bgColor">
               <li
                 class="innerNav__item"
@@ -120,19 +120,19 @@
             <ul class="boxInnerList">
               <template v-for="item in nowOrderList" :key="item.key">
                 <li class="boxInnerList__item d-flex align-items-center">
-                  <ul class="tableList flex-grow-1">
-                    <li class="tableList__item">
+                  <ul class="tableList flex-grow-1 row row-cols-lg-4 row-cols-md-2 row-cols-1">
+                    <li class="tableList__item col">
                       <p class="tableList__item__title">訂單編號</p>
                       <p class="tableList__item__txt">{{ item.key.slice(1, 12) }}...</p>
                     </li>
-                    <li class="tableList__item">
+                    <li class="tableList__item col">
                       <p class="tableList__item__title">訂單內容</p>
                       <p class="tableList__item__txt">
                         {{ item.productList[0].name }}x{{ item.productList[0].num }}
                         <span v-if="item.productList.length > 1">...</span>
                       </p>
                     </li>
-                    <li class="tableList__item">
+                    <li class="tableList__item col">
                       <p class="tableList__item__title">訂單金額</p>
                       <div class="d-flex align-items-center flex-wrap">
                         <p class="tableList__item__txt me-2">NT${{ item.totalPrice }}</p>
@@ -142,7 +142,7 @@
                         <p v-if="item.orderState === '訂單已取消'" class="jobTag">退款處理中</p>
                       </div>
                     </li>
-                    <li class="tableList__item">
+                    <li class="tableList__item col">
                       <p class="tableList__item__title">建立日期</p>
                       <p class="tableList__item__txt">{{ $filters.date(item.created_time) }}</p>
                     </li>
@@ -171,34 +171,34 @@
         </div>
         <div class="col-lg-9">
           <div class="adminContentBox adminContentBox--p mb-5">
-            <h5 class="subTitle text-dark mb-2 ms-1">訂單資訊</h5>
+            <h5 class="pageSubTitle mb-2 ms-1">訂單資訊</h5>
             <ul class="tableList row row-cols-xl-4 row-cols-md-2 row-cols-1">
-              <li class="tableList__item">
+              <li class="tableList__item col">
                 <p class="tableList__item__title">訂單編號</p>
                 <p class="tableList__item__txt">{{ selectOrder.key }}</p>
               </li>
-              <li class="tableList__item">
+              <li class="tableList__item col">
                 <p class="tableList__item__title">訂單狀態</p>
                 <p class="tableList__item__txt">{{ selectOrder.payInfo.payState }}</p>
               </li>
-              <li class="tableList__item">
+              <li class="tableList__item col">
                 <p class="tableList__item__title">訂單金額</p>
                 <p class="tableList__item__txt mb-1">NT${{ selectOrder.totalPrice }}</p>
               </li>
-              <li class="tableList__item">
+              <li class="tableList__item col">
                 <p class="tableList__item__title">建立日期</p>
                 <p class="tableList__item__txt">{{ $filters.date(selectOrder.created_time) }}</p>
               </li>
-              <li class="tableList__item">
+              <li class="tableList__item col">
                 <p class="tableList__item__title">訂單建立用戶</p>
                 <p class="tableList__item__txt">{{ selectOrder.contactInfo.chineseName }}</p>
               </li>
-              <li class="tableList__item">
+              <li class="tableList__item col">
                 <p class="tableList__item__title">付款方式</p>
                 <p class="tableList__item__txt mb-1">{{ selectOrder.payInfo.payType }}</p>
               </li>
               <li
-                class="tableList__item"
+                class="tableList__item col"
                 v-if="
                   selectOrder.payInfo.payState === '訂單已付款' ||
                   selectOrder.payInfo.payState === '退款處理中' ||
@@ -209,7 +209,7 @@
                 <p class="tableList__item__txt mb-1">3566-8041-1593-9509</p>
               </li>
               <li
-                class="tableList__item"
+                class="tableList__item col"
                 v-if="
                   selectOrder.payInfo.payState === '訂單已付款' ||
                   selectOrder.payInfo.payState === '退款處理中' ||
@@ -219,7 +219,7 @@
                 <p class="tableList__item__title">付款日期</p>
                 <p class="tableList__item__txt">2021/09/05</p>
               </li>
-              <li class="tableList__item">
+              <li class="tableList__item col">
                 <p class="tableList__item__title">發票狀態</p>
                 <div class="d-flex align-items-center">
                   <p class="tableList__item__txt me-2">{{ selectOrder.invoice.state }}</p>
@@ -239,11 +239,11 @@
                   </button>
                 </div>
               </li>
-              <li class="tableList__item" v-if="selectOrder.payInfo.payState === '已完成退款'">
+              <li class="tableList__item col" v-if="selectOrder.payInfo.payState === '已完成退款'">
                 <p class="tableList__item__title">退款帳號</p>
                 <p class="tableList__item__txt mb-1">3566-8041-1593-9509</p>
               </li>
-              <li class="tableList__item" v-if="selectOrder.payInfo.payState === '已完成退款'">
+              <li class="tableList__item col" v-if="selectOrder.payInfo.payState === '已完成退款'">
                 <p class="tableList__item__title">退款日期</p>
                 <p class="tableList__item__txt">2021/09/05</p>
               </li>

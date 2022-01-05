@@ -5,7 +5,9 @@
     :class="{ active: filterBoxOpenState }"
   >
     <div class="sideFilterBox__Header">
-      <h3 class="section__title--sub mb-0"><span class="title__icon"></span>搜尋條件</h3>
+      <h3 class="sectionTitle--withTag mb-0">
+        <span class="sectionTitleTag--double me-2"></span>搜尋條件
+      </h3>
       <button type="button" class="btn-close" @click="openFilter"></button>
     </div>
     <div ref="searchFilterForm" class="sideFilterBox__contentBox">

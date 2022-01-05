@@ -64,8 +64,8 @@
           </div>
           <Form v-slot="{ errors }" @submit="sendForm">
             <div class="popModal__body--p">
-              <h3 class="ms-2 section__title--sub">
-                <span class="tag--doubleCircle--company me-2"></span>職位資訊
+              <h3 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double--company me-2"></span>職位資訊
               </h3>
               <div class="row mb-4">
                 <div class="col-6">
@@ -215,8 +215,8 @@
                 class="d-flex align-items-center justify-content-between mb-3"
                 v-if="modalAction !== '婉拒'"
               >
-                <h3 class="ms-2 mb-0 section__title--sub">
-                  <span class="tag--doubleCircle--company me-2"></span>聯絡資訊
+                <h3 class="sectionTitle--withTag ms-2 mb-0">
+                  <span class="sectionTitleTag--double--company me-2"></span>聯絡資訊
                 </h3>
                 <div class="form-check">
                   <input
@@ -308,8 +308,8 @@
                   </div>
                 </div>
               </div>
-              <h3 class="ms-2 section__title--sub">
-                <span class="tag--doubleCircle--company me-2"></span>訊息
+              <h3 class="sectionTitle--withTag ms-2 mb-0">
+                <span class="sectionTitleTag--double--company me-2"></span>訊息
               </h3>
               <div class="row">
                 <div class="col-6" v-if="dataReady === true">

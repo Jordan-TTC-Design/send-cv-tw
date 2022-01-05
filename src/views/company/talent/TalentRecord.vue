@@ -64,31 +64,22 @@
         </div>
         <div class="col-lg-9">
           <div class="adminContentBox pb-3">
-            <div
-              class="
-                border-bottom border-gray-line
-                px-3
-                py-1
-                d-flex
-                justify-content-between
-                align-items-center
-              "
-            >
+            <div class="adminContentBox__header--sm">
               <p class="subTxt">收藏夾：{{ mailApplyList.length }} 位人才</p>
             </div>
             <ul ref="candidateList">
               <template v-for="item in mailApplyList" :key="item.key">
-                <TalentCard :user="user" :job-data="item" :select-job-key="selectJobKey"/>
+                <TalentCard :user="user" :job-data="item" :select-job-key="selectJobKey" />
               </template>
             </ul>
           </div>
         </div>
       </div>
       <div class="sideBtnBox d-xl-none">
-      <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
-        <i class="jobIcon bi bi-funnel-fill"></i>
-      </button>
-    </div>
+        <button type="button" class="sideBtn btn btn-light mb-2" @click="filterOpen = !filterOpen">
+          <i class="jobIcon bi bi-funnel-fill"></i>
+        </button>
+      </div>
     </div>
   </div>
   <PersonPopModal />

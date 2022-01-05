@@ -64,16 +64,7 @@
         </div>
         <div class="col-lg-9">
           <div class="adminContentBox pb-3">
-            <div
-              class="
-                border-bottom border-gray-line
-                px-3
-                py-1
-                d-flex
-                justify-content-between
-                align-items-center
-              "
-            >
+            <div class="adminContentBox__header--sm">
               <p class="subTxt">收藏夾：{{ mailApplyList.length }} 位人才</p>
             </div>
             <ul ref="candidateList">

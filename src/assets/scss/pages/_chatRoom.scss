@@ -254,16 +254,6 @@
     top: 3rem;
   }
 }
-.chatRoom__infoArea--company {
-  .boxSubNav__item.active {
-    background-color: $companyColor-light;
-  }
-}
-.chatRoom__infoArea--jobSeeker {
-  .boxSubNav__item.active {
-    background-color: $primary-light;
-  }
-}
 .menuCover--chat {
   display: none;
   transition: all 0.3s;

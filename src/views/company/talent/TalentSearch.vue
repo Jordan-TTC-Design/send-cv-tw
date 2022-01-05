@@ -6,8 +6,8 @@
         <div class="col-lg-9">
           <form @submit="searchTalent" class="adminContentBox">
             <div class="p-5 border-bottom border-gray-line">
-              <h3 class="section__title--sub mb-4">
-                <span class="tag--doubleCircle--company me-2"></span>搜尋人才
+              <h3 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double--company me-2"></span>搜尋人才
               </h3>
               <div class="row align-items-end">
                 <div class="col-lg-5">
@@ -223,7 +223,7 @@
                 </div>
               </div>
               <div class="border-top border-gray-line pt-5">
-                <h4 class="section__title--sub">更多條件</h4>
+                <h4 class="pageSubTitle">更多條件</h4>
                 <div class="row">
                   <div class="col-12 d-flex align-items-end mb-3">
                     <div class="form__input me-4">

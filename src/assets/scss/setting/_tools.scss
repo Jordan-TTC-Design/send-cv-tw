@@ -98,6 +98,26 @@
     }
   }
 }
+.logoImageBox {
+  padding: 4px;
+  width: 120px;
+  background-color: #fff;
+  border-radius: 0px 0px 0px 4px;
+  .logoImage {
+    max-width: 100%;
+    border: 1px solid $gray-line;
+    border-radius: 2px;
+  }
+}
+.logoImgBox {
+  padding: 0.25rem;
+  border: 1px solid $gray-line;
+  border-radius: 0.5rem;
+  .logoImg {
+    max-width: 100%;
+    border-radius: 0.25rem;
+  }
+}
 // 提示匡
 .remind {
   padding: 0.75rem;
@@ -107,94 +127,6 @@
   &__title {
     color: $primary-dark;
     font-size: 14px;
-  }
-}
-
-.boxSubNav {
-  display: flex;
-  border-top: 1px solid $gray-line;
-  border-bottom: 1px solid $gray-line;
-  &__item {
-    padding: 0.75rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background-color: $light;
-    &::after {
-      content: '';
-      width: 1px;
-      height: 1.5rem;
-      background-color: $gray-line;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      position: absolute;
-    }
-    &::before {
-      content: '';
-      width: 4rem;
-      height: 0.25rem;
-      border-radius: 0.25rem 0.25rem 0 0;
-      background-color: $primary;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      display: none;
-    }
-    &.active {
-      &::before {
-        display: block;
-      }
-      p {
-        color: $primary-dark;
-      }
-    }
-    &:hover {
-      p {
-        color: $primary-dark;
-      }
-    }
-  }
-  &__item:last-child {
-    &::after {
-      display: none;
-    }
-  }
-  &--50 {
-    width: 50%;
-  }
-}
-.boxSubNav--company {
-  .boxSubNav__item::before {
-    background-color: $companyColor;
-  }
-  .boxSubNav__item.active {
-    p {
-      color: $companyColor;
-    }
-  }
-  .boxSubNav__item:hover {
-    p {
-      color: $companyColor;
-    }
-  }
-}
-.boxSubNav--jobSeeker {
-  .boxSubNav__item::before {
-    background-color: $primary;
-  }
-  .boxSubNav__item.active {
-    p {
-      color: $primary-dark;
-    }
-  }
-  .boxSubNav__item:hover {
-    p {
-      color: $primary-dark;
-    }
   }
 }
 
@@ -593,7 +525,7 @@
     width: 0.25rem;
   }
 }
-
+// 列表的方塊點點
 .list--dots {
   li {
     position: relative;
@@ -630,46 +562,5 @@
 .rwdClose--sm {
   @include sm {
     display: none;
-  }
-}
-// 用於後台資訊列表呈現 單一橫向卡片式
-.adminList.adminList--card {
-  .adminList__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: $light;
-    border-radius: 0.5rem;
-    margin-bottom: 0.75rem;
-    @include shadow-normal;
-    &:hover {
-      background-color: rgba($color: $light, $alpha: 0.8);
-    }
-    @include md {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  }
-  .adminList__item__body {
-    min-width: 50%;
-    padding: 0.75rem;
-  }
-  .adminList__item__footer--line {
-    display: flex;
-    padding: 0.75rem;
-    @include md {
-      border-top: 1px solid $gray-line;
-    }
-  }
-  .adminList__item__footer--line.btnBox {
-    @include md {
-      justify-content: flex-end;
-    }
-  }
-  .adminList__item.adminList__titleItem {
-    padding: 0.5rem 0.75rem;
-    @include md {
-      flex-direction: row;
-    }
   }
 }

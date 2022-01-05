@@ -44,14 +44,6 @@
                   <p class="infoList__item__title">方案費用</p>
                   <p class="person__txt">1200 NTD</p>
                 </li>
-                <li class="infoList__item pb-2">
-                  <p class="infoList__item__title">付款資訊</p>
-                  <p class="person__txt">每月自動扣款</p>
-                </li>
-                <li class="infoList__item pb-2">
-                  <p class="infoList__item__title">付款方式</p>
-                  <p class="person__txt">信用卡</p>
-                </li>
                 <li class="infoList__item pb-0">
                   <p class="infoList__item__title">方案內容</p>
                   <ul class="list--dots list--dots--company rounded p-4 bg-gray-light">

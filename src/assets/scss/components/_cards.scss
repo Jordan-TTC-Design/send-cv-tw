@@ -231,3 +231,27 @@
     }
   }
 }
+// 用於後台資訊列表呈現 單一橫向卡片式
+.adminCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $gray-line;
+  @include bg--hover;
+  &__body{
+    padding: 1rem;
+  }
+  &__footer{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  @include md{
+    flex-direction: column;
+    align-items: stretch;
+    &__footer{
+      justify-content: end;
+    }
+  }
+}

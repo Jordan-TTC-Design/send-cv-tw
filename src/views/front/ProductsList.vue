@@ -2,7 +2,7 @@
   <div class="page--py">
     <div ref="recommedJobs" class="section">
       <div class="container-xl">
-        <h3 class="section__title ps-3">推薦職位</h3>
+        <h3 class="pageSubTitle ps-3 mb-4">推薦職位</h3>
         <swiper
           v-if="hotJobs.length > 0"
           :slides-per-view="swiperNum"
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div ref="jobsListContainer" class="jobsListContainer container-xl">
-      <h3 class="section__title ps-3">全部職位</h3>
+      <h3 class="pageSubTitle ps-3 mb-4">全部職位</h3>
       <p class="ps-3 mb-6 text-primary" v-if="filterTxt !== ''">
         <span class="text-gray-dark">搜尋條件：</span>{{ filterTxt }}
       </p>

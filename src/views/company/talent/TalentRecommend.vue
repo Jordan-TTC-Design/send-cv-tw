@@ -39,16 +39,7 @@
         </div>
         <div class="col-lg-9" :class="{ 'rwdClose--md': rwdSelect === '' }">
           <div class="adminContentBox pb-3">
-            <div
-              class="
-                border-bottom border-gray-line
-                px-3
-                py-1
-                d-flex
-                justify-content-between
-                align-items-center
-              "
-            >
+            <div class="adminContentBox__header--sm">
               <p class="subTxt">{{ selectItem.jobName }}：{{ mailApplyList.length }} 位推薦人才</p>
               <div class="d-flex align-items-center">
                 <button type="button" class="btn me-2"><i class="jobIcon bi bi-search"></i></button>

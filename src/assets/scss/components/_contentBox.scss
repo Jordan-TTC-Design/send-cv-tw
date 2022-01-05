@@ -202,6 +202,15 @@
     padding: 1.5rem;
     border-bottom: 1px solid $gray-line;
   }
+  &__header--sm{
+    position: relative;
+    padding: 1rem 0.75rem;
+    max-height: 46px;
+    border-bottom: 1px solid $gray-line;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   &__body{
     position: relative;
     border-bottom: 1px solid $gray-line;

@@ -12,7 +12,9 @@
         <div class="modal-body">
           <div class="d-flex justify-content-between mb-4">
             <div>
-              <h3 class="section__title--sub mb-2"><span class="title__icon"></span>職位收藏</h3>
+              <h3 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>職位收藏
+              </h3>
               <p class="subTxt">請選擇您要保存的收藏夾</p>
             </div>
             <button
@@ -73,11 +75,9 @@
       <div class="modal-content">
         <div class="popModal__body--p">
           <div class="d-flex justify-content-between mb-4">
-            <div>
-              <h3 class="section__title--sub mb-2">
-                <span class="title__icon"></span>為新的職位收藏夾命名
-              </h3>
-            </div>
+            <h3 class="sectionTitle--withTag mb-4">
+              <span class="sectionTitleTag--double me-2"></span>為新的職位收藏夾命名
+            </h3>
             <button
               type="button"
               class="btn-close"
@@ -89,9 +89,7 @@
             <!-- 表單1-1：公司名稱(必填) -->
             <div class="form__input">
               <div class="form__labelBox">
-                <label for="collectForderName" class="labelBox__label form-label"
-                  >收藏夾名稱</label
-                >
+                <label for="collectForderName" class="labelBox__label form-label">收藏夾名稱</label>
                 <p class="formTag--must">必填</p>
               </div>
               <Field

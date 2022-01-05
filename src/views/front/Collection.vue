@@ -5,7 +5,7 @@
         class="d-flex justify-content-center justify-content-lg-start
         align-items-center mb-6"
       >
-        <h3 class="section__title ps-3 mb-0 me-6">收藏</h3>
+        <h3 class="pageSubTitle ps-3 me-6">收藏</h3>
         <ul class="pageSubNav">
           <li
             ref="pageSubNav__item--job"

@@ -83,8 +83,8 @@
               @submit="changeStep('next')"
               v-slot="{ errors }"
             >
-              <h3 class="section__title--sub mb-4">
-                <span class="tag--doubleCircle me-2"></span>職位資訊
+              <h3 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>職位資訊
               </h3>
               <div class="row mb-0">
                 <div class="col-lg-4 col-12">
@@ -255,8 +255,8 @@
               @submit="changeStep('next')"
               v-slot="{ errors }"
             >
-              <h3 class="section__title--sub mb-4">
-                <span class="tag--doubleCircle me-2"></span>申請方法
+              <h3 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>申請方法
               </h3>
               <div class="row mb-0">
                 <div class="col-lg-4 col-12">
@@ -411,8 +411,8 @@
               @submit="changeStep('next')"
               v-slot="{ errors }"
             >
-              <h3 class="section__title--sub mb-4">
-                <span class="tag--doubleCircle me-2"></span>公司地址
+              <h3 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>公司地址
               </h3>
               <div class="row">
                 <div class="col-md-6 col-12 mb-4">
@@ -518,8 +518,8 @@
               @submit="sendApply"
               v-slot="{ errors }"
             >
-              <h3 class="section__title--sub mb-4">
-                <span class="tag--doubleCircle me-2"></span>求職者申請資訊
+              <h3 class="sectionTitle--withTag mb-4">
+                <span class="sectionTitleTag--double me-2"></span>求職者申請資訊
               </h3>
               <div class="row">
                 <div class="col-md-8 col-12 mb-4">

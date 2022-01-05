@@ -161,8 +161,8 @@
             </div>
             <div class="applyContainer__applyInfoBox">
               <Form ref="sendFormInfoForm1" @submit="sendApply" v-slot="{ errors }">
-                <h3 class="section__title--sub mb-4">
-                  <span class="tag--doubleCircle me-2"></span>求職者申請資訊
+                <h3 class="sectionTitle--withTag mb-4">
+                  <span class="sectionTitleTag--double me-2"></span>求職者申請資訊
                 </h3>
                 <div class="row">
                   <div class="col-md-8 col-12 mb-4">
